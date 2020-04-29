@@ -37,6 +37,7 @@ echo "-----------------------------------"
 -var "vm_description=${BOX_DESCRIPTION}" \
 -var "build_directory=boxes" \
 -var "box_version=${BOX_VERSION}" \
+-var 'headless=true' \
 ${PACKER_FILE}
 
 echo " "

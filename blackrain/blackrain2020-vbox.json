@@ -36,7 +36,7 @@
       "iso_url": "{{ user `iso_url` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "headless": false,
+      "headless": "{{ user `headless` }}",
       "http_directory": "http",
       "boot_wait": "15s",
       "boot_command": [
