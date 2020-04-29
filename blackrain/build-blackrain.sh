@@ -2,9 +2,9 @@
 # Script called manually to build BlackRain CentOS 7 image using Packer
 # -eux : e=exit on failure
 
-####################
-BOX_VERSION="1.0.13"            # Manually increment this
-####################
+# Set by Jenkins
+BOX_VERSION=$1
+echo $BOX_VERSION
 
 # Set PACKER_LOG=1 for more detail
 export PACKER_LOG=0
