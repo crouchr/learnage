@@ -4,12 +4,10 @@
 
 # Set by Jenkins
 BOX_VERSION=$1
-echo $BOX_VERSION
 
 # Set PACKER_LOG=1 for more detail
 export PACKER_LOG=0
-date
-whoami
+
 AWS_PROFILE="developmentaws"
 BOX_DESCRIPTION="Packer-built BlackRain2020 box"
 BOX_DIR="blackrain2020"
