@@ -15,7 +15,7 @@ BOX_DESCRIPTION="Packer-built BlackRain2020 box"
 BOX_DIR="blackrain2020"
 BOX_NAME="${BOX_DIR}.box"
 PACKER_FILE="blackrain2020-vbox.json"
-VAR_FILE=blackrain2020-variables.json
+VAR_FILE="blackrain2020-variables.json"
 
 echo
 echo "Validate the BlackRain2020 Packer file"
