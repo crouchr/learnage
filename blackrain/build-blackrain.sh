@@ -24,6 +24,7 @@ echo "--------------------------------------"
 -var "vm_version=${BOX_VERSION}" \
 ${PACKER_FILE}
 
+# Jenkins needs headless=true
 echo
 echo "Build the BlackRain2020 Vagrant box"
 echo "-----------------------------------"
