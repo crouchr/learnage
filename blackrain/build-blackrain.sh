@@ -20,7 +20,7 @@ VAR_FILE="blackrain2020-variables.json"
 echo
 echo "Validate the BlackRain2020 Packer file"
 echo "--------------------------------------"
-packer validate \
+/usr/local/bin/packer validate \
 -var-file=${VAR_FILE} \
 -var "vm_description=${BOX_DESCRIPTION}" \
 -var "vm_version=${BOX_VERSION}" \
