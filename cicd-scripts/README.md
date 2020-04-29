@@ -1,0 +1,1 @@
+Scripts run jenkins to automate build, test and deploy of Blackrain
