@@ -29,7 +29,7 @@ ${PACKER_FILE}
 echo
 echo "Build the BlackRain2020 Vagrant box"
 echo "-----------------------------------"
-packer build \
+/usr/local/bin/packer build \
 -force \
 -timestamp-ui \
 -var-file=${VAR_FILE} \
