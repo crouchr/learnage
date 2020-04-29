@@ -57,6 +57,7 @@ vagrant-metadata \
 --description="${BOX_DESCRIPTION}" \
 --baseurl="http://web.ermin/boxes/${BOX_DIR}"
 
+#
 cat metadata.json
 scp -i /home/crouchr/.ssh/rch-nvm-sshkey metadata.json crouchr@web.ermin:/var/www/html/boxes/${BOX_DIR}
 
