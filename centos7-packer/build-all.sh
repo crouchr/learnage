@@ -11,9 +11,9 @@ pwd
 #echo
 #echo "Build CentOS 7 images"
 #echo "#####################"
-build-centos7.sh
-build-centos7-32gig.sh
-build-micro-centos7.sh
+build-rch-centos7.sh
+build-rch-centos7-32gig.sh
+build-rch-micro-centos7.sh
 
 #echo
 #echo "Build WAF image"

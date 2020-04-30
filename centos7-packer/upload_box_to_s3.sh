@@ -3,7 +3,7 @@
 #BOX_DIR=$2         # e.g. rch-centos7
 #BOX_VERSION=$3      # e.g. 1.0.1
 #BOX_NAME="$BOX_DIR".box
-AWS_PROFILE="developmentaws"
+#AWS_PROFILE="developmentaws"
 
 echo
 echo "Upload the Vagrant box to my NVM S3 bucket"
