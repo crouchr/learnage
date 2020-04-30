@@ -8,12 +8,6 @@ echo "_____ SCRIPT_NAME = /centos7_scripts / networking_config _____"
 ### Sudo changes location between CentOS 6 and CentOS 7 
 _SUDO=$(command -v sudo)
 
-
-# added rch
-#"${_SUDO}" systemctl disable NetworkManager.service
-#"${_SUDO}" systemctl stop NetworkManager.service
-
-
 echo "---------------- Testing Networking --------------"
 "${_SUDO}" /usr/bin/test -f /etc/sysconfig/network-scripts/ifcfg-eth0 && "${_SUDO}" cat /etc/sysconfig/network-scripts/ifcfg-eth0
 
