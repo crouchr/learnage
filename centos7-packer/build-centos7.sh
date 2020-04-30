@@ -101,28 +101,28 @@ ${PACKER_FILE}
 #scp -i /home/crouchr/.ssh/rch-nvm-sshkey metadata.json crouchr@web.ermin:/var/www/html/boxes/${BOX_DIR}
 
 
-echo " "
-echo "Upload the CentOS7 Vagrant box to local web.ermin web server"
-echo "------------------------------------------------------------"
-echo "SCPing ${BOX_NAME} to web.ermin..."
-ssh web.ermin "mkdir -p /var/www/html/boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox"
-scp boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/${BOX_NAME} web.ermin:/var/www/html/boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/
+#echo " "
+#echo "Upload the CentOS7 Vagrant box to local web.ermin web server"
+#echo "------------------------------------------------------------"
+#echo "SCPing ${BOX_NAME} to web.ermin..."
+#ssh web.ermin "mkdir -p /var/www/html/boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox"
+#scp boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/${BOX_NAME} web.ermin:/var/www/html/boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/
 
-echo
-echo "Generate & upload the CentOS7 Vagrant box meta file"
-echo "---------------------------------------------------"
-cd boxes/${BOX_DIR}
-rm -f metadata.json
-echo "Generating box metadata..."
-vagrant-metadata \
---append \
---name="web.ermin/${BOX_DIR}" \
---description="${BOX_DESCRIPTION}" \
---baseurl="http://web.ermin/boxes/${BOX_DIR}"
+#echo
+#echo "Generate & upload the CentOS7 Vagrant box meta file"
+#echo "---------------------------------------------------"
+#cd boxes/${BOX_DIR}
+#rm -f metadata.json
+#echo "Generating box metadata..."
+#vagrant-metadata \
+#--append \
+#--name="web.ermin/${BOX_DIR}" \
+#--description="${BOX_DESCRIPTION}" \
+#--baseurl="http://web.ermin/boxes/${BOX_DIR}"
 
 #
-cat metadata.json
-scp -i /home/crouchr/.ssh/rch-nvm-sshkey metadata.json crouchr@web.ermin:/var/www/html/boxes/${BOX_DIR}
+#cat metadata.json
+#scp -i /home/crouchr/.ssh/rch-nvm-sshkey metadata.json crouchr@web.ermin:/var/www/html/boxes/${BOX_DIR}
 
 echo " "
 echo "Finished OK"
