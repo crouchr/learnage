@@ -4,8 +4,8 @@
   "box_version": "",
   "box_directory": "boxes",
   "virtualbox_output_directory": "packer/packer_cache",
-  "iso_url": "http://mirror.mhd.uk.as44574.net/mirror.centos.org/7.7.1908/isos/x86_64/CentOS-7-x86_64-NetInstall-1908.iso",
-  "iso_checksum": "bc4fa2e193f354c98937cffa4988ec8ec9dfa034",
+  "iso_url": "http://mirror.mhd.uk.as44574.net/mirror.centos.org/7.7.1908/isos/x86_64/CentOS-7-x86_64-Minimal-1908.iso",
+  "iso_checksum": "a9a2d9da68f09d8f0707ccd6453b19b37ca70956",
   "iso_checksum_type": "sha1",
   "kickstart_filename": "blackrain_ks.cfg",
   "disk_size": "30000"

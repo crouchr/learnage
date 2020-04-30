@@ -1,5 +1,6 @@
 {
   "description": "BlackRain2020 CentOS7 Server packer template - VirtualBox",
+  "_comment": "Here is a comment",
   "min_packer_version": "0.8.6",
 
   "builders": [
@@ -46,7 +47,7 @@
       ],
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
-      "ssh_wait_timeout": "1h"
+      "ssh_wait_timeout": "2h"
     }
   ],
 
@@ -54,13 +55,13 @@
       {
         "type": "shell",
         "scripts": [
-            "./packer-scripts/yum-update-all.sh",
-            "./packer-scripts/set-blackrain-hostname.sh"
+            "{{template_dir}}/packer-scripts/yum-update-all.sh",
+            "{{template_dir}}/packer-scripts/set-blackrain-hostname.sh"
           ]
       },
       {
         "type": "shell",
-        "script": "./packer-scripts/reboot.sh",
+        "script": "{{template_dir}}/packer-scripts/reboot.sh",
         "expect_disconnect": true
       },
       {
@@ -107,30 +108,30 @@
         "type": "shell",
         "scripts":
            [
-             "./packer-scripts/install-spacewalk-client.sh",
-             "./packer-scripts/register-to-spacewalk.sh",
-             "./packer-scripts/install-tools-packages.sh",
-             "./packer-scripts/install-chef-client.sh",
-             "./packer-scripts/install-docker.sh",
-             "./packer-scripts/install-chef-certs-and-scripts.sh",
-             "./packer-scripts/install-blackrain-packages.sh",
-             "./packer-scripts/install-clamav.sh",
-             "./packer-scripts/install-snort.sh",
-             "./packer-scripts/add-vagrant-insecure-key.sh",
-             "./packer-scripts/add-users.sh",
-             "./packer-scripts/add-jenkins.sh",
-             "./packer-scripts/install-user-ssh-keys.sh",
-             "./packer-scripts/install-jenkins-ssh-keys.sh",
-             "./packer-scripts/sshd-config.sh",
-             "./packer-scripts/install-centos7-vbox-guest-tools-dependencies.sh",
-             "./packer-scripts/install-vbox-guest-tools.sh",
-             "./packer-scripts/bootstrap-blackrain.sh",
-             "./packer-scripts/dump-info.sh"
+             "{{template_dir}}/packer-scripts/install-spacewalk-client.sh",
+             "{{template_dir}}/packer-scripts/register-to-spacewalk.sh",
+             "{{template_dir}}/packer-scripts/install-tools-packages.sh",
+             "{{template_dir}}/packer-scripts/install-chef-client.sh",
+             "{{template_dir}}/packer-scripts/install-docker.sh",
+             "{{template_dir}}/packer-scripts/install-chef-certs-and-scripts.sh",
+             "{{template_dir}}/packer-scripts/install-blackrain-packages.sh",
+             "{{template_dir}}/packer-scripts/install-clamav.sh",
+             "{{template_dir}}/packer-scripts/install-snort.sh",
+             "{{template_dir}}/packer-scripts/add-vagrant-insecure-key.sh",
+             "{{template_dir}}/packer-scripts/add-users.sh",
+             "{{template_dir}}/packer-scripts/add-jenkins.sh",
+             "{{template_dir}}/packer-scripts/install-user-ssh-keys.sh",
+             "{{template_dir}}/packer-scripts/install-jenkins-ssh-keys.sh",
+             "{{template_dir}}/packer-scripts/sshd-config.sh",
+             "{{template_dir}}/packer-scripts/install-centos7-vbox-guest-tools-dependencies.sh",
+             "{{template_dir}}/packer-scripts/install-vbox-guest-tools.sh",
+             "{{template_dir}}/packer-scripts/bootstrap-blackrain.sh",
+             "{{template_dir}}/packer-scripts/dump-info.sh"
            ]
       },
       {
         "type": "shell",
-        "script": "./packer-scripts/reboot.sh",
+        "script": "{{template_dir}}/packer-scripts/reboot.sh",
         "expect_disconnect": true
       }
     ],
