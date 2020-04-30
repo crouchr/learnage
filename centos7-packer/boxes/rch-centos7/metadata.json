@@ -1,0 +1,18 @@
+{
+    "name": "web.ermin/rch-centos7", 
+    "description": "Packer-built CentOS7 box", 
+    "baseurl": "http://web.ermin/boxes/rch-centos7", 
+    "versions": [
+        {
+            "version": "1.0.2", 
+            "providers": [
+                {
+                    "name": "virtualbox", 
+                    "checksum_type": "sha1", 
+                    "checksum": "9050115c6efb84f5107a4b3735cfb4bfbf67337d", 
+                    "url": "http://web.ermin/boxes/rch-centos7/1.0.2/virtualbox/rch-centos7.box"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "name": "web.ermin/rch-centos7-32gig", 
+    "description": "Packer-built CentOS7 box (32GB)", 
+    "baseurl": "http://web.ermin/boxes/rch-centos7-32gig", 
+    "versions": [
+        {
+            "version": "1.0.2", 
+            "providers": [
+                {
+                    "name": "virtualbox", 
+                    "checksum_type": "sha1", 
+                    "checksum": "d9cde04d668ad6a5d9e81840fb1fe138e4d7fca8", 
+                    "url": "http://web.ermin/boxes/rch-centos7-32gig/1.0.2/virtualbox/rch-centos7-32gig.box"
+                }
+            ]
+        }
+    ]
+}
