@@ -275,3 +275,4 @@ packer_cache/
 /packer-templates/
 /blackrain/isos/CentOS-7-x86_64-Minimal-1908.iso
 /blackrain/experiments/
+/centos7-packer/isos/CentOS-7-x86_64-Minimal-1908.iso
