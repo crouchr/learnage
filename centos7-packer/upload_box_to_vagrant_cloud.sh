@@ -12,6 +12,8 @@ echo "BOX_DIR : ${BOX_DIR}"
 echo "BOX_VERSION : ${BOX_VERSION}"
 echo "BOX_DESCRIPTION : ${BOX_DESCRIPTION}"
 
+vagrant cloud auth login ${VAGRANT_CLOUD_TOKEN}
+
 vagrant cloud auth whoami ${VAGRANT_CLOUD_TOKEN}
 
 vagrant \
