@@ -18,16 +18,11 @@ AWS_PROFILE="developmentaws"
 BOX_DESCRIPTION="Packer-built CentOS7 box"
 BOX_DIR="rch-centos7"
 BOX_NAME="${BOX_DIR}.box"
-PACKER_FILE="virtualbox-centos7.json"
-VAR_FILE="variables.json"
+PACKER_FILE="centos7.json"
+VAR_FILE="rch-centos7-variables.json"
 
-echo "Changing directory into the centos7 packer root directory..."
-
-echo " "
-
-# Note : pwd gives : /home/crouchr/PycharmProjects/network-team/experiments/richard-centos7-packer/hellobox
+echo
 pwd
-
 echo " "
 echo "Validate the CentOS7 Packer file"
 echo "--------------------------------"

@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 # reference : https://medium.com/@glmdev/registering-spacewalk-clients-b2f42f9f8759
+# is there a hostname I can use to register with - see NVM
 
 ERMIN_SPACEWALK_KEY='1-77eb0ab0977438fc59537a0bbab5e698'    # See Spacewalk UI System / Activation Key
 
-sudo rhnreg_ks --serverUrl=https://spacewalk.ermin/XMLRPC \
+sudo rhnreg_ks \
+--serverUrl=https://spacewalk.ermin/XMLRPC \
 --force \
+--profilename=$(/bin/hostname -f) \
 --sslCACert=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT \
 --activationkey=${ERMIN_SPACEWALK_KEY}
 

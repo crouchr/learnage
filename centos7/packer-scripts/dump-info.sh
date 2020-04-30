@@ -8,8 +8,8 @@
 sudo cat /etc/ssh/sshd_config
 df -h
 
-echo "List the installed locales"
-locale -a
+#echo "List the installed locales"
+#locale -a
 
 # List all the installed packages
 sudo yum list installed

@@ -12,12 +12,18 @@ echo "BOX_DIR : ${BOX_DIR}"
 echo "BOX_VERSION : ${BOX_VERSION}"
 echo "BOX_DESCRIPTION : ${BOX_DESCRIPTION}"
 
+# Login
 vagrant cloud auth login ${VAGRANT_CLOUD_TOKEN}
 
+# Display some basic information
 vagrant cloud auth whoami ${VAGRANT_CLOUD_TOKEN}
 
+# Push the file to Vagrant Cloud
 vagrant \
 cloud publish \
--d "${BOX_DESCRIPTION}" \
+--description "${BOX_DESCRIPTION}" \
+--short-description "${BOX_DESCRIPTION}" \
 --force \
+--release \
+--box-version ${BOX_VERSION} \
 crouchr/${BOX_DIR} ${BOX_VERSION} virtualbox boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/${BOX_NAME}
