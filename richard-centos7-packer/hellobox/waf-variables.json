@@ -1,0 +1,13 @@
+{
+  "box_directory": "boxes",
+  "box_name_prefix": "rch-",
+  "virtualbox_output_directory": "packer/packer_cache",
+  "centos7_iso_url": "http://mirror.mhd.uk.as44574.net/mirror.centos.org/7.7.1908/isos/x86_64/CentOS-7-x86_64-Minimal-1908.iso",
+  "centos7_iso_checksum": "a9a2d9da68f09d8f0707ccd6453b19b37ca70956",
+  "centos7_iso_checksum_type": "sha1",
+  "centos7_kickstart_options": "",
+  "centos7_vm_name": "rch-waf",
+  "centos7_ssh_user": "root",
+  "centos7_ssh_password": "vagrant",
+  "disk_size": "16384"
+}

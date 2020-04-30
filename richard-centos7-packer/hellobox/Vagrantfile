@@ -1,0 +1,7 @@
+# Vagrant file for running up the vagrant machine built from the Packer job
+# This file needs to go into /home/crouchr/vagrant-machines
+# The vagrant private key is the method used
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "rch-centos-7"
+end

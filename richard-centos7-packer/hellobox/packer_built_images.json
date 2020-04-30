@@ -1,0 +1,23 @@
+{
+  "builds": [
+    {
+      "name": "virtualbox-iso",
+      "builder_type": "virtualbox-iso",
+      "build_time": 1587592460,
+      "files": [
+        {
+          "name": "rch-micro-centos7-disk001.vmdk",
+          "size": 911823360
+        },
+        {
+          "name": "rch-micro-centos7.ovf",
+          "size": 7740
+        }
+      ],
+      "artifact_id": "VM",
+      "packer_run_uuid": "6ec93663-d8c9-f8dc-1d26-b58fa9780ea5",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "6ec93663-d8c9-f8dc-1d26-b58fa9780ea5"
+}

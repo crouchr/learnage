@@ -1,0 +1,130 @@
+{
+  "description": "RCH Base CentOS 7 Server packer template - VirtualBox",
+  "min_packer_version": "0.8.6",
+
+
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "vm_name": "{{ user `centos7_vm_name` }}",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{ .Name }}",
+          "--memory",
+          "1024"
+        ],
+        [
+          "modifyvm",
+          "{{ .Name }}",
+          "--cpus",
+          "2"
+        ]
+      ],
+      "hard_drive_interface": "sata",
+      "disk_size": "{{ user `disk_size` }}",
+      "output_directory": "{{ user `virtualbox_output_directory` }}/output-{{ user `box_name` }}",
+      "guest_os_type": "RedHat_64",
+      "guest_additions_url": "http://download.virtualbox.org/virtualbox/{{ .Version }}/VBoxGuestAdditions_{{ .Version }}.iso",
+      "guest_additions_mode": "upload",
+      "iso_url": "{{ user `centos7_iso_url` }}",
+      "iso_checksum": "{{ user `centos7_iso_checksum` }}",
+      "iso_checksum_type": "{{ user `centos7_iso_checksum_type` }}",
+      "headless": false,
+      "http_directory": "http",
+      "boot_wait": "15s",
+      "boot_command": [
+        "<tab>",
+        " ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/rch_ks.cfg ",
+        "<enter>"
+      ],
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "1h"
+    }
+  ],
+
+    "provisioners": [
+      {
+        "type": "shell",
+        "script": "./packer-scripts/yum-update-all.sh"
+      },
+      {
+        "type": "shell",
+        "script": "./packer-scripts/set-waf-hostname.sh"
+      },
+      {
+        "type": "shell",
+        "script": "./packer-scripts/reboot.sh",
+        "expect_disconnect": true
+      },
+      {
+        "type": "shell",
+        "script": "./packer-scripts/install-centos7-vbox-guest-tools-dependencies.sh"
+      },
+      {
+        "type": "shell",
+        "script": "./packer-scripts/install-vbox-guest-tools.sh"
+      },
+      {
+        "type": "shell",
+        "script": "./packer-scripts/yum-install-base-packages.sh"
+      },
+      {
+        "type": "shell",
+        "script": "./packer-scripts/yum-install-waf-packages.sh"
+      },
+      {
+      "type": "shell",
+      "scripts": [
+        "./packer-scripts/add-vagrant-insecure-key.sh"
+        ]
+      },
+      {
+      "type": "shell",
+      "scripts": [
+        "./packer-scripts/add-users.sh"
+        ]
+      },
+      {
+      "type": "file",
+      "source": "/home/crouchr/.ssh/rch-nvm-sshkey.pub",
+      "destination": "/tmp/authorized_keys"
+      },
+      {
+      "type": "shell",
+      "scripts": [
+        "./packer-scripts/install-user-ssh-keys.sh"
+        ]
+      },
+      {
+      "type": "shell",
+      "scripts": [
+        "./packer-scripts/sshd-config.sh"
+        ]
+      },
+      {
+      "type": "shell",
+      "scripts": [
+        "./packer-scripts/dump-info.sh"
+        ]
+      },
+      {
+        "type": "shell",
+        "script": "./packer-scripts/reboot.sh",
+        "expect_disconnect": true
+      }
+    ],
+
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "only": [
+        "virtualbox-iso"
+      ],
+      "output": "boxes/rch-waf.box",
+      "compression_level": 9,
+      "keep_input_artifact": false
+    }
+  ]
+}
