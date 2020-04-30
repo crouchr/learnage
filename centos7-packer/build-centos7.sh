@@ -6,8 +6,8 @@
 
 # Adding -debug here means each step is paused until human presses ENTER
 # Set by Jenkins
-#BOX_VERSION=$1
-BOX_VERSION="1.0.3"
+BOX_VERSION=$1
+#BOX_VERSION="1.0.3"
 
 # Set PACKER_LOG=1 for more detail
 export PACKER_LOG=0
