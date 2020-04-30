@@ -34,6 +34,7 @@
       "output_directory": "{{ user `virtualbox_output_directory` }}",
       "guest_os_type": "RedHat_64",
       "guest_additions_url": "http://web.ermin/isos/VBoxGuestAdditions_{{ .Version }}.iso",
+      "guest_additions_sha256": "72c5956c8b7be0a639036083be79169a8765df37e3d11b385c816e3662eb98d7",
       "guest_additions_mode": "upload",
       "iso_url": "{{ user `iso_url` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
