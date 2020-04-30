@@ -1,9 +1,10 @@
 #!/bin/bash -e
-# Script called manually to build BlackRain CentOS 7 image using Packer
+# CI/CD script
 # -eux : e=exit on failure
 
 # Set by Jenkins
 BOX_VERSION=$1
+BOX_DESCRIPTION=$2
 
 # Set PACKER_LOG=1 for more detail
 export PACKER_LOG=0
@@ -11,11 +12,10 @@ export PACKER_LOG=0
 date
 
 AWS_PROFILE="developmentaws"
-BOX_DESCRIPTION="Packer-built BlackRain2020 box"
 BOX_DIR="blackrain2020"
 BOX_NAME="${BOX_DIR}.box"
-PACKER_FILE="blackrain2020-vbox.json"
-VAR_FILE="blackrain2020-variables.json"
+PACKER_FILE="${BOX_DIR}-packer.json"
+VAR_FILE="${BOX_DIR}-variables.json"
 
 echo
 pwd

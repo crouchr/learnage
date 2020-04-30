@@ -1,4 +1,5 @@
 #!/bin/bash -e
+# CI/CD script
 # Script to build CentOS 7 image using Packer for applications that need more storage e.g. spacewalk, artifactory (32GB HDD)
 # This file can be deleted once a Jenkins job has been made to work
 

@@ -1,4 +1,5 @@
 #!/bin/bash -e
+# CI/CD script
 # Script to build micro CentOS 7 image using Packer (16GB HDD)
 # This file can be deleted once a Jenkins job has been made to work
 

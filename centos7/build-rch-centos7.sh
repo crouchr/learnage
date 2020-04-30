@@ -1,5 +1,5 @@
 #!/bin/bash -e
-# Script to build generic CentOS 7 image using Packer (16GB HDD)
+# CI/CD script
 # This file can be deleted once a Jenkins job has been made to work
 
 # -eux : e=exit on failure
