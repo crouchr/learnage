@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # Upload the Box file to Vagrant
-
-VAGRANT_CLOUD_TOKEN=$1
+BOX_DIR=$1
 BOX_VERSION=$2
-BOX_DIR=$3
+VAGRANT_CLOUD_TOKEN=$3
 
 # Derived
 BOX_NAME="${BOX_DIR}".box
