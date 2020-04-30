@@ -32,7 +32,7 @@
       "disk_size": "{{ user `disk_size` }}",
       "output_directory": "{{ user `virtualbox_output_directory` }}",
       "guest_os_type": "RedHat_64",
-      "guest_additions_url": "http://download.virtualbox.org/virtualbox/{{ .Version }}/VBoxGuestAdditions_{{ .Version }}.iso",
+      "guest_additions_url": "http://web.ermin/isos/VBoxGuestAdditions_{{ .Version }}.iso",
       "guest_additions_mode": "upload",
       "iso_url": "{{ user `iso_url` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
