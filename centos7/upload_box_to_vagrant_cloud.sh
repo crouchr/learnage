@@ -8,8 +8,13 @@ VAGRANT_CLOUD_TOKEN=$4
 # Derived
 BOX_NAME="${BOX_DIR}".box
 
-echo "BOX_DIR : ${BOX_DIR}"
-echo "BOX_VERSION : ${BOX_VERSION}"
+# Static
+AWS_PROFILE="developmentaws"
+
+echo "AWS_PROFILE     : ${AWS_PROFILE}"
+echo "BOX_DIR         : ${BOX_DIR}"
+echo "BOX_NAME        : ${BOX_NAME}"
+echo "BOX_VERSION     : ${BOX_VERSION}"
 echo "BOX_DESCRIPTION : ${BOX_DESCRIPTION}"
 
 # Login
@@ -27,3 +32,10 @@ cloud publish \
 --release \
 --box-version ${BOX_VERSION} \
 crouchr/${BOX_DIR} ${BOX_VERSION} virtualbox boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/${BOX_NAME}
+
+echo
+echo "Upload the CentOS7 Vagrant box to my NVM S3 bucket"
+echo "--------------------------------------------------"
+echo "Note : This may take several minutes..."
+aws s3 --profile=${AWS_PROFILE} \
+cp boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/${BOX_NAME} s3://richardcrouch/boxes/${BOX_NAME}
