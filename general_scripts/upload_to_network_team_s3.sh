@@ -15,4 +15,4 @@ echo "Uploading to S3..."
 
 aws s3 \
 --profile=${AWS_PROFILE} \
-cp ${FILE} s3://richardcrouch/${S3_KEY}/${FILE}
+cp ${FILE} s3://richardcrouch/${S3_KEY}/
