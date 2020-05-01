@@ -33,9 +33,10 @@ cloud publish \
 --box-version ${BOX_VERSION} \
 crouchr/${BOX_DIR} ${BOX_VERSION} virtualbox boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/${BOX_NAME}
 
-echo
-echo "Upload the BlackRain2020 Vagrant box to my NVM S3 bucket"
-echo "--------------------------------------------------------"
-echo "Note : This may take several minutes..."
-aws s3 --profile=${AWS_PROFILE} \
-cp boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/${BOX_NAME} s3://richardcrouch/boxes/${BOX_NAME}
+# This is now done using S3 plugin
+#echo
+#echo "Upload the BlackRain2020 Vagrant box to my NVM S3 bucket"
+#echo "--------------------------------------------------------"
+#echo "Note : This may take several minutes..."
+#aws s3 --profile=${AWS_PROFILE} \
+#cp boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/${BOX_NAME} s3://richardcrouch/boxes/${BOX_NAME}
