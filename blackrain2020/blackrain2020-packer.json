@@ -135,6 +135,12 @@
         "type": "shell",
         "script": "{{template_dir}}/packer-scripts/reboot.sh",
         "expect_disconnect": true
+      },
+
+      {
+        "type": "inspec",
+        "pause_before": "90s",
+        "profile": "../inspec/blackrain2020"
       }
     ],
 
