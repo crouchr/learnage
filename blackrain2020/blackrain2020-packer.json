@@ -12,13 +12,13 @@
           "modifyvm",
           "{{ .Name }}",
           "--memory",
-          "3072"
+          "1024"
         ],
         [
           "modifyvm",
           "{{ .Name }}",
           "--cpus",
-          "2"
+          "1"
         ]
       ],
       "export_opts":
