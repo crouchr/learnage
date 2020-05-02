@@ -67,46 +67,6 @@
         "expect_disconnect": true
       },
       {
-        "type": "file",
-        "source": "http://web.ermin/private/bootstrap-chef-files/knife.rb",
-        "destination": "/tmp/knife.rb"
-      },
-      {
-        "type": "file",
-        "source": "http://web.ermin/private/bootstrap-chef-files/client.rb",
-        "destination": "/tmp/client.rb"
-      },
-      {
-        "type": "file",
-        "source": "http://web.ermin/private/bootstrap-chef-files/first-run.json",
-        "destination": "/tmp/first-run.json"
-      },
-      {
-        "type": "file",
-        "source": "http://web.ermin/private/learnage/bootstrap-chef-files/crouchrermin.pem",
-        "destination": "/tmp/crouchrermin.pem"
-      },
-      {
-        "type": "file",
-        "source": "http://web.ermin/private/learnage/bootstrap-chef-files/blackrainermin-validator.pem",
-        "destination": "/tmp/blackrainermin-validator.pem"
-      },
-      {
-        "type": "file",
-        "source": "http://web.ermin/private/learnage/bootstrap-chef-files/trusted_certs/chef-server.crt",
-        "destination": "/tmp/chef-server.crt"
-      },
-      {
-         "type": "file",
-         "source": "/home/jenkins/.ssh/rch-nvm-sshkey.pub",
-         "destination": "/tmp/crouchr_authorized_keys"
-      },
-      {
-         "type": "file",
-         "source": "/home/jenkins/.ssh/jenkins-ermin-keys.pub",
-         "destination": "/tmp/jenkins_authorized_keys"
-      },
-      {
         "type": "shell",
         "scripts":
            [

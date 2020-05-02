@@ -67,16 +67,6 @@
         "expect_disconnect": true
       },
       {
-        "type": "file",
-        "source": "/home/crouchr/.ssh/rch-nvm-sshkey.pub",
-        "destination": "/tmp/authorized_keys"
-      },
-      {
-         "type": "file",
-         "source": "/home/crouchr/.ssh/jenkins-ermin-keys.pub",
-         "destination": "/tmp/jenkins_authorized_keys"
-      },
-      {
         "type": "shell",
         "scripts":
         [
