@@ -3,7 +3,7 @@
 USER=crouchr
 
 sudo wget --no-check-certificate \
-   http://web.ermin/private-keys/rch-nvm-sshkey.pub \
+   http://web.ermin/public-keys/rch-nvm-sshkey.pub \
    -O /home/${USER}/.ssh/authorized_keys
 
 #sudo cp /tmp/crouchr_authorized_keys /home/${USER}/.ssh/authorized_keys

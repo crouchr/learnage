@@ -11,7 +11,7 @@ sudo mkdir -p /home/${USER}/.ssh
 
 # Use my own local copy
 sudo wget --no-check-certificate \
-   http://web.ermin/private-keys/vagrant.pub \
+   http://web.ermin/public-keys/vagrant.pub \
    -O /home/${USER}/.ssh/authorized_keys
 
 sudo chmod 0700 /home/${USER}/.ssh
