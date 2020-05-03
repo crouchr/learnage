@@ -11,11 +11,12 @@ BOX_NAME="${BOX_DIR}".box
 # Static
 AWS_PROFILE="developmentaws"
 
-echo "AWS_PROFILE     : ${AWS_PROFILE}"
-echo "BOX_DIR         : ${BOX_DIR}"
-echo "BOX_NAME        : ${BOX_NAME}"
-echo "BOX_VERSION     : ${BOX_VERSION}"
-echo "BOX_DESCRIPTION : ${BOX_DESCRIPTION}"
+echo "AWS_PROFILE         : ${AWS_PROFILE}"
+echo "BOX_DIR             : ${BOX_DIR}"
+echo "BOX_NAME            : ${BOX_NAME}"
+echo "BOX_VERSION         : ${BOX_VERSION}"
+echo "BOX_DESCRIPTION     : ${BOX_DESCRIPTION}"
+echo "VAGRANT_CLOUD_TOKEN : ${VAGRANT_CLOUD_TOKEN}"
 
 # Login
 vagrant cloud auth login ${VAGRANT_CLOUD_TOKEN}
