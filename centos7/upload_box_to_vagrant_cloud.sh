@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # Upload the Box file to Vagrant
+# Note the vagrant-cloud plugin needs to be installed for the jenkins user (not root)
+# jenkins $ vagrant plugin install vagrant-cloud
+
 BOX_DIR=$1
 BOX_VERSION=$2
 BOX_DESCRIPTION=$3
