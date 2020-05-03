@@ -1,9 +1,7 @@
 #!/bin/bash -eux
 # https://stackoverflow.com/questions/22643177/ssh-onto-vagrant-box-with-different-username
 
-#cut -d: -f1 /etc/passwd
-
-#whoami
+whoami
 
 sudo cat /etc/ssh/sshd_config
 df -h
