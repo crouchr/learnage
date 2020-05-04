@@ -5,22 +5,19 @@
 # Promotions by Jenkins are basically changing the box_version number
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "crouchr/blackrain2020"
-  config.vm.box_version = "2.0.16"
-  config.vm.box_check_update = true
-  #config.vm.box_url = 'http://web.ermin/boxes/blackrain2020/metadata.json'
-  #config.vm.box_url = 'https://richardcrouch.s3-eu-west-1.amazonaws.com/boxes/blackrain2020.box'
+   config.vm.define "br2020" do |br2020|
 
-  config.vm.network "public_network", ip: "192.168.1.167", bridge: "virbr1"
+     br2020.vm.box = "crouchr/blackrain2020"
+     br2020.vm.box_version = "2.0.16"
+     br2020g.vm.box_check_update = true
+     #br2020.vm.box_url = 'http://web.ermin/boxes/blackrain2020/metadata.json'
+     #br2020.vm.box_url = 'https://richardcrouch.s3-eu-west-1.amazonaws.com/boxes/blackrain2020.box'
 
-  config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
-    v.cpus = 1
+     br2020.vm.network "public_network", ip: "192.168.1.167", bridge: "virbr1"
+
+     br2020.vm.provider "virtualbox" do |v|
+       v.memory = 2048
+       v.cpus = 1
+     end
   end
-
-#  config.vm.provision "chef_solo" do |chef|
-#    chef.add_recipe "blackrain"
-#    chef.arguments = "--chef-license accept"
-#  end
-
 end
