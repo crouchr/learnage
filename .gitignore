@@ -277,3 +277,6 @@ packer_cache/
 /blackrain/experiments/
 /centos7-packer/isos/CentOS-7-x86_64-Minimal-1908.iso
 /centos7-packer/packer-scripts/DEADJOE
+/environments/production/web-server/apache/isos/CentOS-7-x86_64-Minimal-1908.iso
+/environments/production/web-server/apache/isos/CentOS-7-x86_64-NetInstall-1908.iso
+/environments/production/web-server/apache/isos/VBoxGuestAdditions_6.0.20.iso
