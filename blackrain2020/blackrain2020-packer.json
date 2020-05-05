@@ -84,7 +84,9 @@
              "{{template_dir}}/packer-scripts/install-centos7-vbox-guest-tools-dependencies.sh",
              "{{template_dir}}/packer-scripts/install-vbox-guest-tools.sh",
              "{{template_dir}}/packer-scripts/dump-info.sh",
-             "{{template_dir}}/packer-scripts/bootstrap-into-chef.sh",
+             "{{template_dir}}/packer-scripts/register-with-chef.sh",
+             "{{template_dir}}/packer-scripts/chef-run.sh",
+             "{{template_dir}}/packer-scripts/deregister-from-chef.sh",
              "{{template_dir}}/packer-scripts/install-docker.sh"
            ]
       },
