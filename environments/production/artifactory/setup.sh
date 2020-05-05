@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # reference : https://computingforgeeks.com/how-to-install-jfrog-artifactory-on-centos/
 
 # START HERE

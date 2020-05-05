@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Bring up the web server
 # This script is running on the VM itself
 # Files on the Host can be accessed via the /vagrant share
@@ -69,7 +70,7 @@ cp /vagrant/apache/public-keys/*.pub /var/www/html/public-keys/
 chmod 755 /var/www/html/public-keys/*.pub
 
 # Store Chef files 
-echo "Copying Chef authentication files..."
+echo "Copying Chef configuration files and keys..."
 cp /vagrant/apache/bootstrap-chef-files/* /var/www/html/private/bootstrap-chef-files/
 chmod 755 /var/www/html/private/bootstrap-chef-files/*
 

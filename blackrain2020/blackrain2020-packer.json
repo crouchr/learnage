@@ -74,11 +74,8 @@
              "{{template_dir}}/packer-scripts/register-to-spacewalk.sh",
              "{{template_dir}}/packer-scripts/install-tools-packages.sh",
              "{{template_dir}}/packer-scripts/install-chef-client.sh",
-             "{{template_dir}}/packer-scripts/install-docker.sh",
              "{{template_dir}}/packer-scripts/install-chef-certs-and-scripts.sh",
              "{{template_dir}}/packer-scripts/install-blackrain-packages.sh",
-             "{{template_dir}}/packer-scripts/install-clamav.sh",
-             "{{template_dir}}/packer-scripts/install-snort.sh",
              "{{template_dir}}/packer-scripts/add-vagrant-insecure-key.sh",
              "{{template_dir}}/packer-scripts/add-users.sh",
              "{{template_dir}}/packer-scripts/add-jenkins.sh",
@@ -88,6 +85,7 @@
              "{{template_dir}}/packer-scripts/install-centos7-vbox-guest-tools-dependencies.sh",
              "{{template_dir}}/packer-scripts/install-vbox-guest-tools.sh",
              "{{template_dir}}/packer-scripts/bootstrap-blackrain.sh",
+             "{{template_dir}}/packer-scripts/install-docker.sh",
              "{{template_dir}}/packer-scripts/dump-info.sh"
            ]
       },
