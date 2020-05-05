@@ -1,0 +1,17 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: shell
+
+platforms:
+  - name: rch-centos-7
+    driver:
+      box: crouchr/rch-centos-7        # This is my own Packer-built CentOS7 image stored in S3 & Vagrant Cloud
+      box_url: crouchr/rch-centos-7
+      network:
+      - ["private_network", {ip: "192.168.2.200"}]
+suites:
+  - name: node
+    attributes:
