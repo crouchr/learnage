@@ -4,7 +4,7 @@
   "json_class": "Chef::Role",
   "chef_type": "role",
   "run_list": [
-    "recipe[br_motd",
-    "recipr[ntp]"
+    "recipe[br_motd]",
+    "recipe[ntp]"
   ]
 }
