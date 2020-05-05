@@ -5,7 +5,13 @@ whoami
 
 sudo cat /etc/ssh/sshd_config
 df -h
-#locale -a
+
+# Show all files
+echo "==================================================="
+sudo tree /etc/chef
+echo "==================================================="
+sudo tree /home/vagrant
+echo "==================================================="
 
 # List all the installed packages
 sudo yum list installed
