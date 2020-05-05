@@ -1,13 +1,13 @@
 # Backrain development environment
 # Note : Only minimal memory until development starts
 
-# FIXME : Download from Vagrant CLoud until the box can be stored locally opn web.ermin successfully
+# FIXME : Download from Vagrant Cloud until the box can be stored locally opn web.ermin successfully
 # Promotions by Jenkins are basically changing the box_version number
 
 Vagrant.configure("2") do |config|
    config.vm.define "br2020" do |br2020|
      br2020.vm.box = "crouchr/blackrain2020"
-     br2020.vm.box_version = "2.0.17"
+     br2020.vm.box_version = "2.0.21"
      br2020.vm.box_check_update = true
      #br2020.vm.box_url = 'http://web.ermin/boxes/blackrain2020/metadata.json'
      #br2020.vm.box_url = 'https://richardcrouch.s3-eu-west-1.amazonaws.com/boxes/blackrain2020.box'
