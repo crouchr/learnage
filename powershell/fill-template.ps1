@@ -1,5 +1,5 @@
-[string]$Path = '/home/crouchr/PycharmProjects/learnage/powershell/template.txt'
-
+#[string]$Path = '/home/crouchr/PycharmProjects/learnage/powershell/template.txt'
+[string]$Path = 'template.txt'
 $checksum = Get-FileHash -Path $Path -Algorithm "SHA1"
 $checksum = $checksum.Hash
 $checksum
