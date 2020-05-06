@@ -6,7 +6,8 @@ param(
     $BoxDescription
 )
 
-Write-Host "PowerSHell version $PSVersionTable.PSVersion"
+$PSversion = $PSVersionTable.PSVersion.Major
+Write-Host "PowerShell version $PSVersion"
 
 [string]$Path = 'box-metadata-template.txt'
 $checksum = Get-FileHash -Path $Path -Algorithm "SHA1"
