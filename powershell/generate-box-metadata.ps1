@@ -25,4 +25,7 @@ $template=$template.Replace("<checksum>",$checksum)
 $template=$template.Replace("<description>",$BoxDescription)
 $template=$template.Replace("<box_url>",$box_url)
 
-$template
+#$template
+
+$template | out-file -filepath metadata.json
+
