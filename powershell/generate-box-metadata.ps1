@@ -1,3 +1,4 @@
+# https://www.vagrantup.com/docs/boxes/format.html
 param(
     [Parameter(Mandatory)]
     $BoxVersion,
@@ -5,7 +6,7 @@ param(
     $BoxDescription
 )
 
-$pwshversion
+Write-Host "PowerSHell version $PSVersionTable.PSVersion"
 
 [string]$Path = 'box-metadata-template.txt'
 $checksum = Get-FileHash -Path $Path -Algorithm "SHA1"
