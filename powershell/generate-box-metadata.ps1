@@ -1,4 +1,7 @@
 # https://www.vagrantup.com/docs/boxes/format.html
+# Code to generate a Vagrant metadata.json file given the filename of a Box file, version and a description
+# Mainly used to test parameter passing from Jenkins to PS script
+
 param(
     [Parameter(Mandatory)]
     $BoxVersion,
