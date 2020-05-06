@@ -2,7 +2,6 @@
 [string]$Path = 'template.txt'
 $checksum = Get-FileHash -Path $Path -Algorithm "SHA1"
 $checksum = $checksum.Hash
-$checksum
 
 $version="1.2.3"
 $description="This is a useful box"
