@@ -1,7 +1,17 @@
+param(
+    [Parameter(Mandatory)]
+    $BoxVersion,
+    [Parameter(Mandatory)]
+    $BoxDescription
+)
+
 #[string]$Path = '/home/crouchr/PycharmProjects/learnage/powershell/template.txt'
 [string]$Path = 'template.txt'
 $checksum = Get-FileHash -Path $Path -Algorithm "SHA1"
 $checksum = $checksum.Hash
+
+$BoxVersion
+$BoxDescription
 
 $version="1.2.3"
 $description="This is a useful box"
