@@ -15,7 +15,7 @@ $BoxDescription
 
 #$version="1.2.3"
 #$description="This is a useful box"
-$box_name="CenOS7_virtualbox_v$BoxVersion.box"
+$box_name="CentOS7_virtualbox_v$BoxVersion.box"
 $box_url="http://boxfilerepo.s3-eu-west-1.amazonaws.com/$box_name" 
 
 $template = Get-Content $Path -Raw
