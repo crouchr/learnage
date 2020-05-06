@@ -5,6 +5,8 @@ param(
     $BoxDescription
 )
 
+$pwshversion
+
 [string]$Path = 'box-metadata-template.txt'
 $checksum = Get-FileHash -Path $Path -Algorithm "SHA1"
 $checksum = $checksum.Hash
