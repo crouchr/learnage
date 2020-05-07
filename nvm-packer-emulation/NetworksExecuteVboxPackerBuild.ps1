@@ -68,10 +68,12 @@ Else {
 
 # RCH : $args += "--only=$PackerBuilder"
 $validateargs = @('validate')
+
+#packer build -var 'app_name_cmd_var=apache' apache.json
 $args = @('build')
 $args += "--only=virtualbox-iso"
 $args += "--force"
-$args += "-var " + 'box_version=1.1.1'
+$args += "-var " + "'box_version=1.1.1'"
 #$args += '-var "box_version=$BoxVersion"'
 #$args += '-var "vm_description=$BoxDescription"'
 #$args += "-var 'box_version=$BoxVersion'"
