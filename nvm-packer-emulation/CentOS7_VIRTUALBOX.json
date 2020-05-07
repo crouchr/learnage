@@ -85,20 +85,5 @@
         "output": "packer_built_virtualbox.json",
         "strip_path": true
       }
-      ],
-
-      "provisioners": [
-        {
-          "environment_vars": [
-            "AWS_SWPROXY_FQDN={{user `sw_proxy_fqdn`}}",
-            "AWS_SWPROXY_IP={{user `sw_proxy_ip`}}",
-            "CHEF_FQDN={{user `chef_fqdn`}}",
-            "CHEF_IP={{user `chef_ip`}}",
-            "AWS_SWPROXY_PREREQ_DIR={{user `aws_swproxy_prereq_dir`}}",
-            "AWS_SWPROXY_ACTIVATION_KEY={{user `aws_swproxy_activation_key`}}"
-          ],
-          "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
-          "expect_disconnect": true
-        }
       ]
 }
