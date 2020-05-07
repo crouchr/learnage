@@ -70,8 +70,11 @@ $validateargs = @('validate')
 $args = @('build')
 $args += "--only=virtualbox-iso"
 $args += "--force"
-$args += "-var 'box_version=$BoxVersion'"
-$args += "-var 'vm_description=$BoxDescription'"
+$args += '-var "box_version=$BoxVersion"'
+$args += '-var "vm_description=$BoxDescription"'
+
+#$args += "-var 'box_version=$BoxVersion'"
+#$args += "-var 'vm_description=$BoxDescription'"
 #$args += "-var /"$BoxVersionArg/""
 #$args += "-var /"$BoxDescriptionArg/""
 
