@@ -119,7 +119,7 @@ $BoxChecksum = $BoxChecksum.Hash
 $BoxVersion
 $BoxDescription
 
-$BoxUrl="http://boxfilerepo.s3-eu-west-1.amazonaws.com/$box_name"
+$BoxUrl="http://boxfilerepo.s3-eu-west-1.amazonaws.com/$BoxFile"
 
 $MetadataFile = Get-Content $TemplateFile -Raw
 
