@@ -60,22 +60,20 @@ Else {
 }#>
 
 
-$BoxVersionArg = "box_version=$BoxVersion"
-$BoxDescriptionArg = "vm_description=$BoxDescription"
-$BoxVersionArg
-$BoxDescriptionArg
+#$BoxVersionArg = "box_version=$BoxVersion"
+#$BoxDescriptionArg = "vm_description=$BoxDescription"
+#$BoxVersionArg
+#$BoxDescriptionArg
 
 # RCH : $args += "--only=$PackerBuilder"
 $validateargs = @('validate')
 $args = @('build')
 $args += "--only=virtualbox-iso"
 $args += "--force"
-#$args += "-var /"$BoxVersionArg/""
-#$args += "-var /"$BoxDescriptionArg/""
-
 $args += "-var 'box_version=$BoxVersion'"
 $args += "-var 'vm_description=$BoxDescription'"
-
+#$args += "-var /"$BoxVersionArg/""
+#$args += "-var /"$BoxDescriptionArg/""
 
 $VarFiles = $VarsFiles -split ';'
 foreach ($VarFile in $VarFiles){
@@ -95,7 +93,7 @@ $validateargs += $PackerTemplate
 # Step 2 : Run Packer...
 Write-Host "Running $PackerBinary with the following arguments :"
 Write-Host $args
-#& $PackerBinary $args
+& $PackerBinary $args
 $PackerExitCode = $LastExitCode
 Write-Host "ExitCode from Packer Build : $PackerExitCode"
 
