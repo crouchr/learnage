@@ -59,7 +59,7 @@ Else {
     exit 1
 }#>
 
-
+$env:BUILD_NUMBER
 #$BoxVersionArg = "box_version=$BoxVersion"
 #$BoxVersionArg = "'" + $BoxVersionArg "'"
 #$BoxDescriptionArg = "vm_description=$BoxDescription"
