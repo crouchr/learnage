@@ -59,7 +59,7 @@ Else {
     exit 1
 }#>
 
-$BoxDescription = $BoxDescription + " build date " + Get-Date + " for Job " + $Env:JOB_NAME
+$BoxDescription = '{0} {1} for Job {2}' -f $BoxDescription Get-Date $Env:JOB_NAME
 $BoxDescription
 
 $BoxVarsFile = Get-Content 'box-vars-template.json' -Raw
