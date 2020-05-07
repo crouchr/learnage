@@ -25,7 +25,7 @@ Write-Host "PACKER_LOG : $Env:PACKER_LOG"
 
 $WorkingDir = [string](Get-Location)
 $PackerBinary = "c:\packer\packer_v1.5.6.exe"
-$PackerBinary = packer
+$PackerBinary = "/usr/local/bin/packer"
 
 $Env:PACKER_LOG_PATH =  $WorkingDir + "\" +"$PackerBuilder.log"
 
