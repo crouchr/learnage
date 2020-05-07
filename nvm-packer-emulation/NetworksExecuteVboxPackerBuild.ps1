@@ -60,11 +60,11 @@ Else {
 }#>
 
 
-$BoxVersionArg = "box_version=$BoxVersion"
-$BoxVersionArg = "'" + $BoxVersionArg "'"
-$BoxDescriptionArg = "vm_description=$BoxDescription"
-$BoxVersionArg
-$BoxDescriptionArg
+#$BoxVersionArg = "box_version=$BoxVersion"
+#$BoxVersionArg = "'" + $BoxVersionArg "'"
+#$BoxDescriptionArg = "vm_description=$BoxDescription"
+#$BoxVersionArg
+#$BoxDescriptionArg
 
 # RCH : $args += "--only=$PackerBuilder"
 $validateargs = @('validate')
