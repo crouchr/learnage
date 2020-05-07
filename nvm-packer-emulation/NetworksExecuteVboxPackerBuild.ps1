@@ -9,12 +9,13 @@ param (
   [Parameter(Mandatory)]
   $VarsFiles,
   [Parameter(Mandatory)]
-  $AwsProfile,
-  [Parameter(Mandatory)]
-  $BoxVersion,
-  [Parameter(Mandatory)]
-  $BoxDescription
+  $AwsProfile
 )
+
+#  [Parameter(Mandatory)]
+#  $BoxVersion,
+#  [Parameter(Mandatory)]
+#  $BoxDescription
 
 Write-Host "Running NetworksExecutePackerBuild.ps1 script..."
 $PSversion = $PSVersionTable.PSVersion.Major
@@ -59,21 +60,15 @@ Else {
     exit 1
 }#>
 
-$BoxDescription = "$BoxDescription, built $(Get-Date), Job=$Env:JOB_NAME, Build=$Env:BUILD_DISPLAY_NAME"
+$BoxDescription = "$Env:BOX_DESCRIPTION, built $(Get-Date), Job=$Env:JOB_NAME, Build=$Env:BUILD_DISPLAY_NAME"
 $BoxDescription
 
 $BoxVarsFile = Get-Content 'box-vars-template.json' -Raw
-$BoxVarsFile = $BoxVarsFile.Replace("<box_version>",$BoxVersion)
+$BoxVarsFile = $BoxVarsFile.Replace("<box_version>",$Env:BOX_VERSION)
 $BoxVarsFile = $BoxVarsFile.Replace("<box_description>",$BoxDescription)
 $BoxVarsFile
 $BoxVarsFile | out-file -filepath 'box-vars.json'
 
-$env:BUILD_NUMBER
-#$BoxVersionArg = "box_version=$BoxVersion"
-#$BoxVersionArg = "'" + $BoxVersionArg "'"
-#$BoxDescriptionArg = "vm_description=$BoxDescription"
-#$BoxVersionArg
-#$BoxDescriptionArg
 
 # RCH : $args += "--only=$PackerBuilder"
 $validateargs = @('validate')
