@@ -73,8 +73,8 @@ $args += "--force"
 #$args += "-var /"$BoxVersionArg/""
 #$args += "-var /"$BoxDescriptionArg/""
 
-#$args += "-var 'box_version=$BoxVersion'"
-#$args += "-var 'vm_description=$BoxDescription'"
+$args += "-var 'box_version=$BoxVersion'"
+$args += "-var 'vm_description=$BoxDescription'"
 
 
 $VarFiles = $VarsFiles -split ';'
