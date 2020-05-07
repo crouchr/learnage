@@ -1,0 +1,17 @@
+{
+  "name": "nvm-centos7",
+  "description": "<description>",
+  "versions": [
+    {
+      "version": "<version>",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "<box_url>",
+          "checksum_type": "sha1",
+          "checksum": "<checksum>"
+        }
+      ]
+    }
+  ]
+}
