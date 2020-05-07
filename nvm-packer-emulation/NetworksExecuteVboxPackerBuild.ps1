@@ -59,6 +59,12 @@ Else {
     exit 1
 }#>
 
+$BoxVarsFile = Get-Content 'box-vars-template.json' -Raw
+$BoxVarsFile = $BoxVarsFile.Replace("<box_version>",$BoxVersion)
+$BoxVarsFile = $BoxVarsFile.Replace("<box_description>",$BoxDescription)
+$BoxVarsFile
+$BoxVarsFile | out-file -filepath 'box-vars.json'
+
 $env:BUILD_NUMBER
 #$BoxVersionArg = "box_version=$BoxVersion"
 #$BoxVersionArg = "'" + $BoxVersionArg "'"
@@ -73,7 +79,7 @@ $validateargs = @('validate')
 $args = @('build')
 $args += "--only=virtualbox-iso"
 $args += "--force"
-$args += "-var 'box_version=$Env:BOX_VERSION'"
+$args += "-var-file=box-vars.json"
 #$args += '-var "box_version=$BoxVersion"'
 #$args += '-var "vm_description=$BoxDescription"'
 #$args += "-var 'box_version=$BoxVersion'"
