@@ -59,6 +59,9 @@ Else {
     exit 1
 }#>
 
+$BoxDescription = $BoxDescription + " build date " + Get-Date + " for Job " + $Env:JOB_NAME
+$BoxDescription
+
 $BoxVarsFile = Get-Content 'box-vars-template.json' -Raw
 $BoxVarsFile = $BoxVarsFile.Replace("<box_version>",$BoxVersion)
 $BoxVarsFile = $BoxVarsFile.Replace("<box_description>",$BoxDescription)
