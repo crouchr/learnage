@@ -109,7 +109,7 @@ Write-Host "ExitCode from Packer Build : $PackerExitCode"
 
 # Step 3 : Generate VirtualBox metadata.json file containing the version information
 $TemplateFile = 'box-metadata-template.json'
-$BoxFile = "CentOS7_virtualbox-v$BoxVersion.box"
+$BoxFile = "CentOS7_virtualbox-v$Env:BOX_VERSION.box"
 $BoxUrl="http://boxfilerepo.s3-eu-west-1.amazonaws.com/$box_name"
 
 $BoxChecksum = Get-FileHash -Path $BoxFile -Algorithm "SHA1"
