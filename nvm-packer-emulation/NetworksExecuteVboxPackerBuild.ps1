@@ -61,6 +61,7 @@ Else {
 
 
 $BoxVersionArg = "box_version=$BoxVersion"
+$BoxVersionArg = "'" + $BoxVersionArg "'"
 $BoxDescriptionArg = "vm_description=$BoxDescription"
 $BoxVersionArg
 $BoxDescriptionArg
