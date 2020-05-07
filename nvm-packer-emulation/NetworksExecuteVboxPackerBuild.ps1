@@ -95,7 +95,7 @@ $validateargs += $PackerTemplate
 # Step 2 : Run Packer...
 Write-Host "Running $PackerBinary with the following arguments :"
 Write-Host $args
-& $PackerBinary $args
+#& $PackerBinary $args
 $PackerExitCode = $LastExitCode
 Write-Host "ExitCode from Packer Build : $PackerExitCode"
 
