@@ -12,7 +12,15 @@ param (
   $AwsProfile
 )
 
+# Exit on first error
+$ErrorActionPreference = "Stop"
+
 Write-Host "Running NetworksExecutePackerBuild.ps1 script..."
+Write-Host "Parameters:"
+$PackerBuilder
+$PackerTemplate
+$VarsFiles
+$AwsProfile
 
 ################################################################
 $BoxFile = "CentOS7_virtualbox-v$Env:BOX_VERSION.box"
@@ -34,7 +42,7 @@ $Env:PACKER_LOG_PATH =  $WorkingDir + "\" +"$PackerBuilder.log"
 Write-Host "WorkingDir is $WorkingDir"
 Write-Host "PACKER_LOG_PATH : $Env:PACKER_LOG_PATH"
 
-$BoxDescription = "$Env:BOX_DESCRIPTION, built $(Get-Date), Job=$Env:JOB_NAME, Build=$Env:BUILD_DISPLAY_NAME"
+$BoxDescription = "$Env:BOX_DESCRIPTION, built $(Get-Date) on Node=$Env:NODE_NAME, Job=$Env:JOB_NAME, Build=$Env:BUILD_DISPLAY_NAME"
 $BoxDescription
 $BoxVersion
 
@@ -49,8 +57,7 @@ $validateargs = @('validate')
 
 #packer build -var 'app_name_cmd_var=apache' apache.json
 $args = @('build')
-$args += "--only=virtualbox-iso"
-$args += "--force"
+$args += "--only=$PackerBuilder"
 $args += "-var-file=box-vars.json"
 
 $VarFiles = $VarsFiles -split ';'
