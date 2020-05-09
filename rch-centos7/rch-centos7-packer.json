@@ -109,7 +109,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "{{ user `build_directory` }}/CentOS7_virtualbox-v{{ user `box_version` }}.box",
+      "output": "{{ user `build_directory` }}/rch-centos7-v{{ user `box_version` }}.box",
       "compression_level": 9,
       "keep_input_artifact": true
     },
