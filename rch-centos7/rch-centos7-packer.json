@@ -37,8 +37,8 @@
       "guest_additions_sha256": "72c5956c8b7be0a639036083be79169a8765df37e3d11b385c816e3662eb98d7",
       "guest_additions_mode": "upload",
       "iso_urls":[
-        "http://web.ermin/isos/{{ user `iso_filename `}}",
-        "http://mozart.ee.ic.ac.uk/CentOS/7/isos/x86_64/{{ user `iso_filename `}}"
+        "http://web.ermin/isos/{{ user `iso_filename` }}",
+        "http://mozart.ee.ic.ac.uk/CentOS/7/isos/x86_64/{{ user `iso_filename` }}"
       ],
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
