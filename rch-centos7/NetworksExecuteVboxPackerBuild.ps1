@@ -42,7 +42,7 @@ $Env:PACKER_LOG_PATH =  $WorkingDir + "\" +"$PackerBuilder.log"
 Write-Host "WorkingDir is $WorkingDir"
 Write-Host "PACKER_LOG_PATH : $Env:PACKER_LOG_PATH"
 
-$BoxDescription = "$Env:BOX_DESCRIPTION, built $(Get-Date), Job=$Env:JOB_NAME, Build=$Env:BUILD_DISPLAY_NAME"
+$BoxDescription = "$Env:BOX_DESCRIPTION, built $(Get-Date) on Node=$Env:NODE, Job=$Env:JOB_NAME, Build=$Env:BUILD_DISPLAY_NAME"
 $BoxDescription
 $BoxVersion
 
