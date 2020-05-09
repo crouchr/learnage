@@ -75,8 +75,6 @@
              "{{template_dir}}/../common-packer-scripts/install-chef-client.sh",
              "{{template_dir}}/../common-packer-scripts/install-chef-certs-and-scripts.sh",
              "{{template_dir}}/../common-packer-scripts/install-nmap.sh",
-             "{{template_dir}}/../common-packer-scripts/install-p0f.sh",
-             "{{template_dir}}/../common-packer-scripts/install-argus.sh",
              "{{template_dir}}/../common-packer-scripts/add-vagrant-insecure-key.sh",
              "{{template_dir}}/../common-packer-scripts/add-users.sh",
              "{{template_dir}}/../common-packer-scripts/add-jenkins.sh",
@@ -87,8 +85,7 @@
              "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools.sh",
              "{{template_dir}}/../common-packer-scripts/dump-info.sh",
              "{{template_dir}}/../common-packer-scripts/register-with-chef.sh",
-             "{{template_dir}}/../common-packer-scripts/packer-scripts/chef-first-run.sh",
-             "{{template_dir}}/../common-packer-scripts/install-docker.sh",
+             "{{template_dir}}/../common-packer-scripts/chef-first-run.sh",
              "{{template_dir}}/../common-packer-scripts/deregister-from-chef.sh"
            ]
       },
@@ -113,7 +110,7 @@
       ],
       "output": "{{ user `build_directory` }}/{{ user `vm_name` }}/{{ user `box_version` }}/virtualbox/{{ user `vm_name` }}.box",
       "compression_level": 9,
-      "keep_input_artifact": true
+      "keep_input_artifact": false
     },
     {
       "type": "manifest",

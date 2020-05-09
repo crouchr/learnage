@@ -31,7 +31,7 @@
       "hard_drive_interface": "sata",
       "shutdown_command": "sudo shutdown -h 0",
       "disk_size": "{{ user `disk_size` }}",
-      "output_directory": "{{ user `virtualbox_output_directory` }}/output-{{ user `box_name` }}",
+      "output_directory": "{{ user `virtualbox_output_directory` }}",
       "guest_os_type": "RedHat_64",
       "guest_additions_url": "http://web.ermin/isos/VBoxGuestAdditions_{{ .Version }}.iso",
       "guest_additions_sha256": "72c5956c8b7be0a639036083be79169a8765df37e3d11b385c816e3662eb98d7",
@@ -63,7 +63,7 @@
       },
       {
         "type": "shell",
-        "script": "{{template_dir}}/packer-scripts/reboot.sh",
+        "script": "{{template_dir}}/../common-packer-scripts/reboot.sh",
         "expect_disconnect": true
       },
       {
@@ -76,8 +76,6 @@
              "{{template_dir}}/../common-packer-scripts/install-chef-client.sh",
              "{{template_dir}}/../common-packer-scripts/install-chef-certs-and-scripts.sh",
              "{{template_dir}}/../common-packer-scripts/install-nmap.sh",
-             "{{template_dir}}/../common-packer-scripts/install-p0f.sh",
-             "{{template_dir}}/../common-packer-scripts/install-argus.sh",
              "{{template_dir}}/../common-packer-scripts/add-vagrant-insecure-key.sh",
              "{{template_dir}}/../common-packer-scripts/add-users.sh",
              "{{template_dir}}/../common-packer-scripts/add-jenkins.sh",
@@ -88,15 +86,13 @@
              "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools.sh",
              "{{template_dir}}/../common-packer-scripts/dump-info.sh",
              "{{template_dir}}/../common-packer-scripts/register-with-chef.sh",
-             "{{template_dir}}/../common-packer-scripts/packer-scripts/chef-first-run.sh",
-             "{{template_dir}}/../common-packer-scripts/install-docker.sh",
+             "{{template_dir}}/../common-packer-scripts/chef-first-run.sh",
              "{{template_dir}}/../common-packer-scripts/deregister-from-chef.sh"
            ]
-          ]
       },
       {
         "type": "shell",
-        "script": "{{template_dir}}/packer-scripts/reboot.sh",
+        "script": "{{template_dir}}/../common-packer-scripts/reboot.sh",
         "expect_disconnect": true
       },
 
