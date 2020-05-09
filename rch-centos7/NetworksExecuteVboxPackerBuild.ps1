@@ -72,7 +72,7 @@ Write-Host $validateargs
 Write-Host "Running $PackerBinary with the following arguments :"
 Write-Host $args
 & $PackerBinary $args
-$PackerExitCode = $LastExitCode
+#$PackerExitCode = $LastExitCode
 Write-Host "ExitCode from Packer Build : $PackerExitCode"
 
 # Step 3 : Generate VirtualBox metadata.json file containing the version information
