@@ -1,6 +1,9 @@
 ﻿# Richard Crouch modified script to use for VirtualBox builds
 # Added $BoxVersion and $BoxDescription as calling parameters as well as generation of metaadata.json
 
+# Exit on first error
+$ErrorActionPreference = "Stop"
+
 param (
   [Parameter(Mandatory)]
   $PackerBuilder,
