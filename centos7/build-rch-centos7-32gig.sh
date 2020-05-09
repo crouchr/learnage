@@ -1,13 +1,10 @@
 #!/bin/bash -e
 # CI/CD script
-# Script to build CentOS 7 image using Packer for applications that need more storage e.g. spacewalk, artifactory (32GB HDD)
-# This file can be deleted once a Jenkins job has been made to work
-
 # -eux : e=exit on failure
 
-# Adding -debug here means each step is paused until human presses ENTER
-
-BOX_VERSION="1.0.2"
+# Set by Jenkins
+BOX_VERSION=$1
+BOX_DESCRIPTION=$2
 
 # Set PACKER_LOG=1 for more detail
 export PACKER_LOG=0
@@ -15,20 +12,39 @@ export PACKER_LOG=0
 date
 
 AWS_PROFILE="developmentaws"
-
-BOX_DESCRIPTION="Packer-built CentOS7 box (32GB)"
-BOX_NAME="rch-centos7-32gig.box"
 BOX_DIR="rch-centos7-32gig"
-PACKER_FILE="virtualbox-centos7.json"
+BOX_NAME="${BOX_DIR}.box"
+PACKER_FILE="${BOX_DIR}-packer.json"
+VAR_FILE="${BOX_DIR}-variables.json"
 
-#echo "Changing directory into the centos7 packer root directory..."
-# Note : pwd gives : /home/crouchr/PycharmProjects/network-team/experiments/richard-centos7-packer/hellobox
-#pwd
-
+echo
+pwd
 echo " "
-echo "Validate the CentOS7 (32 GB) Packer file"
-echo "----------------------------------------"
-packer validate -var-file=variables-32gig.json ${PACKER_FILE}
+echo "Validate the CentOS7 (32G) Packer file"
+echo "--------------------------------------"
+/usr/local/bin/packer validate \
+-var-file=${VAR_FILE} \
+-var "vm_description=${BOX_DESCRIPTION}" \
+-var "vm_version=${BOX_VERSION}" \
+${PACKER_FILE}
+
+#packer inspect ${PACKER_FILE}
+
+# Jenkins needs headless=true
+echo
+echo "Build the CentOS7 (32G) Vagrant box"
+echo "-----------------------------------"
+/usr/local/bin/packer build \
+-force \
+-timestamp-ui \
+-var-file=${VAR_FILE} \
+-var "vm_name=$BOX_DIR" \
+-var "vm_description=${BOX_DESCRIPTION}" \
+-var "build_directory=boxes" \
+-var "box_version=${BOX_VERSION}" \
+-var 'headless=true' \
+${PACKER_FILE}
+
 
 #echo
 #echo "Build the CentOS7 (32 GB) Vagrant box"
@@ -70,18 +86,18 @@ packer validate -var-file=variables-32gig.json ${PACKER_FILE}
 #ssh web.ermin "mkdir -p /var/www/html/boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox"
 #scp boxes/${BOX_NAME} web.ermin:/var/www/html/boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/
 
-echo
-echo "Generate & upload the CentOS7 (32 GB) Vagrant box meta file"
-echo "-----------------------------------------------------------"
-cd boxes/${BOX_DIR}
-rm -f metadata.json
-vagrant-metadata \
---name="web.ermin/${BOX_DIR}" \
---description="${BOX_DESCRIPTION}" \
---baseurl="http://web.ermin/boxes/${BOX_DIR}"
+#echo
+#echo "Generate & upload the CentOS7 (32 GB) Vagrant box meta file"
+#echo "-----------------------------------------------------------"
+#cd boxes/${BOX_DIR}
+#rm -f metadata.json
+#vagrant-metadata \
+#--name="web.ermin/${BOX_DIR}" \
+#--description="${BOX_DESCRIPTION}" \
+#--baseurl="http://web.ermin/boxes/${BOX_DIR}"
 
-cat metadata.json
-scp -i /home/crouchr/.ssh/rch-nvm-sshkey metadata.json crouchr@web.ermin:/var/www/html/boxes/${BOX_DIR}
+#cat metadata.json
+#scp -i /home/crouchr/.ssh/rch-nvm-sshkey metadata.json crouchr@web.ermin:/var/www/html/boxes/${BOX_DIR}
 
 echo " "
 echo "Finished OK"

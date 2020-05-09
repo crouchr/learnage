@@ -1,11 +1,10 @@
 #!/bin/bash -e
 # CI/CD script
-# This file can be deleted once a Jenkins job has been made to work
-
 # -eux : e=exit on failure
 
 # Set by Jenkins
 BOX_VERSION=$1
+BOX_DESCRIPTION=$2
 
 # Set PACKER_LOG=1 for more detail
 export PACKER_LOG=0
@@ -13,11 +12,10 @@ export PACKER_LOG=0
 date
 
 AWS_PROFILE="developmentaws"
-BOX_DESCRIPTION="Packer-built CentOS7 box"
 BOX_DIR="rch-centos7"
 BOX_NAME="${BOX_DIR}.box"
-PACKER_FILE="centos7.json"
-VAR_FILE="rch-centos7-variables.json"
+PACKER_FILE="${BOX_DIR}-packer.json"
+VAR_FILE="${BOX_DIR}-variables.json"
 
 echo
 pwd
