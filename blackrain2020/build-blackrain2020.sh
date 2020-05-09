@@ -1,4 +1,6 @@
 #!/bin/bash -e
+# README : This is not used - the PowerShell version is used so as to mimic thr NVM setup
+
 # CI/CD script
 # -eux : e=exit on failure
 
@@ -27,8 +29,6 @@ echo "----------------------------------"
 -var "vm_description=${BOX_DESCRIPTION}" \
 -var "vm_version=${BOX_VERSION}" \
 ${PACKER_FILE}
-
-exit
 
 #packer inspect ${PACKER_FILE}
 

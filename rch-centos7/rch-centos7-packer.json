@@ -21,13 +21,13 @@
         ]
       ],
       "export_opts":
-      [
-        "--manifest",
-        "--vsys", "0",
-        "--description", "{{ user `vm_description` }}",
-        "--version", "{{ user `box_version` }}"
-      ],
-      "vm_name": "{{ user `vm_name` }}",
+          [
+            "--manifest",
+            "--vsys", "0",
+            "--description", "{{ user `vm_description` }}",
+            "--version", "{{ user `box_version` }}"
+          ],
+      "vm_name": "{{ user `template` }}",
       "hard_drive_interface": "sata",
       "shutdown_command": "sudo shutdown -h 0",
       "disk_size": "{{ user `disk_size` }}",
@@ -37,7 +37,8 @@
       "guest_additions_sha256": "72c5956c8b7be0a639036083be79169a8765df37e3d11b385c816e3662eb98d7",
       "guest_additions_mode": "upload",
       "iso_urls":[
-        "http://web.ermin/isos/CentOS-7-x86_64-Minimal-2003.iso"
+        "http://web.ermin/isos/{{ `iso_filename `}}",
+        "http://mozart.ee.ic.ac.uk/CentOS/7/isos/x86_64/{{ `iso_filename `}}"
       ],
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
@@ -51,7 +52,8 @@
       ],
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
-      "ssh_wait_timeout": "2h"
+      "ssh_wait_timeout": "2h",
+      "virtualbox_version_file" : ".vbox_version"
     }
   ],
 
@@ -108,9 +110,9 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "{{ user `build_directory` }}/{{ user `vm_name` }}/{{ user `box_version` }}/virtualbox/{{ user `vm_name` }}.box",
+      "output": "{{ user `build_directory` }}/CentOS7_virtualbox-v{{ user `box_version` }}.box",
       "compression_level": 9,
-      "keep_input_artifact": false
+      "keep_input_artifact": true
     },
     {
       "type": "manifest",
