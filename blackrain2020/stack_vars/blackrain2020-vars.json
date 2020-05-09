@@ -4,7 +4,6 @@
   "box_version": "",
   "box_directory": "boxes",
   "virtualbox_output_directory": "packer/packer_cache",
-  "iso_url": "http://web.ermin/isos/CentOS-7-x86_64-Minimal-2003.iso",
   "iso_checksum": "c68e9aebfd0d901f538c46b4642ce2303622c6db",
   "iso_checksum_type": "sha1",
   "kickstart_filename": "blackrain_ks.cfg",

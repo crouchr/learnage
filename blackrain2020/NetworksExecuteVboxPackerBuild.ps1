@@ -21,6 +21,7 @@ $PackerBinary = "c:\packer\packer_v1.5.6.exe"
 $PackerBinary = "/usr/local/bin/packer"
 ################################################################
 
+& $PackerBinary version
 $PSversion = $PSVersionTable.PSVersion.Major
 Write-Host "PowerShell version : $PSversion"
 
