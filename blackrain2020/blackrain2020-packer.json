@@ -56,13 +56,13 @@
       {
         "type": "shell",
         "scripts": [
-            "{{template_dir}}/packer-scripts/yum-update-all.sh",
+            "{{template_dir}}/../common-packer-scripts/yum-update-all.sh",
             "{{template_dir}}/packer-scripts/set-blackrain-hostname.sh"
           ]
       },
       {
         "type": "shell",
-        "script": "{{template_dir}}/packer-scripts/reboot.sh",
+        "script": "{{template_dir}}/../common-packer-scripts/reboot.sh",
         "expect_disconnect": true
       },
       {
