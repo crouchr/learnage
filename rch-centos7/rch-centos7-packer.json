@@ -5,6 +5,7 @@
 
   "builders": [
     {
+      "name": "rch-centos7",
       "type": "virtualbox-iso",
       "vm_name": "{{ user `vm_name` }}",
       "vboxmanage": [

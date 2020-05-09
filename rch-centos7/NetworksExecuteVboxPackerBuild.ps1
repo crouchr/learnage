@@ -13,6 +13,11 @@ param (
 )
 
 Write-Host "Running NetworksExecutePackerBuild.ps1 script..."
+Write-Host "Parameters:"
+$PackerBuilder
+$PackerTemplate
+$VarsFiles
+$AwsProfile
 
 ################################################################
 $BoxFile = "CentOS7_virtualbox-v$Env:BOX_VERSION.box"
@@ -49,8 +54,7 @@ $validateargs = @('validate')
 
 #packer build -var 'app_name_cmd_var=apache' apache.json
 $args = @('build')
-$args += "--only=virtualbox-iso"
-$args += "--force"
+$args += "--only=$PackerBuilder"
 $args += "-var-file=box-vars.json"
 
 $VarFiles = $VarsFiles -split ';'
