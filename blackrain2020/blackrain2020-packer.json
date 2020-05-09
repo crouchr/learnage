@@ -110,7 +110,7 @@
       "only": [
         "virtualbox-iso"
       ],
-      "output": "{{ user `build_directory` }}/{{ user `vm_name` }}/{{ user `box_version` }}/virtualbox/{{ user `vm_name` }}.box",
+      "output": "{{ user `build_directory` }}/br2020-v{{ user `box_version` }}.box",
       "compression_level": 9,
       "keep_input_artifact": false
     },
