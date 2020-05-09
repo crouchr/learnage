@@ -5,9 +5,8 @@
 
   "builders": [
     {
-      "name": "rch-centos7",
       "type": "virtualbox-iso",
-      "vm_name": "{{ user `vm_name` }}",
+      "name": "rch-centos7",
       "vboxmanage": [
         [
           "modifyvm",
@@ -29,6 +28,7 @@
         "--description", "{{ user `vm_description` }}",
         "--version", "{{ user `box_version` }}"
       ],
+      "vm_name": "{{ user `vm_name` }}",
       "hard_drive_interface": "sata",
       "shutdown_command": "sudo shutdown -h 0",
       "disk_size": "{{ user `disk_size` }}",
