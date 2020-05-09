@@ -17,8 +17,8 @@ sudo wget --no-check-certificate \
    -O /home/vagrant/.chef/knife.rb
 
 sudo wget --no-check-certificate \
-   http://web.ermin/private/bootstrap-chef-files/blackrain-first-run.json \
-   -O /home/vagrant/blackrain-first-run.json
+   http://web.ermin/private/bootstrap-chef-files/first-run.json \
+   -O /home/vagrant/first-run.json
 
 sudo wget --no-check-certificate \
    http://web.ermin/private/bootstrap-chef-files/knife.rb \
@@ -33,4 +33,3 @@ sudo wget --no-check-certificate \
 sudo wget --no-check-certificate \
    http://web.ermin/private/bootstrap-chef-files/blackrainermin-validator.pem \
    -O /home/vagrant/.chef/blackrainermin-validator.pem
-
