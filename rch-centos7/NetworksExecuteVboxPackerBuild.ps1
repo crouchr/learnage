@@ -1,9 +1,6 @@
 ﻿# Richard Crouch modified script to use for VirtualBox builds
 # Added $BoxVersion and $BoxDescription as calling parameters as well as generation of metaadata.json
 
-# Exit on first error
-$ErrorActionPreference = "Stop"
-
 param (
   [Parameter(Mandatory)]
   $PackerBuilder,
@@ -14,6 +11,9 @@ param (
   [Parameter(Mandatory)]
   $AwsProfile
 )
+
+# Exit on first error
+$ErrorActionPreference = "Stop"
 
 Write-Host "Running NetworksExecutePackerBuild.ps1 script..."
 Write-Host "Parameters:"
