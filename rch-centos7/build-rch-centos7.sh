@@ -1,4 +1,6 @@
 #!/bin/bash -e
+# README : This is not used - the PowerShell version is used so as to mimic thr NVM setup
+
 # CI/CD script
 # -eux : e=exit on failure
 
@@ -30,7 +32,6 @@ ${PACKER_FILE}
 
 #packer inspect ${PACKER_FILE}
 
-exit
 # Jenkins needs headless=true
 echo
 echo "Build the CentOS7 Vagrant box"

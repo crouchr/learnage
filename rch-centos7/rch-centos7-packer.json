@@ -6,7 +6,6 @@
   "builders": [
     {
       "type": "virtualbox-iso",
-      "name": "rch-centos7",
       "vboxmanage": [
         [
           "modifyvm",
