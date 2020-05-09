@@ -79,7 +79,6 @@
              "{{template_dir}}/../common-packer-scripts/install-tools-packages.sh",
              "{{template_dir}}/../common-packer-scripts/install-chef-client.sh",
              "{{template_dir}}/../common-packer-scripts/install-chef-certs-and-scripts.sh",
-             "{{template_dir}}/../common-packer-scripts/install-nmap.sh",
              "{{template_dir}}/../common-packer-scripts/add-vagrant-insecure-key.sh",
              "{{template_dir}}/../common-packer-scripts/add-users.sh",
              "{{template_dir}}/../common-packer-scripts/add-jenkins.sh",
