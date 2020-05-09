@@ -30,6 +30,7 @@ ${PACKER_FILE}
 
 #packer inspect ${PACKER_FILE}
 
+exit
 # Jenkins needs headless=true
 echo
 echo "Build the CentOS7 Vagrant box"

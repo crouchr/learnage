@@ -28,6 +28,8 @@ echo "----------------------------------"
 -var "vm_version=${BOX_VERSION}" \
 ${PACKER_FILE}
 
+exit
+
 #packer inspect ${PACKER_FILE}
 
 # Jenkins needs headless=true
