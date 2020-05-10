@@ -9,7 +9,7 @@ BOX_DESCRIPTION=$3
 VAGRANT_CLOUD_TOKEN=$4
 
 # Derived
-BOX_NAME="${BOX_DIR}".box
+BOX_NAME="${BOX_DIR}-v${BOX_VERSION}".box
 
 # Static
 AWS_PROFILE="developmentaws"
@@ -35,7 +35,7 @@ cloud publish \
 --force \
 --release \
 --box-version ${BOX_VERSION} \
-crouchr/${BOX_DIR} ${BOX_VERSION} virtualbox boxes/${BOX_DIR}/${BOX_VERSION}/virtualbox/${BOX_NAME}
+crouchr/${BOX_DIR} ${BOX_VERSION} virtualbox ${BOX_NAME}
 
 # This is now done using S3 plugin
 #echo
