@@ -50,5 +50,9 @@ cd ${ROOT_DIR}
 pwd
 #tree
 
+# update clamav
+# update Snort signatures
+# update Maldet signatures
+
 echo "Finished setup.sh OK for provisioning br2020-slack15"
 echo
