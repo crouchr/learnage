@@ -24,7 +24,7 @@
           [
             "--manifest",
             "--vsys", "0",
-            "--description", "{{ user `vm_description` }}",
+            "--description", "{{ user `box_description` }}",
             "--version", "{{ user `box_version` }}"
           ],
       "vm_name": "{{ user `template` }}",
