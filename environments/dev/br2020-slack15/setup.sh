@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Provisioning script to copy the blackrain application onto the Slackware15-based version 
-# This script runs as root on the VM itself
+# This script runs as root on the VM itself as part of the vagrant provision step
 # Files on the Host can be accessed via the /vagrant share
 
 set -e	# bomb out if any problem
