@@ -1,4 +1,4 @@
 # FIXME : need to parameterise this
 # A reboot is needed after this command
-sudo hostnamectl set-hostname centos7
+sudo hostnamectl set-hostname rch-centos7
 
