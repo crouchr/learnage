@@ -12,7 +12,7 @@ sudo rhn-profile-sync
 sudo systemctl enable osad
 sudo systemctl restart osad
 
-# Is this to do with config synch which I may not need
+# Is this to do with config synch which I may not need ?
 sudo rhn-actions-control --enable-all
 
 # One more for luck
