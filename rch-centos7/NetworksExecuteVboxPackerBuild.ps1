@@ -24,7 +24,7 @@ $AwsProfile
 
 ################################################################
 $BoxFile = "rch-centos7-v$Env:BOX_VERSION.box"
-$BoxUrl="http://richardcrouch/boxes/s3-eu-west-1.amazonaws.com/$BoxFile"
+$BoxUrl="https://richardcrouch.s3-eu-west-1.amazonaws.com/boxes/rch-centos7/$BoxFile"
 #$PackerBinary = "c:\packer\packer_v1.5.6.exe"
 $PackerBinary = "/usr/local/bin/packer"
 ################################################################
