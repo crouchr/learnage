@@ -17,10 +17,10 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "Running NetworksExecutePackerBuild.ps1 script..."
 Write-Host "Parameters:"
-$PackerBuilder
-$PackerTemplate
-$VarsFiles
-$AwsProfile
+Write-Host "  $PackerBuilder"
+Write-Host "  $PackerTemplate"
+Write-Host "  $VarsFiles"
+Write-Host "  $AwsProfile"
 
 ################################################################
 $BoxFile = "rch-centos7-v$Env:BOX_VERSION.box"
@@ -41,24 +41,33 @@ $Env:PACKER_LOG_PATH =  $WorkingDir + "\" +"$PackerBuilder.log"
 
 Write-Host "WorkingDir is $WorkingDir"
 Write-Host "PACKER_LOG_PATH : $Env:PACKER_LOG_PATH"
+Write-Host "Env: BOX_VERSION                : $Env:BOX_VERSION"
+Write-Host "Env: BOX_DESCRIPTION            : $Env:BOX_DESCRIPTION"
+Write-Host "Env: Jenkins JOB_NAME           : $Env:JOB_NAME"
+Write-Host "Env: Jenkins BUILD_DISPLAY_NAME : $Env:BUILD_DISPLAY_NAME"
 
-$BoxDescription = "$Env:BOX_DESCRIPTION, built $(Get-Date) on Node=$Env:NODE_NAME, Job=$Env:JOB_NAME, Build=$Env:BUILD_DISPLAY_NAME"
-$BoxDescription
-$BoxVersion
+[string]$BuildDate = Get-Date -uformat "%d-%m-%Y"
+[string]$BoxDescription = $Env:BOX_DESCRIPTION +`
+", built " + $BuildDate + `
+"on Node " + $Env:NODE_NAME + `
+", Jenkins Job=" + $Env:JOB_NAME + `
+", Jenkins Build=" + $Env:BUILD_DISPLAY_NAME
+
+Write-Host "BoxDescription : $BoxDescription"
 
 $BoxVarsFile = Get-Content 'box-vars-template.json' -Raw
 $BoxVarsFile = $BoxVarsFile.Replace("<box_version>",$Env:BOX_VERSION)
 $BoxVarsFile = $BoxVarsFile.Replace("<box_description>",$BoxDescription)
-$BoxVarsFile
-$BoxVarsFile | out-file -filepath 'box-vars.json'
+$BoxVarsFile | out-file -filepath 'box-vars.json' -Encoding Ascii -Force
+Write-Host "Populated box-vars.json to be passed to Packer is :"
+Get-Content 'box-vars.json'
 
-# RCH : $args += "--only=$PackerBuilder"
 $validateargs = @('validate')
 
 #packer build -var 'app_name_cmd_var=apache' apache.json
 $args = @('build')
 $args += "--only=$PackerBuilder"
-$args += "-var-file=box-vars.json"
+$args += "-var-file=box-vars.json"  # pass the box version and description via var-file
 
 $VarFiles = $VarsFiles -split ';'
 foreach ($VarFile in $VarFiles){
@@ -69,20 +78,19 @@ foreach ($VarFile in $VarFiles){
 $args += $PackerTemplate
 $validateargs += $PackerTemplate
 
-# Temporarily disabled during debugging as it takes 10 minutes to run
-# Step 1 : Run Packer in validation mode...
+# Step 0 : Run Packer in validation mode...
 Write-Host "Validating the Packer template with the following arguments :"
 Write-Host $validateargs
 & $PackerBinary $validateargs
 
-# Step 2 : Run Packer...
+# Step 1 : Run Packer...
 Write-Host "Running $PackerBinary with the following arguments :"
 Write-Host $args
 & $PackerBinary $args
 $PackerExitCode = $LastExitCode
 Write-Host "ExitCode from Packer Build : $PackerExitCode"
 
-# Step 3 : Generate VirtualBox metadata.json file containing the version information
+# Step 2 : Generate VirtualBox metadata.json file containing the version information
 $TemplateFile = 'box-metadata-template.json'
 
 $BoxChecksum = Get-FileHash -Path $BoxFile -Algorithm "SHA1"
@@ -95,10 +103,11 @@ $MetadataFile=$MetadataFile.Replace("<description>",$BoxDescription)
 $MetadataFile=$MetadataFile.Replace("<box_url>",$BoxUrl)
 
 # Dump metadata.json to console
+Write-Host "VBox-format metadata.json file :"
 $MetadataFile
 
 # Save to file so can be sent to S3 and collected as an artifact
-$MetadataFile | out-file -filepath metadata.json
+$MetadataFile | out-file -filepath metadata.json -Encoding Ascii -Force
 
 # If the Packer Build failed then fail the job
 exit $PackerExitCode
