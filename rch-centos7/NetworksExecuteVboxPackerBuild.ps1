@@ -46,6 +46,10 @@ Write-Host "Env: BOX_DESCRIPTION            : $Env:BOX_DESCRIPTION"
 Write-Host "Env: Jenkins JOB_NAME           : $Env:JOB_NAME"
 Write-Host "Env: Jenkins BUILD_DISPLAY_NAME : $Env:BUILD_DISPLAY_NAME"
 
+
+$JSON = Get-Content 'stack_vars/rch-centos7-vars.json' | Out-String | ConvertFrom-Json
+$JSON
+
 [string]$BuildDate = Get-Date -Format "dddd dd/MM/yyyy HH:mm K"
 [string]$BoxDescription = $Env:BOX_DESCRIPTION +`
 ", PackerBuilder=" + $PackerBuilder + `
