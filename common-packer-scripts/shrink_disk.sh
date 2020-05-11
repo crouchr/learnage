@@ -7,7 +7,7 @@ sudo rm -f /zero.fill;
 
 # Zero Out empty space in /boot
 echo "Clean up /boot partition..."
-sudo count=`df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}'`;
+count=`df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}'`;
 sudo dd if=/dev/zero of=/boot/zero.fill bs=1024 count=$count || echo "dd exit code $? is suppressed"
 sudo rm /boot/zero.fill;
 
