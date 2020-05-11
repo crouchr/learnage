@@ -45,8 +45,9 @@ Write-Host "Env: BOX_VERSION                : $Env:BOX_VERSION"
 Write-Host "Env: BOX_DESCRIPTION            : $Env:BOX_DESCRIPTION"
 Write-Host "Env: Jenkins JOB_NAME           : $Env:JOB_NAME"
 Write-Host "Env: Jenkins BUILD_DISPLAY_NAME : $Env:BUILD_DISPLAY_NAME"
-
-[string]$BuildDate = Get-Date -uformat "%d-%m-%Y"
+#dddd MM/dd/yyyy HH:mm K
+#"%d-%m-%Y"
+[string]$BuildDate = Get-Date -Format "dddd MM/dd/yyyy HH:mm K"
 [string]$BoxDescription = $Env:BOX_DESCRIPTION +`
 ", PackerBuilder=" + $PackerBuilder + `
 ", PackerTemplate=" + $PackerTemplate + `
