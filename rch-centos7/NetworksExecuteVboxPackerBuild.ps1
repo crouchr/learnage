@@ -17,10 +17,10 @@ $ErrorActionPreference = "Stop"
 
 Write-Host "Running NetworksExecutePackerBuild.ps1 script..."
 Write-Host "Parameters:"
-Write-Host "  $PackerBuilder"
-Write-Host "  $PackerTemplate"
-Write-Host "  $VarsFiles"
-Write-Host "  $AwsProfile"
+Write-Host "  PackerBuilder  : $PackerBuilder"
+Write-Host "  PackerTemplate : $PackerTemplate"
+Write-Host "  VarsFiles  : $VarsFiles"
+Write-Host "  AwsProfile : $AwsProfile"
 
 ################################################################
 $BoxFile = "rch-centos7-v$Env:BOX_VERSION.box"
