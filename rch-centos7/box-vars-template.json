@@ -1,6 +1,4 @@
 {
   "box_version": "<box_version>",
-  "box_description": "<box_description>",
-  "builder": "<builder>",
-  "packer_template": "<packer_template>"
+  "box_description": "<box_description>"
 }
