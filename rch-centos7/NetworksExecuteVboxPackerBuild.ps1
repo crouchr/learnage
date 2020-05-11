@@ -68,7 +68,7 @@ Write-Host "BoxDescription : $BoxDescription"
 Write-Host "Creating BOX_README.md"
 $BoxReadMe = "Description `n" + `
 "=========== `n" + `
-"This README was created as part of the Packer build for this machine `n" + `
+"This README was created automatically as part of the Packer build for this machine. `n" + `
 $BoxDescription + "`n"
 Write-Host "BoxReadMe :"
 $BoxReadMe
