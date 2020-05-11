@@ -48,6 +48,8 @@ Write-Host "Env: Jenkins BUILD_DISPLAY_NAME : $Env:BUILD_DISPLAY_NAME"
 
 [string]$BuildDate = Get-Date -uformat "%d-%m-%Y"
 [string]$BoxDescription = $Env:BOX_DESCRIPTION +`
+", PackerBuilder=" + $PackerBuilder + `
+", PackerTemplate=" + $PackerTemplate + `
 ", built " + $BuildDate + `
 " on Node " + $Env:NODE_NAME + `
 ", Jenkins Job=" + $Env:JOB_NAME + `
