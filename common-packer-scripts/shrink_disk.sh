@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Zero Out empty space on disk to improve compression
-echo "Clean disk(s)..."
 
+echo "Clean up root partition..."
 dd if=/dev/zero of=/zero.fill bs=1M || echo "dd exit code $? is suppressed"
 rm -f /zero.fill;
 
 # Zero Out empty space in /boot
-echo "Clean up /boot"
+echo "Clean up /boot partition..."
 count=`df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}'`;
 dd if=/dev/zero of=/boot/zero.fill bs=1024 count=$count || echo "dd exit code $? is suppressed"
 rm /boot/zero.fill;
