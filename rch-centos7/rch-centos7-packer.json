@@ -62,9 +62,14 @@
       {
         "type": "shell",
         "scripts": [
-          "{{template_dir}}/../common-packer-scripts/yum-update-all.sh",
+            "{{template_dir}}/../common-packer-scripts/yum-update-all.sh",
             "{{template_dir}}/packer-scripts/set-hostname-centos7.sh"
           ]
+      },
+      {
+        "type": "file",
+        "source": "BOX_README.md",
+        "destination": "/home/vagrant/"
       },
       {
         "type": "shell",
