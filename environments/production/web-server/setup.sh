@@ -40,6 +40,9 @@ chown -R apache:apache /var/www/html/public-keys
 mkdir -p /var/www/html/isos
 chown -R apache:apache /var/www/html/isos
 
+mkdir -p /var/www/html/br2020-packages
+chown -R apache:apache /var/www/html/br2020-packages
+
 mkdir -p /var/www/html/private/bootstrap-chef-files
 chown -R apache:apache /var/www/html/private
 
@@ -63,6 +66,11 @@ chmod 755 /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox/*
 echo "Copying ISO images..."
 cp /vagrant/apache/isos/*.iso /var/www/html/isos/
 chmod 755 /var/www/html/isos/*
+
+# Store BR2020 packages 
+echo "Copying BR2020 packages..."
+cp /vagrant/apache/br2020-packages/*.txz /var/www/html/br2020-packages/
+chmod 755 /var/www/html/br2020-packages/*
 
 # Store public keys on web server for easy retrieval 
 echo "Copying public-keys..."
