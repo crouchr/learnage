@@ -2,14 +2,14 @@
 # Zero Out empty space on disk to improve compression
 
 echo "Clean up root partition..."
-dd if=/dev/zero of=/zero.fill bs=1M || echo "dd exit code $? is suppressed"
-rm -f /zero.fill;
+sudo dd if=/dev/zero of=/zero.fill bs=1M || echo "dd exit code $? is suppressed"
+sudo rm -f /zero.fill;
 
 # Zero Out empty space in /boot
 echo "Clean up /boot partition..."
-count=`df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}'`;
-dd if=/dev/zero of=/boot/zero.fill bs=1024 count=$count || echo "dd exit code $? is suppressed"
-rm /boot/zero.fill;
+sudo count=`df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}'`;
+sudo dd if=/dev/zero of=/boot/zero.fill bs=1024 count=$count || echo "dd exit code $? is suppressed"
+sudo rm /boot/zero.fill;
 
 # Zero Out empty space in swap - not needed in VBox
 #echo "Clean up swap partitions"
@@ -20,5 +20,5 @@ rm /boot/zero.fill;
 #swapon $swappart;
 
 # Sync to ensure delete completes
-sync
-sync
+sudo sync
+sudo sync
