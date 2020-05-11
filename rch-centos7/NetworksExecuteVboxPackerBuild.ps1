@@ -48,14 +48,13 @@ Write-Host "Env: Jenkins BUILD_DISPLAY_NAME : $Env:BUILD_DISPLAY_NAME"
 
 # Read ISO filename from vars file to add to metadata.json
 $JSON = Get-Content 'stack_vars/rch-centos7-vars.json' | Out-String | ConvertFrom-Json
-$JSON
 $IsoFilename = $JSON.iso_filename
-Write-Host "ISO : $IsoFilename"
 
 [string]$BuildDate = Get-Date -Format "dddd dd/MM/yyyy HH:mm K"
 [string]$BoxDescription = $Env:BOX_DESCRIPTION +`
 ", PackerBuilder=" + $PackerBuilder + `
 ", PackerTemplate=" + $PackerTemplate + `
+", ISO=" + $IsoFilename + `
 ", built " + $BuildDate + `
 " on Node " + $Env:NODE_NAME + `
 ", Jenkins Job=" + $Env:JOB_NAME + `
