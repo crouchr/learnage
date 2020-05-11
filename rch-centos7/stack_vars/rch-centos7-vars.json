@@ -1,7 +1,6 @@
 {
-  "vm_name": "rch-centos7",
-  "template": "centos-7.8-x86_64",
-  "box_directory": "boxes",
+  "vm_name": "",
+  "template": "",
   "virtualbox_output_directory": "packer/packer_cache",
   "iso_filename": "CentOS-7-x86_64-Minimal-2003.iso",
   "iso_checksum": "c68e9aebfd0d901f538c46b4642ce2303622c6db",
