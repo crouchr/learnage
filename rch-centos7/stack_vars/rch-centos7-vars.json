@@ -1,6 +1,6 @@
 {
   "vm_name": "",
-  "template": "CentOS7_VIRTUALBOX",
+  "template": "RCH_CentOS7_VIRTUALBOX",
   "virtualbox_output_directory": "packer/packer_cache",
   "iso_filename": "CentOS-7-x86_64-Minimal-2003.iso",
   "iso_checksum": "c68e9aebfd0d901f538c46b4642ce2303622c6db",
