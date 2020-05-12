@@ -90,14 +90,14 @@ def getArrayVal(line,param):
     
         return a
     
-    except Exception,e:
+    except Exception, e:
         msg = "analyse_php_scripts.py : getArrayVal() : exception " + e.__str__()         
         print msg
         syslog.syslog(msg)
         return None
     
 
-def crack_pBot(filename,fingerprint):
+def crack_pBot(filename, fingerprint):
     try:
         #print "*** crack_pBot() : filename = " + filename
         

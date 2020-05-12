@@ -3,6 +3,7 @@ import time
 import os
 import re
 
+
 def makePidFile(name):
     pid = os.getpid() 
         
@@ -13,6 +14,7 @@ def makePidFile(name):
     #print "pid is " + `pid`
     return pid  # returns None if failed
 
+
 # Find first IP address in line
 def findFirstIP(line):
     ip=None
@@ -22,6 +24,7 @@ def findFirstIP(line):
         ip = ips[0]
     #print "kojoney_funcs.py findFirstIP(): first IP address found = " + ip
     return ip                                            
+
 
 # Write netflow payload to a file to search
 # this now obsoleted by writeDefConEvent() function below
@@ -53,6 +56,7 @@ def writeDefconEvent(src,line):
     print >> fpOut,msg
     fpOut.close()
 
+
 # Make he other functions in this file use this function
 def appendGenericLogfile(filename,src,line):
     now = time.time()  
@@ -68,8 +72,8 @@ def appendGenericLogfile(filename,src,line):
 
 
 def calcLocalTime(longitude):
-    if int(longitude) > 360 :   # GeoIP returns 999.0 if failed
-        offsetSecs = 0;
+    if int(longitude) > 360:   # GeoIP returns 999.0 if failed
+        offsetSecs = 0
     else:    
         offsetSecs = 3600 * int(longitude / 15)
                             
@@ -83,11 +87,7 @@ def calcLocalTime(longitude):
                                                             
     return time.asctime(timeTuple)
                                                                 
-                                                                
 
-    
 if __name__ == "__main__":
     logDefconEvent("This is a test event - ignore it")
-    writeDefconEvent("test","This is a test event - ignore it")
-    
-    
+    writeDefconEvent("test", "This is a test event - ignore it")

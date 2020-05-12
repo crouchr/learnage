@@ -18,7 +18,7 @@ Geo_ip_dbase = "/usr/local/share/GeoIP/GeoLiteCity.dat"
 # Get a file handle for the GeoIP database     
 try:
     #print "Opening GeoIP City database..."
-    Gi=GeoIP.open(Geo_ip_dbase,GeoIP.GEOIP_STANDARD)
+    Gi=GeoIP.open(Geo_ip_dbase, GeoIP.GEOIP_STANDARD)
 except Exception,e:
     print "Exception" + `e` 
     syslog.syslog("ipintellib.py() : Exception " + `e` + " caught whilst opening GeoIP City database " + Geo_ip_dbase)

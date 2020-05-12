@@ -83,3 +83,6 @@ mount
 
 echo "Finished setup.sh OK for provisioning br2020-slack15"
 echo
+
+#echo "Rebooting..."
+shutdown -r now

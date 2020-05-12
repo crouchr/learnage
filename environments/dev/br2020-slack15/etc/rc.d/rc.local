@@ -18,46 +18,15 @@ echo " "
 echo "Stopping SSHD until interfaces are up..."
 /etc/rc.d/rc.sshd stop
 
-# Kernel modules for UML - now compiled into kernel so no need to modprobe
-#modprobe tun
-#modprobe bridge
-# Following is only needed for L2 bridging
-#echo 1 > /proc/sys/net/ipv4/ip_forward
-
 # insert Netflow module into kernel
 #modprobe ipt_NETFLOW destination=192.168.1.70:2055
 #/usr/sbin/iptables -A FORWARD -j NETFLOW
 #/usr/sbin/iptables -A INPUT   -j NETFLOW
 #/usr/sbin/iptables -A OUTPUT  -j NETFLOW
-       
-# Run SMARTD diagnostics - configured in /etc/smartd.conf
-# only needed on non-virtual-machine
-#/usr/sbin/smartd
-#
-
-# Bridge port : Main Internet-facing IP port - built-in ethernet
-#ifconfig eth0 0.0.0.0 promisc down
-
-# Bridge port : Snort IDS port - PCMCIA card-> connected to hub for sniffing all traffic on the LAN
-#echo "[+] Bring up eth1 (PCMCIA card) in promisc mode for sniffing hub traffic..."
-#ifconfig eth1 0.0.0.0 promisc up
-#sleep 2
-
-#brctl addbr br0
-#brctl setfd br0 0
-#brctl sethello br0 0
-#brctl stp br0 off
-#brctl addif br0 eth0
-#ifconfig eth0 up
-#ifconfig br0 up
-
-# keeps dying 
-#echo "[+] Start ARPwatch ARP table monitor on eth1..."
-#/usr/local/sbin/arpwatch -n 192.168.1.0/24 -i eth1 
 
 ## Main Management port 
-ifconfig eth0 192.168.1.67 netmask 255.255.255.0 up
-route add default gw 192.168.1.1 eth0
+#ifconfig eth0 192.168.1.67 netmask 255.255.255.0 up
+#route add default gw 192.168.1.1 eth0
 
 echo "[+] Force population of ARP tables by pinging Google DNS server..."
 ping -c 3 8.8.8.8
@@ -83,27 +52,27 @@ echo "[+] Tidy up /tmp directory..."
 #rm -f /tmp/ether*
 
 echo "[+] Add a secondary IP to eth0 for use by faketelnetd Windows Telnet Daemon..."
-ip addr add 192.168.1.169/24 brd + dev eth0
+ip addr add 192.168.1.169/24 brd + dev eth1
 
 echo "[+] Add a secondary IP to eth0 for use by Amun malware collector..."
-ip addr add 192.168.1.166/24 brd + dev eth0
+ip addr add 192.168.1.166/24 brd + dev eth1
 
 #echo "[+] Add a secondary IP to eth0 for use by Nepenthes malware collector..."
-#ip addr add 192.168.1.165/24 brd + dev eth0
+#ip addr add 192.168.1.165/24 brd + dev eth1
 
 echo "[+] Add a secondary IP to eth0 for use by Kippo SSHd honeypot..."
-ip addr add 192.168.1.164/24 brd + dev eth0
+ip addr add 192.168.1.164/24 brd + dev eth1
 
 # note : .63 is used by honeyd but does not need a secondary IP
 
 echo "[+] Add a secondary IP to eth0 for use by Glastopf Web honeypot..."
-ip addr add 192.168.1.162/24 brd + dev eth0
+ip addr add 192.168.1.162/24 brd + dev eth1
 
 echo "[+] Add a secondary IP to eth0 for use by Spamhole Spam honeypot..."
-ip addr add 192.168.1.161/24 brd + dev eth0
+ip addr add 192.168.1.161/24 brd + dev eth1
 
 echo "[+] Add a secondary IP to eth0 for use by Honeytrap honeypot..."
-ip addr add 192.168.1.160/24 brd + dev eth0
+ip addr add 192.168.1.160/24 brd + dev eth1
 
 # Load up necessary kernel modules for honeytrap ???
 #modprobe ip_tables
@@ -136,12 +105,11 @@ logger "**** BlackRain system rc.local starting... ****"
 #/etc/rc.d/rc.kojoney_alert start
 #sleep 2
 
-# kippo : direct traffic inbound on port 22 to port 2222 
-#echo "[+] Setup iptables to translate port 22 to port 2222 for Kippo SSHd honeypot..."
-#iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 22 -j DNAT --to-destination 192.168.1.64:2222
+echo "[+] Setup iptables to translate port 22 to port 2222 for Kippo SSHd honeypot..."
+iptables -A PREROUTING -t nat -i eth1 -p tcp --dport 22 -j DNAT --to-destination 192.168.1.164:2222
 
-#echo "[+] Setup iptables to send traffic to honeytrap..."
-#iptables -A INPUT -i eth0 -d 192.168.1.60 -p tcp --syn -m state --state NEW -j QUEUE
+echo "[+] Setup iptables to send traffic to honeytrap..."
+iptables -A INPUT -i eth1 -d 192.168.1.160 -p tcp --syn -m state --state NEW -j QUEUE
 
 #echo "[+] Erase Spamhole records of spammer IPs..."
 #rm -f /opt/spamhole/ipdb/*
@@ -255,7 +223,7 @@ sleep 3
 
 #echo "[+] Run up scanlogd port scanner detection..."
 # iplog is better than scanlogd
-#/usr/local/bin/scanlogd -i eth0 
+#/usr/local/bin/scanlogd -i eth1
 
 #echo "Starting Conficker TCP445 pcap capture..."
 #/usr/sbin/tcpdump -i bridge0 -n port 445 -s 1500 -w /var/log/port445.pcap &
@@ -264,41 +232,41 @@ sleep 3
 #rm -f /home/var/log/datacapture_pcap/blackrain_*.pcap
 
 #echo "[+] Startup Amun honeypot pcap capture on eth0..."
-#/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.66 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_amun.pcap &
+#/usr/sbin/tcpdump -U -i eth1 ip and host 192.168.1.66 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_amun.pcap &
 #sleep 2
 
 ####echo "[+] Startup Nepenthes honeypot pcap capture..."
-####/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.65 -s 1500 -n -w /home/var/log/blackrain_nepenthes.pcap &
+####/usr/sbin/tcpdump -U -i eth1 ip and host 192.168.1.65 -s 1500 -n -w /home/var/log/blackrain_nepenthes.pcap &
 ####sleep 2
 
 #echo "[+] Startup Kippo honeypot pcap capture..."
-#/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.64 -s 1500 -n -w /home/var/log/blackrain_kippo.pcap &
+#/usr/sbin/tcpdump -U -i eth1 ip and host 192.168.1.64 -s 1500 -n -w /home/var/log/blackrain_kippo.pcap &
 #sleep 2
 
 #echo "[+] Startup Telnetd honeypot pcap capture on eth0..."
-#/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.69 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_telnetd.pcap &
+#/usr/sbin/tcpdump -U -i eth1 ip and host 192.168.1.69 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_telnetd.pcap &
 #sleep 2
 
 #echo "[+] Startup Honeytrap honeypot pcap capture on eth0..."
 # do not capture OpenVPN data (udp 21194)
-#/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.60 and not port 21194 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_honeytrap.pcap &
+#/usr/sbin/tcpdump -U -i eth1 ip and host 192.168.1.60 and not port 21194 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_honeytrap.pcap &
 #sleep 2
 
 #echo "[+] Startup Glastopf honeypot pcap capture on eth0..."
-#/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.62 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_glastopf.pcap &
+#/usr/sbin/tcpdump -U -i eth1 ip and host 192.168.1.62 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_glastopf.pcap &
 #sleep 2
 
 #echo "[+] Startup Conpot honeypot pcap capture on eth1..."
-#/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.50 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_conpot.pcap &
+#/usr/sbin/tcpdump -U -i eth1 ip and host 192.168.1.50 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_conpot.pcap &
 #sleep 2
 
 #echo "[+] Startup GlastopfNG honeypot pcap capture..."
-#/usr/sbin/tcpdump -U -i eth0 ip and port 18081 -s 1500 -n -w /home/var/log/blackrain_glastopfng.pcap &
+#/usr/sbin/tcpdump -U -i eth1 ip and port 18081 -s 1500 -n -w /home/var/log/blackrain_glastopfng.pcap &
 #sleep 2
 
 # try conpot on a second VM for this
 #echo "[+] Startup SNMPd honeypot pcap capture..."
-#/usr/sbin/tcpdump -U -i eth1 ip and udp and port 161 -s 1500 -n -w /home/var/log/blackrain_snmpd.pcap &
+#/usr/sbin/tcpdump -U -i eth2 ip and udp and port 161 -s 1500 -n -w /home/var/log/blackrain_snmpd.pcap &
 #sleep 2
 
 # Currently spamhole crashes so trying out Amun 
@@ -339,7 +307,7 @@ sleep 3
 # -e 60 : active timout 60 seconds
 # -x 10 : snmp index - allow to test against outIf=0 for drops on real netflow source to be valid
 #echo "[+] Run up fprobe netflow probe on SPAN port..."
-#/usr/local/sbin/fprobe -i eth0 -fip -e 300 -x 10 127.0.0.1:9995
+#/usr/local/sbin/fprobe -i eth1 -fip -e 300 -x 10 127.0.0.1:9995
 #sleep 5
 ##/usr/local/sbin/fprobe -e 60 -x 10 -p -i eth2 127.0.0.1:2055 -f 'ip and (host 192.168.1.66 or host 192.168.1.65 or host 192.168.1.64 or host 192.168.1.63)' &
 
@@ -386,7 +354,6 @@ sleep 3
 # Honeyd proxies all tcp connections to this server
 #/usr/local/src/amun/amun_server.py &
 #sleep 5
-
 
 # Run up Glastopf web malware collector - medium-interaction Web 
 #echo "[+] Starting Glastopf Web honeypot..."
