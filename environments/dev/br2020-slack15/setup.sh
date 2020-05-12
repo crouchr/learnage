@@ -42,7 +42,10 @@ echo "[+] Copy the br2020 application..."
 cp /vagrant/app/*.py $DEST_DIR_ROOT/app/
 
 echo "[+] Copy the br2020 etc configuration..."
-cp /vagrant/etc/*.conf $DEST_DIR_ROOT/etc/
+#cp /vagrant/etc/*.conf $DEST_DIR_ROOT/etc/
+
+echo "[+] Copy the Slackware configuration..."
+cp /vagrant/etc/motd /etc/motd
 
 echo "[+] Copy rc.d startup scripts..."
 cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
