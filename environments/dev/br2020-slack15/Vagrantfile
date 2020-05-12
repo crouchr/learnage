@@ -12,10 +12,10 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "crouchr/slackware15"
+  config.vm.box = "crouchr/br2020-slack15-base"
   config.vm.box_version = "1.0.0"
   config.vm.box_check_update = true
-  config.vm.hostname = "br2020-sl15.ermin"
+  config.vm.hostname = "br2020-slack15-base.ermin"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
