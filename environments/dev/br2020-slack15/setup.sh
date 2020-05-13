@@ -79,6 +79,7 @@ echo "[+] Install Python dependencies..."
 $PIP install --upgrade pip
 $PIP install wheel
 cp /vagrant/installer/REQUIREMENTS.TXT $DEST_DIR_ROOT/installer/
+cp /vagrant/installer/*.sh $DEST_DIR_ROOT/installer/
 cd $DEST_DIR_ROOT/installer
 #$PIP install REQUIREMENTS.TXT
 
