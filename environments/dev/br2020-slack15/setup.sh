@@ -78,9 +78,6 @@ cd $DEST_DIR_ROOT/installer
 #$PIP install REQUIREMENTS.TXT
 
 
-
-
-
 # THE END
 cd $DEST_DIR_ROOT
 tree
