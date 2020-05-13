@@ -40,6 +40,7 @@ cp /vagrant/etc/motd /etc/motd
 
 echo "[+] Copy Slackware external packages..."
 cp /vagrant/packages/*.tgz $DEST_DIR_ROOT/packages/
+cp /vagrant/packages/*.txz $DEST_DIR_ROOT/packages/
 
 echo "[+] Copy the br2020 application..."
 cp /vagrant/app/*.py $DEST_DIR_ROOT/app/
@@ -79,7 +80,7 @@ tree
 
 cd ${ROOT_DIR}
 pwd
-mount
+#mount
 
 #tree
 
