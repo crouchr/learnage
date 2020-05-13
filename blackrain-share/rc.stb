@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.stb
+#
+# Start/stop/restart the system-tools-backends
+#
+
+PIDFILE=/var/run/system-tools-backends.pid;
+STB=/usr/bin/system-tools-backends
+
+stb_start() {
+  # Just in case the pidfile is still there, we need to nuke it.
+  if [ -e "$PIDFILE" ]; then
+    rm -f $PIDFILE
+  fi
+
+  echo "Starting SystemToolsBackends: $STB"
+  $STB &>/dev/null;
+}
+
+stb_status() {
+  local pidlist=`cat $PIDFILE 2>/dev/null`
+  if [ -z "$pidlist" ]; then
+    return 1
+  fi
+  local command=`ps -p $pidlist -o comm=`
+  if [ "$command" != 'system-tools-ba' ]; then
+    return 1
+  fi
+}
+
+stb_stop() {
+  echo -en "Stopping SystemToolsBackends: ";
+  local pidlist=`cat $PIDFILE 2>/dev/null`
+  if [ ! -z "$pidlist" ]; then
+    kill $pidlist &>/dev/null
+    rm -f $PIDFILE &>/dev/null
+  fi
+  echo "stopped";
+}
+
+stb_restart() {
+  stb_stop
+  sleep 1
+  stb_start
+}
+
+case "$1" in
+'start')
+  if ( ! stb_status ); then
+    stb_start
+  else
+    echo "SystemToolsBackends is already running (will not start it twice)."
+  fi
+  ;;
+'stop')
+  stb_stop;
+  ;;
+'restart')
+  stb_restart;
+  ;;
+'status')
+  if ( stb_status ); then
+    echo "SystemToolsBackends is currently running"
+  else
+    echo "SystemToolsBackends is not running."
+  fi
+  ;;
+*)
+  echo "usage $0 start|stop|status|restart";
+esac

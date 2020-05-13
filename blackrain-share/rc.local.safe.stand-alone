@@ -1,0 +1,202 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.local:  Local system initialization script.
+#
+# Put any local startup commands in here.  Also, if you have
+# anything that needs to be run at shutdown time you can
+# make an /etc/rc.d/rc.local_shutdown script and put those
+# commands in there.
+
+# Kernel modules for UML
+modprobe tun
+modprobe bridge
+#echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Manaement port - Xircom card
+ifconfig eth2 192.168.1.67 netmask 255.255.255.0 up
+
+# Main Internet-facing IP port - built-in
+ifconfig eth0 0.0.0.0 up
+
+# Snort IDS port - RealTek card
+ifconfig eth1 0.0.0.0 promisc 
+
+brctl addbr bridge0
+brctl setfd bridge0 0
+brctl sethello bridge0 0
+brctl stp bridge0 off
+ifconfig bridge0 172.31.0.67 netmask 255.255.255.0 up
+brctl addif bridge0 eth0
+route add default gw 172.31.0.47 bridge0
+
+# Add aliases used for Harpoon testing - i.e. we are the Servers
+#ifconfig eth0:1  212.183.1.1  netmask 255.255.255.0
+#ifconfig eth0:2  212.183.1.2  netmask 255.255.255.0
+#ifconfig eth0:3  212.183.1.3  netmask 255.255.255.0
+#ifconfig eth0:4  212.183.1.4  netmask 255.255.255.0
+#ifconfig eth0:5  212.183.1.5  netmask 255.255.255.0
+#ifconfig eth0:6  212.183.1.6  netmask 255.255.255.0
+#ifconfig eth0:7  212.183.1.7  netmask 255.255.255.0
+#ifconfig eth0:8  212.183.1.8  netmask 255.255.255.0
+#ifconfig eth0:9  212.183.1.9  netmask 255.255.255.0
+#ifconfig eth0:10 212.183.1.10 netmask 255.255.255.0
+
+# Add some bridge interfaces for use by VMWare
+# Connects to vmnet2
+# 172.30.0.0
+#brctl addbr clean0
+#brctl setfd clean0 0
+#brctl sethello clean0 0
+#brctl stp clean0 off
+#brctl addif clean0 eth1
+#ifconfig clean0 up
+
+# Connects to vmnet 3
+#brctl addbr dirty0
+#ifconfig dirty0 up
+
+# Load up necessary kernel modules for honeytrap ???
+#modprobe ip_tables
+#modprobe iptable_filter
+#modprobe ipt_LOG
+
+# Add route to high-interaction honeypot
+#route add -net 172.30.0.0/24 gw 172.31.0.47
+
+#modprobe nfnetlink
+#modprobe nfnetlink_queue
+
+### legacy config -> do not need this - Allow honeyd to claim 172.31.0.1 - windows
+###/usr/local/sbin/arpd -i bridge0 172.31.0.1
+# Needed if you want Honeyd to respond to the non-explicitly defined (default template) bind IP addresses * on the same subnet as honeyd * 
+/usr/local/sbin/arpd -i bridge0 172.31.0.0/24 
+
+### legacy config -> do not need this - Allow honeyd to claim 172.31.0.2 - linux
+###/usr/local/sbin/arpd -i bridge0 172.31.0.2
+
+#echo "Setup library path for Harpoon..."
+#export LD_LIBRARY_PATH=/usr/local/harpoon/plugins;
+
+echo "[+] Startup monit - process monitoring system..."
+/usr/local/bin/monit -c /etc/monitrc
+
+# Run up Passive Asset Detection System
+#echo "Run up PADS..."
+#/usr/local/bin/pads -u crouchr -w /var/log/assets.csv &
+
+# Run up p0f - passive fingerprinter - ignore all nodes on 172.31/16 subnet
+# modified honeyd needs this to be running so it can determine OS characteristics in honeyd syslogs
+# -l = single-line log output 
+echo "[+] Run up p0f to fingerprint all haxx0rs ..."
+/usr/sbin/p0f -d -l -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /home/var/log/p0f.log
+#/usr/sbin/p0f -d -l -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /home/var/log/p0f.log 'port 22'
+#/usr/sbin/p0f -d -l -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /home/var/log/p0f.log 'port 22 and not src net 192.168.0.0 mask 255.255.0.0'
+ 
+# ClamAV, the open source anti-virus scanner
+#test -x /etc/rc.d/rc.clamav && /etc/rc.d/rc.clamav start
+
+#echo "Start OSSEC daemon..."
+#if [ -x /etc/rc.d/rc.ossec ]; then
+#      /etc/rc.d/rc.ossec start
+#fi
+
+#echo "[+] Run up Argus session data collection server..."
+#/usr/local/sbin/argus -d -i eth1 -w /home/var/log/argus/eth1.arg - ip 'and not port 9990 and not port 9991 and not port 9995 and not port 9996 and not port 9999 and not port 123 and not port 43 and not port 53 and not port 22067 and not port 514' 
+ 
+# Move this up the running order when happy with it
+echo "[+] Run up Snort IDS..."
+#/usr/local/bin/snort -D -u snort -c /etc/snort/snort.conf -i bridge0
+/etc/rc.d/rc.snort start
+
+#echo "Start VMWare Server Web GUI..."
+#/etc/init.d/httpd.vmware start
+
+#echo "Starting Conficker TCP445 pcap capture..."
+#/usr/sbin/tcpdump -i bridge0 -n port 445 -s 1500 -w /var/log/port445.pcap &
+
+echo "[+] Starting AAA server..."
+/usr/local/bin/tac_plus -L -C /etc/tac_plus.conf
+
+#echo "[+] Samplicate netflow from VF Ghana to PeakFlowSP, to local gloworm collector..."
+#/usr/local/bin/samplicate -f -p 9999 -S 192.168.1.20 127.0.0.1/9998 192.168.1.242/8888
+#sleep 3
+
+echo "[+] Samplicate netflow from IBG to local gloworm collector and to FreeBSD nfsen collector..."
+/usr/local/bin/samplicate -f -p 9990 -S 192.168.1.250/9996 127.0.0.1/9991 192.168.1.242/9990
+#echo "[+] Samplicate netflow from mars_fp to local gloworm collector and to FreeBSD nfsen collector..."
+#/usr/local/bin/samplicate -f -p 9991 -S 192.168.1.250/9997 127.0.0.1/9995
+sleep 3
+
+# Netflow collector
+echo "[+] Run up Gloworm netflow collectors..."
+/etc/rc.d/rc.gloworm start
+sleep 3
+
+# Netflow probe
+# todo - tune timeouts
+# todo - get -u parameter to work
+# issue with this running on same ports as node7 ?
+# -e 60 : active timout 60 seconds
+# -x 10 : snmp index - allow test againt 0 for drops on real netflow source to be valid
+#echo "[+] Run up fprobe netflow probe..."
+#/usr/local/sbin/fprobe -fip -e 60 -x 10 -i eth0 127.0.0.1:9991 
+
+# Allow various capture programs to settle down
+sleep 5
+
+# Run up honeypots
+# ----------------
+
+#echo "[+] Starting Kojoney SSH honeypot..."
+# This is now run by honeyd as a subsystem
+#/etc/rc.d/rc.kojoney start
+
+#echo "[+] Starting Amun malware collector..."
+# This can't be run by honeyd as a subsystem - weird error message
+# Honeyd proxies all tcp connections to this server
+/usr/local/src/amun/amun_server.py &
+
+# Run up Nepenthes malware collector - low-interaction honeypot -> uses physical interface IP
+#echo "Starting Nepenthes malware collector..."
+#/etc/rc.d/rc.nepenthes start
+
+# Honeydstats process for collecting stats from one or more honeyd instances
+echo "[+] Run up honeyd statistics collection..."
+/etc/rc.d/rc.honeydstats start
+sleep 2
+
+# Run up honeyd - low-interaction honeypot -> uses a virtual IP in same subnet as physical interface IP
+# Add -D to NOT run the process as a daemon
+# honeyd will startup it's own subsystems
+echo "[+] Run up honeyd honeypot..."
+/etc/rc.d/rc.honeyd start
+
+# Honeypot log analyser
+echo "[+] Startup Kojoney honeypot log analyser..."
+/etc/rc.d/rc.kojoney_tail start
+
+# Honeypot log visualisation
+sleep 5
+echo "[+] Startup Kojoney honeypot visualisation..."
+/etc/rc.d/rc.kojoney_viz start
+
+# Honeypot Tweet engine
+sleep 5
+echo "[+] Startup Kojoney Tweet engine..."
+/etc/rc.d/rc.kojoney_tweet start
+
+# Prevent SSH brute force attempts from filling logs
+sleep 5
+echo "[+] Startup active response..."
+/etc/rc.d/rc.kojoney_ar start
+
+# Needs to be disabled when testing port 80 proxy to www.vodafone.com 
+# Apache won't start from rc scripts
+echo "[+] Starting Apache..."
+/usr/sbin/apachectl start
+
+# Run up fwsnort IPS  
+# Need to move this up once it has proven to be reliable
+echo "[+] Starting FWSnort IPS..."
+/etc/fwsnort/fwsnort.sh &
+

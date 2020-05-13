@@ -1,0 +1,88 @@
+#!/bin/sh
+#
+'/usr/share/applications/mozilla-firefox.desktop' # /etc/rc.d/rc.local:  Local system initialization script.
+#
+# Put any local startup commands in here.  Also, if you have
+# anything that needs to be run at shutdown time you can
+# make an /etc/rc.d/rc.local_shutdown script and put those
+# commands in there.
+
+# Kernel modules for UML
+modprobe tun
+modprobe bridge
+#echo 1 > /proc/sys/net/ipv4/ip_forward
+
+ifconfig eth0 0.0.0.0 up
+ifconfig eth1 0.0.0.0 up
+
+brctl addbr bridge0
+brctl setfd bridge0 0
+brctl sethello bridge0 0
+brctl stp bridge0 off
+ifconfig bridge0 172.31.0.67 netmask 255.255.255.0 up
+brctl addif bridge0 eth0
+route add default gw 172.31.0.47 bridge0
+
+# Add some bridge interfaces for use by VMWare
+# Connects to vmnet2
+# 172.30.0.0
+brctl addbr clean0
+brctl setfd clean0 0
+brctl sethello clean0 0
+brctl stp clean0 off
+brctl addif clean0 eth1
+ifconfig clean0 up
+#ifconfig clean0 172.30.0.67 netmask 255.255.255.0 up
+
+# Connects to vmnet 3
+#brctl addbr dirty0
+#ifconfig dirty0 up
+
+# Load up necessary kernel modules for honeytrap ???
+modprobe ip_tables
+modprobe iptable_filter
+modprobe ipt_LOG
+
+#modprobe nfnetlink
+#modprobe nfnetlink_queue
+
+# Allow honeyd to claim 172.31.0.1 - windows
+/usr/local/sbin/arpd -i bridge0 172.31.0.1
+
+# Allow honeyd to claim 172.31.0.2 - linux
+/usr/local/sbin/arpd -i bridge0 172.31.0.2
+
+# Run up Passive Asset Detection System
+echo "Run up PADS..."
+/usr/local/bin/pads -u crouchr -w /var/log/assets.csv &
+
+# Run up p0f - passive fingerprinter - ignore all nodes on 172.31/16 subnet
+echo "Run up p0f..."
+#/usr/sbin/p0f -d -o /var/log/p0f.log ip not src net 172.31.0.0 mask 255.255.0.0 and not src 192.168.0.0 mask 255.255.0.0
+/usr/sbin/p0f -d -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /var/log/p0ftest.log ip not src net 172.31.0.0 mask 255.255.0.0 and not src 192.168.0.0 mask 255.255.0.0
+
+# Run up nepenthes - low-interaction honeypot -> uses physical interface IP
+echo "Run up nepenthes..."
+/opt/nepenthes/bin/nepenthes -u nobody -g nogroup &
+
+# Run up honeyd - low-interaction honeypot -> uses a virtual IP
+# run as root or cmdexe.pl will not run i.e. honeyd flags "-u 99 -g 99" not used -> bash permission issue -> nasty - need to fix it
+echo "Run up honeyd..."
+/usr/local/bin/honeyd -u 99 -u 99 --rrdtool-path=/usr/local/rrdtool-1.2.26/bin/rrdtool -c 127.0.0.1:20000:crouchr:notonyournelly -f /etc/honeyd/honeyd.conf -0 /usr/local/share/honeyd/pf.os -s /var/log/honeyd/service.log -p /usr/local/share/honeyd/nmap.prints --webserver-port 8080 -i bridge0 -l /var/log/honeyd.log 172.31.0.0/27
+
+# Run up honeydstats demon
+/usr/local/bin/honeydstats -f /etc/honeyd/honeydstats.conf -p 20000 -c /var/log/honeyd/honeydstats.checkpoint --os_report /var/log/honeyd/os_report --port_report=/var/log/honeyd/port_report --country_report /var/log/honeyd/country_report --spammer_report /var/log/honeyd/spammer_report
+
+# ClamAV, the open source anti-virus scanner
+#test -x /etc/rc.d/rc.clamav && /etc/rc.d/rc.clamav start
+
+# Run up Kojoney - SSHd honeypot
+echo "Run up Kojoney..."
+/usr/local/src/kojoney/kojoney.py &
+
+# Move this up the running order when happy with it
+echo "Run up Snort IDS..."
+/usr/local/bin/snort -D -u snort -c /etc/snort/snort.conf -i bridge0
+
+
+

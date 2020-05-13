@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_logglyd
+#
+# Start/stop/restart Kojoney Loggly Daemon
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_logglyd.py & 
+  ;;
+  'stop')
+    killall kojoney_logglyd.p
+  ;;
+  'restart')
+    killall kojoney_logglyd.py
+    /home/crouchr/kojoney_logglyd.py & 
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

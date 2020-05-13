@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_tail
+#
+# Start/stop/restart kojoney_tail script
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_tail.py &
+  ;;
+  'stop')
+    killall kojoney_ar.py
+    killall kojoney_viz.py
+    killall kojoney_tweet.py
+    killall kojoney_tail.py
+  ;;
+  'restart')
+    killall kojoney_ar.py
+    killall kojoney_viz.py
+    killall kojoney_tweet.py
+    killall kojoney_tail.py
+    /home/crouchr/kojoney_tail.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

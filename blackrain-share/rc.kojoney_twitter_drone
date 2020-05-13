@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_twitter_drone
+#
+cd /home/crouchr
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_twitter_drone.py &
+  ;;
+  'stop')
+    killall kojoney_twitter_drone.py
+  ;;
+  'restart')
+    killall kojoney_twitter_drone.py
+    sleep 3
+    /home/crouchr/kojoney_twitter_drone.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

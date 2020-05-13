@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# This script just clears the /var/lock/console/ directory in case the machine
+# just crashed or lost power and left a stale lockfile behind.
+
+/bin/rm -f /var/run/console/*

@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.glastopf
+#
+# Start/stop/restart Glastopf web honeypot script
+# -v = verbose
+
+cd /usr/local/src/glastopf
+case "$1" in
+  'start')
+    python /usr/local/src/glastopf/webserver.py -v &
+  ;;
+  #'stop')
+  #  killall kojoney_ar.py
+  #;;
+  #'restart')
+  #  killall kojoney_ar.py
+  #  /home/crouchr/kojoney_ar.py &
+  #;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

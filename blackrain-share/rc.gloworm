@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.gloworm
+#
+# Start/stop/restart gloworm-ermin Honeypot script
+# Node7 (bg_rtr) uses UDP 9990
+cd /home/crouchr/gloworm-ermin
+
+case "$1" in
+  'start')
+    /home/crouchr/gloworm-ermin/gloworm-ermin.pl mars_fp 9995 &
+    /home/crouchr/gloworm-ermin/gloworm-ermin.pl bg_rtr  9991 &
+    #/home/crouchr/gloworm-ermin/gloworm-ermin.pl node9   9999 &
+    #perl /home/crouchr/gloworm-ermin/gloworm-darknet-ghana.pl GHANA 9998 /home/var/log/darknet.log &
+  ;;
+  'stop')
+    killall gloworm-ermin.pl
+    #killall perl
+  ;;
+  'restart')
+    killall gloworm-ermin.pl
+    #killall perl
+    /home/crouchr/gloworm-ermin/gloworm-ermin.pl mars_fp 9995 &
+    /home/crouchr/gloworm-ermin/gloworm-ermin.pl bg_rtr  9991 &
+    #/home/crouchr/gloworm-ermin/gloworm-ermin.pl node9   9999 &
+    #perl /home/crouchr/gloworm-ermin/gloworm-darknet-ghana.pl GHANA 9998 /home/var/log/darknet.log &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac

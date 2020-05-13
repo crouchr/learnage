@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.iplog
+#
+# Start/stop/restart IPlogr script
+#
+
+case "$1" in
+  'start')
+  /usr/local/sbin/iplog -i eth0 --disable-resolver --log-ip --dns-cache=true --ignore -l /home/var/log/iplog.log
+  ;;
+  'stop')
+  killall iplog
+  ;;
+  'restart')
+   killall iplog
+  /usr/local/sbin/iplog -i eth0 --disable-resolver --log-ip --dns-cache=true --ignore -l /home/var/log/iplog.log
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac

@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.smtpot
+#
+#
+case "$1" in
+  'start')
+    /usr/bin/python /usr/local/src/smtpot/smtpot.py & 
+  ;;
+  'stop')
+    killall smtpot.py
+  ;;
+  'restart')
+    killall smtpot.py
+    /usr/bin/python /usr/local/src/smtpot/smtpot.py & 
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

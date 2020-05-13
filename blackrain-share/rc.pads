@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.pads
+#
+# Start/stop/restart Passer script
+#
+
+case "$1" in
+  'start')
+  /usr/local/bin/pads -i eth0 -u crouchr -w /home/var/log/pads-assets.csv -d /home/var/log/pads-dump.pcap &
+  ;;
+  'stop')
+   killall pads
+  ;;
+  'restart')
+   killall pads
+   /usr/local/bin/pads -i eth0 -u crouchr -w /home/var/log/pads-assets.csv -d /home/var/log/pads-dump.pcap &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac

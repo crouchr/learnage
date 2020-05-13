@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_netflow
+#
+
+case "$1" in
+  'start')
+    /home/crouchr/blackrain_netflow.pl 192.168.1.67 &
+  ;;
+  'stop')
+    killall blackrain_netflow.pl
+  ;;
+  'restart')
+    killall blackrain_netflow.pl
+    /home/crouchr/blackrain_netflow.pl 192.168.1.67 &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac

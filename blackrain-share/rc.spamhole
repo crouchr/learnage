@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.spamhole
+#
+# Start/stop/restart spamhole SMTP
+
+case "$1" in
+  'start')
+    /usr/local/src/spamhole/spamhole
+  ;;
+  'stop')
+    killall spamhole
+  ;;
+  'restart')
+    killall spamhole
+    /usr/local/src/spamhole/spamhole
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

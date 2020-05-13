@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_alert
+# Start/stop/restart kojoney_alert_server.py script
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_alert_server.py &
+  ;;
+  'stop')
+    killall kojoney_alert_server.py
+  ;;
+  'restart')
+    killall kojoney_alert_server.py
+    /home/crouchr/kojoney_alert_server.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+

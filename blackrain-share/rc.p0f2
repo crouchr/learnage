@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.p0f2
+#
+# Start/stop/restart p0f v2 script
+#
+case "$1" in
+  'start')
+    /usr/sbin/p0f -d -l -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /home/var/log/p0f.log -i eth0 'not host 192.168.1.67'
+  ;;
+  'stop')
+    killall p0f
+  ;;
+  'restart') 
+    killall p0f
+    /usr/sbin/p0f -d -l -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /home/var/log/p0f.log -i eth0 'not host 192.168.1.67'
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac

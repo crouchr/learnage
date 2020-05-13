@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.faketelnetd
+#
+# When using port 10023 (old style) then start/stop/restart faketelnetd script as crouchr (not root)
+
+case "$1" in
+  'start')
+    cd /usr/local/src/faketelnetd
+    #chown crouchr:users /tmp/ids.txt
+    #su - crouchr -c /usr/local/src/faketelnetd/faketelnetd
+    /usr/local/src/faketelnetd/faketelnetd
+  ;;
+  'stop')
+    killall faketelnetd
+  ;;
+  'restart')
+    killall faketelnetd
+    cd /usr/local/src/faketelnetd
+    #su - crouchr -c /usr/local/src/faketelnetd/faketelnetd
+    /usr/local/src/faketelnetd/faketelnetd
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

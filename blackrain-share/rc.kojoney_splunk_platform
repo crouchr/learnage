@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_splunk_platform
+#
+# Start/stop/restart Kojoney Splunk Storm Daemon
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_splunk_platform.py & 
+  ;;
+  'stop')
+    killall kojoney_splunk_platform.py
+  ;;
+  'restart')
+    killall kojoney_splunk_platform.py
+    /home/crouchr/kojoney_splunk_platform.py & 
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

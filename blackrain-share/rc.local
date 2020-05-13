@@ -1,0 +1,703 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.local:  Local system initialization script.
+#
+# Put any local startup commands in here.  Also, if you have
+# anything that needs to be run at shutdown time you can
+# make an /etc/rc.d/rc.local_shutdown script and put those
+# commands in there.
+
+echo " "
+echo " "
+echo " " 
+echo "[+] Entered rc.local =========================="
+echo " "
+echo " " 
+echo " " 
+
+echo "Stopping SSHD until interfaces are up..."
+/etc/rc.d/rc.sshd stop
+
+# Kernel modules for UML - now compiled into kernel so no need to modprobe
+#modprobe tun
+#modprobe bridge
+# Following is only needed for L2 bridging
+#echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# insert Netflow module into kernel
+#modprobe ipt_NETFLOW destination=192.168.1.70:2055
+#/usr/sbin/iptables -A FORWARD -j NETFLOW
+#/usr/sbin/iptables -A INPUT   -j NETFLOW
+#/usr/sbin/iptables -A OUTPUT  -j NETFLOW
+       
+# Run SMARTD diagnostics - configured in /etc/smartd.conf
+# only needed on non-virtual-machine
+#/usr/sbin/smartd
+#
+
+# Bridge port : Main Internet-facing IP port - built-in ethernet
+#ifconfig eth0 0.0.0.0 promisc down
+
+# Bridge port : Snort IDS port - PCMCIA card-> connected to hub for sniffing all traffic on the LAN
+#echo "[+] Bring up eth1 (PCMCIA card) in promisc mode for sniffing hub traffic..."
+#ifconfig eth1 0.0.0.0 promisc up
+#sleep 2
+
+#brctl addbr br0
+#brctl setfd br0 0
+#brctl sethello br0 0
+#brctl stp br0 off
+#brctl addif br0 eth0
+#ifconfig eth0 up
+#ifconfig br0 up
+
+# keeps dying 
+#echo "[+] Start ARPwatch ARP table monitor on eth1..."
+#/usr/local/sbin/arpwatch -n 192.168.1.0/24 -i eth1 
+
+## Main Management port 
+ifconfig eth0 192.168.1.67 netmask 255.255.255.0 up
+route add default gw 192.168.1.1 eth0
+
+echo "[+] Force population of ARP tables by pinging Google DNS server..."
+ping -c 3 8.8.8.8
+#/home/crouchr/tweep.py "Sensor started for Today's monitoring..."
+
+echo "[+] Stop NTP Service" 
+/etc/rc.d/rc.ntpd stop
+sleep 2
+chmod -x /etc/rc.d/rc.ntpd 
+sleep 2
+echo "[+] Synch time to NTP server - one-off adjustment"
+/usr/sbin/ntpdate -4 pool.ntp.org
+sleep 2
+# BUG : ntpd is not starting
+echo "[+] Start NTP Service" 
+chmod +x /etc/rc.d/rc.ntpd 
+/etc/rc.d/rc.ntpd start
+date
+sleep 2
+
+echo "[+] Tidy up /tmp directory..."
+rm -f /tmp/*192.168.*
+rm -f /tmp/ether*
+
+
+echo "[+] Add a secondary IP to eth0 for use by Amun malware collector..."
+ip addr add 192.168.1.66/24 brd + dev eth0
+
+#echo "[+] Add a secondary IP to eth0 for use by Nepenthes malware collector..."
+#ip addr add 192.168.1.65/24 brd + dev eth0
+
+echo "[+] Add a secondary IP to eth0 for use by Kippo SSHd honeypot..."
+ip addr add 192.168.1.64/24 brd + dev eth0
+
+# note : .63 is used by honeyd but does not need a secondary IP
+
+echo "[+] Add a secondary IP to eth0 for use by Glastopf Web honeypot..."
+ip addr add 192.168.1.62/24 brd + dev eth0
+
+echo "[+] Add a secondary IP to eth0 for use by Spamhole Spam honeypot..."
+ip addr add 192.168.1.61/24 brd + dev eth0
+
+echo "[+] Add a secondary IP to eth0 for use by Honeytrap honeypot..."
+ip addr add 192.168.1.60/24 brd + dev eth0
+
+# do SNMPd honeypot using conpot on second VM
+#echo "[+] Add a secondary IP to eth0 for use by GlastopfNG Web honeypot..."
+#echo "[+] Add a secondary IP to eth0 for use by SNMPd honeypot..."
+#ip addr add 192.168.1.68/24 brd + dev eth0
+
+echo "[+] Add a secondary IP to eth0 for use by faketelnetd Windows Telnet Daemon..."
+ip addr add 192.168.1.69/24 brd + dev eth0
+
+#route add -net 172.29.0.0/24 gw 192.168.1.7
+ 
+# Add some bridge interfaces for use by VMWare
+# Connects to vmnet2
+# 172.30.0.0
+#brctl addbr clean0
+#brctl setfd clean0 0
+#brctl sethello clean0 0
+#brctl stp clean0 off
+#brctl addif clean0 eth1
+#ifconfig clean0 up
+
+# Connects to vmnet 3
+#brctl addbr dirty0
+#ifconfig dirty0 up
+
+# Load up necessary kernel modules for honeytrap ???
+#modprobe ip_tables
+#modprobe iptable_filter
+#modprobe ipt_LOG
+
+# Add route to high-interaction honeypot
+#route add -net 172.30.0.0/24 gw 172.31.0.47
+
+#modprobe nfnetlink
+#modprobe nfnetlink_queue
+
+### legacy config -> do not need this - Allow honeyd to claim 172.31.0.1 - windows
+###/usr/local/sbin/arpd -i bridge0 172.31.0.1
+# Needed if you want Honeyd to respond to the non-explicitly defined (default template) bind IP addresses * on the same subnet as honeyd * 
+#/usr/local/sbin/arpd -i bridge0 172.31.0.0/24 
+
+### legacy config -> do not need this - Allow honeyd to claim 172.31.0.2 - linux
+###/usr/local/sbin/arpd -i bridge0 172.31.0.2
+
+#echo "Setup library path for Harpoon..."
+#export LD_LIBRARY_PATH=/usr/local/harpoon/plugins;
+
+# bug - shouldn't need to do this - should start from /etc/rc.d/rc.M
+echo "[+] Start syslog-ng..."
+/etc/rc.d/rc.syslog-ng start 
+sleep 5
+
+logger "**** BlackRain system rc.local starting... ****"
+
+# Allow Cacti to poll our memory, CPU and process load
+/usr/sbin/snmpd -c /etc/snmpd.conf 192.168.1.67
+
+#echo "[+] Start process CPU limiter (50%) on NIDS..."
+#/usr/local/bin/cpulimit -e suricata -l 50 &
+
+# need to use pid
+#echo "[+] Start process CPU limiter (40%) on Maldet..."
+#/usr/local/bin/cpulimit maldet -l 40 &
+
+echo "[+] Start process CPU limiter (40%) on Nmap..."
+/usr/local/bin/cpulimit -e nmap -l 40 &
+
+echo "[+] Start Kojoney Alert Server..."
+/etc/rc.d/rc.kojoney_alert start
+sleep 2
+
+#echo "[+] Start process CPU limiter (50%) on Java (GlastopfNG)S..."
+#/usr/local/bin/cpulimit -e java     -l 50 &
+
+# kippo : direct traffic inbound on port 22 to port 2222 
+echo "[+] Setup iptables to translate port 22 to port 2222 for Kippo SSHd honeypot..."
+iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 22 -j DNAT --to-destination 192.168.1.64:2222 
+
+echo "[+] Setup iptables to send traffic to honeytrap..."
+iptables -A INPUT -i eth0 -d 192.168.1.60 -p tcp --syn -m state --state NEW -j QUEUE
+                
+# Run up fwsnort IPS  
+# Need to move this up once it has proven to be reliable
+# Use iptables-save > /root/ipt.save to save the kernel firewall rules to a file for later import direct into Kerel
+# Temporarily commented out whilst getting netscreen working
+#echo "[+] Load FWSnort iptables rules into kernel..."
+#cat /root/ipt.save | iptables-restore
+#/usr/sbin/iptables-restore < /etc/fwsnort/fwsnort.save 
+#sleep 3
+
+#echo "[+] Erase Spamhole records of spammer IPs..."
+#rm -f /opt/spamhole/ipdb/*
+
+echo "[+] Erase rchpids directory of PIDs..."
+rm -f /var/run/rchpids/*
+sleep 3
+
+echo "[+] Erase Amun log files..."
+rm -f /usr/local/src/amun/logs/*
+
+# moved it from here to later in file : echo "[+] Startup monit - process monitoring system..."
+#/usr/local/bin/monit -c /etc/monitrc
+
+#echo "[+] Run up SebekD honeypot keystroke monitor..."
+#/usr/local/src/sebekd-3.0.3/go_sebekd &
+
+#echo "[+] Erase Netflow files..."
+#rm -f /home/var/log/gloworm-ermin.bg_rtr.netflows
+#touch /home/var/log/gloworm-ermin.bg_rtr.netflows
+
+# not sure the touch is actually needed
+#rm -f /home/var/log/kojoney_sebek.csv
+#touch /home/var/log/kojoney_sebek.csv
+
+echo "[+] Copy .gif and .csv files to archive..."
+cp -f /home/var/secviz/*.gif /home/var/secviz/yesterday/
+cp -f /home/var/secviz/*.csv /home/var/secviz/yesterday/
+
+echo "[+] Erase daily visualisation files..."
+rm -f /home/var/secviz/*.gif
+rm -f /home/var/secviz/*.dot
+rm -f /home/var/secviz/*.csv
+rm -f /home/var/log/clamscan*
+
+echo "[+] Erase daily report files..."
+rm -f /home/var/log/tweetsofinterest.txt
+
+echo "[+] Erase daily tweets visualisation file..."
+rm -f /home/var/log/tweets.visualistion.txt 
+
+echo "[+] Copy last Amun logs to lastlogs directory..."
+cp /usr/local/src/amun/logs/*.log /usr/local/src/amun/logs/lastlogs/
+
+#echo "[+] Start PADS Passive Asset Discovery System..."
+# Not sure this adds value compared to Passer
+#rm -f /home/var/log/pads-assets.csv
+#touch /home/var/log/pads-assets.csv
+#/usr/local/bin/pads -u crouchr -w /home/var/log/pads-assets.csv host 192.168.1.66 or host 192.168.1.65 or host 192.168.1.64 or host 192.168.1.63 or host 192.168.1.62 &
+#/usr/local/bin/pads -u crouchr -w /home/var/log/pads-assets.csv & 
+# PADS keeps dying to dont start it
+##/etc/rc.d/rc.pads start
+##sleep 2
+
+# Run up p0f - passive fingerprinter - ignore all nodes on 172.31/16 subnet
+# modified honeyd needs this to be running so it can determine OS characteristics in honeyd syslogs
+# -l = single-line log output 
+#echo "[+] Startup passive OS fingerprinter : p0f3..."
+# don't think you can run p0f to look at multiple interfaces
+##/usr/sbin/p0f -d -l -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /home/var/log/p0f.log
+#/usr/sbin/p0f -d -l -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /home/var/log/p0f.log 'port 22'
+#/usr/sbin/p0f -d -l -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /home/var/log/p0f.log 'port 22 or port 23 and not src net 192.168.1.0 mask 255.255.255.0'
+
+# p0f2
+#/usr/sbin/p0f -d -l -M -V -u nobody -0 -Q /var/tmp/p0f_sock -o /home/var/log/p0f.log -i eth0
+/etc/rc.d/rc.p0f2 start
+sleep 2
+
+echo "[+] Start Kojoney Ossec Syslogd (kojoney_ossec_syslogd)..."
+/etc/rc.d/rc.kojoney_ossec_syslogd start
+sleep 2
+
+#echo "[+] Start Kojoney Attacker Correlator (kojoney_attacker_correlate)..."
+#/etc/rc.d/rc.kojoney_attacker_correlate start
+#sleep 2
+
+#echo "[+] Start Kojoney TSOM Threat Assessor (kojoney_tsom)..."
+#/etc/rc.d/rc.kojoney_tsom start
+#sleep 2
+
+# p0f3
+# cant get the -u nobody to work
+# crashes when using p0f_client
+# -d = demonise
+#/usr/local/bin/p0f3 -d -f /etc/p0f3/p0f.fp -o /home/var/log/p0f3.log -s /var/tmp/p0f_sock -i eth0 'not host 192.168.1.67'
+#sleep 2
+#/etc/rc.d/rc.p0f3 start
+
+#echo "[+] Start ICMPinfo ICMP monitor..."
+#/usr/sbin/icmpinfo -vvv -n -l -p
+
+# This works but is disabled since not a Prelude system to use SANCP as an agent for (Prelude Server needs to be built)
+# With a patch, SANCP can be a Prelude sensor
+#echo "[+] Start SANCP connection profiler monitoring eth1..."
+#/usr/local/bin/sancp -i eth1 -d /home/var/log/sancp -D
+
+echo "[+] Start Argus session data server, control port listening on 127.0.0.1:561..."
+#/usr/local/sbin/argus -d -B 127.0.0.1 -P 561 - 'ip and (host 192.168.1.60 or host 192.168.1.61 or host 192.168.1.62 or host 192.168.1.63 or host 192.168.1.64 or host 192.168.1.65 or host 192.168.1.66 or host 192.168.1.68 or host 192.168.1.69)'
+/etc/rc.d/rc.argus start
+sleep 2
+echo "[+] Start Argus session data client..."
+/etc/rc.d/rc.ra start
+
+#echo "[+] Start Argus session data client..."
+#/usr/local/bin/ra -n -S localhost -L0 -z > /home/var/log/argus.log &
+
+# ClamAV, the open source anti-virus scanner
+#test -x /etc/rc.d/rc.clamav && /etc/rc.d/rc.clamav start
+
+# OSSEC - just be an agent and use Security Onion as the Server
+# OSSEC server
+# increase from default of 1024
+#ulimit -n 4096
+echo "[+] Startup OSSEC agent..."
+if [ -x /etc/rc.d/rc.ossec ]; then
+      /etc/rc.d/rc.ossec start
+fi
+
+# Patch around bug in OSSEC 2.7 where client syslog dies after a little while
+#sleep 10
+#echo "[+] Startup OSSEC syslog client..."
+#/var/ossec/bin/ossec-csyslogd -df &
+#sleep 2
+
+echo "[+] Run up ClamAV daemon listening on TCP port 3110..."
+/usr/local/sbin/clamd
+sleep 5
+
+# disabled temporarily during br2020 
+#echo "[+] Checking if Linux Malware Detect (LMD) is latest version and upgrade if necessary..."
+#/usr/local/sbin/maldet --update-ver
+#sleep 5
+
+#echo "[+] Updating Linux Malware Detect (LMD) Malware Signatures..."
+#/usr/local/sbin/maldet -u
+#sleep 5
+
+#echo "[+] Run up Linux Malware Detect (LMD)..."
+#/usr/local/sbin/maldet -m /usr/local/src/glastopf/files/get,/usr/local/src/glastopf/files/post,/home/var/haxxor_webs/kojoney_analyst,/tmp,/usr/local/src/amun/malware/md5sum
+#sleep 20
+# end of temporary disabled
+
+
+#echo "[+] Run up Argus session data collection server..."
+#/usr/local/sbin/argus -d -i eth1 -w /home/var/log/argus/eth1.arg - ip 'and not port 9990 and not port 9991 and not port 9995 and not port 9996 and not port 9999 and not port 123 and not port 43 and not port 53 and not port 22067 and not port 514' 
+
+# choice 2 
+# Move this up the running order when happy with it
+# Currently using external Snort-Shadow IDS so local Snort not needed
+echo "[+] Run up Snort NIDS, this may take some time..."
+/etc/rc.d/rc.snort start
+sleep 10
+
+echo "[+] Run up Snort NIDS Barnyard2 output processor..."
+/etc/rc.d/rc.barnyard start
+
+# suricata disabled now we are using OSSIM and Shadow external IDS
+# choice 1
+#echo "[+] Run up Suricata syslog support daemon..."
+#/etc/rc.d/rc.kojoney_suricata_syslog start
+#sleep 5
+#echo "[+] Run up Suricata NIDS, this may take some time..."
+#/etc/rc.d/rc.suricata start
+#sleep 60
+
+#echo "[+] Run up scanlogd port scanner detection..."
+# iplog is better than scanlogd
+#/usr/local/bin/scanlogd -i eth0 
+
+#echo "Start VMWare Server Web GUI..."
+#/etc/init.d/httpd.vmware start
+
+#echo "Starting Conficker TCP445 pcap capture..."
+#/usr/sbin/tcpdump -i bridge0 -n port 445 -s 1500 -w /var/log/port445.pcap &
+
+# Dies so not sure what is problem
+#echo "[+] Start tcpxtract passive file sniffer..."
+#/etc/rc.d/rc.tcpxtract start
+
+echo "[+] Create new packet capture files for today..."
+rm -f /home/var/log/datacapture_pcap/blackrain_*.pcap
+
+echo "[+] Startup Amun honeypot pcap capture on eth0..."
+/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.66 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_amun.pcap &
+sleep 2
+
+####echo "[+] Startup Nepenthes honeypot pcap capture..."
+####/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.65 -s 1500 -n -w /home/var/log/blackrain_nepenthes.pcap &
+####sleep 2
+
+#echo "[+] Startup Kippo honeypot pcap capture..."
+#/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.64 -s 1500 -n -w /home/var/log/blackrain_kippo.pcap &
+#sleep 2
+
+echo "[+] Startup Telnetd honeypot pcap capture on eth0..."
+/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.69 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_telnetd.pcap &
+sleep 2
+
+####echo "[+] Startup Honeyd honeypot pcap capture..."
+#### do not capture OpenVPN data (udp 21194)
+####/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.63 and not port 21194 -s 1500 -n -w /home/var/log/blackrain_honeyd.pcap &
+####sleep 2
+
+echo "[+] Startup Honeytrap honeypot pcap capture on eth0..."
+# do not capture OpenVPN data (udp 21194)
+/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.60 and not port 21194 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_honeytrap.pcap &
+sleep 2
+
+echo "[+] Startup Glastopf honeypot pcap capture on eth0..."
+/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.62 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_glastopf.pcap &
+sleep 2
+
+#echo "[+] Startup Conpot honeypot pcap capture on eth1..."
+#/usr/sbin/tcpdump -U -i eth0 ip and host 192.168.1.50 -s 1500 -n -w /home/var/log/datacapture_pcap/blackrain_conpot.pcap &
+#sleep 2
+
+#echo "[+] Startup GlastopfNG honeypot pcap capture..."
+#/usr/sbin/tcpdump -U -i eth0 ip and port 18081 -s 1500 -n -w /home/var/log/blackrain_glastopfng.pcap &
+#sleep 2
+
+# try conpot on a second VM for this
+#echo "[+] Startup SNMPd honeypot pcap capture..."
+#/usr/sbin/tcpdump -U -i eth1 ip and udp and port 161 -s 1500 -n -w /home/var/log/blackrain_snmpd.pcap &
+#sleep 2
+
+# Currently spamhole crashes so trying out Amun 
+#echo "[+] Startup Spam honeypot pcap capture..."
+#/usr/sbin/tcpdump -U -i eth1 ip and host 192.168.1.61 -s 1500 -n -w /home/var/log/blackrain_spam.pcap &
+#sleep 2
+
+#echo "[+] Startup Honeyrtr pcap capture..."
+# do not capture NTP (123) traffic
+#/usr/sbin/tcpdump -U -i eth1 ip and host 172.29.0.9 and not port 123 -s 1500 -n -w /home/var/log/blackrain_honeyrtr.pcap &
+#sleep 2
+
+#echo "[+] Startup High-interaction Linux honeypot pcap capture..."
+#/usr/sbin/tcpdump -U -i eth1 ip and host 172.31.0.67 and not port 28888 and not port 22 and not port 514 and not port 1514 -s 1500 -n -w /home/var/log/blackrain_linux_honeypot.pcap &
+
+echo "[+] Startup trojaned AAA server used by Cisco router..."
+/usr/local/bin/tac_plus -L -C /etc/tac_plus.conf -B 192.168.1.67
+
+#echo "[+] Samplicate netflow from VF Ghana to PeakFlowSP, to local gloworm collector..."
+#/usr/local/bin/samplicate -f -p 9999 -S 192.168.1.20 127.0.0.1/9998 192.168.1.242/8888
+#sleep 3
+
+#echo "[+] Startup samplicate netflow duplication from IBG to local gloworm collector..."
+#/usr/local/bin/samplicate -f -p 9990 -S 127.0.0.1/9991
+
+echo "[+] Samplicate netflow from mars_fp to local netflow collector and to any external netflow collectors..."
+##/usr/local/bin/samplicate -f -p 9995 127.0.0.1/2055 192.168.1.20/2055
+/usr/local/bin/samplicate -f -p 9995 127.0.0.1/2055 
+sleep 3
+
+# Netflow v5 collector
+# Need to make it possible to override lisening port via command-line
+echo "[+] Run up netflow collector on UDP port 2055, ignoring flows to/from 192.168.1.67..."
+/etc/rc.d/rc.kojoney_netflow start
+sleep 5
+
+# Netflow probe
+# need to add filter -f or external netflow collector gets all flows not just honeypot ones
+# Investigate softflowd - it does netflow v9 and IPv6
+# todo - tune timeouts
+# todo - get -u parameter to work
+# issue with this running on same ports as node7 ?
+# -e 60 : active timout 60 seconds
+# -x 10 : snmp index - allow to test against outIf=0 for drops on real netflow source to be valid
+#echo "[+] Run up fprobe netflow probe on SPAN port..."
+/usr/local/sbin/fprobe -i eth0 -fip -e 300 -x 10 127.0.0.1:9995  
+sleep 5
+#/usr/local/sbin/fprobe -e 60 -x 10 -p -i eth2 127.0.0.1:2055 -f 'ip and (host 192.168.1.66 or host 192.168.1.65 or host 192.168.1.64 or host 192.168.1.63)' &
+
+#echo "[+] Startup Kojoney Flow Event Correlator..."
+#/etc/rc.d/rc.sec start
+
+#echo "[+] Startup Passer - Passive Service Discovery..."
+#rm -f /home/var/log/passer.csv
+#/etc/rc.d/rc.passer start
+#sleep 5
+
+echo "[+] Startup iplog - TCP and UDP port scan detector..."
+rm -f /home/var/log/iplog.log
+/usr/local/sbin/iplog -i eth0 --disable-resolver --log-ip --dns-cache=true --ignore -l /home/var/log/iplog.log
+sleep 5
+
+# Run up honeypots
+# ----------------
+
+# Use kernel tc to limit impact of brute force attempts
+#echo "[+] Enable tc bandwidth throttling in kernel for Kippo SSH honeypot..."
+#/usr/local/bin/tc_kippo.sh start
+
+# runs OK on port 2222 - trying to get it to run on port 22 now
+echo "[+] Starting Kippo SSH honeypot listening on port 2222..."
+# Can this also be run by honeyd as a subsystem ?
+/etc/rc.d/rc.kippo start
+sleep 5
+
+# source code has disappeared ???
+#echo "[+] Starting Win32 Faketelnetd Telnet honeypot..."
+#/etc/rc.d/rc.faketelnetd start
+#sleep 5
+
+#echo "[+] Starting SMTPot SMTP honeypot on port 10026..."
+#/etc/rc.d/rc.smtpot start
+#sleep 5
+
+#echo "[+] Starting Spamhole SMTP honeypot on pot 10025..."
+#/etc/rc.d/rc.spamhole start
+#sleep 5
+
+#echo "[+] Startup Amun malware collector..."
+# This can't be run by honeyd as a subsystem - weird error message
+# Honeyd proxies all tcp connections to this server
+/usr/local/src/amun/amun_server.py &
+sleep 5
+
+# Using Amun instead now - it has better logging
+# Run up Nepenthes malware collector - low-interaction honeypot
+#echo "[+] Starting Nepenthes malware collector..."
+#/etc/rc.d/rc.nepenthes start
+#sleep 5
+
+# Run up Glastopf web malware collector - medium-interaction Web 
+echo "[+] Starting Glastopf Web honeypot..."
+/etc/rc.d/rc.glastopf start
+sleep 5
+
+# Run up GlastopfNG web malware collector - medium-interaction Web 
+#echo "[+] Starting GlastopfNG Web honeypot..."
+#/etc/rc.d/rc.glastopfng start
+#sleep 5
+ 
+#echo "[+] Starting SNMPD honeypot..."
+#/etc/rc.d/rc.kojoney_snmp_hpot start
+#sleep 5
+
+# Run up Honeytrap malware collector  
+echo "[+] Starting Honeytrap malware collector..."
+/etc/rc.d/rc.honeytrap start
+sleep 5
+
+# Need to make it possible to override listening port via command-line
+#echo "[+] Run up Twitter Streamer (external Twitter-enabled honeypots feed)..."
+#/etc/rc.d/rc.twitter_streamer start
+#sleep 5
+
+# Honeydstats process for collecting stats from one or more honeyd instances
+#echo "[+] Run up honeyd statistics collection..."
+#/etc/rc.d/rc.honeydstats start
+#sleep 2
+
+# Run up honeyd - low-interaction honeypot -> uses a virtual IP in same subnet as physical interface IP
+# Add -D to NOT run the process as a daemon
+# honeyd will startup it's own subsystems
+#echo "[+] Run up honeyd honeypot..."
+#/etc/rc.d/rc.honeyd start
+#sleep 5
+
+# Honeypot control via Twitter
+#sleep 5
+#echo "[+] Startup Kojoney Twitter control : kojoney_twitter_drone.py..."
+#/etc/rc.d/rc.kojoney_twitter_drone start
+
+# Honeypot log visualisation
+# THIS IS STARTED BY MONIT
+#sleep 5
+#echo "[+] Startup Kojoney honeypot visualisation..."
+#/etc/rc.d/rc.kojoney_viz start
+#/home/crouchr/kojoney_viz.py TEST &
+
+# This is temporary - it's code needs to be added to kojoney_tweet.py
+# This trashes prelude if run - check that prelude output is not enabled
+#echo "[+] Startup Kojoney Ossec alert file parser : test_ossec.py..."
+#sleep 5
+#/etc/rc.d/rc.test_ossec start
+
+# Prevent SSH brute force attempts from filling logs
+# Temporarily disabled
+#sleep 5
+#echo "[+] Startup active response..."
+#/etc/rc.d/rc.kojoney_ar start
+
+# Needs to be disabled when testing port 80 proxy to www.vodafone.com 
+# DEBRIS - see later
+# Apache won't start from rc scripts
+# This is needed for Ossec Server
+#echo "[+] Startup  Apache web-server..."
+#/usr/sbin/apachectl start
+
+#echo "[+] Ping Prelude SIEM..."
+#ping -c 5 192.168.1.74
+
+echo "[+] Startup Kojoney Twitter Engine daemon : kojoney_tweet_engine.py..."
+/etc/rc.d/rc.kojoney_tweet_engine start
+sleep 2
+
+echo "[+] Startup Kojoney Twitter Queue JSON daemon : kojoney_logglyd.py..."
+/etc/rc.d/rc.kojoney_logglyd start
+sleep 2
+
+#echo "[+] Startup Kojoney Statistics daemon : kojoney_statd.py..."
+#/etc/rc.d/rc.kojoney_statd start
+#sleep 5
+
+#echo "[+] Startup Attacker IP Statistics daemon : attacker_statd.py..."
+#/etc/rc.d/rc.attacker_statd start
+#sleep 5
+
+echo "[+] Startup Kojoney log parser : kojoney_tweet.py..."
+/etc/rc.d/rc.kojoney_tweet start
+sleep 5
+
+echo "[+] Startup Kojoney IP address guru : kojoney_guru.py..."
+/etc/rc.d/rc.kojoney_guru start
+sleep 5
+
+echo "[+] Startup Kojoney Attacker IP, URL & Malware analysis : kojoney_anubis.py..."
+/etc/rc.d/rc.kojoney_anubis start
+sleep 5
+
+echo "[+] Startup Kojoney Defender Active Response daemon : kojoney_defend.py..."
+/etc/rc.d/rc.kojoney_defend start
+sleep 5
+
+#echo "[+] Startup Kojoney syslog monitoring daemon (Splunk) : kojoney_splunk_platform.py..."
+#/etc/rc.d/rc.kojoney_splunk_platform start
+#sleep 5
+
+echo "[+] Startup ClamAV Sniffer (clsniffer)..."
+/usr/local/sbin/clsniffer &
+
+#echo "[+] Startup Bro Anomaly-detection NIDS..."
+#/usr/local/bro/bin/broctl start
+
+# problems ...
+#echo "[+] Startup Sagan HIDS Snort connector..."
+#/etc/rc.d/rc.sagan start
+#rm -f /var/run/sagan/sagan.pid
+#chown sagan:users /var/run/sagan.fifo
+#/usr/local/sbin/sagan -D
+
+# Needs to be disabled when testing port 80 proxy to www.vodafone.com 
+# Temporarily disabled
+# Apache won't start from rc scripts
+# This is needed for Ossec Server
+#sleep 10
+#echo "[+] Startup  Apache web-server..."
+#/usr/sbin/apachectl start
+
+echo "[+] Startup process monitoring system..."
+/etc/rc.d/rc.ps-monitor start
+
+# Wake up the MAC tables...
+ping -c 5 192.0.2.1
+ping -c 5 www.cisco.com
+sleep 3
+
+# Do a second time synch here since it is problematic at the moment
+echo "[+] Synch time to NTP server - one-off adjustment"
+/etc/rc.d/rc.ntpd stop
+sleep 2
+/usr/sbin/ntpdate -4 pool.ntp.org
+
+# Leave NTPd not running and run ntpdate from cron.daily
+#sleep 2
+#/etc/rc.d/rc.ntpd start
+#sleep 2
+
+echo "[+] Start SSHd now that interfaces are all up and Kippo has started..."
+/etc/rc.d/rc.sshd start
+
+# Start PigSentry in daemon mode to monitor Snort Full Alert output file and write to syslog 
+perl /usr/local/bin/pigsentry -l /home/var/log/snort-full.log -s -d
+
+# br2020 temp disabled
+# Send an initial Tweet on every re-boot
+#/home/crouchr/tweep.py "For more info regarding this Twitter feed, contact honeytweeter@gmail.com #honeypot #hnytwtr" 
+#sleep 3
+ 
+#/home/crouchr/tweep.py "props to #glastopf #snort #amun #kippo #clamav #teamcymru -> without these, I see nothing... #hnytwtr" 
+#sleep 10
+# end of br2020 temporary disabled
+
+# Start vboxadd
+# If you do not wish this to be executed here then comment it out,
+# and the installer will skip it next time.
+echo "Start VBox additions..."
+if [ -x /etc/rc.d/rc.vboxadd ]; then
+    /etc/rc.d/rc.vboxadd start
+fi
+
+# Start vboxadd-service
+# If you do not wish this to be executed here then comment it out,
+# and the installer will skip it next time.
+if [ -x /etc/rc.d/rc.vboxadd-service ]; then
+    /etc/rc.d/rc.vboxadd-service start
+fi
+
+# Start vboxadd-x11
+# If you do not wish this to be executed here then comment it out,
+# and the installer will skip it next time.
+if [ -x /etc/rc.d/rc.vboxadd-x11 ]; then
+    /etc/rc.d/rc.vboxadd-x11 start
+fi
+
+echo "Mount 'share/Folder Name' called 'vagrant' on HOST => /vagrant in mars"
+mount -t vboxsf vagrant /vagrant
+
+logger "**** BackRain rc.local startup script finished. ****"

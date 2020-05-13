@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.ra
+#
+# Start/stop/restart Argus RA script
+#
+case "$1" in
+  'start')
+   echo "rc.ra : start called"
+   sleep 10
+   echo "rc.ra : start ra process"
+   /usr/local/bin/ra -n -S localhost -L0 -z > /home/var/log/argus.log &
+  ;;
+  'stop')
+    echo "rc.ra : stop called"
+    killall ra
+  ;;
+  'restart')
+    echo "rc.ra : restart called"
+    killall ra
+    sleep 10
+    echo "rc.ra : start ra process"
+    /usr/local/bin/ra -n -S localhost -L0 -z > /home/var/log/argus.log &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

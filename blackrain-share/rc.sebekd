@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.sebekd
+#
+# Start/stop/restart Sebek keystoke logging daemon
+# THIS NEEDS SOME WORK - START FROM rc.local FOR TIME BEING
+case "$1" in
+  'start')
+    /usr/local/src/sebekd-3.0.3/sbk_ks_log_rch.pl &
+  ;;
+  'stop')
+    killall sbk_extract
+  ;;
+  'restart')
+    killall sbk_extract
+    /usr/local/src/sebekd-3.0.3/sbk_ks_log_rch.pl & 
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.ps-monitor
+#
+# Start/stop/restart ps-monitor script
+
+case "$1" in
+  'start')
+    /home/crouchr/ps-monitor.py &
+  ;;
+  'stop')
+    killall ps-monitor.py
+  ;;
+  'restart')
+    killall ps-monitor.py
+    /home/crouchr/ps-monitor.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

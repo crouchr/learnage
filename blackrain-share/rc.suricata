@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.suricata
+#
+# Start/stop/restart Suricata IDS script
+# 
+case "$1" in
+  'start')
+    #/usr/local/bin/suricata -c /etc/suricata/suricata.yaml -i eth0 & 
+    #sleep 10
+    /usr/local/bin/suricata -c /etc/suricata/suricata.yaml -i eth0 & 
+  ;;
+  'stop')
+    killall suricata
+  ;;
+  'restart')
+    killall suricata
+    #/usr/local/bin/suricata -c /etc/suricata/suricata.yaml -i eth0 &
+    #sleep 10
+    /usr/local/bin/suricata -c /etc/suricata/suricata.yaml -i eth0 &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

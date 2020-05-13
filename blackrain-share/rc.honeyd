@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.honeyd
+#
+# Start/stop/restart honeyd script
+#
+# -u 99 -g 99
+
+case "$1" in
+  'start')
+   # use -d for increased debugging and no demonisation
+   #/usr/local/bin/honeyd -0 /usr/local/share/honeyd/pf.os --disable-webserver -s /home/var/log/honeyd/service.log -p /usr/local/share/honeyd/nmap.prints -f /etc/honeyd/honeyd.conf -i bridge0 -l /home/var/log/honeyd.log 172.31.0.0/24 10.66.0.0/16 1.0.0.0/8
+   /usr/local/bin/honeyd -0 /usr/local/share/honeyd/pf.os --disable-webserver -s /home/var/log/honeyd/service.log -p /usr/local/share/honeyd/nmap.prints -f /etc/honeyd/honeyd.conf -i eth0 -l /home/var/log/honeyd.log 192.168.1.63
+  
+  ;;
+  'stop')
+   killall honeyd
+  ;;
+  'restart')
+   killall honeyd
+   /usr/local/bin/honeyd -0 /usr/local/share/honeyd/pf.os  --disable-webserver -s /home/var/log/honeyd/service.log -p /usr/local/share/honeyd/nmap.prints -f /etc/honeyd/honeyd.conf -i eth0 -l /home/var/log/honeyd.log 192.168.1.63
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac

@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.sec
+#
+# Start/stop/restart kojoney_sec script
+cd /home/crouchr
+
+case "$1" in
+  'start')
+    /usr/local/bin/sec.pl -conf /home/crouchr/sec-testing/kojoney_defcon.conf -input=/home/var/log/netflow_events.log -debug=6 -detach -log=/home/var/log/kojoney_sec.log
+  ;;
+  'stop')
+    killall sec.pl
+  ;;
+  'restart')
+    killall sec.pl
+    /usr/local/bin/sec.pl -conf /home/crouchr/sec-testing/kojoney_defcon.conf -input=/home/var/log/netflow_events.log -debug=6 -detach -log=/home/var/log/kojoney_sec.log
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+#/usr/bin/perl -w /usr/local/bin/sec.pl \
+#-conf=/home/crouchr/sec-testing/kojoney_defcon.conf \
+#-input=/home/var/log/netflow_events.log \
+#-debug=6
+ 

@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.attacker_statd
+#
+
+case "$1" in
+  'start')
+    /home/crouchr/attacker_statd.py &
+  ;;
+  'stop')
+    killall attacker_statd.py
+  ;;
+  'restart')
+    killall attacker_statd.py
+    /home/crouchr/attacker_statd.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+

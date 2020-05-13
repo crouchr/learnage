@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.tcpxtract
+#
+# Start/stop/restart tcpxtract file sniffer script
+#
+case "$1" in
+  'start')
+   /usr/local/bin/tcpxtract -d eth0 -o /home/var/log/sniffed_files &
+  ;;
+  'stop')
+    killall tcpxtract
+  ;;
+  'restart')
+    killall tcpxtract
+    /usr/local/bin/tcpxtract -d eth0 -o /home/var/log/sniffed_files &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

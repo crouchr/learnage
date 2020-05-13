@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.passer
+#
+# Start/stop/restart Passer script
+#
+
+case "$1" in
+  'start')
+  /home/crouchr/passer-v1.16.py -l /home/var/log/passer.csv &
+  ;;
+  'stop')
+   killall passer-v1.16.py
+  ;;
+  'restart')
+   killall passer-v1.16.py
+   /home/crouchr/passer-v1.16.py -l /home/var/log/passer.csv &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac

@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.ossec_csyslogd
+#
+
+case "$1" in
+  'start')
+    /var/ossec/bin/ossec-csyslogd -df &
+  ;;
+  'stop')
+    killall ossec-csyslogd
+  ;;
+  'restart')
+    killall ossec-csyslogd
+    /var/ossec/bin/ossec-csyslogd -df &
+    
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+

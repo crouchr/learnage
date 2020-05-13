@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.snort
+#
+# Start/stop/restart Snort IDS script
+# the -l /home/var/log/snort option uses a lot of disk space
+# -q => do not log all that sid info to screen or syslog
+#
+# eth0
+# eth1 = PCMCIA card
+case "$1" in
+  'start')
+    /usr/local/bin/snort -q -c /etc/snort/snort.conf -i eth0 --pid-path /var/run/rchpids --nolock-pidfile -D & 
+#    /usr/local/bin/snort -q -c /etc/snort/snort.conf -i eth2 -D &
+  ;;
+  'stop')
+    killall snort
+  ;;
+  'restart')
+    killall snort
+    /usr/local/bin/snort -q -c /etc/snort/snort.conf -i eth0 --pid-path /var/run/rchpids --nolock-pidfile -D &
+#    /usr/local/bin/snort -q -c /etc/snort/snort.conf -i eth2 -D &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

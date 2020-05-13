@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_defend
+#
+# Start/stop/restart kojoney_defend script
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_defend.py &
+  ;;
+  'stop')
+    killall kojoney_defend.py
+  ;;
+  'restart')
+    killall kojoney_defend.py
+    /home/crouchr/kojoney_defend.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
