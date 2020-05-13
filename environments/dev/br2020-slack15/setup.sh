@@ -20,6 +20,10 @@ echo $DEST_DIR_ROOT
 # Check for patch updates - slows up boot so need a way of avoiding this
 # slackpkg update etc. to go in here
 
+echo "[+] Modify hosts file..."
+echo "Entry below added by setup.sh provisioning script" >> /etc/hosts
+echo "192.168.1.102 web.ermin web" >> /etc/hosts 
+
 echo "[+] Creating directory structure..."
 mkdir -p $DEST_DIR_ROOT
 
@@ -85,9 +89,10 @@ cd $DEST_DIR_ROOT/installer
 #$PIP install REQUIREMENTS.TXT
 
 # add jenkins user for inspec
-echo "Add jenkins user to allow for CI/CD..."
-useradd -m -g users -G wheel,floppy,audio,video,cdrom,plugdev,power,netdev,lp,scanner -s /bin/bash jenkins
+echo "[+] Add jenkins user to allow for CI/CD..."
 USER=jenkins
+useradd -m -g users -G wheel,floppy,audio,video,cdrom,plugdev,power,netdev,lp,scanner -s /bin/bash ${USER}
+mkdir /home/${USER}/.ssh
 wget --no-check-certificate \
    http://web.ermin/public-keys/jenkins-ermin-keys.pub \
    -O /home/${USER}/.ssh/authorized_keys
