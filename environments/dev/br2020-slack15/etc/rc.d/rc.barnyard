@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.barnyard
+#
+# Start/stop/restart Barnyard2 Snort Output Plugin script
+#
+case "$1" in
+  'start')
+    /usr/local/bin/barnyard2 -c /etc/snort/barnyard2.conf -d /var/log/snort -f snort -w /etc/snort/barnyard2.waldo 
+  ;;
+  'stop')
+    killall barnyard2
+  ;;
+  'restart')
+    killall barnyard2
+    /usr/local/bin/barnyard2 -c /etc/snort/barnyard2.conf -d /var/log/snort -f snort -w /etc/snort/barnyard2.waldo
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac

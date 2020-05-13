@@ -45,16 +45,17 @@ echo "[+] Copy the br2020 application..."
 cp /vagrant/app/*.py $DEST_DIR_ROOT/app/
 
 echo "[+] Copy the br2020 etc configuration..."
-#cp /vagrant/etc/*.conf $DEST_DIR_ROOT/etc/
+cp /vagrant/etc/snort.conf $DEST_DIR_ROOT/etc/snort/
 
 echo "[+] Copy rc.d startup scripts..."
-cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
+#cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
+#cp /vagrant/etc/rc.d/rc.snort /etc/rc.d/rc.snort
 
 #echo "[+] Disable unrequired services..."
 #/etc/rc.d/rc.wireless stop
 #source /etc/rc.d/rc.bluetooth stop
 #chmod -x /etc/rc.d/rc.wireless
-chmod -x /etc/rc.d/rc.bluetooth
+#chmod -x /etc/rc.d/rc.bluetooth
 
 # This does not work
 #echo "[+] Install Slackware packages..."
@@ -62,7 +63,7 @@ chmod -x /etc/rc.d/rc.bluetooth
 
 echo "[+] Install Slackware packages..."
 cd $DEST_DIR_ROOT/packages/
-ls
+installpkg *.tgz
 
 echo "[+] Install Python dependencies..."
 $PIP install --upgrade pip
