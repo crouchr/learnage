@@ -57,7 +57,7 @@ echo "[+] Copy the br2020 application..."
 cp /vagrant/app/*.py $DEST_DIR_ROOT/app/
 
 echo "[+] Copy rc.d startup scripts..."
-cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
+#cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
 #cp /vagrant/etc/rc.d/rc.snort /etc/rc.d/rc.snort
 
 #echo "[+] Disable unrequired services..."
