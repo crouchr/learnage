@@ -72,6 +72,7 @@ cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
 
 echo "[+] Install Slackware packages..."
 cd $DEST_DIR_ROOT/packages/
+rm -f dummy*    # FIXME: in raw box
 installpkg *.tgz
 installpkg *.txz
 
