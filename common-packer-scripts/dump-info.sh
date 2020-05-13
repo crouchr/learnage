@@ -6,6 +6,12 @@ whoami
 sudo cat /etc/ssh/sshd_config
 df -h
 
+echo "User groups:"
+sudo cat /etc/group
+
+echo "Users:"
+sudo cat /etc/passwd
+
 # Show all files
 echo "==================================================="
 sudo tree /etc/chef
