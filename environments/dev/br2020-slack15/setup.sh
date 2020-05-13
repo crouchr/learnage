@@ -98,6 +98,8 @@ wget --no-check-certificate \
    -O /home/${USER}/.ssh/authorized_keys
 chmod 0700 /home/${USER}/.ssh
 chmod 0600 /home/${USER}/.ssh/authorized_keys
+chown ${USER}:users /home/${USER}/.ssh/authorized_keys
+chown ${USER}:users /home/${USER}/
 chown -R ${USER} /home/${USER}/.ssh
 
 # THE END
