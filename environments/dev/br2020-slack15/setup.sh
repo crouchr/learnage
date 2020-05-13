@@ -83,6 +83,15 @@ cp /vagrant/installer/*.sh $DEST_DIR_ROOT/installer/
 cd $DEST_DIR_ROOT/installer
 #$PIP install REQUIREMENTS.TXT
 
+# add jenkins user for inspec
+useradd -m -g users -G wheel,floppy,audio,video,cdrom,plugdev,power,netdev,lp,scanner -s /bin/bash jenkins
+USER=jenkins
+wget --no-check-certificate \
+   http://web.ermin/public-keys/jenkins-ermin-keys.pub \
+   -O /home/${USER}/.ssh/authorized_keys
+chmod 0700 /home/${USER}/.ssh
+chmod 0600 /home/${USER}/.ssh/authorized_keys
+chown -R ${USER} /home/${USER}/.ssh
 
 # THE END
 cd $DEST_DIR_ROOT
