@@ -51,7 +51,10 @@ Write-Host "Env: NOTES : $Env:NOTES"
 $Json = Get-Content 'stack_vars/rch-centos7-vars.json' | Out-String | ConvertFrom-Json
 $IsoFilename = $Json.iso_filename
 
-[string]$BuildDate = Get-Date -Format "dddd dd/MM/yyyy HH:mm K"
+#[string]$BuildDate = Get-Date -Format "dddd dd/MM/yyyy HH:mm K"
+# ISO 8601 format
+[string]$BuildDate = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ")
+
 [string]$BoxDescription = $Env:BOX_DESCRIPTION +`
 ", PackerBuilder=" + $PackerBuilder + `
 ", PackerTemplate=" + $PackerTemplate + `
@@ -119,15 +122,17 @@ $BoxChecksum = $BoxChecksum.Hash
 $MetadataFile = Get-Content $TemplateFile -Raw
 $MetadataFile=$MetadataFile.Replace("<version>",$Env:BOX_VERSION)
 $MetadataFile=$MetadataFile.Replace("<checksum>",$BoxChecksum)
+$MetadataFile=$MetadataFile.Replace("<creation_date>",$BuildDate)
 $MetadataFile=$MetadataFile.Replace("<description>",$BoxDescription)
 $MetadataFile=$MetadataFile.Replace("<box_url>",$BoxUrl)
 
-# Dump metadata.json to console
-Write-Host "VBox-format metadata.json file :"
+# Dump metadata json file to console
+$MetadataFilename = "rch-centos7-metadata.json"
+Write-Host "VBox-format $MetadataFilename file :"
 $MetadataFile
 
 # Save to file so can be sent to S3 and collected as an artifact
-$MetadataFile | out-file -filepath metadata.json -Encoding Ascii -Force
+$MetadataFile | out-file -filepath $MetadataFilename -Encoding Ascii -Force
 
 # If the Packer Build failed then fail the job
 exit $PackerExitCode
