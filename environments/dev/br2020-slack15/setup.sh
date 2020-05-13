@@ -35,17 +35,17 @@ chown -R vagrant:users $DEST_DIR_ROOT/installer
 mkdir -p /var/run/rchpids
 chown vagrant:users /var/run/rchpids
 
-echo "[+] Copy external packages..."
-cp /vagrant/packages/* $DEST_DIR_ROOT/packages/
+echo "[+] Copy the Slackware configuration..."
+cp /vagrant/etc/motd /etc/motd
+
+echo "[+] Copy Slackware external packages..."
+cp /vagrant/packages/*.tgz $DEST_DIR_ROOT/packages/
 
 echo "[+] Copy the br2020 application..."
 cp /vagrant/app/*.py $DEST_DIR_ROOT/app/
 
 echo "[+] Copy the br2020 etc configuration..."
 #cp /vagrant/etc/*.conf $DEST_DIR_ROOT/etc/
-
-echo "[+] Copy the Slackware configuration..."
-cp /vagrant/etc/motd /etc/motd
 
 echo "[+] Copy rc.d startup scripts..."
 cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
@@ -59,6 +59,10 @@ chmod -x /etc/rc.d/rc.bluetooth
 # This does not work
 #echo "[+] Install Slackware packages..."
 #slackpkg install lsof -default_answer=y -batch=on
+
+echo "[+] Install Slackware packages..."
+cd $DEST_DIR_ROOT/packages/
+ls
 
 echo "[+] Install Python dependencies..."
 $PIP install --upgrade pip
@@ -85,4 +89,4 @@ echo "Finished setup.sh OK for provisioning br2020-slack15"
 echo
 
 #echo "Rebooting..."
-shutdown -r now
+#shutdown -r now
