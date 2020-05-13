@@ -64,6 +64,7 @@ echo "[+] Copy rc.d startup scripts..."
 echo "[+] Install Slackware packages..."
 cd $DEST_DIR_ROOT/packages/
 installpkg *.tgz
+installpkg *.txz
 
 echo "[+] Install Python dependencies..."
 $PIP install --upgrade pip

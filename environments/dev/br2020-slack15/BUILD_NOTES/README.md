@@ -4,10 +4,12 @@ Blackrain (Slackware '15' version) build notes
 
 
 
-Packages built from source
---------------------------
+Packages built from source/3rd party pre-built packages
+-------------------------------------------------------
 The following were built from source as they were either not in sbopkg or failed to build in sbopkg
 - barnyard2
+ get package from  
+ wget --no-check-certificate https://slack.conraid.net/repository/slackware64-current/barnyard2/barnyard2-2_1.13-x86_64-9cf.txz
 
 Packages built with sbopkg
 --------------------------
@@ -15,6 +17,10 @@ Packages built with sbopkg
 - daq
 - snort
 
+
+Technical Debt
+--------------
+- barnyard is not the latest version
 
 References/HOWTOs
 -----------------
