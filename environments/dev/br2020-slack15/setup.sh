@@ -42,11 +42,14 @@ echo "[+] Copy Slackware external packages..."
 cp /vagrant/packages/*.tgz $DEST_DIR_ROOT/packages/
 cp /vagrant/packages/*.txz $DEST_DIR_ROOT/packages/
 
-echo "[+] Copy the br2020 application..."
-cp /vagrant/app/*.py $DEST_DIR_ROOT/app/
+echo "[+] Override standard configuration..."
+cp /vagrant/etc/snort.conf /etc/snort/
 
 echo "[+] Copy the br2020 etc configuration..."
-cp /vagrant/etc/snort.conf $DEST_DIR_ROOT/etc/snort/
+cp /vagrant/etc/snort.conf /etc/snort/
+
+echo "[+] Copy the br2020 application..."
+cp /vagrant/app/*.py $DEST_DIR_ROOT/app/
 
 echo "[+] Copy rc.d startup scripts..."
 #cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
@@ -73,6 +76,10 @@ $PIP install wheel
 cp /vagrant/installer/REQUIREMENTS.TXT $DEST_DIR_ROOT/installer/
 cd $DEST_DIR_ROOT/installer
 #$PIP install REQUIREMENTS.TXT
+
+
+
+
 
 # THE END
 cd $DEST_DIR_ROOT
