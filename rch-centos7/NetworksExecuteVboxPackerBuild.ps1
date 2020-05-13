@@ -53,7 +53,7 @@ $IsoFilename = $Json.iso_filename
 
 #[string]$BuildDate = Get-Date -Format "dddd dd/MM/yyyy HH:mm K"
 # ISO 8601 format
-[string]$BuildDate = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ")
+[string]$BuildDate = [DateTime]::UtcNow | get-date -Format "yyyy-MM-ddTHH:mm:ss.000Z"
 
 [string]$BoxDescription = $Env:BOX_DESCRIPTION +`
 ", PackerBuilder=" + $PackerBuilder + `
