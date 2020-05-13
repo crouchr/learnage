@@ -84,6 +84,7 @@ cd $DEST_DIR_ROOT/installer
 #$PIP install REQUIREMENTS.TXT
 
 # add jenkins user for inspec
+echo "Add jenkins user to allow for CI/CD..."
 useradd -m -g users -G wheel,floppy,audio,video,cdrom,plugdev,power,netdev,lp,scanner -s /bin/bash jenkins
 USER=jenkins
 wget --no-check-certificate \
