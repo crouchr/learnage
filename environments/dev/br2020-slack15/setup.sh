@@ -9,7 +9,8 @@ set -e	# bomb out if any problem
 echo 
 echo "Started setup.sh for provisioning br2020-slack15"
 
-DEST_DIR_ROOT=/home/vagrant/br2020
+DEST_DIR_ROOT=/opt/br2020
+#DEST_DIR_ROOT=/home/vagrant/br2020
 
 ROOT_DIR=$PWD
 PIP=pip2
@@ -20,20 +21,24 @@ echo $DEST_DIR_ROOT
 # slackpkg update etc. to go in here
 
 echo "[+] Creating directory structure..."
+mkdir -p $DEST_DIR_ROOT
+
 mkdir -p $DEST_DIR_ROOT/packages
-chown -R vagrant:users $DEST_DIR_ROOT/packages
+#chown -R vagrant:users $DEST_DIR_ROOT/packages
 
 mkdir -p $DEST_DIR_ROOT/app
-chown -R vagrant:users $DEST_DIR_ROOT
+#chown -R vagrant:users $DEST_DIR_ROOT
 
 mkdir -p $DEST_DIR_ROOT/etc
-chown -R vagrant:users $DEST_DIR_ROOT/etc
+#chown -R vagrant:users $DEST_DIR_ROOT/etc
 
 mkdir -p $DEST_DIR_ROOT/installer
-chown -R vagrant:users $DEST_DIR_ROOT/installer
+#chown -R vagrant:users $DEST_DIR_ROOT/installer
+
+mkdir -p /etc/snort
 
 mkdir -p /var/run/rchpids
-chown vagrant:users /var/run/rchpids
+#chown vagrant:users /var/run/rchpids
 
 echo "[+] Copy the Slackware configuration..."
 cp /vagrant/etc/motd /etc/motd
@@ -52,7 +57,7 @@ echo "[+] Copy the br2020 application..."
 cp /vagrant/app/*.py $DEST_DIR_ROOT/app/
 
 echo "[+] Copy rc.d startup scripts..."
-#cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
+cp /vagrant/etc/rc.d/rc.local /etc/rc.d/rc.local
 #cp /vagrant/etc/rc.d/rc.snort /etc/rc.d/rc.snort
 
 #echo "[+] Disable unrequired services..."
