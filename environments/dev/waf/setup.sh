@@ -2,6 +2,7 @@
 # Bring up the WAF server
 # This script is running on the VM itself
 # Files on the Host can be accessed via the /vagrant share
+# https://tecadmin.net/install-modsecurity-with-apache-on-centos-rhel/
 
 set -e	# bomb out if any problem
 
@@ -12,14 +13,16 @@ echo "Started setup.sh for provisioning this node"
 yum update -y --disableplugin=fastestmirror
 systemctl restart sshd
 
-yum install -y httpd httpd-devel mod_ssl python-pip
+yum install -y httpd httpd-devel mod_ssl mod_security mod_security_crs
+
+#yum install python-pip
 
 #yum -y install php php-common php-mysql php-pdo php-intl php-gd php-xml php-mbstring
 #echo "Include /vagrant/apache/*.conf" >> /etc/httpd/conf/httpd.conf
 
 # Install PIP
-pip install --upgrade pip
-pip install wheel
+#pip install --upgrade pip
+#pip install wheel
 
 #echo "date.timezone = Europe/London" >> /etc/php.ini
 
@@ -33,6 +36,7 @@ chmod 755 /var/www/html/index.html
 
 echo "Copying Apache configuration..."
 cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
+cp /vagrant/apache/mod_security.conf /etc/httpd/conf.d/
 
 echo "Starting httpd..."
 systemctl start httpd.service
