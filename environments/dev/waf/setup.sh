@@ -14,7 +14,7 @@ yum update -y --disableplugin=fastestmirror
 systemctl restart sshd
 
 yum install -y httpd httpd-devel mod_ssl mod_security mod_security_crs
-#yum install -y mod_security mod_security_crs
+yum install -y mod_security mod_security_crs
 #yum install -y mod_ssl
 #yum install python-pip
 
@@ -38,7 +38,7 @@ chmod 755 /var/www/html/index.html
 echo "Copying Apache configuration..."
 cp /vagrant/apache/httpd.conf /etc/httpd/conf/
 cp /vagrant/apache/proxy.conf /etc/httpd/conf.d/
-#cp /vagrant/apache/mod_security.conf /etc/httpd/conf.d/
+cp /vagrant/apache/mod_security.conf /etc/httpd/conf.d/
 
 echo "Starting httpd..."
 systemctl start httpd.service
