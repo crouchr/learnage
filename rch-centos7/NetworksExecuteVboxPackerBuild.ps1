@@ -68,15 +68,15 @@ $IsoFilename = $Json.iso_filename
 Write-Host "BoxDescription : $BoxDescription"
 
 # Create BOX_README.md to be copied into /home/vagrant by the provisioner
-Write-Host "Creating BOX_README.md"
+BoxReadMeFilename="BOX_README.md"
+Write-Host "Creating $BoxReadMeFilename"
 $BoxReadMe = "Description `n" + `
 "=========== `n" + `
 "This README was created automatically as part of the Packer build for this machine. `n" + `
 $BoxDescription + "`n"
 Write-Host "BoxReadMe :"
 $BoxReadMe
-
-$BoxReadMe | out-file -filepath BOX_README.md -Encoding Ascii -Force
+$BoxReadMe | out-file -filepath $BoxReadMeFilename
 
 $BoxVarsFile = Get-Content 'box-vars-template.json' -Raw
 $BoxVarsFile = $BoxVarsFile.Replace("<box_version>",$Env:BOX_VERSION)
