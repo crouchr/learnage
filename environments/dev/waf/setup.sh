@@ -35,6 +35,7 @@ chown apache:apache /var/www/html/index.html
 chmod 755 /var/www/html/index.html
 
 echo "Copying Apache configuration..."
+rm -f /etc/httpd/conf/httpd.conf
 cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
 cp /vagrant/apache/mod_security.conf /etc/httpd/conf.d/
 
