@@ -14,7 +14,8 @@ yum update -y --disableplugin=fastestmirror
 systemctl restart sshd
 
 yum install -y httpd httpd-devel mod_ssl mod_security mod_security_crs
-
+#yum install -y mod_security mod_security_crs
+#yum install -y mod_ssl
 #yum install python-pip
 
 #yum -y install php php-common php-mysql php-pdo php-intl php-gd php-xml php-mbstring
