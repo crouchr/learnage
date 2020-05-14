@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "crouchr/br2020-slack15-base"
-  config.vm.box_version = "1.0.0"
+  config.vm.box_version = "1.0.1"
   config.vm.box_check_update = true
   config.vm.hostname = "br2020-slack15-base.ermin"
 
@@ -30,7 +30,9 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "public_network", ip: "192.168.1.167/24", bridge: "virbr1"
+  #config.vm.network "public_network", ip: "192.168.1.167/24", bridge: "virbr1"
+  config.vm.network "public_network", bridge: "virbr1"
+
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -61,7 +63,8 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  
+
+  config.vm.provision "shell",run: "always",inline: "ifconfig eth1 192.168.1.167 netmask 255.255.255.0 up"
   config.vm.provision "shell", path: "setup.sh"
- 
+
 end

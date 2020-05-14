@@ -24,6 +24,32 @@ echo "[+] Modify hosts file..."
 echo "Entry below added by setup.sh provisioning script" >> /etc/hosts
 echo "192.168.1.102 web.ermin web" >> /etc/hosts 
 
+# add jenkins user for inspec
+USER=jenkins
+echo "[+] Add ${USER} user to allow for CI/CD..."
+useradd -m -g users -G wheel,floppy,audio,video,cdrom,plugdev,power,netdev,lp,scanner -s /bin/bash ${USER}
+mkdir /home/${USER}/.ssh
+chown ${USER}:users /home/${USER}/.ssh
+chmod 0700 /home/${USER}/.ssh
+wget -q --no-check-certificate \
+   http://web.ermin/public-keys/rch-nvm-sshkey.pub \
+   -O /home/${USER}/.ssh/authorized_keys
+chmod 0600 /home/${USER}/.ssh/*
+chown ${USER}:users /home/${USER}/.ssh/authorized_keys
+
+# add crouchr user for inspec
+USER=crouchr
+echo "[+] Add ${USER} user to allow for CI/CD..."
+useradd -m -g users -G wheel,floppy,audio,video,cdrom,plugdev,power,netdev,lp,scanner -s /bin/bash ${USER}
+mkdir /home/${USER}/.ssh
+chown ${USER}:users /home/${USER}/.ssh
+chmod 0700 /home/${USER}/.ssh
+wget -q --no-check-certificate \
+   http://web.ermin/public-keys/rch-nvm-sshkey.pub \
+   -O /home/${USER}/.ssh/authorized_keys
+chmod 0600 /home/${USER}/.ssh/*
+chown ${USER}:users /home/${USER}/.ssh/authorized_keys
+
 echo "[+] Creating directory structure..."
 mkdir -p $DEST_DIR_ROOT
 
@@ -74,11 +100,11 @@ echo "[+] Copy rc.d startup scripts..."
 #echo "[+] Install Slackware packages..."
 #slackpkg install lsof -default_answer=y -batch=on
 
-echo "[+] Install Slackware packages..."
-cd $DEST_DIR_ROOT/packages/
-rm -f dummy*    # FIXME: in raw box
-installpkg *.tgz
-installpkg *.txz
+#echo "[+] Install Slackware packages..."
+#cd $DEST_DIR_ROOT/packages/
+#rm -f dummy*    # FIXME: in raw box
+#installpkg *.tgz
+#installpkg *.txz
 
 echo "[+] Install Python dependencies..."
 $PIP install --upgrade pip
@@ -88,19 +114,8 @@ cp /vagrant/installer/*.sh $DEST_DIR_ROOT/installer/
 cd $DEST_DIR_ROOT/installer
 #$PIP install REQUIREMENTS.TXT
 
-# add jenkins user for inspec
-echo "[+] Add jenkins user to allow for CI/CD..."
-USER=jenkins
-useradd -m -g users -G wheel,floppy,audio,video,cdrom,plugdev,power,netdev,lp,scanner -s /bin/bash ${USER}
-mkdir /home/${USER}/.ssh
-wget --no-check-certificate \
-   http://web.ermin/public-keys/jenkins-ermin-keys.pub \
-   -O /home/${USER}/.ssh/authorized_keys
-chmod 0700 /home/${USER}/.ssh
-chmod 0600 /home/${USER}/.ssh/authorized_keys
-chown ${USER}:users /home/${USER}/.ssh/authorized_keys
-chown ${USER}:users /home/${USER}/
-chown -R ${USER} /home/${USER}/.ssh
+
+
 
 # THE END
 cd $DEST_DIR_ROOT
@@ -108,6 +123,10 @@ tree
 
 cd ${ROOT_DIR}
 pwd
+
+cat /etc/group
+cat /etc/shadow
+ifconfig
 #mount
 
 #tree
