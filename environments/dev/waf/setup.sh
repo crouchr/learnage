@@ -36,6 +36,7 @@ chmod 755 /var/www/html/index.html
 
 echo "Copying Apache configuration..."
 cp /vagrant/apache/httpd.conf /etc/httpd/conf/
+cp /vagrant/apache/proxy.conf /etc/httpd/conf.d/
 #cp /vagrant/apache/mod_security.conf /etc/httpd/conf.d/
 
 echo "Starting httpd..."
