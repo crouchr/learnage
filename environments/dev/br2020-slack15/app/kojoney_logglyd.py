@@ -72,7 +72,7 @@ def processTweet(line) :
             return None
         
         # fixme : These messages need to be picked up earlier but drop them for now
-        if ("in geo_ip)") in line:
+        if ("in geo_ip(") in line:
             return None
         
         # Send to SplunkCloud LaaS provider and return the JSON record in sdata for use by other destinations  
