@@ -36,8 +36,8 @@ chmod 755 /var/www/html/index.html
 
 echo "Copying Apache configuration..."
 #rm -f /etc/httpd/conf/httpd.conf
-cp /vagrant/apache/minimal-httpd.conf /etc/httpd/conf/httpd.conf
-cp /vagrant/apache/mod_security.conf /etc/httpd/conf.d/
+#cp /vagrant/apache/minimal-httpd.conf /etc/httpd/conf/httpd.conf
+#cp /vagrant/apache/mod_security.conf /etc/httpd/conf.d/
 
 echo "Starting httpd..."
 systemctl start httpd.service
