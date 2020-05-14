@@ -17,7 +17,7 @@ yum update -y --disableplugin=fastestmirror
 systemctl restart sshd
 
 yum install -y httpd httpd-devel mod_ssl mod_security mod_security_crs
-yum install -y mod_security mod_security_crs
+yum install -y mod_security mod_security_crs mod_security-mlogc
 #yum install -y mod_ssl
 
 # Add jenkins into apache group so it can upload files
