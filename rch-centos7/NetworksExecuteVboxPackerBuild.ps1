@@ -68,7 +68,7 @@ $IsoFilename = $Json.iso_filename
 Write-Host "BoxDescription : $BoxDescription"
 
 # Create BOX_README.md to be copied into /home/vagrant by the provisioner
-BoxReadMeFilename="BOX_README.md"
+$BoxReadMeFilename="BOX_README.md"
 Write-Host "Creating $BoxReadMeFilename"
 $BoxReadMe = "Description `n" + `
 "=========== `n" + `
