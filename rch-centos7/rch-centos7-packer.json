@@ -62,6 +62,7 @@
       {
         "type": "shell",
         "scripts": [
+            "{{template_dir}}/../common-packer-scripts/yum-update-all.sh",
             "{{template_dir}}/packer-scripts/set-hostname-centos7.sh"
           ]
       },
@@ -73,6 +74,45 @@
       {
         "type": "shell",
         "script": "{{template_dir}}/../common-packer-scripts/reboot.sh",
+        "expect_disconnect": true
+      },
+      {
+        "type": "shell",
+        "scripts":
+        [
+             "{{template_dir}}/../common-packer-scripts/install-spacewalk-client.sh",
+             "{{template_dir}}/../common-packer-scripts/register-to-spacewalk.sh",
+             "{{template_dir}}/../common-packer-scripts/install-tools-packages.sh",
+             "{{template_dir}}/../common-packer-scripts/install-chef-client.sh",
+             "{{template_dir}}/../common-packer-scripts/install-chef-certs-and-scripts.sh",
+             "{{template_dir}}/../common-packer-scripts/add-vagrant-insecure-key.sh",
+             "{{template_dir}}/../common-packer-scripts/add-users.sh",
+             "{{template_dir}}/../common-packer-scripts/add-jenkins.sh",
+             "{{template_dir}}/../common-packer-scripts/install-user-ssh-keys.sh",
+             "{{template_dir}}/../common-packer-scripts/install-jenkins-ssh-keys.sh",
+             "{{template_dir}}/../common-packer-scripts/sshd-config.sh",
+             "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools-dependencies.sh",
+             "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools.sh",
+             "{{template_dir}}/../common-packer-scripts/dump-info.sh",
+             "{{template_dir}}/../common-packer-scripts/register-with-chef.sh",
+             "{{template_dir}}/../common-packer-scripts/chef-first-run.sh",
+             "{{template_dir}}/../common-packer-scripts/deregister-from-spacewalk.sh",
+             "{{template_dir}}/../common-packer-scripts/deregister-from-chef.sh"
+        ]
+      },
+      {
+        "type": "shell",
+        "script": "{{template_dir}}/../common-packer-scripts/reboot.sh",
+        "expect_disconnect": true
+      },
+      {
+        "type": "inspec",
+        "pause_before": "90s",
+        "profile": "../inspec/centos7"
+      },
+      {
+        "type": "shell",
+        "script": "{{template_dir}}/../common-packer-scripts/shrink_disk.sh",
         "expect_disconnect": true
       }
     ],
