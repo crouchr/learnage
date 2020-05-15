@@ -19,6 +19,11 @@ BOX_NAME="${BOX_DIR}.box"
 PACKER_FILE="${BOX_DIR}-packer.json"
 VAR_FILE="${BOX_DIR}-variables.json"
 
+echo "BOX_DIR     : ${BOX_DIR}"
+echo "BOX_NAME    : ${BOX_NAME}"
+echo "PACKER_FILE : ${PACKER_FILE}"
+echo "VAR_FILE    : ${VAR_FILE}"
+
 echo
 pwd
 echo " "
