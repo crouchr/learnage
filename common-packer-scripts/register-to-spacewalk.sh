@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # reference : https://medium.com/@glmdev/registering-spacewalk-clients-b2f42f9f8759
+echo "EARLY EXIT : IGNORE THIS DUE TO BUG"
+exit
 
 ERMIN_SPACEWALK_KEY='1-77eb0ab0977438fc59537a0bbab5e698'    # See Spacewalk UI System / Activation Key
 
