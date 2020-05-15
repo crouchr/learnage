@@ -59,7 +59,7 @@ $IsoFilename = $Json.iso_filename
 ", PackerBuilder=" + $PackerBuilder + `
 ", PackerTemplate=" + $PackerTemplate + `
 ", ISO=" + $IsoFilename + `
-", built " + $BuildDate + `
+", build started " + $BuildDate + `
 " on Node " + $Env:NODE_NAME + `
 ", Jenkins Job=" + $Env:JOB_NAME + `
 ", Jenkins Build=" + $Env:BUILD_DISPLAY_NAME + `
@@ -128,7 +128,7 @@ $MetadataFile=$MetadataFile.Replace("<box_url>",$BoxUrl)
 
 # Dump metadata json file to console
 $MetadataFilename = "rch-centos7-metadata.json"
-Write-Host "VBox-format $MetadataFilename file :"
+Write-Host "VBox-format $MetadataFilename file contesnts :"
 $MetadataFile
 
 # Save to file so can be sent to S3 and collected as an artifact
