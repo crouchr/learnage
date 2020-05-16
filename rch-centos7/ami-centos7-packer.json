@@ -62,7 +62,7 @@
       {
         "type": "shell",
         "scripts":
-        [
+        [    "{{template_dir}}/../common-packer-scripts/install-tools-packages.sh",
              "{{template_dir}}/../common-packer-scripts/add-vagrant-insecure-key.sh",
              "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools-dependencies.sh",
              "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools.sh",
