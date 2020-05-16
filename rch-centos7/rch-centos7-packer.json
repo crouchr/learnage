@@ -69,7 +69,7 @@
       {
         "type": "file",
         "source": "BOX_README.md",
-        "destination": "/home/vagrant/"
+        "destination": "/home/vagrant/BOX_README.md"
       },
       {
         "type": "shell",
