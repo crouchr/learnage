@@ -62,11 +62,13 @@
       {
         "type": "shell",
         "scripts":
-        [    "{{template_dir}}/../common-packer-scripts/install-tools-packages.sh",
-             "{{template_dir}}/../common-packer-scripts/add-vagrant-insecure-key.sh",
-             "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools-dependencies.sh",
-             "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools.sh",
-             "{{template_dir}}/../common-packer-scripts/dump-info.sh"
+        [
+          "{{template_dir}}/../common-packer-scripts/yum-update-all.sh",
+          "{{template_dir}}/../common-packer-scripts/install-tools-packages.sh",
+          "{{template_dir}}/../common-packer-scripts/add-vagrant-insecure-key.sh",
+          "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools-dependencies.sh",
+          "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools.sh",
+          "{{template_dir}}/../common-packer-scripts/dump-info.sh"
         ]
       },
       {
