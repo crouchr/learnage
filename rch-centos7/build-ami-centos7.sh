@@ -9,15 +9,17 @@ BOX_VERSION="0.0.1"
 BOX_DESCRIPTION="Box based on AMI Kick Starter"
 
 # Set PACKER_LOG=1 for more detail
-export PACKER_LOG=1
+export PACKER_LOG=0
 
+echo
+echo "Build a CentOS7 BOX file based on AMI"
+echo "====================================="
 date
 
-#AWS_PROFILE="developmentaws"
 BOX_DIR="ami-centos7"
 BOX_NAME="${BOX_DIR}.box"
 PACKER_FILE="${BOX_DIR}-packer.json"
-VAR_FILE="${BOX_DIR}-variables.json"
+VAR_FILE="${BOX_DIR}-vars.json"
 
 echo "BOX_DIR     : ${BOX_DIR}"
 echo "BOX_NAME    : ${BOX_NAME}"
