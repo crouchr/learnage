@@ -9,8 +9,8 @@ echo
 echo "Started setup.sh for provisioning this node"
 
 # Check for patch updates - slows up boot so need a way of avoiding this
-yum update -y --disableplugin=fastestmirror
-systemctl restart sshd
+#yum update -y --disableplugin=fastestmirror
+#systemctl restart sshd
 
 yum install -y httpd httpd-devel mod_ssl python-pip
 

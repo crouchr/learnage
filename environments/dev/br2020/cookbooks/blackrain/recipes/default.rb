@@ -21,7 +21,17 @@
 #
 # NOTES : Just a dummy to test it does something
 #
-package 'python' #installed by default
-package 'python-magic' # for identifying file formats
-package 'python-jinja2' # necessary for web.py utility
-package 'git'
+
+execute 'install_snort' do
+  command 'yum -y install http://web.ermin/br2020-packages/snort-2.9.16-1.centos7.x86_64.rpm'
+  user 'root'
+end
+
+package 'prelude-manager-db-plugin'
+package 'prelude-lml'
+package 'prelude-lml-rules'
+package 'prelude-correlator'
+# fails : package 'python3-prewikka'
+package 'prelude-tools'
+package 'preludedb-tools'
+package 'preludedb-mysql'
