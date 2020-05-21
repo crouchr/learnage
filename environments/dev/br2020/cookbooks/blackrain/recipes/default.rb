@@ -19,23 +19,9 @@
 #
 # NOTE - STILL A WORK IN PROGRESS
 #
-# NOTES : Just adummy to test it does something
+# NOTES : Just a dummy to test it does something
 #
 package 'python' #installed by default
 package 'python-magic' # for identifying file formats
-package 'python-dpkt' # for extracting info from pcaps
-#package 'python-mako' # for rendering html reports and web gui
-#package 'python-sqlalchemy'
 package 'python-jinja2' # necessary for web.py utility
-#package 'python-bottle'
-#package 'ssdeep'
-#package 'python-pyrex' # required for pyssdeep installation
-#package 'subversion'
-#package 'libfuzzy-dev'
-#package 'python-pymongo' # for mongodb support
-#package 'mongodb' # includes server and clients
-package 'g++'
-package 'libpcre3'
-package 'libpcre3-dev'
-package 'libcap2-bin'
 package 'git'
