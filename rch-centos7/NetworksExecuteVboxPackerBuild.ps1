@@ -1,5 +1,7 @@
 ﻿# Richard Crouch modified script to use for VirtualBox builds
 # Added $BoxVersion and $BoxDescription as calling parameters as well as generation of metaadata.json
+# This script is called from Jenkins
+# This script is NOT identical to the NVM one, but is similar
 
 param (
   [Parameter(Mandatory)]
@@ -7,25 +9,21 @@ param (
   [Parameter(Mandatory)]
   $PackerTemplate,
   [Parameter(Mandatory)]
-  $VarsFiles,
-  [Parameter(Mandatory)]
-  $AwsProfile
+  $VarsFiles
 )
 
 # Exit on first error
 $ErrorActionPreference = "Stop"
 
-Write-Host "Running NetworksExecutePackerBuild.ps1 script..."
+Write-Host "Running NetworksExecuteVboxPackerBuild.ps1 script..."
 Write-Host "Parameters:"
 Write-Host "  PackerBuilder  : $PackerBuilder"
 Write-Host "  PackerTemplate : $PackerTemplate"
-Write-Host "  VarsFiles  : $VarsFiles"
-Write-Host "  AwsProfile : $AwsProfile"
+Write-Host "  VarsFiles      : $VarsFiles"
 
 ################################################################
 $BoxFile = "rch-centos7-v$Env:BOX_VERSION.box"
 $BoxUrl="https://richardcrouch.s3-eu-west-1.amazonaws.com/boxes/rch-centos7/$BoxFile"
-#$PackerBinary = "c:\packer\packer_v1.5.6.exe"
 $PackerBinary = "/usr/local/bin/packer"
 ################################################################
 
@@ -76,7 +74,7 @@ $BoxReadMe = "Description `n" + `
 $BoxDescription + "`n"
 Write-Host "BoxReadMe :"
 $BoxReadMe
-$BoxReadMe | out-file -filepath $BoxReadMeFilename
+$BoxReadMe | out-file -filepath $BoxReadMeFilename -Encoding Ascii -Force
 
 $BoxVarsFile = Get-Content 'box-vars-template.json' -Raw
 $BoxVarsFile = $BoxVarsFile.Replace("<box_version>",$Env:BOX_VERSION)
@@ -90,6 +88,7 @@ $validateargs = @('validate')
 #packer build -var 'app_name_cmd_var=apache' apache.json
 $args = @('build')
 $args += "--only=$PackerBuilder"
+$args += "--force"
 $args += "-var-file=box-vars.json"  # pass the box version and description via var-file
 
 $VarFiles = $VarsFiles -split ';'
@@ -122,9 +121,10 @@ $BoxChecksum = $BoxChecksum.Hash
 $MetadataFile = Get-Content $TemplateFile -Raw
 $MetadataFile=$MetadataFile.Replace("<version>",$Env:BOX_VERSION)
 $MetadataFile=$MetadataFile.Replace("<checksum>",$BoxChecksum)
-$MetadataFile=$MetadataFile.Replace("<creation_date>",$BuildDate)
 $MetadataFile=$MetadataFile.Replace("<description>",$BoxDescription)
 $MetadataFile=$MetadataFile.Replace("<box_url>",$BoxUrl)
+# Not working
+#$MetadataFile=$MetadataFile.Replace("<creation_date>",$BuildDate)
 
 # Dump metadata json file to console
 $MetadataFilename = "rch-centos7-metadata.json"

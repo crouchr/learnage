@@ -1,17 +1,14 @@
-Steve's original files - untouched
+Purpose
+=======
+This Packer creates a 'stock' CentOS7 image that can be used as the basis for other projects.
 
+This will be used as the basisi of ther blackrain 2020 (CentOS7) build
 
+Duff Paths
+==========
+- Ignore the 'ami' stuff - that is a future - to align with a AWS Market place AMI ks file
 
-
-  "variables": {
-    "centos7_iso_url": "http://mozart.ee.ic.ac.uk/CentOS/7.7.1908/isos/x86_64/CentOS-7-x86_64-Minimal-1908.iso",
-    "centos7_iso_checksum": "",
-    "centos7_iso_checksum_type": "sha1",
-    "centos7_vm_name": "packer-centos7",
-    "centos7_ssh_user": "root",
-    "centos7_ssh_password": "packer",
-    "box_directory": "boxes",
-    "box_name_prefix": "",
-    "box_name": "centos7-base",
-    "virtualbox_output_directory": ""
-  },
+Futures
+=======
+It does not register with Chef (yet) - I can't get it to unregister
+It does not register with Spacewalk (yet) - I don't know enough yet

@@ -1,23 +1,27 @@
 {
   "builds": [
     {
-      "name": "virtualbox-iso",
+      "name": "AMI_CentOS7_VIRTUALBOX",
       "builder_type": "virtualbox-iso",
-      "build_time": 1587592460,
+      "build_time": 1589644661,
       "files": [
         {
-          "name": "rch-micro-centos7-disk001.vmdk",
-          "size": 911823360
+          "name": "ami-centos-7.8-x86_64-disk001.vmdk",
+          "size": 700180992
         },
         {
-          "name": "rch-micro-centos7.ovf",
-          "size": 7740
+          "name": "ami-centos-7.8-x86_64.mf",
+          "size": 161
+        },
+        {
+          "name": "ami-centos-7.8-x86_64.ovf",
+          "size": 7890
         }
       ],
       "artifact_id": "VM",
-      "packer_run_uuid": "6ec93663-d8c9-f8dc-1d26-b58fa9780ea5",
+      "packer_run_uuid": "95bb9fa6-0830-1ce8-3b65-e1a7653a3a87",
       "custom_data": null
     }
   ],
-  "last_run_uuid": "6ec93663-d8c9-f8dc-1d26-b58fa9780ea5"
+  "last_run_uuid": "95bb9fa6-0830-1ce8-3b65-e1a7653a3a87"
 }

@@ -4,8 +4,6 @@
   "versions": [
     {
       "version": "<version>",
-      "status": "active",
-      "created_at": "<creation_date>",
       "providers": [
         {
           "name": "virtualbox",

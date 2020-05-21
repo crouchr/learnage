@@ -48,7 +48,7 @@
       "boot_wait": "15s",
       "boot_command": [
         "<tab>",
-        " ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ami-centos7-ks.cfg ",
+        " ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/rch-centos7-ks.cfg ",
         "<enter>"
       ],
       "ssh_username": "vagrant",
