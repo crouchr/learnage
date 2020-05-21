@@ -1,5 +1,6 @@
 # Backrain development environment
 # Note : Only minimal memory until development starts
+# This is in multi-machine format
 
 # FIXME : Download from Vagrant Cloud until the box can be stored locally on web.ermin successfully
 # Promotions by Jenkins are basically changing the box_version number
@@ -18,5 +19,16 @@ Vagrant.configure("2") do |config|
        v.memory = 2048
        v.cpus = 1
      end
-  end
+
+    # Enabling the Berkshelf plugin. To enable this globally, add this configuration
+    # option to your ~/.vagrant.d/Vagrantfile file
+    #br2020.berkshelf.enabled = true
+    br2020.vm.provision :chef_solo do |chef|
+        chef.arguments = "--chef-license accept"
+        chef.run_list = [
+            "recipe[cuckoo::default]"
+        ]
+    end
+
+end
 end
