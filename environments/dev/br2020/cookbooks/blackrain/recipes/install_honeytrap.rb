@@ -45,12 +45,12 @@ execute 'configure_honeytrap' do
 end
 
 execute 'make_honeytrap' do
-    cwd '/usr/local/src/honeytrap'
+    cwd '/usr/local/src/honeytrap-master'
     command 'make'
     user 'root'
 end
 execute 'install_honeytrap' do
-    cwd '/usr/local/src/honeytrap'
+    cwd '/usr/local/src/honeytrap-master'
     command 'make install'
     user 'root'
 end
