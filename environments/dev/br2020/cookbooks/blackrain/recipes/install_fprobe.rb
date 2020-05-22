@@ -22,18 +22,18 @@ execute 'untar_fprobe' do
 end
 
 execute 'configure_fprobe' do
-    cwd '/usr/local/src/fprobe_1.1'
+    cwd '/usr/local/src/fprobe-1.1'
     command './configure'
     user 'root'
 end
 
 execute 'make_fprobe' do
-    cwd '/usr/local/src/fprobe_1.1'
+    cwd '/usr/local/src/fprobe-1.1'
     command 'make'
     user 'root'
 end
 execute 'install_fprobe' do
-    cwd '/usr/local/src/fprobe_1.1'
+    cwd '/usr/local/src/fprobe-1.1'
     command 'make install'
     user 'root'
 end
