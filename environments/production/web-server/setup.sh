@@ -71,6 +71,8 @@ chmod 755 /var/www/html/isos/*
 echo "Copying BR2020 CentOS7 packages and source code..."
 cp /vagrant/apache/br2020-packages/*.rpm /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.tar.gz /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/*.tgz /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/*.zip /var/www/html/br2020-packages/
 chmod 755 /var/www/html/br2020-packages/*
 
 # Store public keys on web server for easy retrieval 
