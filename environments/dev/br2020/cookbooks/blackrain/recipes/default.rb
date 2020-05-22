@@ -17,21 +17,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# NOTE - STILL A WORK IN PROGRESS
-#
-# NOTES : Just a dummy to test it does something
-#
 
-execute 'install_snort' do
-  command 'yum -y install http://web.ermin/br2020-packages/snort-2.9.16-1.centos7.x86_64.rpm'
-  user 'root'
-end
+# did not work - would allow adding fprobe as package
+#yum-config-manager --add-repo https://centos.pkgs.org/7/lux/
+#yum-config-manager --enable centos.pkgs.org_7_lux_
 
-package 'prelude-manager-db-plugin'
-package 'prelude-lml'
-package 'prelude-lml-rules'
-package 'prelude-correlator'
-# fails : package 'python3-prewikka'
-package 'prelude-tools'
-package 'preludedb-tools'
-package 'preludedb-mysql'
+
+
+
+
+
+
+
+# CLAMAV
+# ======
+package 'clamav-server'
+package 'clamav-data'
+package 'clamav-update'
+package 'clamav-filesystem'
+package 'clamav'
+package 'clamav-scanner-systemd'
+package 'clamav-devel'
+package 'clamav-lib'
+package 'clamav-server-systemd'
+log 'Installed ClamAV'
+
+
+
+
+# TODO
+#=====
+# FROM https://centos.pkgs.org/7/lux/
+# fprobe
+# maldet
+
+
+
+
