@@ -10,6 +10,7 @@ package 'flex'
 package 'gcc-c++'
 package 'git'
 package 'libtool'
+package'unzip'
 
 # LIBRARIES
 # =========
@@ -17,3 +18,7 @@ package 'gnutls'
 package 'gnutls-devel'
 package 'libdnet'
 package 'libdnet-devel'
+package 'libnetfilter_queue-devel'
+package 'ElectricFence'
+package 'libemu-devel'
+package 'libpcap-devel'
