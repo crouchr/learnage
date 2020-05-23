@@ -1,0 +1,606 @@
+#!/usr/bin/env perl
+###################################################################
+#
+# Copyright 2001, Brandon Gillespie
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+###################################################################
+#
+# Usage: tail -f snortlog/alert | perl pigsentry
+#
+# Where snortlog/alert is a full format snort alert file (snort -A full)
+# Skim through the section entitled 'stuff you can change'
+#
+###############
+#
+# VERSION: 1.2 [21-Jan-2001] Changes since 1.1
+#       [changes by Roberto Suarez Soto <robe@alfa21.com> and Brandon]
+#    * Option handling (Roberto and Brandon)
+#    * Added log to syslog option (Roberto)
+#    * Added log to mail option (Roberto)
+#    * Added daemon mode option (Roberto)
+#    * Cleaned up handling of temp files, option to specify from command line
+#    * Added options for trend management (Brandon)
+# VERSION: 1.1 [02-Oct-2001] Changes since 1.0:
+#    * pigstate file is not backwards compatible, sorry...
+#    * improved the trend handling bits
+#    * classified notification into alert and warn status.
+#    * a throttle for a rapidly increasing spike to send less notifies
+#    * a pidfile manager
+#    * added an example notify hook for sending email
+# VERSION: 1.0 [26-Sep-2001] Original release
+#
+###############
+#
+# Notes:
+#
+# Currently only works on snort full format (-A full), blearg
+#
+
+use POSIX qw(mktime);
+use Getopt::Long;
+use Sys::Syslog;
+
+### to be safe, override PATH
+$ENV{PATH} = "/bin:/usr/bin:/usr/ucb/bin";
+
+###################################################################
+## stuff you can change, most things are now changable via
+## command-line arguments
+
+### regexp against the msg, to skip
+$ignore_rx = q/(fragments discarded|source quench|ICMP Destination Unreachable)/;
+
+### notify hook, if defined will call this, otherwise will print to STDOUT
+### Can include alternate hooks for custom behaviour, such as sending
+### pages
+select(STDOUT); $| = 1;
+$notify_hook = sub {
+    my ($msg, $alert) = @_;
+    (!$alert) && ($alert = "alert");
+    print ("[" . localtime() . "] $alert: $msg\n");
+};
+
+###################################################################
+## stuff you shouldn't change, just other global definitions
+$pigsentry_version = 1.2;
+$run_temp_path = "/var/run";
+$use_syslog = 0;
+$log_file = STDIN;
+$mailbin = "mail";
+$mail_recips = "";
+
+# the 'trend' management stuff is not as good as it could be.  It should
+# do frequency analysis, but instead what I found works is to only average
+# when it see's activity.  When the last poll interval was zero, it ignores.
+# this way the average/median value represents the event with activity,
+# and not all of the dead time inbetween (if it is very dead, it will expire
+# anyway).
+#
+# Best to use command-line options to change these values now.  See
+# --help syntax for descriptions.
+
+$trend_warn_throttle = 601;
+$trend_baseline_bump = 1.5;
+$trend_threshold_alert = 10;
+$trend_threshold_warn = 5;
+$trend_poll = 300;
+$trend_retention = 1*12;
+$state_checkpoint_interval = 300;
+$state_expire_time = 86400;
+
+###################################################################
+### Command-line options
+### Command line arguments
+Getopt::Long::Configure("bundling");
+
+$opt_help = 0;
+$opt_daemon = 0;
+$opt_logfile = '';
+$opt_tmpdir = '';
+$opt_logto_mail = 0;
+$opt_kill = 0;
+
+GetOptions(
+  "help|h" => \$opt_help,
+  "daemon|d" => \$opt_daemon,
+  "logfile|l=s" => \$opt_logfile,
+  "tmpdir|t=s" => \$opt_tmpdir,
+  "mail|m=s" => \$opt_logto_mail,
+  "mailbin=s" => \$mailbin,
+  "syslog|s" => \$use_syslog,
+  "kill|k" => \$opt_kill,
+  "warn-throttle=i" => \$trend_warn_throttle,
+  "baseline-bump=i" => \$trend_baseline_bump,
+  "threshold-alert=i" => \$trend_threshold_alert,
+  "threshold-warn=i" => \$trend_threshold_warn,
+  "poll=i" => \$trend_poll,
+  "retention=i" => \$trend_retention,
+  "state-checkpoint=i" => \$state_checkpoint_interval,
+  "state-expire=i" => \$state_expire_time,
+);
+
+# If we're called with '-k', then we just kill the child process that
+# (hopefully) another session started. We do this by checking the pid on
+# $pid_file.
+if ($opt_kill) {
+    open(PID, $pid_file) || &fatal_error("Cannot open PID file $pid_file");
+    $pid = int(<PID>);
+    close(PID);
+    if ($pid <= 0) {
+        &fatal_error("Cannot determine PID");
+    }
+
+    ## potentially dangerous, should check process is actually pigsentry
+    kill(15, $pid) or &fatal_error("No such process with pid $pid");
+    print STDERR "Successfully killed proccess $pid.\n";
+    exit(0);
+}
+
+# Open a file instead of using STDIN
+if ($opt_logfile) {
+    my $file = $opt_logfile;
+    if (!-r $file) {
+        &fatal_error("Cannot find or read from LOG file ($file)");
+    }
+    open(FILE,"tail -f $file|") || &fatal_error("Cannot open $file: $!");
+    $log_file = FILE;
+}
+
+# Check if we should spawn a proccess or not
+if ($opt_daemon && !$opt_logfile) {
+    &fatal_error("You must specify '-l' option when using '-d'!");
+}
+
+# Use syslog?
+if ($use_syslog) {
+    &init_syslog;
+}
+
+# Send by email?
+if ($opt_logto_mail) {
+    $mail_recips = $opt_logto_mail;
+    if (! -x $mailbin) {
+        &fatal_error("Cannot execute '$mailbin' for sending email, use --mailbin={exe}");
+    }
+    $notify_hook = sub {
+        my ($msg, $alert) = @_;
+        (!$alert) && ($alert = "alert");
+        $mailinfo = "PigSentry $alert: $msg";
+        $use_syslog && syslog('notice', "$alert: $msg");
+        system("$mailbin -s \"$mailinfo\" $mail_recips </dev/null 2>/dev/null");
+        print ("[" . localtime() . "] $alert: $msg\n");
+    };
+}
+
+# temp path?
+if ($opt_tmpdir) {
+    $run_temp_path = $opt_tmpdir;
+}
+
+# Show help if called with '-h'
+if ($opt_help) {
+    &print_usage();
+    exit(0);
+}
+
+if (! -w $run_temp_path) {
+    &error("Cannot find or write to $run_temp_path");
+    chomp($run_temp_path = `pwd`);
+    &error("Storing temp files in current directory ($run_temp_path)");
+    if (! -w $run_temp_path) {
+        &fatal_error("Cannot write to current directory!");
+    }
+}
+$state_file = "$run_temp_path/pigstate";         # state file
+$pid_file = "$run_temp_path/pigsentry.pid";      # PID file
+
+###################################################################
+# startup
+###################################################################
+$last_state_checkpoint = 0;
+$last_state_check = 0;
+%alerts = ();
+
+if ($opt_daemon) {
+    if (($pid = fork())) {
+        $debug && print STDERR "Spawned daemon process $pid.\n";
+        exit(0);
+    }
+}
+
+$SIG{'INT'}  = 'store_and_exit';
+$SIG{'QUIT'} = 'store_and_exit';
+$SIG{'TERM'} = 'store_and_exit';
+
+$use_syslog && syslog('info','PigSentry starting');
+
+&store_pid();
+&load_state();
+
+# Open STDIN or a file, depending on the options:
+&watch_log($log_file);
+close($log_file);
+exit(0);
+
+###################################################################
+# Anything past here should be functions
+###################################################################
+# => watch_log(fd): core engine, reads from log
+#
+# As time allows, calls check_state which updates trends and
+# expires entries.  Also calls process_alert for each alert
+
+sub watch_log {
+    my ($alert) = @_;
+
+    my $buffer = "";
+    my $dohead = 0; # fragment checking, incase there was a tail -f
+    while (<$alert>) {
+        chomp;
+        if (/^\[\*\*\]/) {
+            $new = $_;
+            if (length($buffer) && $dohead) {
+                &process_alert($buffer);
+                &check_state();
+            }
+            $dohead=1;
+            $buffer = $new;
+        } else {
+            $buffer .= "\f$_";
+        }
+    }
+    &process_alert($buffer);
+}
+
+###################################################################
+# => load_state(): called at initialization to load stored state info
+#
+# initialize %alerts dictionary, in all its perly madness
+
+sub load_state {
+    if (-f $state_file) {
+        if (!open(STATE, $state_file)) {
+            &error("Cannot open state file '$state_file': $!");
+        } else {
+            while (<STATE>) {
+                chomp;
+                my @ary;
+                my ($t, @rest) = split(/\t/);
+                if ($t eq "a") {
+                    my ($last,$lwarn, $dtot,$ltot,$avg,$lavg,$a,@ary) = @rest;
+                    $alerts{$a} = {"last" => $last,
+                                   "lwarn" => $lwarn,
+                                   "dtot" => $dtot,
+                                   "ltot" => $ltot,
+                                   "avg"  => $avg,
+                                   "q" => \@ary,
+                                   "lavg" => $lavg};
+                }
+            }
+            close(STATE);
+        }
+    }
+}
+
+############################
+# => store_pid(): write out a PID file
+#
+sub store_pid {
+    if (!open(PID, ">$pid_file")) {
+        &error("Cannot open PID file '$pid_file', skipping");
+    } else {
+        print PID "$$\n";
+        close(PID);
+    }
+};
+
+############################
+# => store_state(): write out %alerts dictionary to disk
+#
+
+sub store_state {
+    if (!open(STATE, ">$state_file")) {
+        &error("Unable to open state file '>$state_file': $!");
+    } else {
+        print STATE "v $pigsentry_version\n";
+        for $k (keys %alerts) {
+            print STATE ("a\t" . $alerts{$k}->{"last"} . "\t" .
+                                 $alerts{$k}->{"lwarn"} . "\t" .
+                                 $alerts{$k}->{"dtot"} . "\t" .
+                                 $alerts{$k}->{"ltot"} . "\t" .
+                                 $alerts{$k}->{"avg"}  . "\t" .
+                                 $alerts{$k}->{"lavg"} . "\t$k\t");
+            my $ref = $alerts{$k}->{'q'};
+            print STATE join("\t", @$ref);
+            print STATE "\n";
+        }
+        $last_state_checkpoint = time();
+        close(STATE);
+    }
+}
+
+############################
+# => store_and_exit(): call store_state() then exit
+#
+
+sub store_and_exit {
+    $debug && (print STDERR "Storing state...");
+    $use_syslog && syslog('notice', "Storing state...");
+    &store_state();
+    unlink($pid_file);
+    close($log_file);
+    $debug && (print "goodbye\n");
+    $use_syslog && syslog('notice', "PigSentry shutting down");
+    exit(0);
+}
+
+############################
+# => error(msg): we had a booboo
+#
+
+sub error {
+    print STDERR ("ERROR: $_[0]\n");
+}
+
+############################
+# => fatal_error(msg): we had a HUGE booboo
+#
+
+sub fatal_error {
+    die ("FATAL: $_[0]\n");
+}
+
+
+############################
+# => notify(msg): send a notice about an event or trend
+#
+
+sub notify {
+    if ($notify_hook) {
+        &$notify_hook(@_);
+    } else {
+        print ("PigSentry: [" . localtime() . "] " . $_[0] . "\n");
+    }
+}
+
+############################
+# => check_state(): manages trends, alert expiration and checkpoints
+#
+# This is called at random times, and while there are defined minimum
+# intervals for various things, it is not guaranteed of there are no
+# new alerts coming out of snort.
+
+sub check_state {
+    my $k;
+    if ((time() - $last_state_checkpoint) > $state_checkpoint_interval) {
+        &store_state();
+    }
+
+    if ((time() - $last_state_check) < 60) {
+        return;
+    }
+
+    $last_state_check = time();
+    for $k (keys (%alerts)) {
+        if ((time() - $alerts{$k}->{'last'}) > $state_expire_time) {
+            ## expire it...
+            delete($alerts{$k});
+        } elsif ((time() - $alerts{$k}->{'lavg'}) > $trend_poll) {
+            ## time for a new average interval...
+            my $last = $alerts{$k}->{'dtot'} - $alerts{$k}->{'ltot'};
+            if ($last == 0) {
+                # NO, only do it when there is a change...
+                next;
+            }
+            ## set the last avg compute time...
+            $alerts{$k}->{'lavg'} = time();
+
+            ## trim the queue
+            $lref = $alerts{$k}->{'q'};
+            while (($#$lref+1) > ($trend_retention-1)) {
+                shift(@$lref);
+            }
+
+            ## last total = this total
+            $alerts{$k}->{'ltot'} = $alerts{$k}->{'dtot'};
+            push(@$lref, $last);
+
+            ## bump the median?
+            my $increase = 0;
+            my $median = $alerts{$k}->{'avg'};
+            if ($median < $trend_baseline_bump) {
+                $median += $trend_baseline_bump;
+                $last += $trend_baseline_bump;
+            }
+
+            ## how long since our last alert?  Don't be too noisy...
+            if ((time() - $alerts->{'lwarn'}) > $trend_warn_throttle) {
+                if ((($last - $median)/$median) >= $trend_threshold_warn) {
+                    $increase = (int((($last - $median)/$median)*100) .  "%");
+                    $msg = "Trend increase of $increase for $k";
+                    if ((($last - $median)/$median) >= $trend_threshold_alert) {
+                        &notify($msg, "alert");
+                    } else {
+                        &notify($msg, "warn");
+                    }
+                    $alerts->{'lwarn'} = time();
+                }
+            }
+
+            ## lets figure a new average...
+            my $sum = 0;
+            my $p;
+            for $p (@$lref) {
+                $sum += $p;
+            }
+            my $navg = sprintf("%.2g", $sum / ($#$lref+1)) + 0;
+            $alerts{$k}->{'avg'} = $navg;
+        }
+    }
+}
+
+############################
+# => add_to_state(msg,time,date,year): update an alert in the state table
+#
+# if the alert does not exist, then create a new data struct for it,
+# otherwise update the total and last time
+# requires POSIX:mktime
+
+sub add_to_state {
+    my ($msg, $time, $date, $year) = @_;
+
+    my ($h, $m, $s) = split(/:/, $time);
+    my ($mon, $day) = split(/\//, $date);
+    $t = mktime($s, $m, $h, $day, $mon-1, $year);
+    if (!exists($alerts{$msg})) {
+        &notify("New event: $msg", "alert");
+        my @ary = ();
+        $alerts{$msg} = {"last" => $t,
+                         "lwarn" => 0,
+                         "dtot" => 1,
+                         "lavg" => 0,
+                         "q"    => \@ary,
+                         "ltot" => 0,
+                         "avg"  => 0};
+    } else {
+        $alerts{$msg}->{"last"} = $t;
+        $alerts{$msg}->{"dtot"}++;
+    }
+}
+
+############################
+# => proc__ hooks, called by process_alert for specific known alert types
+#
+# mostly these are disregarded, but could be used in the future
+sub proc__portscan { }
+
+# => proc__miscalert: general alert, calls add_to_state()
+sub proc__miscalert {
+    my ($msg, @rest) = @_;
+
+    $omsg = $msg;
+    $msg =~ s/\s*\[\*\*\]\s*//g;
+    $msg =~ s/\s*\[([\d:]+)\]\s*//;
+    $msg =~ s/^\s//;
+    $id = $1;
+
+    if ($msg eq "") {
+        ## An alert fragment, ignore
+        return;
+    }
+
+    my $cline = "";
+    my $sline = "";
+    my $pline = "";
+    if ($rest[0] =~ /\[Classification:/ || $rest[0] =~ /\[Priority/) {
+        $cline = shift(@rest);
+    }
+    $sline = shift(@rest);
+    $pline = shift(@rest);
+    if ($sline =~ /([\d+\/]+)-([\d:]+)\.(\d+) ([\d:.]+) -> ([\d:.]+)/)
+    {
+        ($date, $time, $subtime, $from, $to) = ($1,$2,$3,$4,$5);
+    }
+
+    $proto = (split(/\s/, $pline))[0];
+
+    if (length($to)) {
+        $detail = "$proto $from -> $to";
+        $to =~ s/:\d+$//;
+    }
+
+    &add_to_state($msg, $time, $date, (localtime())[5]);
+}
+
+############################
+# => process_alert(alert): chew on an alert and call the appropriate sub
+
+sub process_alert {
+    my ($buf) = @_;
+
+    my ($msg, @rest) = split(/\f/m, $buf);
+    if ($msg =~ /$ignore_rx/i) {
+        # stuff to skip
+    } elsif ($msg =~ /spp_portscan/) {
+        &proc__portscan($msg, @rest);
+    } else {
+        &proc__miscalert($msg, @rest);
+    }
+}
+
+##############################################
+# => init_syslog(): initialize syslog stuff
+sub init_syslog {
+    openlog("pigsentry", 'pid', 'user');
+}
+
+##############################################
+# => print_usage(): show a quick usage help
+sub print_usage {
+    print <<EOF;
+PigSentry $pigsentry_version, Usage:
+
+  pigsentry [ options ]
+
+General Options:
+
+  -l {log}   Specify logfile to monitor, default STDIN.  Can also use
+             --logfile={log}
+  -t {path}  where to store temp files? default tries $run_temp_path then
+             current directory.  Can also use --tmpdir={path}.
+  -m {addrs} Deliver notices via email to {addrs}, not STDOUT.  Can also
+             use --mail={email}
+  --mailbin={mailer}
+             What to use to send mail, default=$mailbin
+  -d         Daemon mode, will fork process. *Must* be used with
+             logfile option other than STDIN.  Can also use --daemon
+  -s         Send notices also to syslog.  Can also use --syslog
+  -k         Kill a daemon proccess (previously spawned with "-d"),
+             can also use --kill
+  -h         Show this help.
+
+Trend Options:
+
+  --warn-throttle={seconds}
+             How long since last trend alert, before sending a new one?
+             It is probably bestto have this greater than double the
+             trend poll interval, default=$trend_warn_throttle secs
+  --baseline-bump={x}
+             If the median is less than this, lift both the median and
+             last hits up by this amounts, then figure percentages.  Do
+             not set to zero (div/0 errors).  It is not recommended
+             setting this below 1, default=$trend_baseline_bump
+  --threshold-alert={x}
+             Alert on a % spike over average, default=$trend_threshold_alert
+  --threshold-warn={x}
+             Warn on a % spike over average, default=$trend_threshold_warn
+  --poll={seconds}
+             How many seconds between trend intervals?  default=$trend_poll
+  --retention={x}
+             How many intervals to keep in trend stretching this may
+             decrease notices.  default=$trend_retention
+  --state-checkpoint={seconds}
+             How often to checkpoint state table to disk, default=$state_checkpoint_interval
+  --state-expire={seconds}
+             How long does data stay in state table, default=$state_expire_time
+
+Usage Examples:
+
+  Basic syntax:
+        tail -f /var/log/snort/alert | pigsentry
+
+  Daemon mode, also sending notices via email:
+        pigsentry -l /var/log/snort/alert -m somebody\@domain.com
+
+  Kill a previously launched pigsentry:
+        pigsentry -k
+
+EOF
+}
+
+
