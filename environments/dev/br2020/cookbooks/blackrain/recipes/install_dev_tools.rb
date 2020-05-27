@@ -10,7 +10,9 @@ package 'flex'
 package 'gcc-c++'
 package 'git'
 package 'libtool'
-package'unzip'
+package 'unzip'
+package 'python-devel'
+package 'GeoIP-devel'
 
 # LIBRARIES
 # =========
