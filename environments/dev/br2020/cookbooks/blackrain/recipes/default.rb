@@ -10,7 +10,7 @@ execute 'set_hostname' do
     command 'hostnamectl set-hostname br2020'
 end
 
-# 770 doesn work - maybe try 744 ?
+# 777 works - maybe try 744 ?
 directory '/app' do
   owner 'crouchr'
   group 'crouchr'
@@ -25,7 +25,16 @@ directory '/app/src' do
   action :create
 end
 
+# Store the Blackrain app
 directory '/app/src/tests' do
+  owner 'crouchr'
+  group 'crouchr'
+  mode '0777'
+  action :create
+end
+
+# Store the GeoIP database
+directory '/usr/local/share/GeoIP' do
   owner 'crouchr'
   group 'crouchr'
   mode '0777'
