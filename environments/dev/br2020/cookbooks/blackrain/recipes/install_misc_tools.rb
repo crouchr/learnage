@@ -8,3 +8,4 @@
 # OTHER
 # =====
 package 'nmap'
+package 'whois'

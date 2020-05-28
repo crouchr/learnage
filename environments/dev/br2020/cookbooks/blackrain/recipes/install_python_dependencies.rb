@@ -12,3 +12,8 @@ execute 'pip_pytest' do
     user 'root'
 end
 
+execute 'pip_pytest' do
+    cwd '/usr/local/src'
+    command 'pip install tweepy'
+    user 'root'
+end
