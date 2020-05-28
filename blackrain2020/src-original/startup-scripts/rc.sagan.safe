@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.sagan
+#
+# Start/stop/restart Sagan Snort HIDS adapter
+# 
+case "$1" in
+  'start')
+    rm -f /var/run/sagan/sagan.pid
+    /usr/bin/chown sagan:users /var/run/sagan.fifo
+    /usr/local/sbin/sagan -D
+  ;;
+  'stop')
+    killall sagan
+  ;;
+  'restart')
+    killall sagan
+    /usr/bin/chown sagan:users /var/run/sagan.fifo
+    /usr/local/sbin/sagan -D
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

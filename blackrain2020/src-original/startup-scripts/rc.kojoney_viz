@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_viz
+#
+# Start/stop/restart kojoney_viz script
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_viz.py HIGH_INT &
+  ;;
+  'stop')
+    killall kojoney_viz.py
+  ;;
+  'restart')
+    killall kojoney_viz.py
+    /home/crouchr/kojoney_viz.py HIGH_INT &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

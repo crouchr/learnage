@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_analyst
+#
+# Start/stop/restart kojoney_analyst.py script
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_analyst.py &
+  ;;
+  'stop')
+    killall kojoney_analyst.py
+  ;;
+  'restart')
+    killall kojoney_analyst.py
+    /home/crouchr/kojoney_analyst.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+
+

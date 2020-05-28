@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_snmp_hpot
+#
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_snmp_hpot.py &> /home/var/log/kojoney_snmp_hpot.log & 
+  ;;
+  'stop')
+    killall kojoney_snmp_hpot.py
+  ;;
+  'restart')
+    killall kojoney_snmp_hpot.py
+    sleep 1
+    /home/crouchr/kojoney_snmp_hpot.py &> /home/var/log/kojoney_snmp_hpot.log & 
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

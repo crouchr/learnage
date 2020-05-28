@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_anubis
+# This is based on rc.kojoney_analyst which
+# kills kojoney_guru - is this also necesary in this script ?
+# Start/stop/restart kojoney_anubis.py script
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_anubis.py &
+  ;;
+  'stop')
+    killall kojoney_anubis.py
+  ;;
+  'restart')
+    killall kojoney_anubis.py
+    /home/crouchr/kojoney_anubis.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+

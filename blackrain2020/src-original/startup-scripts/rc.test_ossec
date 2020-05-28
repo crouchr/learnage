@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.test_ossec
+#
+# Start/stop/restart test_ossec script
+
+case "$1" in
+  'start')
+    /home/crouchr/test_ossec.py &
+  ;;
+  'stop')
+    killall test_ossec.py
+  ;;
+  'restart')
+    killall test_ossec.py
+    /home/crouchr/test_ossec.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+
+

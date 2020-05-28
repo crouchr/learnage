@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.nepenthes
+#
+# Start/stop/restart Nepenthes malware collection daemon
+
+case "$1" in
+  'start')
+    /opt/nepenthes/bin/nepenthes -D -u nobody -g nogroup 
+  ;;
+  'stop')
+    killall nepenthes
+  ;;
+  'restart')
+    killall nepenthes
+    /opt/nepenthes/bin/nepenthes -D -u nobody -g nogroup
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

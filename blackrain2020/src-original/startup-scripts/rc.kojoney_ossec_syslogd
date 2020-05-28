@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_ossec_syslogd
+#
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_ossec_syslogd.py &
+  ;;
+  'stop')
+    killall kojoney_ossec_syslogd.py
+  ;;
+  'restart')
+    killall kojoney_ossec_syslogd.py
+    /home/crouchr/kojoney_ossec_syslogd.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+

@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.argus
+#
+# Start/stop/restart Argus Session monitor script
+#
+case "$1" in
+  'start')
+   echo "rc.argus : start called"
+   /usr/local/sbin/argus -i eth0 -d -B 127.0.0.1 -P 561 - 'ip and (host 192.168.1.60 or host 192.168.1.61 or host 192.168.1.62 or host 192.168.1.63 or host 192.168.1.64 or host 192.168.1.65 or host 192.168.1.66 or host 192.168.1.68 or host 192.168.1.69)'
+  ;;
+  'stop')
+    echo "rc.argus : stop called"
+    killall argus
+  ;;
+  'restart')
+    echo "rc.argus : restart called"
+    killall ra
+    killall argus
+    sleep 2
+    /usr/local/sbin/argus -i eth0 -d -B 127.0.0.1 -P 561 - 'ip and (host 192.168.1.60 or host 192.168.1.61 or host 192.168.1.62 or host 192.168.1.63 or host 192.168.1.64 or host 192.168.1.65 or host 192.168.1.66 or host 192.168.1.68 or host 192.168.1.69)'
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

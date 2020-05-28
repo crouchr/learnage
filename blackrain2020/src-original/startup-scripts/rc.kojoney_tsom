@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_tsom
+#
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_tsom.py &
+  ;;
+  'stop')
+    killall kojoney_tsom.py
+  ;;
+  'restart')
+    killall kojoney_tsom.py
+    /home/crouchr/kojoney_tsom.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+

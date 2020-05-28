@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_statd
+#
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_statd.py &
+  ;;
+  'stop')
+    killall kojoney_statd.py
+  ;;
+  'restart')
+    killall kojoney_statd.py
+    /home/crouchr/kojoney_statd.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+
+
+
+
+

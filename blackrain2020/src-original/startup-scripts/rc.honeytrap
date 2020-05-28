@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.honeytrap
+#
+# Start/stop/restart honeytrap script
+#
+
+case "$1" in
+  'start')
+   # use -D for increased debugging and no demonisation
+   /usr/local/sbin/honeytrap 
+  
+  ;;
+  'stop')
+   killall honeytrap
+  ;;
+  'restart')
+   killall honeytrap
+   /usr/local/sbin/honeytrap
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac

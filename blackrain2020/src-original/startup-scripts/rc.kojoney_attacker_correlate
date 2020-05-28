@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.kojoney_attacker_correlate
+#
+
+case "$1" in
+  'start')
+    /home/crouchr/kojoney_attacker_correlate.py &
+  ;;
+  'stop')
+    killall kojoney_attacker_correlate.py
+  ;;
+  'restart')
+    killall kojoney_attacker_correlate.py
+    /home/crouchr/kojoney_attacker_correlate.py &
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+
+

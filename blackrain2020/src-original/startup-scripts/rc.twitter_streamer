@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.twitter_streamer
+#
+# Start/stop/restart Twitter Streamer
+#
+case "$1" in
+  'start')
+    /home/crouchr/twitter_streamer.py & 
+  ;;
+  'stop')
+    killall twitter_streamer.py
+  ;;
+  'restart')
+    killall twitter_streamer.py
+    /home/crouchr/twitter_streamer.py & 
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

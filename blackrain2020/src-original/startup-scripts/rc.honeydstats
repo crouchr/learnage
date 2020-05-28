@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# /etc/rc.d/rc.honeydstats
+#
+# Start/stop/restart honeyd webserver script
+#
+# -u 99 -g 99
+
+case "$1" in
+  'start')
+    /usr/local/bin/honeydstats -f /etc/honeyd/honeydstats.conf -p 20000 -c /home/var/log/honeyd/honeydstats.checkpoint  --os_report /home/var/log/honeyd/os_report --port_report=/home/var/log/honeyd/port_report --country_report /home/var/log/honeyd/country_report --spammer_report /home/var/log/honeyd/spammer_report
+  ;;
+  'stop')
+    killall honeydstats
+  ;;
+  'restart')
+    killall honeydstats
+    /usr/local/bin/honeydstats-f /etc/honeyd/honeydstats.conf -p 20000 -c /home/var/log/honeyd/honeydstats.checkpoint  --os_report /home/var/log/honeyd/os_report --port_report=/home/var/log/honeyd/port_report --country_report /home/var/log/honeyd/country_report --spammer_report /home/var/log/honeyd/spammer_report
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+  ;;
+esac
+

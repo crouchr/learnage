@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# glastopfngd
+#
+# Starts/stops GlastopfNG
+#
+# Version 0.1
+#
+# Author:
+#	Michael K. <krutoi015@mail.ru>
+#
+#
+
+# maybe you should not run GlastopfNG as root
+RUN_WITH_USR="sudo -u nobody "
+
+# because GlastopfNG currently cannot be started in daemon mode, starting it in screen in detached mode
+RUN_IN_SCREEN="screen -d -m "
+
+# PID needed for the "stop-function"
+GLASTOPFNG_PIDFILE=/var/run/glastopfng.pid
+
+# where is your java? check it with "which java"
+#JAVA="/usr/bin/java"
+JAVA="/usr/lib/java/bin/java"
+JAVA_PARAMS="-jar GlastopfNG.jar"
+
+# DIR of your GlastopfNG
+APP_DIR="/usr/local/src/GlastopfNG/"
+
+case "$1" in
+ start)
+	echo -n "Starting GlastopfNG : "
+	cd $APP_DIR
+	##$RUN_WITH_USR $RUN_IN_SCREEN $JAVA $JAVA_PARAMS & \
+	$RUN_IN_SCREEN $JAVA $JAVA_PARAMS & \
+	echo "Started OK "  || echo "Start failed "
+	#echo
+	echo "$!" > $GLASTOPFNG_PIDFILE
+	;;
+ stop)
+ 
+# not working yet
+#	echo -n "Stopping GlastopfNG: "
+#	kill `cat $GLASTOPFNG_PIDFILE` > /dev/null 2>&1
+#	if [ ! $? -eq 0 ] ; then
+#		echo " Failed"
+#	else
+#		echo " OK"
+#	rm -f -r /var/run/glastopfng.pid
+#	fi
+#	echo
+	;;
+ restart)
+	$0 stop
+	$0 start
+	;;
+ status)
+	ps -aux | grep GlastopfNG
+	;;
+ *)
+
+	echo "Usage: $0 {start|stop|restart|status}"
+	exit 1
+ esac
+
+exit 0
