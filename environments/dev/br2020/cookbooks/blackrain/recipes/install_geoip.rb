@@ -15,4 +15,10 @@ execute 'gunzip_geoip_database' do
     user 'root'
 end
 
+execute 'pip_geoip' do
+    cwd '/usr/local/src'
+    command 'pip install GeoIP'
+    user 'root'
+end
+
 log 'Installed GeoIP City Lite Database'

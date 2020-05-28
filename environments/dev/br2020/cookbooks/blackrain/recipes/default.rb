@@ -10,16 +10,24 @@ execute 'set_hostname' do
     command 'hostnamectl set-hostname br2020'
 end
 
-directory '/opt/br2020' do
+# 770 doesn work - maybe try 744 ?
+directory '/app' do
   owner 'crouchr'
   group 'crouchr'
-  mode '0755'
+  mode '0777'
   action :create
 end
 
-#directory '/opt/br2020/app' do
-#  owner 'vagrant'
-#  group 'vagrant'
-#  mode '0755'
-#  action :create
-#end
+directory '/app/src' do
+  owner 'crouchr'
+  group 'crouchr'
+  mode '0777'
+  action :create
+end
+
+directory '/app/src/tests' do
+  owner 'crouchr'
+  group 'crouchr'
+  mode '0777'
+  action :create
+end
