@@ -31,19 +31,19 @@ execute 'untar_argus' do
 end
 
 execute 'install_argus' do
-    cwd '/usr/local/src/argus'
+    cwd '/usr/local/src/argus-3.0.8.2'
     command './configure'
     user 'root'
 end
 
 execute 'make_argus' do
-    cwd '/usr/local/src/argus'
+    cwd '/usr/local/src/argus-3.0.8.2'
     command 'make'
     user 'root'
 end
 
 execute 'install_argus' do
-    cwd '/usr/local/src/argus'
+    cwd '/usr/local/src/argus-3.0.8.2'
     command 'make install'
     user 'root'
 end
@@ -62,19 +62,19 @@ execute 'untar_argus_clients' do
 end
 
 execute 'install_argus_clients' do
-    cwd '/usr/local/src/argus-clients'
+    cwd '/usr/local/src/argus-clients-3.0.8.2'
     command './configure'
     user 'root'
 end
 
 execute 'make_argus_clients' do
-    cwd '/usr/local/src/argus-clients'
+    cwd '/usr/local/src/argus-clients-3.0.8.2'
     command 'make'
     user 'root'
 end
 
 execute 'install_argus' do
-    cwd '/usr/local/src/argus-clients'
+    cwd '/usr/local/src/argus-clients-3.0.8.2'
     command 'make install'
     user 'root'
 end

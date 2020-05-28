@@ -1,0 +1,18 @@
+# Artifactory Server
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "crouchr/rch-centos-7"  
+  config.vm.box_version = "1.0.1"  
+  config.vm.box_check_update = true
+  config.vm.hostname = "artifactory.ermin"
+	  
+  config.vm.network "public_network", ip: "192.168.1.101", bridge: "virbr1"
+  
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+    v.cpus = 2			  
+  end
+
+  config.vm.provision "shell", path: "setup.sh"
+
+end
