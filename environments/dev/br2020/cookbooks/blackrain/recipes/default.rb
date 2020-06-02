@@ -18,6 +18,7 @@ directory '/app' do
   action :create
 end
 
+# Store the Blackrain app
 directory '/app/src' do
   owner 'crouchr'
   group 'crouchr'
@@ -25,8 +26,15 @@ directory '/app/src' do
   action :create
 end
 
-# Store the Blackrain app
+# Store the Blackrain app unit tests
 directory '/app/src/tests' do
+  owner 'crouchr'
+  group 'crouchr'
+  mode '0777'
+  action :create
+end
+
+directory '/app/src/tests/data' do
   owner 'crouchr'
   group 'crouchr'
   mode '0777'

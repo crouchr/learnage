@@ -46,9 +46,9 @@ chown -R apache:apache /var/www/html/br2020-packages
 mkdir -p /var/www/html/private/bootstrap-chef-files
 chown -R apache:apache /var/www/html/private
 
-mkdir -p /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox
-chown -R apache:apache /var/www/html/boxes
-chmod -R 775 /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox
+#mkdir -p /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox
+#chown -R apache:apache /var/www/html/boxes
+#chmod -R 775 /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox
 
 echo "Copying core (root-owned) web server configuration and content..."
 cp /vagrant/apache/minimal-index.html /var/www/html/index.html
@@ -58,9 +58,9 @@ chmod 755 /var/www/html/index.html
 cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
 
 # Copy the NVM CentOS7 box across as this is not built on my nodes
-echo "Copying NVM Jenkins-built CentOS7..."
-cp /vagrant/apache/boxes/CentOS7_v2_virtualbox.box /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox/
-chmod 755 /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox/*
+#echo "Copying NVM Jenkins-built CentOS7..."
+#cp /vagrant/apache/boxes/CentOS7_v2_virtualbox.box /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox/
+#chmod 755 /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox/*
  
 # Store ISOs used for Vagrant locally 
 echo "Copying ISO images..."
@@ -87,13 +87,13 @@ cp /vagrant/apache/bootstrap-chef-files/* /var/www/html/private/bootstrap-chef-f
 chmod 755 /var/www/html/private/bootstrap-chef-files/*
 
 # Generate the metadata.json file for the NVM Jenkins-built Centos7 image
-echo "Generating NVM CentOS7 box file metadata.json..."
-cd /var/www/html/boxes/nvm-centos7
-rm -f metadata.json
-vagrant-metadata \
---name="web.ermin/nvm-centos7" \
---description="NVM Centos7" \
---baseurl="http://web.ermin/boxes/nvm-centos7"
+#echo "Generating NVM CentOS7 box file metadata.json..."
+#cd /var/www/html/boxes/nvm-centos7
+#rm -f metadata.json
+#vagrant-metadata \
+#--name="web.ermin/nvm-centos7" \
+#--description="NVM Centos7" \
+#--baseurl="http://web.ermin/boxes/nvm-centos7"
 
 echo "Starting httpd..."
 systemctl start httpd.service
