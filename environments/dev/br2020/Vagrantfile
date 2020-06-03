@@ -16,8 +16,8 @@ Vagrant.configure("2") do |config|
      br2020.vm.network "public_network", ip: "192.168.1.167", bridge: "virbr1"
 
      br2020.vm.provider "virtualbox" do |v|
-       v.memory = 2048
-       v.cpus = 1
+       v.memory = 3090
+       v.cpus = 2
      end
 
     # Enabling the Berkshelf plugin. To enable this globally, add this configuration
