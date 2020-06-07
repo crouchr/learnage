@@ -1,7 +1,7 @@
 #!/bin/bash -eux
 
 # Core utilities
-sudo yum install -y yum-utils wget lsof net-tools htop
+sudo yum install -y yum-utils wget lsof net-tools htop tcpdump traceroute
 
 # Add packages I personally like to use
 sudo yum install -y joe shadow-utils tree ncdu
