@@ -7,7 +7,6 @@
 
 Vagrant.configure("2") do |config|
    config.vm.define "br2020" do |br2020|
-     #br2020.vm.box = "crouchr/blackrain2020"
      br2020.vm.box = "crouchr/rch-centos7"
      br2020.vm.box_check_update = true
      #br2020.vm.box_url = 'http://web.ermin/boxes/blackrain2020/metadata.json'
@@ -28,12 +27,16 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "blackrain"
         chef.add_recipe "blackrain::install_rc_local"
         chef.add_recipe "blackrain::install_dev_tools"
-        #chef.add_recipe "blackrain::install_zend"
-        #chef.add_recipe "blackrain::install_python_dependencies"
+        chef.add_recipe "blackrain::install_python_dependencies"
+        # =================================
+        chef.add_recipe "blackrain::install_glastopf"
+
+        #chef.add_recipe "blackrain::install_zeek"
         #chef.add_recipe "ntp"
         #chef.add_recipe "motd_br"
         #chef.add_recipe "blackrain::install_syslog_ng"
         #chef.add_recipe "blackrain::install_geoip"
+        #chef.add_recipe "blackrain::clamav_sniffer"
         #chef.add_recipe "blackrain::install_argus"
         #chef.add_recipe "blackrain::install_clamav"
         #chef.add_recipe "blackrain::install_prelude"
@@ -44,7 +47,6 @@ Vagrant.configure("2") do |config|
         #chef.add_recipe "blackrain::install_dionaea"
         #chef.add_recipe "blackrain::install_misc_tools"
         #chef.add_recipe "blackrain::install_maldet"
-
     end
 end
 end
