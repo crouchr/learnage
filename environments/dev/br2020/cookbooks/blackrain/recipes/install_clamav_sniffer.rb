@@ -1,6 +1,6 @@
 # ClamAV Sniffer
 # ==============
-# https://github.com/rfxn/linux-malware-detect
+
 execute 'get_clamav_sniffer_source' do
     cwd '/usr/local/src'
     user 'root'

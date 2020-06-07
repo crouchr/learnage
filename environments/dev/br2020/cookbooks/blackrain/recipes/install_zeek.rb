@@ -1,9 +1,8 @@
-# Install Bro IDS
-# There is also a 2.X version
+# Install Zend IDS - bro replacement
+# https://docs.zeek.org/en/lts/install/install.html
+# export PATH=/usr/local/zeek/bin:$PATH
 
-# https://easy-admin.ca/index.php/2017/03/21/install-bro-on-centos-7-x6-x/
-
-#sudo yum install cmake make gcc gcc-c++ flex bison libpcap-devel openssl-devel python-devel swig zlib-devel perl
+# Note : This takes at least an hour to run
 
 package 'openssl-devel'
 package 'swig'

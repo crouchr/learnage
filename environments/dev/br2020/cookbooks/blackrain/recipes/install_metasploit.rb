@@ -1,9 +1,11 @@
 # Install Metasploit
+# also do Owasp ZAP
 
 #curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
 #  chmod 755 msfinstall && \
 #  ./msfinstall
 
+# On pause
 
 execute 'get_metasploit_source' do
     cwd '/usr/local/src'

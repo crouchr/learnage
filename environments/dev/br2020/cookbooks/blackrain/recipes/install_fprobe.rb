@@ -1,8 +1,6 @@
 # FPROBE
 # ======
 
-
-
 execute 'get_fprobe_source' do
     cwd '/usr/local/src'
     user 'root'
