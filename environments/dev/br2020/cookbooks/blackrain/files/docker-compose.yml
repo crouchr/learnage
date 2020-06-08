@@ -1,5 +1,6 @@
-# Bring up the dockerised honepots
-# $ docker-compose up --no-build
+# Bring up the dockerised honeypots
+# $ cd /app/scripts
+# $ sudo docker-compose up --no-build
 version: '3'
 services:
   amun:

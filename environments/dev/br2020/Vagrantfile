@@ -24,16 +24,21 @@ Vagrant.configure("2") do |config|
     #br2020.berkshelf.enabled = true
     br2020.vm.provision :chef_solo do |chef|
         chef.arguments = "--chef-license accept"
+        chef.add_recipe "ntp"
+        chef.add_recipe "motd_br"
         chef.add_recipe "blackrain"
-        chef.add_recipe "blackrain::install_rc_local"
-        chef.add_recipe "blackrain::install_dev_tools"
-        chef.add_recipe "blackrain::install_python_dependencies"
+        #chef.add_recipe "blackrain::install_hosts_file" // not working
+        #chef.add_recipe "blackrain::install_rc_local"
+        #chef.add_recipe "blackrain::install_dev_tools"
+        #chef.add_recipe "blackrain::install_python_dependencies"
         # =================================
-        chef.add_recipe "blackrain::install_glastopf"
+        chef.add_recipe "blackrain::install_docker"
+        chef.add_recipe "blackrain::install_start_scripts"
+        chef.add_recipe "blackrain::install_glastopf_container"
+        chef.add_recipe "blackrain::install_amun_container"
 
         #chef.add_recipe "blackrain::install_zeek"
-        #chef.add_recipe "ntp"
-        #chef.add_recipe "motd_br"
+
         #chef.add_recipe "blackrain::install_syslog_ng"
         #chef.add_recipe "blackrain::install_geoip"
         #chef.add_recipe "blackrain::clamav_sniffer"

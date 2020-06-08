@@ -82,5 +82,5 @@ STOPSIGNAL SIGINT
 #USER glastopf:glastopf
 USER root:root
 WORKDIR /tmp/glastopf/
-#CMD cp /etc/glastopf/glastopf.cfg /tmp/glastopf && exec glastopf-runner
-CMD exec glastopf-runner
+# /usr/bin/glastopf-runner
+CMD cp /etc/glastopf/glastopf.cfg /tmp/glastopf && exec glastopf-runner

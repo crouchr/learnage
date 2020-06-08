@@ -3,7 +3,7 @@ cookbook_file "/app/scripts/start_honeypots.sh" do
   mode "0755"
 end
 
-cookbook_file "/app/scripts/br2020-compose.yml" do
-  source "br2020-compose.yml"
+cookbook_file "/app/scripts/docker-compose.yml" do
+  source "docker-compose.yml"
   mode "0644"
 end

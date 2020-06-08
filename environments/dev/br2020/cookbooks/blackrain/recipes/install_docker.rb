@@ -80,7 +80,12 @@ execute 'install_docker_compose' do
     command 'yum install -y docker-compose'
 end
 
-#package 'docker-ce' - not reliable - do i need to add anoterh parameter to force yum update ?
+# Allow vagrant user to run docker
+execute 'add_vagrant_docker' do
+    cwd '/usr/local/src'
+    user 'root'
+    command 'usermod -aG docker vagrant'
+end
 
 service 'docker' do
   action [ :enable, :start]
