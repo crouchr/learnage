@@ -1,3 +1,4 @@
+# RUN = commands run inside the container
 FROM alpine:3.5
 #FROM alpine:3.5 - original version
 #LABEL author

@@ -1,3 +1,4 @@
+# RUN = commands run inside the container
 FROM alpine:3.5
 #FROM alpine:3.5 - original version
 #LABEL author
@@ -22,7 +23,7 @@ RUN pip install --no-cache-dir --upgrade pip
 # Install Amun from git
 RUN git clone --depth=1 https://github.com/zeroq/amun /opt/amun
 
-COPY /root/dist_files/amun.conf /opt/amun/conf/amun.conf
+RUN cp /root/dist_files/amun.conf /opt/amun/conf/amun.conf
 
 # There are more - see mars
 EXPOSE 135 139 445 62001 62002 62003
