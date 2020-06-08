@@ -48,3 +48,4 @@ directory '/usr/local/share/GeoIP' do
   mode '0777'
   action :create
 end
+
