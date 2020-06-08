@@ -1,9 +1,8 @@
 # DEV TOOLS
 # =========
 # Need to reduce this to bare minimum once its all working - and to uninstall them at the end ?
-
-# https://github.com/grpc/grpc/issues/17812
-package 'centos-release-scl'
+package 'gcc'
+package 'gcc-c++'
 package 'autoconf'
 package 'automake'
 package 'bison'
@@ -17,17 +16,19 @@ package 'python-devel'
 package 'GeoIP-devel'
 package 'yum-utils'
 
-execute 'install_gcc7' do
-    cwd '/usr/local/src'
-    user 'root'
-    command 'yum install -y devtoolset-7-gcc*'
-end
+# https://github.com/grpc/grpc/issues/17812
+#package 'centos-release-scl'
+#execute 'install_gcc7' do
+#    cwd '/usr/local/src'
+#    user 'root'
+#    command 'yum install -y devtoolset-7-gcc*'
+#end
 
-execute 'install_gcc7' do
-    cwd '/usr/local/src'
-    user 'root'
-    command 'scl enable devtoolset-7 bash'
-end
+#execute 'install_gcc7' do
+#    cwd '/usr/local/src'
+#    user 'root'
+#    command 'scl enable devtoolset-7 bash'
+#end
 
 # LIBRARIES
 # =========
