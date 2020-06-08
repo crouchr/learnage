@@ -26,6 +26,14 @@ directory '/app/src' do
   action :create
 end
 
+# Misc scripts e.g. starting honeypots etc
+directory '/app/scripts' do
+  owner 'crouchr'
+  group 'crouchr'
+  mode '0777'
+  action :create
+end
+
 # Store the Blackrain app unit tests
 directory '/app/src/tests' do
   owner 'crouchr'

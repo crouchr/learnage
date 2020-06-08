@@ -1,0 +1,14 @@
+# Bring up the dockerised honepots
+# $ docker-compose up --no-build
+version: '3'
+services:
+  amun:
+    image: crouchr:amun
+    ports:
+      - 135:135
+      - 139:139
+      - 445:445
+  glastopf:
+    image: crouchr:glastopf
+    ports:
+      - 8888:80

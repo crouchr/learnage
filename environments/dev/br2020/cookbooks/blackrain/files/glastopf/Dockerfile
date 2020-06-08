@@ -3,10 +3,11 @@ FROM alpine:3.5
 #LABEL author
 
 # Include dist_files on host - /root gets removed at the end of this script
-ADD dist_files/ /root/dist/
+ADD dist_files/ /root/dist_files/
 
 # Install packages
 # RCH : added 'file' & 'joe' packages
+# RCH : added re2c to make warning disappear
 RUN apk -U --no-cache add \
                file \
                joe \
@@ -21,6 +22,7 @@ RUN apk -U --no-cache add \
                make \
                php7 \
                php7-dev \
+               re2c \
                openssl-dev \
                py-mysqldb \
                py-openssl \
@@ -46,7 +48,7 @@ RUN apk -U --no-cache add \
 # Install glastopf from git
     git clone --depth=1 https://github.com/mushorg/glastopf.git /opt/glastopf && \
     cd /opt/glastopf && \
-    cp /root/dist/requirements.txt . && \
+    cp /root/dist_files/requirements.txt . && \
     pip install --no-cache-dir . && \
     cd / && \
     rm -rf /opt/glastopf /tmp/* /var/tmp/* && \
@@ -58,7 +60,7 @@ RUN apk -U --no-cache add \
     adduser -S -H -u 2000 -D -g 2000 glastopf && \
     mkdir -p /etc/glastopf && \
     mkdir -p /tmp/glastopf/data && \
-    mv /root/dist/glastopf.cfg /etc/glastopf/ && \
+    mv /root/dist_files/glastopf.cfg /etc/glastopf/ && \
 
 # Clean up
     apk del --purge autoconf \
