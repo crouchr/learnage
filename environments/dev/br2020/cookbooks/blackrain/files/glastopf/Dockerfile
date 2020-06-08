@@ -1,6 +1,6 @@
 # RUN = commands run inside the container
-FROM alpine:3.5
-#FROM alpine:3.5 - original version
+FROM alpine:3.7
+#FROM alpine:3.5 - original version - works
 LABEL author="Various"
 LABEL description="Glastopf honeypot"
 
@@ -33,7 +33,6 @@ RUN apk -U --no-cache add \
                python \
                python-dev && \
     pip install --no-cache-dir --upgrade pip && \
-
 # Install php sandbox from git
     git clone --depth=1 https://github.com/mushorg/BFR /opt/BFR && \
     cd /opt/BFR && \
@@ -46,7 +45,6 @@ RUN apk -U --no-cache add \
     cd / && \
     rm -rf /opt/BFR /tmp/* /var/tmp/* && \
     echo "zend_extension = "$(find /usr -name bfr.so) >> /etc/php7/php.ini && \
-
 # Install glastopf from git
     git clone --depth=1 https://github.com/mushorg/glastopf.git /opt/glastopf && \
     cd /opt/glastopf && \
@@ -55,7 +53,6 @@ RUN apk -U --no-cache add \
     cd / && \
     rm -rf /opt/glastopf /tmp/* /var/tmp/* && \
     setcap cap_net_bind_service=+ep /usr/bin/python2.7 && \
-
 # Setup user, groups and configs
 # rch added : mkdir -p /tmp/glastopf/data && \
     addgroup -g 2000 glastopf && \
@@ -63,7 +60,6 @@ RUN apk -U --no-cache add \
     mkdir -p /etc/glastopf && \
     mkdir -p /tmp/glastopf/data && \
     mv /root/dist_files/glastopf.cfg /etc/glastopf/ && \
-
 # Clean up
     apk del --purge autoconf \
                     build-base \

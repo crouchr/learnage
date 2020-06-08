@@ -1,5 +1,6 @@
 # RUN = commands run inside the container
-FROM alpine:3.5
+# FROM alpine:3.5 - works
+FROM alpine:3.7
 LABEL author="Various"
 LABEL description="Amun honeypot"
 
