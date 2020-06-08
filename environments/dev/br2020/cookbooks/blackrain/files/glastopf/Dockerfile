@@ -1,6 +1,8 @@
 FROM alpine:3.5
+#FROM alpine:3.5 - original version
+#LABEL author
 
-# Include dist
+# Include dist_files on host - /root gets removed at the end of this script
 ADD dist_files/ /root/dist/
 
 # Install packages
@@ -51,11 +53,12 @@ RUN apk -U --no-cache add \
     setcap cap_net_bind_service=+ep /usr/bin/python2.7 && \
 
 # Setup user, groups and configs
+# rch added : mkdir -p /tmp/glastopf/data && \
     addgroup -g 2000 glastopf && \
     adduser -S -H -u 2000 -D -g 2000 glastopf && \
     mkdir -p /etc/glastopf && \
+    mkdir -p /tmp/glastopf/data && \
     mv /root/dist/glastopf.cfg /etc/glastopf/ && \
-
 
 # Clean up
     apk del --purge autoconf \
@@ -77,3 +80,4 @@ STOPSIGNAL SIGINT
 USER root:root
 WORKDIR /tmp/glastopf/
 #CMD cp /etc/glastopf/glastopf.cfg /tmp/glastopf && exec glastopf-runner
+CMD exec glastopf-runner
