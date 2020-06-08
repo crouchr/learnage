@@ -57,3 +57,24 @@ directory '/usr/local/share/GeoIP' do
   action :create
 end
 
+# These mounts are where the logs in the docker honeypots will be sent
+directory '/data' do
+  owner 'crouchr'
+  group 'crouchr'
+  mode '0777'
+  action :create
+end
+
+directory '/data/amun' do
+  owner 'crouchr'
+  group 'crouchr'
+  mode '0777'
+  action :create
+end
+
+directory '/data/glastopf' do
+  owner 'crouchr'
+  group 'crouchr'
+  mode '0777'
+  action :create
+end

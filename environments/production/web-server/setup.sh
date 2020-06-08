@@ -43,6 +43,9 @@ chown -R apache:apache /var/www/html/isos
 mkdir -p /var/www/html/br2020-packages
 chown -R apache:apache /var/www/html/br2020-packages
 
+mkdir -p /var/www/html/br-mal-files
+chown -R apache:apache /var/www/html/br-mal-files
+
 mkdir -p /var/www/html/private/bootstrap-chef-files
 chown -R apache:apache /var/www/html/private
 
@@ -76,7 +79,12 @@ cp /vagrant/apache/br2020-packages/*.dat.gz /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.zip /var/www/html/br2020-packages/
 chmod 755 /var/www/html/br2020-packages/*
 
-# Store public keys on web server for easy retrieval 
+# BlackRain 'malware' files for testing BlackRain
+echo "Copying BlackRain test 'malware'..."
+cp /vagrant/apache/br-mal-files/* /var/www/html/br-mal-files/
+chmod 755 /var/www/html/br-mal-files/*
+
+# Store public keys on web server for easy retrieval
 echo "Copying public-keys..."
 cp /vagrant/apache/public-keys/*.pub /var/www/html/public-keys/
 chmod 755 /var/www/html/public-keys/*.pub

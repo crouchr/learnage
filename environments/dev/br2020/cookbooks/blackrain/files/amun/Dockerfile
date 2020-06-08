@@ -29,6 +29,7 @@ RUN cp /root/dist_files/amun.conf /opt/amun/conf/amun.conf
 EXPOSE 135 139 445 62001 62002 62003
 
 STOPSIGNAL SIGINT
+
 USER root:root
 
 # Give a shell prompt while debugging

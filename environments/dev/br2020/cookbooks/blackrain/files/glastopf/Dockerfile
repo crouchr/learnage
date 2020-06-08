@@ -79,8 +79,11 @@ EXPOSE 80
 
 # Set workdir and start glastopf
 STOPSIGNAL SIGINT
+
 #USER glastopf:glastopf
 USER root:root
+
 WORKDIR /tmp/glastopf/
+
 # /usr/bin/glastopf-runner
 CMD cp /etc/glastopf/glastopf.cfg /tmp/glastopf && exec glastopf-runner
