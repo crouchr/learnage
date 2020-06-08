@@ -9,5 +9,4 @@
 # =====
 package 'nmap'
 package 'whois'
-package 'tcpdump'
-package 'traceroute'
+
