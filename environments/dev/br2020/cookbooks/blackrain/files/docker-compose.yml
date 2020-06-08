@@ -4,14 +4,16 @@
 version: '3'
 services:
   amun:
-    restart: always
+    #restart: always
+    container_name: amun
     image: crouchr:amun
     ports:
       - 135:135
       - 139:139
       - 445:445
   glastopf:
-    restart: always
+    #restart: always
+    container_name: glastopf
     image: crouchr:glastopf
     ports:
       - 8888:80

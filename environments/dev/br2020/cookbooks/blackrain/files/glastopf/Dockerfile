@@ -1,7 +1,8 @@
 # RUN = commands run inside the container
 FROM alpine:3.5
 #FROM alpine:3.5 - original version
-#LABEL author
+LABEL author="Various"
+LABEL description="Glastopf honeypot"
 
 # Include dist_files on host - /root gets removed at the end of this script
 ADD dist_files/ /root/dist_files/

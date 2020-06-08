@@ -1,7 +1,7 @@
 # RUN = commands run inside the container
 FROM alpine:3.5
-#FROM alpine:3.5 - original version
-#LABEL author
+LABEL author="Various"
+LABEL description="Amun honeypot"
 
 # Include dist_files on host - /root gets removed at the end of this script
 ADD dist_files/ /root/dist_files/
@@ -34,4 +34,4 @@ USER root:root
 
 # Give a shell prompt while debugging
 #CMD exec ash
-CMD ./amun_server.py &
+CMD ./amun_server.py

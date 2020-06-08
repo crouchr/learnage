@@ -28,5 +28,5 @@ end
 execute 'build_amun_container' do
     cwd '/usr/local/src/amun'
     user 'root'
-    command 'docker build -t crouchr:amun .'
+    command 'docker build -t crouchr:amun:v1.0.0 .'
 end

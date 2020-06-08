@@ -33,5 +33,5 @@ end
 execute 'build_glastopf_container' do
     cwd '/usr/local/src/glastopf'
     user 'root'
-    command 'docker build -t crouchr:glastopf .'
+    command 'docker build -t crouchr:glastopf:v1.0.0 .'
 end
