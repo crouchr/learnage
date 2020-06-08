@@ -24,9 +24,15 @@ cookbook_file "/usr/local/src/amun/dist_files/amun.conf" do
   mode "0644"
 end
 
-# Build the container
-execute 'build_amun_container' do
+# Build the Docker image
+execute 'build_amun_image' do
     cwd '/usr/local/src/amun'
     user 'root'
-    command 'docker build -t crouchr:amun:v1.0.0 .'
+    command 'docker build -t crouchr:amun .'
 end
+
+#execute 'tag_amun_image' do
+#    cwd '/usr/local/src/amun'
+#    user 'root'
+#    command 'docker tag crouchr/amun:v1.0.0'
+#end
