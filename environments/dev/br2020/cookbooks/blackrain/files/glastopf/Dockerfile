@@ -83,4 +83,5 @@ USER root:root
 WORKDIR /tmp/glastopf/
 
 # /usr/bin/glastopf-runner
-CMD cp /etc/glastopf/glastopf.cfg /tmp/glastopf && exec glastopf-runner
+RUN cp /etc/glastopf/glastopf.cfg /tmp/glastopf
+# CMD exec glastopf-runner

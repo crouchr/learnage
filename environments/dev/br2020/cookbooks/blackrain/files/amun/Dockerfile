@@ -35,4 +35,4 @@ USER root:root
 
 # Give a shell prompt while debugging
 #CMD exec ash
-CMD ./amun_server.py
+# CMD ./amun_server.py
