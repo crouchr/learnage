@@ -1,22 +1,35 @@
 # Bring up the dockerised honeypots
 # $ cd /app/scripts
 # $ sudo docker-compose up --no-build
+# Static IPs : https://stackoverflow.com/questions/27937185/assign-static-ip-to-docker-container
 version: '3'
 services:
-  amun:
+#  amun:
     #restart: always
-    container_name: amun
-    image: crouchr:amun
-    ports:
-      - 135:135
-      - 139:139
-      - 445:445
+#    container_name: amun
+#    networks:
+#      static-network:
+#        ipv4_address: 192.168.2.66
+#    image: crouchr:amun
+#    ports:
+#      - 135:135
+#      - 139:139
+#      - 445:445
   glastopf:
     #restart: always
     container_name: glastopf
+    #networks:
+    #  static-network:
+    #    ipv4_address: 192.168.2.62
     image: crouchr:glastopf
     ports:
       - 8888:80
     volumes:
       - /data/glastopf/db:/tmp/glastopf/db
       - /data/glastopf/log:/tmp/glastopf/log
+
+#networks:
+#  static-network:
+#    ipam:
+#      config:
+#        - subnet: 192.168.2.0/24

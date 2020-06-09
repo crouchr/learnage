@@ -10,10 +10,12 @@ ADD dist_files/ /root/dist_files/
 WORKDIR /opt/amun/
 
 # Install packages
-# RCH added joe
+# RCH added joe, tcpdump, nmap
 RUN apk -U --no-cache add \
                git \
                joe \
+               tcpdump \
+               nmap \
                py-pip \
                py-setuptools \
                python \

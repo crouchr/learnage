@@ -8,11 +8,13 @@ LABEL description="Glastopf honeypot"
 ADD dist_files/ /root/dist_files/
 
 # Install packages
-# RCH : added 'file' & 'joe' packages
+# RCH : added 'file' 'joe' 'tcpdump' 'nmap' to packages
 # RCH : added re2c to make warning disappear
 RUN apk -U --no-cache add \
                file \
                joe \
+               tcpdump \
+               nmap \
                autoconf \
                bind-tools \
                build-base \
@@ -55,10 +57,11 @@ RUN apk -U --no-cache add \
     setcap cap_net_bind_service=+ep /usr/bin/python2.7 && \
 # Setup user, groups and configs
 # rch added : mkdir -p /tmp/glastopf/data && \
+# rch added : mkdir -p /tmp/glastopf/db
+# rch added : mkdir -p /tmp/glastopf/log
     addgroup -g 2000 glastopf && \
     adduser -S -H -u 2000 -D -g 2000 glastopf && \
     mkdir -p /etc/glastopf && \
-    mkdir -p /tmp/glastopf/data && \
     mv /root/dist_files/glastopf.cfg /etc/glastopf/ && \
 # Clean up
     apk del --purge autoconf \
@@ -74,14 +77,15 @@ RUN apk -U --no-cache add \
 
 EXPOSE 80
 
-# Set workdir and start glastopf
 STOPSIGNAL SIGINT
 
 #USER glastopf:glastopf
 USER root:root
 
+# Set workdir
 WORKDIR /tmp/glastopf/
 
 # /usr/bin/glastopf-runner
 RUN cp /etc/glastopf/glastopf.cfg /tmp/glastopf
-# CMD exec glastopf-runner
+CMD exec glastopf-runner --prepare
+
