@@ -2,7 +2,8 @@
 # $ cd /app/scripts
 # $ sudo docker-compose up --no-build
 # Static IPs : https://stackoverflow.com/questions/27937185/assign-static-ip-to-docker-container
-version: '3'
+
+version: '2.3'
 services:
 #  amun:
     #restart: always
@@ -18,12 +19,10 @@ services:
   glastopf:
     #restart: always
     container_name: glastopf
-    #networks:
-    #  static-network:
-    #    ipv4_address: 192.168.2.62
+    network_mode: "host"
     image: crouchr:glastopf
     ports:
-      - 8888:80
+      - 80:80
     volumes:
       - /data/glastopf/db:/tmp/glastopf/db
       - /data/glastopf/log:/tmp/glastopf/log

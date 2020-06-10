@@ -1,8 +1,10 @@
-FROM debian:buster-slim 
+# TODO : use alpine 3.7 - to be same as others ?
+# TODO : My native version has more configure options defined
+FROM debian:buster-slim
 ENV DEBIAN_FRONTEND noninteractive
 #
-# Include dist
-ADD dist/ /root/dist/
+# Include dist_files on host - /root gets removed at the end of this script
+ADD dist_files/ /root/dist_files/
 #
 # Setup apt
 RUN apt-get update -y && \
@@ -12,6 +14,7 @@ RUN apt-get update -y && \
     apt-get install -y autoconf \
                        build-essential \
                        git \
+                       joe \
                        iptables \
                        libcap2 \
                        libcap2-bin \
@@ -43,7 +46,7 @@ RUN apt-get update -y && \
     addgroup --gid 2000 honeytrap && \
     adduser --system --no-create-home --shell /bin/bash --uid 2000 --disabled-password --disabled-login --gid 2000 honeytrap && \
     mkdir -p /opt/honeytrap/etc/honeytrap/ /opt/honeytrap/var/attacks /opt/honeytrap/var/downloads /opt/honeytrap/var/log && \
-    mv /root/dist/honeytrap.conf /opt/honeytrap/etc/honeytrap/ && \
+    mv /root/dist_files/honeytrap.conf /opt/honeytrap/etc/honeytrap/ && \
     setcap cap_net_admin=+ep /opt/honeytrap/sbin/honeytrap && \
 #
 # Clean up

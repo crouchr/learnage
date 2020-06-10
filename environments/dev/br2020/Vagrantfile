@@ -33,10 +33,12 @@ Vagrant.configure("2") do |config|
         #chef.add_recipe "blackrain::install_python_dependencies"
         # =================================
         chef.add_recipe "blackrain::install_docker"
-        chef.add_recipe "blackrain::install_start_scripts"
+        chef.add_recipe "blackrain::install_scripts"
+        chef.add_recipe "blackrain::install_honeytrap_container"
         chef.add_recipe "blackrain::install_glastopf_container"
-        chef.add_recipe "blackrain::install_amun_container"
 
+        #chef.add_recipe "blackrain::install_cowrie_container"
+        #chef.add_recipe "blackrain::install_amun_container"
         #chef.add_recipe "blackrain::install_zeek"
 
         #chef.add_recipe "blackrain::install_syslog_ng"
