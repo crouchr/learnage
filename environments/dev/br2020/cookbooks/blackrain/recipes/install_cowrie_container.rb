@@ -1,4 +1,5 @@
 # Build the Cowrie container
+# https://medium.com/threatpunter/how-to-setup-cowrie-an-ssh-honeypot-535a68832e4c
 
 directory '/usr/local/src/cowrie' do
   owner 'crouchr'

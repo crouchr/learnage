@@ -108,3 +108,10 @@ directory '/data/cowrie' do
   mode '0777'
   action :create
 end
+
+directory '/data/p0f' do
+  owner 'vagrant'
+  group 'vagrant'
+  mode '0777'
+  action :create
+end
