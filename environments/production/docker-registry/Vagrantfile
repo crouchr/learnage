@@ -14,10 +14,6 @@ Vagrant.configure("2") do |config|
        v.cpus = 1
      end
 
-    # Enabling the Berkshelf plugin. To enable this globally, add this configuration
-    # option to your ~/.vagrant.d/Vagrantfile file
-    #br2020.berkshelf.enabled = true
-
      config.vm.provision "shell", path: "setup.sh"
 
     end
