@@ -1,4 +1,4 @@
-# Backrain CICD box
+# Blackrain CICD box
 # Note : Only minimal memory until development starts
 # This is a temporary box brought up, configured with Chef then boxed up
 
@@ -33,8 +33,5 @@ Vagrant.configure("2") do |config|
 
     # Mount learnage (the root dir - all other sub-folders can be specified relative to it)
     config.vm.synced_folder '../../../learnage', '/vagrant/learnage', create:true
-
-    # The dev Chef cookbook is in the dev environment
-    #config.vm.synced_folder '../../dev/br2020', '/vagrant/chef', create:true
 
 end
