@@ -7,7 +7,15 @@ set -e	# bomb out if any problem
 echo
 echo "Started setup.sh for provisioning this node"
 
+cd /
+tree
+
+echo "contents of project root"
 cd /vagrant
+ls -laF
+
+echo "contents of dev chef folder"
+cd /vagrant/chef
 ls -laF
 
 echo "Finished setup.sh for provisioning this node"
