@@ -13,7 +13,7 @@ echo 'Started setup.sh for provisioning this node'
 echo 'Contents of project root /vagrant'
 cd /vagrant
 ls -laF
-cat dns.json
+cat dna.json
 
 echo 'Chef recipes (development)'
 cd /vagrant/learnage/environments/dev/br2020/cookbooks/blackrain/recipes/default.rb
