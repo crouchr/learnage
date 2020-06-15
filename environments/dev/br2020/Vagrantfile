@@ -2,6 +2,9 @@
 # Note : Only minimal memory until development starts
 # This is in multi-machine format
 
+# This needs to synch to use dna.json ?
+# Have a prod and a CICD one ? in own folder or by filename ?
+
 # FIXME : Download from Vagrant Cloud until the box can be stored locally on web.ermin successfully
 # Promotions by Jenkins are basically changing the box_version number
 
@@ -28,18 +31,21 @@ Vagrant.configure("2") do |config|
         chef.add_recipe "motd_br"
         chef.add_recipe "blackrain"
 
+        # USE dna.json method
+
+
         #chef.add_recipe "blackrain::install_hosts_file" // not working
         #chef.add_recipe "blackrain::install_rc_local"
         #chef.add_recipe "blackrain::install_dev_tools"
         #chef.add_recipe "blackrain::install_python_dependencies"
         # =================================
-        chef.add_recipe "blackrain::install_docker"
+        chef.add_recipe "blackrain::install_docker_ce"
         chef.add_recipe "blackrain::install_scripts"
-        chef.add_recipe "blackrain::install_p0f2_container"
-        chef.add_recipe "blackrain::install_cowrie_container"
-        chef.add_recipe "blackrain::install_honeytrap_container"
-        chef.add_recipe "blackrain::install_glastopf_container"
-        chef.add_recipe "blackrain::install_amun_container"
+        chef.add_recipe "blackrain::build_p0f2_container"
+        chef.add_recipe "blackrain::build_cowrie_container"
+        chef.add_recipe "blackrain::build_honeytrap_container"
+        chef.add_recipe "blackrain::build_glastopf_container"
+        chef.add_recipe "blackrain::build_amun_container"
         chef.add_recipe "blackrain::install_geoip"
         chef.add_recipe "blackrain::clamav_sniffer"
         chef.add_recipe "blackrain::install_argus"
