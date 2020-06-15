@@ -3,16 +3,18 @@
 # This is a temporary box brought up, configured with Chef then boxed up
 
 Vagrant.configure("2") do |config|
-   config.vm.define "br2020-cicd" do |br2020-cicd|
-     br2020-cicd.vm.box = "crouchr/rch-centos7"
-     br2020-cicd.vm.box_check_update = true
+   config.vm.define "br2020_cicd" do |br2020_cicd|
+     br2020_cicd.vm.box = "crouchr/rch-centos7"
+     br2020_cicd.vm.box_check_update = true
 
-     br2020-cicd.vm.network "public_network", ip: "192.168.1.97", bridge: "virbr1"
+     br2020_cicd.vm.network "public_network", ip: "192.168.1.97", bridge: "virbr1"
 
-     br2020-cicd.vm.provider "virtualbox" do |v|
+     br2020_cicd.vm.provider "virtualbox" do |v|
        v.memory = 2048
        v.cpus = 1
      end
+
+    config.vm.provision "shell", path: "setup.sh"
 
     # Enabling the Berkshelf plugin. To enable this globally, add this configuration
     # option to your ~/.vagrant.d/Vagrantfile file
