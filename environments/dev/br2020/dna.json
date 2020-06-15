@@ -1,0 +1,7 @@
+{
+  "run_list": [
+    "recipe[ntp]",
+    "recipe[motd_br]",
+    "recipe[blackrain]"
+  ]
+}
