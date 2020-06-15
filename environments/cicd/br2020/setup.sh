@@ -5,21 +5,23 @@
 set -e	# bomb out if any problem
 
 echo
-echo "Started setup.sh for provisioning this node"
+echo 'Started setup.sh for provisioning this node'
 
 #cd /
 #tree
 
-#echo "contents of project root"
-#cd /vagrant
-#ls -laF
+echo 'contents of project root /vagrant'
+cd /vagrant
+ls -laF
 
-#echo "contents of dev chef folder"
-#cd /vagrant/chef
-#ls -laF
+echo 'contents of dev chef folder'
+cd /vagrant/chef
+ls -laF
+
+echo 'contents of learnage folder'
+cd /vagrant/learnage
+ls -laF
 
 cd /vagrant/chef
 
-
-
-echo "Finished setup.sh for provisioning this node"
+echo 'Finished setup.sh for provisioning this node'
