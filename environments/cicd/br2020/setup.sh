@@ -16,7 +16,7 @@ ls -laF
 cat dns.json
 
 echo 'Chef recipes (development)'
-cd /vagrant/learnage/environments/dev/br2020
+cd /vagrant/learnage/environments/dev/br2020/cookbooks/blackrain/recipes/default.rb
 ls -laF
 
 echo 'Contents of learnage folder'

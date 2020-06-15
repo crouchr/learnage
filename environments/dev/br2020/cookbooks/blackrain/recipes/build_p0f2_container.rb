@@ -46,12 +46,3 @@ execute 'make_p0f2' do
     user 'root'
     command 'make -B'
 end
-
-# Not there yet !!!!
-# Build the Docker image
-#execute 'build_p0f2_image' do
-#    cwd '/usr/local/src/p0f2'
-#    user 'root'
-#    command 'docker build -t crouchr:p0f2 .'
-#end
-

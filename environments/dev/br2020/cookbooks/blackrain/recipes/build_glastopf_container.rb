@@ -36,8 +36,3 @@ execute 'build_glastopf_image' do
     command 'docker build -t crouchr:glastopf .'
 end
 
-#execute 'tag_glastopf_image' do
-#    cwd '/usr/local/src/amun'
-#    user 'root'
-#    command 'docker tag crouchr/glastopf:v1.0.0'
-#end
