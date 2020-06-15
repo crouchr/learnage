@@ -7,10 +7,7 @@
     "recipe[blackrain::install_python_dependencies]",
     "recipe[blackrain::install_docker]",
     "recipe[blackrain::install_scripts]",
-    "recipe[blackrain::build_cowrie_container]",
-    "recipe[blackrain::build_honeytrap_container]",
-    "recipe[blackrain::build_glastopf_container]",
-    "recipe[blackrain::build_amun_container]",
+    "recipe[blackrain::install_containers]",
     "recipe[blackrain::install_geoip]",
     "recipe[blackrain::install_clamav_sniffer]",
     "recipe[blackrain::install_argus]"
