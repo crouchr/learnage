@@ -1,6 +1,12 @@
 # DEV TOOLS
 # =========
 # Need to reduce this to bare minimum once its all working - and to uninstall them at the end ?
+# These are the packages needed to install applications natively in the VM
+# Packages needed to build the DOcker images are handled in the Dockerfiles
+
+
+# What was needing cmake ?
+# What was needing git ?
 package 'gcc'
 package 'gcc-c++'
 package 'autoconf'
@@ -16,20 +22,6 @@ package 'python-devel'
 package 'GeoIP-devel'
 package 'yum-utils'
 
-# https://github.com/grpc/grpc/issues/17812
-#package 'centos-release-scl'
-#execute 'install_gcc7' do
-#    cwd '/usr/local/src'
-#    user 'root'
-#    command 'yum install -y devtoolset-7-gcc*'
-#end
-
-#execute 'install_gcc7' do
-#    cwd '/usr/local/src'
-#    user 'root'
-#    command 'scl enable devtoolset-7 bash'
-#end
-
 # LIBRARIES
 # =========
 package 'gnutls'
@@ -41,3 +33,8 @@ package 'libnetfilter_queue-devel'
 package 'ElectricFence'
 package 'libemu-devel'
 package 'libpcap-devel'
+
+# to be removed
+# electric fence was for honeytrap
+# libemu looks like it is honeytrap
+# libnetfilter looks like honeytrap
