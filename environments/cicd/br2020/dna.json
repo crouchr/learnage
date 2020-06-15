@@ -11,8 +11,7 @@
     "recipe[blackrain::build_glastopf_container]",
     "recipe[blackrain::build_amun_container]",
     "recipe[blackrain::install_geoip]",
-    "recipe[blackrain::clamav_sniffer]",
-    "recipe[blackrain::blackrain::install_argus]",
-    "recipe[blackrain::blackrain::install_clamav_sniffer]"
+    "recipe[blackrain::install_clamav_sniffer]",
+    "recipe[blackrain::install_argus]"
   ]
 }
