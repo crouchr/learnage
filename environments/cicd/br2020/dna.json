@@ -13,6 +13,6 @@
     "recipe[blackrain::install_geoip]",
     "recipe[blackrain::clamav_sniffer]",
     "recipe[blackrain::blackrain::install_argus]",
-    "recipe[blackrain::blackrain::install_clamav]"
+    "recipe[blackrain::blackrain::install_clamav_sniffer]"
   ]
 }
