@@ -35,3 +35,9 @@ execute 'install_netflow_container' do
     user 'root'
     command 'docker pull cicd/netflow:v1.0.0'
 end
+
+execute 'install_microlinux_container' do
+    cwd '/usr/local/src'
+    user 'root'
+    command 'docker pull cicd/microlinux:v1.0.0'
+end
