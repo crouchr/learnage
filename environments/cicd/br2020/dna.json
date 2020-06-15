@@ -5,7 +5,6 @@
     "recipe[blackrain]",
     "recipe[blackrain::install_docker]",
     "recipe[blackrain::install_scripts]",
-    "recipe[blackrain::build_p0f2_container]",
     "recipe[blackrain::build_cowrie_container]",
     "recipe[blackrain::build_honeytrap_container]",
     "recipe[blackrain::build_glastopf_container]",
