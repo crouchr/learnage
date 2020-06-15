@@ -32,6 +32,6 @@ Vagrant.configure("2") do |config|
    end
 
     # Mount learnage (the root dir - all other sub-folders can be specified relative to it)
-    config.vm.synced_folder '../../../learnage', '/vagrant/learnage', create:true
+    config.vm.synced_folder '../../../', '/vagrant/learnage', create:true
 
 end
