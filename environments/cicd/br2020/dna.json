@@ -3,6 +3,8 @@
     "recipe[ntp]",
     "recipe[motd_br]",
     "recipe[blackrain]",
+    "recipe[blackrain::install_dev_tools]",
+    "recipe[blackrain::install_python_dependencies]",
     "recipe[blackrain::install_docker]",
     "recipe[blackrain::install_scripts]",
     "recipe[blackrain::build_cowrie_container]",
