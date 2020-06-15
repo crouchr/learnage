@@ -3,29 +3,29 @@
 execute 'install_amun_container' do
     cwd '/usr/local/src'
     user 'root'
-    command 'docker pull -t cicd/amun:v1.0.0'
+    command 'docker pull cicd/amun:v1.0.0'
 end
 
 execute 'install_cowrie_container' do
     cwd '/usr/local/src'
     user 'root'
-    command 'docker pull -t cicd/cowrie:v1.0.0'
+    command 'docker pull cicd/cowrie:v1.0.0'
 end
 
 execute 'install_glastofp_container' do
     cwd '/usr/local/src'
     user 'root'
-    command 'docker pull -t cicd/glastopf:v1.0.0'
+    command 'docker pull cicd/glastopf:v1.0.0'
 end
 
 execute 'install_honeytrap_container' do
     cwd '/usr/local/src'
     user 'root'
-    command 'docker pull -t cicd/honeytrap:v1.0.0'
+    command 'docker pull cicd/honeytrap:v1.0.0'
 end
 
 execute 'install_p0f2_container' do
     cwd '/usr/local/src'
     user 'root'
-    command 'docker pull -t cicd/p0f2:v1.0.0'
+    command 'docker pull cicd/p0f2:v1.0.0'
 end
