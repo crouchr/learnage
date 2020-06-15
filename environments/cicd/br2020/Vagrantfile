@@ -35,6 +35,6 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder '../../../learnage', '/vagrant/learnage', create:true
 
     # The dev Chef cookbook is in the dev environment
-    config.vm.synced_folder '../../dev/br2020', '/vagrant/chef', create:true
+    #config.vm.synced_folder '../../dev/br2020', '/vagrant/chef', create:true
 
 end

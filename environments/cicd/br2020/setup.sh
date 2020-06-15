@@ -10,16 +10,16 @@ echo 'Started setup.sh for provisioning this node'
 #cd /
 #tree
 
-echo 'contents of project root /vagrant'
+echo 'Contents of project root /vagrant'
 cd /vagrant
 ls -laF
 cat dns.json
 
-echo 'contents of dev chef folder'
-cd /vagrant/chef
+echo 'Chef recipes (development)'
+cd /vagrant/learnage/environments/dev/br2020
 ls -laF
 
-echo 'contents of learnage folder'
+echo 'Contents of learnage folder'
 cd /vagrant/learnage/chef-repo/.chef/
 ls -laF
 cat solo.rb
