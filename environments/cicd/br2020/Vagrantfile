@@ -1,0 +1,28 @@
+# Backrain CICD box
+# Note : Only minimal memory until development starts
+# This is a temporary box brought up, configured with Chef then boxed up
+
+Vagrant.configure("2") do |config|
+   config.vm.define "br2020-cicd" do |br2020-cicd|
+     br2020-cicd.vm.box = "crouchr/rch-centos7"
+     br2020-cicd.vm.box_check_update = true
+
+     br2020-cicd.vm.network "public_network", ip: "192.168.1.97", bridge: "virbr1"
+
+     br2020-cicd.vm.provider "virtualbox" do |v|
+       v.memory = 2048
+       v.cpus = 1
+     end
+
+    # Enabling the Berkshelf plugin. To enable this globally, add this configuration
+    # option to your ~/.vagrant.d/Vagrantfile file
+    #br2020.berkshelf.enabled = true
+    #br2020-cicd.vm.provision :chef_solo do |chef|
+    #    chef.arguments = "--chef-license accept"
+    #    chef.add_recipe "ntp"
+    #    chef.add_recipe "motd_br"
+    #    chef.add_recipe "blackrain"
+    #end
+
+end
+end
