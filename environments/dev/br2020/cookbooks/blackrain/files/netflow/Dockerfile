@@ -1,9 +1,10 @@
 # RUN = commands run inside the container
+# Needs to have dev tools removed once perl module built
 # FROM alpine:3.5 - works
 # https://serverfault.com/questions/364452/silent-and-scripted-install-of-cpan-and-perl-modules
 # perl -MCPAN -e 'install Your::Package'
 
-FROM alpine:3.8
+FROM alpine:3.9
 LABEL author="Various"
 LABEL description="Netflow honeypot"
 
@@ -23,14 +24,18 @@ RUN apk -U --no-cache add \
                tcpdump \
                nmap
 
-RUN cp /root/dist_files/Net-Flow-0.04.tar.gz /opt/netflow/Net-Flow-0.04.tar.gz
+#RUN cp /root/dist_files/Net-Flow-0.04.tar.gz /opt/netflow/Net-Flow-0.04.tar.gz
+RUN cp /root/dist_files/Net-Flow-1.003.tar.gz /opt/netflow/Net-Flow-1.003.tar.gz
 RUN cp /root/dist_files/blackrain_netflow.pl /opt/netflow/blackrain_netflow.pl
 
 WORKDIR /opt/netflow
-RUN gunzip Net-Flow-0.04.tar.gz
-RUN tar xvf Net-Flow-0.04.tar
+#RUN gunzip Net-Flow-0.04.tar.gz
+#RUN tar xvf Net-Flow-0.04.tar
+RUN gunzip Net-Flow-1.003.tar.gz
+RUN tar xvf Net-Flow-1.003.tar
 
-WORKDIR /opt/netflow/Net-Flow-0.04
+#WORKDIR /opt/netflow/Net-Flow-0.04
+WORKDIR /opt/netflow/Net-Flow-1.003
 RUN perl Makefile.PL
 RUN make
 RUN make test
