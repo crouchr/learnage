@@ -5,8 +5,10 @@
 # Net-Flow-0.004 was the original version on Blackrain
 # Found Net-Flow source at : http://admin03.joeswebhosting.net/CPAN/authors/id/A/AC/ACFEREN/
 # Samplicator latest source at : https://mirrors.sohu.com/gentoo/distfiles/e7/
+# https://perlmaven.com/how-to-build-perl-from-source-code
 
-FROM alpine:3.10
+# FROM alpine:3.10 - works
+FROM alpine:3.11
 
 LABEL author="Richard Crouch"
 LABEL description="Netflow"

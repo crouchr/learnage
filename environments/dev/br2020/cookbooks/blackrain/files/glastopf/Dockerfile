@@ -1,6 +1,9 @@
 # RUN = commands run inside the container
-FROM alpine:3.7
+# FROM alpine:3.7 - works
 #FROM alpine:3.5 - original version - works
+#FROM alpine:3.11 - does not work
+FROM alpine:3.10
+
 LABEL author="Various"
 LABEL description="Glastopf honeypot"
 

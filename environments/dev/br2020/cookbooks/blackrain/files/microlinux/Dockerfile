@@ -1,6 +1,5 @@
 # Basic container for testng networking
 FROM alpine:3.11
-#
 
 # Install packages
 RUN apk -U --no-cache add \
