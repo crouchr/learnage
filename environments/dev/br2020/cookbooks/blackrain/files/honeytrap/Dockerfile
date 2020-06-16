@@ -2,7 +2,10 @@
 # TODO : My native version has more configure options defined
 FROM debian:buster-slim
 ENV DEBIAN_FRONTEND noninteractive
-#
+
+LABEL author="Various"
+LABEL description="Honeytrap honeypot"
+
 # Include dist_files on host - /root gets removed at the end of this script
 ADD dist_files/ /root/dist_files/
 #

@@ -1,6 +1,6 @@
 FROM alpine:3.11
 LABEL author="Various"
-LABEL description="Cowrie honeypot"
+LABEL description="Cowrie SSH honeypot"
 
 # TODO : make it install in /opt/cowrie like the other honeypots
 

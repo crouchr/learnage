@@ -1,5 +1,8 @@
 FROM alpine:3.11
-#
+
+LABEL author="Richard Crouch"
+LABEL description="p0f"
+
 # Add source
 #ADD . /opt/p0f
 ADD dist_files/ /root/dist_files/
