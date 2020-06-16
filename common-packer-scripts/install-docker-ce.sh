@@ -25,4 +25,4 @@ sudo systemctl enable docker
 
 # Install Portainer : access via port 9000 with a web browser
 # A step is needed at run time to run the container
-docker pull portainer/portainer
+sudo docker pull portainer/portainer
