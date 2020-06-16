@@ -1,55 +1,64 @@
-# Backrain development environment
-# Note : Only minimal memory until development starts
+# Blackrain development environment
 # This is in multi-machine format
-
-# This needs to synch to use dna.json ?
-# Have a prod and a CICD one ? in own folder or by filename ?
 
 # FIXME : Download from Vagrant Cloud until the box can be stored locally on web.ermin successfully
 # Promotions by Jenkins are basically changing the box_version number
 
 Vagrant.configure("2") do |config|
    config.vm.define "br2020" do |br2020|
-     br2020.vm.box = "crouchr/rch-centos7"
-     br2020.vm.box_check_update = true
-     #br2020.vm.box_url = 'http://web.ermin/boxes/blackrain2020/metadata.json'
-     #br2020.vm.box_url = 'https://richardcrouch.s3-eu-west-1.amazonaws.com/boxes/blackrain2020.box'
+       br2020.vm.box = "crouchr/rch-centos7-docker"
+       br2020.vm.box_check_update = true
+       #br2020.vm.box_url = 'http://web.ermin/boxes/blackrain2020/metadata.json'
+       #br2020.vm.box_url = 'https://richardcrouch.s3-eu-west-1.amazonaws.com/boxes/blackrain2020.box'
 
-     br2020.vm.network "public_network", ip: "192.168.1.167", bridge: "virbr1"
+       br2020.vm.network "public_network", ip: "192.168.1.167", bridge: "virbr1"
 
-     br2020.vm.provider "virtualbox" do |v|
-       v.memory = 3090
-       v.cpus = 2
-     end
+       br2020.vm.provider "virtualbox" do |v|
+         v.memory = 3090
+         v.cpus = 2
+       end
 
-    # Enabling the Berkshelf plugin. To enable this globally, add this configuration
-    # option to your ~/.vagrant.d/Vagrantfile file
-    #br2020.berkshelf.enabled = true
-    br2020.vm.provision :chef_solo do |chef|
-        chef.arguments = "--chef-license accept"
-        chef.add_recipe "ntp"
-        chef.add_recipe "motd_br"
-        chef.add_recipe "blackrain"
+       br2020.vm.provision :chef_solo do |chef|
+           chef.arguments = "--chef-license accept --config /vagrant/learnage/chef-repo/.chef/solo.rb --json-attributes /vagrant/dna.json"
+       end
 
-        # USE dna.json method
+   end
+
+   # Mount learnage (the root dir - all other sub-folders can be specified relative to it)
+   config.vm.synced_folder '../../../', '/vagrant/learnage', create:true
+
+end
 
 
-        #chef.add_recipe "blackrain::install_hosts_file" // not working
-        #chef.add_recipe "blackrain::install_rc_local"
-        #chef.add_recipe "blackrain::install_dev_tools"
-        #chef.add_recipe "blackrain::install_python_dependencies"
-        # =================================
-        chef.add_recipe "blackrain::install_docker_ce"
-        chef.add_recipe "blackrain::install_scripts"
-        chef.add_recipe "blackrain::build_p0f2_container"
-        chef.add_recipe "blackrain::build_cowrie_container"
-        chef.add_recipe "blackrain::build_honeytrap_container"
-        chef.add_recipe "blackrain::build_glastopf_container"
-        chef.add_recipe "blackrain::build_amun_container"
-        chef.add_recipe "blackrain::install_geoip"
-        chef.add_recipe "blackrain::clamav_sniffer"
-        chef.add_recipe "blackrain::install_argus"
-        chef.add_recipe "blackrain::install_clamav"
+
+
+# Enabling the Berkshelf plugin. To enable this globally, add this configuration
+# option to your ~/.vagrant.d/Vagrantfile file
+#br2020.berkshelf.enabled = true
+#         chef.arguments = "--chef-license accept"
+#         chef.add_recipe "ntp"
+#         chef.add_recipe "motd_br"
+#         chef.add_recipe "blackrain"
+#
+#         # USE dna.json method
+#
+#
+#         #chef.add_recipe "blackrain::install_hosts_file" // not working
+#         #chef.add_recipe "blackrain::install_rc_local"
+#         #chef.add_recipe "blackrain::install_dev_tools"
+#         #chef.add_recipe "blackrain::install_python_dependencies"
+#         # =================================
+#         chef.add_recipe "blackrain::install_docker_ce"
+#         chef.add_recipe "blackrain::install_scripts"
+#         chef.add_recipe "blackrain::build_p0f2_container"
+#         chef.add_recipe "blackrain::build_cowrie_container"
+#         chef.add_recipe "blackrain::build_honeytrap_container"
+#         chef.add_recipe "blackrain::build_glastopf_container"
+#         chef.add_recipe "blackrain::build_amun_container"
+#         chef.add_recipe "blackrain::install_geoip"
+#         chef.add_recipe "blackrain::clamav_sniffer"
+#         chef.add_recipe "blackrain::install_argus"
+#         chef.add_recipe "blackrain::install_clamav"
 
         #chef.add_recipe "blackrain::install_prelude"
         #chef.add_recipe "blackrain::install_fprobe"
@@ -59,6 +68,3 @@ Vagrant.configure("2") do |config|
         #chef.add_recipe "blackrain::install_misc_tools"
         #chef.add_recipe "blackrain::install_maldet"
         #chef.add_recipe "blackrain::install_syslog_ng"
-    end
-end
-end
