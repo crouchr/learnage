@@ -12,6 +12,7 @@ sudo yum install -y docker-compose
 sudo usermod -aG docker vagrant
 
 # Allow use of unauthenticated access to my private Docker v2 Registry hostname registry
+sudo mkdir -p /etc/docker
 sudo wget --no-check-certificate \
    http://web.ermin/private/br2020-packages/daemon.json \
    -O /etc/docker/daemon.json
