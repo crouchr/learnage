@@ -1,6 +1,7 @@
 # Not always reliable ?
 # Unreliable at moment so commented out temporarily
 # https://download.docker.com/linux/centos/7/x86_64/stable/Packages/ - contains rpms - todo - use the rpms
+# Not needed as Docker now built into the rch-centos7-docker box image
 
 execute 'add_docker_repo' do
     cwd '/usr/local/src'
