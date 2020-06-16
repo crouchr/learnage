@@ -6,7 +6,7 @@
   "builders": [
     {
       "name": "{{ user `template` }}",
-      "vm_name": "centos-7.8-x86_64",
+      "vm_name": "centos-docker-7.8-x86_64",
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
