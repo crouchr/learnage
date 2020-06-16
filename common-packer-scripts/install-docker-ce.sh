@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo "Installing Docker..."
+echo "Installing Docker CE ..."
 
 # Install packages
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -22,3 +22,6 @@ sudo systemctl start docker
 # Enable Docker
 sudo systemctl enable docker
 
+# Install Portainer : access via port 9000 with a web browser
+# A step is needed at run time to run the container
+docker pull portainer/portainer
