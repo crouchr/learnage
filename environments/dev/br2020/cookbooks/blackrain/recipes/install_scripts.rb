@@ -72,10 +72,19 @@ cookbook_file "/opt/br2020/etc/br2020.service" do
 end
 
 # docker compose scripts
-cookbook_file "/opt/br2020/etc/br2020.yml" do
-  source "scripts/br2020.yml"
+#cookbook_file "/opt/br2020/etc/br2020.yml" do
+#  source "scripts/br2020.yml"
+#  mode "0755"
+#end
+
+# just for testing
+cookbook_file "/home/vagrant/docker-compose.yml" do
+  source "scripts/docker-compose.yml"
   mode "0755"
+  owner 'vagrant'
+  group 'vagrant'
 end
+
 
 # misc scripts
 cookbook_file "/opt/br2020/bin/rules.sh" do

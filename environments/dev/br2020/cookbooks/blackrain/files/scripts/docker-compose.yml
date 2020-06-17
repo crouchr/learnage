@@ -20,7 +20,7 @@ services:
     #restart: always
     container_name: glastopf
     network_mode: "host"
-    image: crouchr:glastopf
+    image: registry:5000/glastopf:1.0.0
     ports:
       - 80:80
     volumes:
