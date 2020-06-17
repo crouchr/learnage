@@ -1,4 +1,4 @@
-echo "Starting latest version of honeytrap honeypot..."
+echo "Starting latest version of Honeytrap honeypot..."
 docker run -d \
 --name honeytrap \
 -i -t \
