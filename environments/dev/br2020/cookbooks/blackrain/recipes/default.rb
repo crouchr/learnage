@@ -21,6 +21,11 @@ execute 'add_default_route' do
     command 'route add default gw 192.168.1.1'
 end
 
+execute 'show_route_table' do
+    user 'root'
+    command 'route -n'
+end
+
 # Misc global scripts e.g. starting honeypots etc
 directory '/opt/br2020' do
   owner 'vagrant'
