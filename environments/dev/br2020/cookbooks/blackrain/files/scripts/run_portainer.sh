@@ -1,4 +1,4 @@
-# This can be run as vagrant
+# run using vagrant user - no need for sudo
 docker run -d \
 -p 9000:9000 \
 -name portainer \

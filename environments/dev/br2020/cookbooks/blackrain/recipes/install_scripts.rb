@@ -58,6 +58,13 @@ cookbook_file "/home/vagrant/run_portainer.sh" do
   group 'vagrant'
 end
 
+cookbook_file "/home/vagrant/run_cadvisor.sh" do
+  source "scripts/run_cadvisor.sh"
+  mode "0755"
+  owner 'vagrant'
+  group 'vagrant'
+end
+
 # scripts for starting up services
 cookbook_file "/opt/br2020/etc/br2020.service" do
   source "scripts/br2020.service"
