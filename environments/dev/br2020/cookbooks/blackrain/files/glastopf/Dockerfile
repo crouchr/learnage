@@ -90,5 +90,6 @@ WORKDIR /tmp/glastopf/
 
 # /usr/bin/glastopf-runner
 RUN cp /etc/glastopf/glastopf.cfg /tmp/glastopf
-#CMD exec glastopf-runner --prepare
+
+CMD exec glastopf-runner --prepare
 
