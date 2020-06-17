@@ -1,5 +1,7 @@
-echo "Starting Cowrie honeypot..."
-docker run --name cowrie \
--i -t cicd:cowrie
+echo "Starting latest version of Cowrie honeypot..."
+docker run \
+--name cowrie \
+-i -t \
+registry:5000/cowrie
 
 

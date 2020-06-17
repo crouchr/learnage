@@ -1,4 +1,6 @@
-echo "Starting Glastofp honeypot..."
-docker run --name glastopf \
--i -t cicd:glastopf \
--p 8888:80
+echo "Starting latest version of Glastofp honeypot..."
+docker run \
+--name glastopf \
+-i -t \
+-p 8888:80 \
+registry:5000/glastopf
