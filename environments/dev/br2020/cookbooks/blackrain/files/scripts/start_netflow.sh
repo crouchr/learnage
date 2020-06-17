@@ -1,5 +1,5 @@
 echo "Starting Netflow container..."
 docker run --name netflow \
--i -t crouchr:netflow
+-i -t cicd:netflow
 
 
