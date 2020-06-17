@@ -3,13 +3,9 @@
     "recipe[ntp]",
     "recipe[motd_br]",
     "recipe[blackrain]",
-    "recipe[blackrain::install_dev_tools]",
-    "recipe[blackrain::install_python_dependencies]",
-    "recipe[blackrain::install_docker_ce]",
     "recipe[blackrain::install_scripts]",
+    "recipe[blackrain::install_python_dependencies]",
     "recipe[blackrain::install_containers]",
-    "recipe[blackrain::install_geoip]",
-    "recipe[blackrain::install_clamav_sniffer]",
-    "recipe[blackrain::install_argus]"
+    "recipe[blackrain::install_geoip]"
   ]
 }
