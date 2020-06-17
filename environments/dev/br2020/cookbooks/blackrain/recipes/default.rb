@@ -10,6 +10,17 @@ execute 'set_hostname' do
     command 'hostnamectl set-hostname br2020'
 end
 
+# Set default route as via Internet
+execute 'del_default_route' do
+    user 'root'
+    command 'route del default'
+end
+
+execute 'add_default_route' do
+    user 'root'
+    command 'route add default gw 192.168.1.1'
+end
+
 # Misc global scripts e.g. starting honeypots etc
 directory '/opt/br2020' do
   owner 'vagrant'
