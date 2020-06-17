@@ -3,4 +3,4 @@ docker run \
 --name glastopf \
 -i -t \
 -p 8888:80 \
-registry:5000/glastopf
+registry:5000/glastopf:1.0.0
