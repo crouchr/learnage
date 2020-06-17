@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 # This script is running on the VM itself
 # Files on the Host can be accessed via the /vagrant share
+# This script is only used if debugging i.e. want to bypass chef solo
+# e.g. checking that shares are mounted OK etc
 
 set -e	# bomb out if any problem
 
 echo
 echo 'Started setup.sh for provisioning this node'
-
-#cd /
-#tree
 
 echo 'Contents of project root /vagrant'
 cd /vagrant
@@ -23,7 +22,6 @@ echo 'Contents of learnage folder'
 cd /vagrant/learnage/chef-repo/.chef/
 ls -laF
 cat solo.rb
-
 
 cd /vagrant/chef
 
