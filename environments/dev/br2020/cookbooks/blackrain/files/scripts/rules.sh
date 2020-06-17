@@ -4,7 +4,6 @@
 # iptables not iptables-legacy - what ever this means
 
 
-
 ### Vars, Ports for Standard services
 #myHOSTPORTS="7634 64294 64295"
 myHOSTPORTS="9999"  # 9999 is just random to see what this does
