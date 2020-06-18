@@ -5,17 +5,18 @@
 version: '2.3'
 
 services:
-#  amun:
+  amun:
     #restart: always
-#    container_name: amun
-#    networks:
-#      static-network:
-#        ipv4_address: 192.168.2.66
-#    image: crouchr:amun
-#    ports:
-#      - 135:135
-#      - 139:139
-#      - 445:445
+    container_name: amun
+    network_mode: "host"
+    image: registry:5000/amun:1.0.0
+    ports:
+      - "135:135"
+      - "139:139"
+      - "445:445"
+    volumes:
+      - /data/amun/log:/opt/amun/logs
+
   glastopf:
     #restart: always
     container_name: glastopf
@@ -26,9 +27,3 @@ services:
     volumes:
       - /data/glastopf/db:/tmp/glastopf/db
       - /data/glastopf/log:/tmp/glastopf/log
-
-#networks:
-#  static-network:
-#    ipam:
-#      config:
-#        - subnet: 192.168.2.0/24
