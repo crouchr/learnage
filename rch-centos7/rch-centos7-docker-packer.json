@@ -90,6 +90,7 @@
              "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools-dependencies.sh",
              "{{template_dir}}/../common-packer-scripts/install-vbox-guest-tools.sh",
              "{{template_dir}}/../common-packer-scripts/install-docker-ce.sh",
+             "{{template_dir}}/../common-packer-scripts/install-telegraf.sh",
              "{{template_dir}}/../common-packer-scripts/dump-info.sh"
         ]
       },
