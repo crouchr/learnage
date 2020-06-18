@@ -16,7 +16,9 @@ services:
       - "139:139"
       - "445:445"
     volumes:
-      - /data/amun/log:/opt/amun/logs
+      - /data/amun/log:/opt/amun/log
+      - /data/amun/malware/md5sum:/opt/amun/malware/md5sum
+      - /data/amun/hexdumps:/opt/amun/hexdumps
 
   glastopf:
     container_name: "glastopf"
