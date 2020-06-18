@@ -29,7 +29,7 @@ RUN pip install --no-cache-dir --upgrade pip
 RUN git clone --depth=1 https://github.com/zeroq/amun /opt/amun
 
 RUN cp /root/dist_files/amun.conf /opt/amun/conf/amun.conf
-RUN mkdir -p /opt/amun/log
+RUN mkdir -p /opt/amun/logs
 RUN mkdir -p /opt/amun/malware/md5sum
 RUN mkdir -p /opt/amun/hexdumps
 
