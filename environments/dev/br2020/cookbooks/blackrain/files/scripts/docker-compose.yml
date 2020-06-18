@@ -25,16 +25,16 @@ services:
       - /data/amun/malware/md5sum:/opt/amun/malware/md5sum
       - /data/amun/hexdumps:/opt/amun/hexdumps
 
-#  glastopf:
-#    container_name: "glastopf"
-#    #restart: always
-#    network_mode: "host"
-#    image: "registry:5000/glastopf:1.0.0"
-#    ports:
-#      - "80:80"
-#    volumes:
-#      - /data/glastopf/db:/tmp/glastopf/db
-#      - /data/glastopf/log:/tmp/glastopf/log
+  glastopf:
+    container_name: "glastopf"
+    #restart: always
+    network_mode: "host"
+    image: "registry:5000/glastopf:1.0.0"
+    ports:
+      - "80:80"
+    volumes:
+      - /data/glastopf/db:/tmp/glastopf/db
+      - /data/glastopf/log:/tmp/glastopf/log
 
 # Honeytrap service
 #  honeytrap:
