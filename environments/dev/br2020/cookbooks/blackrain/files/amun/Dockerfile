@@ -29,6 +29,7 @@ RUN pip install --no-cache-dir --upgrade pip
 RUN git clone --depth=1 https://github.com/zeroq/amun /opt/amun
 
 RUN cp /root/dist_files/amun.conf /opt/amun/conf/amun.conf
+RUN mkdir /opt/amun/logs
 
 # There are more - see mars
 EXPOSE 135 139 445 62001 62002 62003
@@ -37,6 +38,4 @@ STOPSIGNAL SIGINT
 
 USER root:root
 
-# Give a shell prompt while debugging
-#CMD exec ash
-# CMD ./amun_server.py
+CMD ./amun_server.py
