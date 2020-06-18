@@ -25,7 +25,7 @@ pyasn1==0.4.2
 pycparser==2.18
 pylibinjection==0.2.4
 pymongo==3.2.2
-pyOpenSSL==17.2.0
+pyOpenSSL==17.5.0
 python-dateutil==2.6.1
 python-logstash==0.4.6
 requests==2.18.4
