@@ -61,8 +61,8 @@ services:
 #     - /tmp/cowrie/data:uid=2000,gid=2000
 #    network_mode: "host"
 #    ports:
-#     - "2222:22"
-#     - "2223:23"
+#     - "2222:2222"
+#     - "2223:2323"
 #    image: "registry:5000/cowrie:1.0.0"
 #    read_only: true
 #    volumes:

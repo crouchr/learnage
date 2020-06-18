@@ -1,8 +1,9 @@
+# TODO : make it install in /opt/cowrie like the other honeypots
+
 FROM alpine:3.11
+
 LABEL author="Various"
 LABEL description="Cowrie SSH honeypot"
-
-# TODO : make it install in /opt/cowrie like the other honeypots
 
 # Include dist_files on host - /root gets removed at the end of this script
 ADD dist_files/ /root/dist_files/
@@ -72,5 +73,6 @@ RUN sed -i 's/dl-cdn/dl-2/g' /etc/apk/repositories && \
 # Start cowrie
 ENV PYTHONPATH /home/cowrie/cowrie:/home/cowrie/cowrie/src
 WORKDIR /home/cowrie/cowrie
-USER cowrie:cowrie
-#CMD ["/usr/bin/twistd", "--nodaemon", "-y", "cowrie.tac", "--pidfile", "/tmp/cowrie/cowrie.pid", "cowrie"]
+#USER cowrie:cowrie - original value
+USER root:root
+CMD ["/usr/bin/twistd", "--nodaemon", "-y", "cowrie.tac", "--pidfile", "/tmp/cowrie/cowrie.pid", "cowrie"]
