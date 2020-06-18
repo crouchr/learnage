@@ -8,4 +8,11 @@ control "joe_package" do
   describe package('joe') do
      it { should be_installed}
   end
+
+  describe docker_container(name: 'amun') do
+     it { should exist }
+     it { should be_running }
+  end
+
+
 end
