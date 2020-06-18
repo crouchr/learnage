@@ -1,4 +1,4 @@
-# TODO : use alpine 3.7 - to be same as others ?
+# TODO : use alpine 3.x - to be same as others ?
 # TODO : My native version has more configure options defined
 FROM debian:buster-slim
 ENV DEBIAN_FRONTEND noninteractive

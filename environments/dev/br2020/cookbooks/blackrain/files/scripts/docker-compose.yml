@@ -5,11 +5,12 @@
 version: '2.3'
 
 services:
+
   amun:
+    container_name: "amun"
     #restart: always
-    container_name: amun
     network_mode: "host"
-    image: registry:5000/amun:1.0.0
+    image: "registry:5000/amun:1.0.0"
     ports:
       - "135:135"
       - "139:139"
@@ -18,12 +19,47 @@ services:
       - /data/amun/log:/opt/amun/logs
 
   glastopf:
+    container_name: "glastopf"
     #restart: always
-    container_name: glastopf
     network_mode: "host"
-    image: registry:5000/glastopf:1.0.0
+    image: "registry:5000/glastopf:1.0.0"
     ports:
       - "80:80"
     volumes:
       - /data/glastopf/db:/tmp/glastopf/db
       - /data/glastopf/log:/tmp/glastopf/log
+
+# Honeytrap service
+  honeytrap:
+    container_name: "honeytrap"
+    #restart: always
+    network_mode: "host"
+    image: "registry:5000/honeytrap:1.0.0"
+    cap_add:
+     - NET_ADMIN
+    tmpfs:
+     - /tmp/honeytrap:uid=2000,gid=2000
+    read_only: true
+    volumes:
+     - /data/honeytrap/attacks:/opt/honeytrap/var/attacks
+     - /data/honeytrap/downloads:/opt/honeytrap/var/downloads
+     - /data/honeytrap/log:/opt/honeytrap/var/log
+
+# Cowrie service
+  cowrie:
+    container_name: cowrie
+    #restart: always
+    tmpfs:
+     - /tmp/cowrie:uid=2000,gid=2000
+     - /tmp/cowrie/data:uid=2000,gid=2000
+    network_mode: "host"
+    ports:
+     - "2222:22"
+     - "2223:23"
+    image: "registry:5000/cowrie:1.0.0"
+    read_only: true
+    volumes:
+     - /data/cowrie/downloads:/home/cowrie/cowrie/dl
+     - /data/cowrie/keys:/home/cowrie/cowrie/etc
+     - /data/cowrie/log:/home/cowrie/cowrie/log
+     - /data/cowrie/log/tty:/home/cowrie/cowrie/log/tty
