@@ -79,6 +79,7 @@ cp /vagrant/apache/br2020-packages/*.dat.gz /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.zip /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.json /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.repo /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/*.conf /var/www/html/br2020-packages/
 chmod 755 /var/www/html/br2020-packages/*
 
 # BlackRain 'malware' files for testing BlackRain
