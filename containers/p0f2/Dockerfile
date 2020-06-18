@@ -5,7 +5,7 @@ LABEL description="p0f"
 
 # Add source
 #ADD . /opt/p0f
-ADD dist_files/ /root/dist_files/
+ADD dist_files /root/dist_files/
 
 #
 # Install packages

@@ -7,7 +7,7 @@ LABEL author="Various"
 LABEL description="Honeytrap honeypot"
 
 # Include dist_files on host - /root gets removed at the end of this script
-ADD dist_files/ /root/dist_files/
+ADD dist_files /root/dist_files/
 #
 # Setup apt
 RUN apt-get update -y && \

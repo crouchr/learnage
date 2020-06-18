@@ -4,7 +4,7 @@ services:
 
 # Honeytrap service
   honeytrap:
-    build: .
+    build: ""
     container_name: honeytrap
     restart: always
     tmpfs:

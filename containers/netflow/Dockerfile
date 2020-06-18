@@ -17,7 +17,7 @@ LABEL description="Netflow"
 ENV PERL_MM_USE_DEFAULT=1
 
 # Include dist_files on host - /root gets removed at the end of this script
-ADD dist_files/ /root/dist_files/
+ADD dist_files /root/dist_files/
 RUN mkdir -p /opt/netflow
 
 WORKDIR /opt/netflow

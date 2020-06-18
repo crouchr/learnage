@@ -6,7 +6,7 @@ LABEL author="Various"
 LABEL description="Cowrie SSH honeypot"
 
 # Include dist_files on host - /root gets removed at the end of this script
-ADD dist_files/ /root/dist_files/
+ADD dist_files /root/dist_files/
 #
 # Get and install dependencies & packages
 RUN sed -i 's/dl-cdn/dl-2/g' /etc/apk/repositories && \
@@ -73,6 +73,6 @@ RUN sed -i 's/dl-cdn/dl-2/g' /etc/apk/repositories && \
 # Start cowrie
 ENV PYTHONPATH /home/cowrie/cowrie:/home/cowrie/cowrie/src
 WORKDIR /home/cowrie/cowrie
-#USER cowrie:cowrie - original value
-USER root:root
+USER cowrie:cowrie - original value
+#USER root:root - cowrie won't allow itself to be run as root
 CMD ["/usr/bin/twistd", "--nodaemon", "-y", "cowrie.tac", "--pidfile", "/tmp/cowrie/cowrie.pid", "cowrie"]

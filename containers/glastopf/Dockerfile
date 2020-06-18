@@ -8,7 +8,7 @@ LABEL author="Various"
 LABEL description="Glastopf honeypot"
 
 # Include dist_files on host - /root gets removed at the end of this script
-ADD dist_files/ /root/dist_files/
+ADD dist_files /root/dist_files/
 
 # Install packages
 # RCH : added 'file' 'joe' 'tcpdump' 'nmap' to packages
