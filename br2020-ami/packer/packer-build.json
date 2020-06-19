@@ -1,7 +1,7 @@
 {
     "variables": {
-        "aws_access_key": "AKIAIJLWOICOK5XFXCQA",
-        "aws_secret_key": "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",
+        "aws_access_key": "",
+        "aws_secret_key": "",
         "ami_name": "br2020-ami",
         "aws_region": "eu-west-1",
         "ssh_username": "centos",
