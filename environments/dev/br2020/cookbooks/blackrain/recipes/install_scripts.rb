@@ -91,3 +91,10 @@ cookbook_file "/opt/br2020/bin/rules.sh" do
   source "scripts/rules.sh"
   mode "0755"
 end
+
+cookbook_file "/home/vagrant/add_honeytrap_iptables_rule.sh" do
+  source "scripts/add_honeytrap_iptables_rule.sh"
+  mode "0755"
+  owner 'vagrant'
+  group 'vagrant'
+end
