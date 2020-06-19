@@ -1,12 +1,12 @@
 {
     "variables": {
-        "aws_access_key": "",
-        "aws_secret_key": "",
-        "ami_name": "tomcat-ami",
-        "aws_region": "us-east-1",
+        "aws_access_key": "AKIAIJLWOICOK5XFXCQA",
+        "aws_secret_key": "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",
+        "ami_name": "br2020-ami",
+        "aws_region": "eu-west-1",
         "ssh_username": "centos",
-        "vpc_id": "",
-        "subnet_id": ""
+        "vpc_id": "vpc-03ff4f7262dcff5b2",
+        "subnet_id": "subnet-0a7f1620f351ed678"
     },
   "builders": [{
         "type": "amazon-ebs",
@@ -41,15 +41,8 @@
         {
             "type": "shell",
             "script": "./provisioners/scripts/bootstrap.sh"
-        },
-        {
-            "type": "ansible",
-            "playbook_file": "./provisioners/ansible/setup-server.yml"
-        },
-        {
-            "type": "ansible",
-            "playbook_file": "./provisioners/ansible/deploy_app.yml"
-        }]
+        }
+    ]
 }
 
 
