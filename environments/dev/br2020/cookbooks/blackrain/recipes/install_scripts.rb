@@ -85,6 +85,13 @@ cookbook_file "/home/vagrant/docker-compose.yml" do
   group 'vagrant'
 end
 
+# Allow to update containers during development phase
+cookbook_file "/home/vagrant/pull_all_containers.sh" do
+  source "scripts/pull_all_containers.sh"
+  mode "0755"
+  owner 'vagrant'
+  group 'vagrant'
+end
 
 # misc scripts
 cookbook_file "/opt/br2020/bin/rules.sh" do
