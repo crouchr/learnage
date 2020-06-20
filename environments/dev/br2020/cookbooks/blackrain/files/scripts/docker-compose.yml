@@ -113,7 +113,7 @@ services:
 #      - /data/glastopf/log:/tmp/glastopf/log
 
 # Honeytrap service
- honeytrap:
+  honeytrap:
     container_name: "honeytrap"
     #restart: always
     network_mode: "host"
