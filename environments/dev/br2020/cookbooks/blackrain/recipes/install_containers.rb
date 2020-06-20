@@ -48,3 +48,9 @@ execute 'install_scantools_container' do
     user 'root'
     command 'docker pull registry:5000/scantools:1.0.0'
 end
+
+execute 'install_dionaea_container' do
+    cwd '/usr/local/src'
+    user 'root'
+    command 'docker pull registry:5000/dionaea:1.0.0'
+end
