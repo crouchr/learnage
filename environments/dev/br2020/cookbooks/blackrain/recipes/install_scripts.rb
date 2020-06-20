@@ -85,9 +85,9 @@ cookbook_file "/home/vagrant/docker-compose.yml" do
   group 'vagrant'
 end
 
-# Allow to update containers during development phase
-cookbook_file "/home/vagrant/pull_all_containers.sh" do
-  source "scripts/pull_all_containers.sh"
+# Allow to update containers during development phase - only pulls changed images
+cookbook_file "/home/vagrant/update_all_containers.sh" do
+  source "scripts/update_all_containers.sh"
   mode "0755"
   owner 'vagrant'
   group 'vagrant'
