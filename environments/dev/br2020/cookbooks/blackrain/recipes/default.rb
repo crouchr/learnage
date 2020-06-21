@@ -97,6 +97,7 @@ directory '/data' do
   action :create
 end
 
+# Honeytrap
 directory '/data/honeytrap' do
   owner 'vagrant'
   group 'vagrant'
@@ -104,6 +105,13 @@ directory '/data/honeytrap' do
   action :create
 end
 
+# See Virtual Honeypots book p200 : Queue all new incoming requests for use by Honeytrap
+execute 'mod_iptables_honeytrap' do
+    user 'root'
+    command 'iptables -A INPUT -i enp0s8 -p tcp --syn -m state --state NEW -j QUEUE'
+end
+
+# AMUN
 directory '/data/amun' do
   owner 'vagrant'
   group 'vagrant'
@@ -111,6 +119,7 @@ directory '/data/amun' do
   action :create
 end
 
+# Glastopf
 directory '/data/glastopf' do
   owner 'vagrant'
   group 'vagrant'
@@ -118,7 +127,7 @@ directory '/data/glastopf' do
   action :create
 end
 
-# dionaea
+# Dionaea
 directory '/data/dionaea' do
   owner 'vagrant'
   group 'vagrant'
@@ -136,6 +145,7 @@ execute 'chmod_dionaea' do
     command 'chmod 777 -R dionaea'
 end
 
+# Cowrie
 directory '/data/cowrie' do
   owner 'vagrant'
   group 'vagrant'
@@ -143,6 +153,7 @@ directory '/data/cowrie' do
   action :create
 end
 
+# p0f2
 directory '/data/p0f' do
   owner 'vagrant'
   group 'vagrant'
