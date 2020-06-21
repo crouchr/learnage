@@ -2,6 +2,7 @@
 # $ cd /app/scripts
 # $ sudo docker-compose up --no-build
 # Static IPs : https://stackoverflow.com/questions/27937185/assign-static-ip-to-docker-container
+# ref : https://docs:docker:com/compose/compose-file/compose-file-v2/:
 
 version: '2.3'
 
@@ -27,6 +28,8 @@ services:
     build: .
     container_name: "dionaea"
     image: "registry:5000/dionaea:1.0.0"
+    depends_on:
+      - honeytrap
     stdin_open: true
     tty: true
     #"restart: always
@@ -64,6 +67,8 @@ services:
     #restart: always
 #    network_mode: "host"
 #    image: "registry:5000/amun:1.0.0"
+#    depends_on:
+#      - honeytrap
 #    ports:
 #      - "21:21"
 #      - "42:42"
@@ -121,6 +126,8 @@ services:
     #restart: always
 #    network_mode: "host"
 #    image: "registry:5000/glastopf:1.0.0"
+#    depends_on:
+#      - honeytrap
 #   ports:
 #      - "80:80"
 #    volumes:
@@ -128,7 +135,7 @@ services:
 #      - /data/glastopf/log:/tmp/glastopf/log
 
 
-
+# re-order entries to a standard
 # Cowrie service
 #  cowrie:
 #    container_name: cowrie
@@ -141,6 +148,8 @@ services:
 #     - "2222:2222"
 #     - "2223:2323"
 #    image: "registry:5000/cowrie:1.0.0"
+#    depends_on:
+#      - honeytrap
 #    read_only: true
 #    volumes:
 #     - /data/cowrie/downloads:/home/cowrie/cowrie/dl
