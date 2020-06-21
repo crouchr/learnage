@@ -10,6 +10,13 @@ execute 'set_hostname' do
     command 'hostnamectl set-hostname br2020'
 end
 
+# disable IPv6 https://unixmen.com/disable-ipv6-centos-7/
+# Dionaea will try to bind for IPv6
+execute 'disable_ipv6' do
+    user 'root'
+    command 'sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1'
+end
+
 # Set default route as via Internet
 execute 'del_default_route' do
     user 'root'
