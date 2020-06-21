@@ -6,6 +6,21 @@
 version: '2.3'
 
 services:
+# Honeytrap service
+  honeytrap:
+    container_name: "honeytrap"
+    #restart: always
+    network_mode: "host"
+    image: "registry:5000/honeytrap:1.0.0"
+    cap_add:
+     - NET_ADMIN
+    tmpfs:
+     - /tmp/honeytrap:uid=2000,gid=2000
+# #   read_only: true
+    volumes:
+     - /data/honeytrap/attacks:/opt/honeytrap/var/attacks
+     - /data/honeytrap/downloads:/opt/honeytrap/var/downloads
+     - /data/honeytrap/log:/opt/honeytrap/var/log
 
 # Dionaea service
   dionaea:
@@ -112,21 +127,7 @@ services:
 #      - /data/glastopf/db:/tmp/glastopf/db
 #      - /data/glastopf/log:/tmp/glastopf/log
 
-# Honeytrap service
-  #honeytrap:
-  #  container_name: "honeytrap"
-    #restart: always
-  #  network_mode: "host"
-  #  image: "registry:5000/honeytrap:1.0.0"
-  #  cap_add:
-  #   - NET_ADMIN
-  #  tmpfs:
-  #   - /tmp/honeytrap:uid=2000,gid=2000
-# #   read_only: true
-  #  volumes:
-  #   - /data/honeytrap/attacks:/opt/honeytrap/var/attacks
-  #   - /data/honeytrap/downloads:/opt/honeytrap/var/downloads
-  #   - /data/honeytrap/log:/opt/honeytrap/var/log
+
 
 # Cowrie service
 #  cowrie:

@@ -107,10 +107,10 @@ end
 
 # Only run this once honeytrap is IGNORING certain ports
 # See Virtual Honeypots book p200 : Queue all new incoming requests for use by Honeytrap
-#execute 'mod_iptables_honeytrap' do
-#    user 'root'
-#    command 'iptables -A INPUT -i enp0s8 -p tcp --syn -m state --state NEW -j QUEUE'
-#end
+execute 'mod_iptables_honeytrap' do
+    user 'root'
+    command 'iptables -A INPUT -i enp0s8 -p tcp --syn -m state --state NEW -j QUEUE'
+end
 
 # AMUN
 directory '/data/amun' do
@@ -136,14 +136,16 @@ directory '/data/dionaea' do
   action :create
 end
 
+# FIXME : do this at the end for  all the honeypots in /data ?
 execute 'chown_dionaea' do
     user 'root'
-    command 'chown -R vagrant:vagrant dionaea'
+    command 'chown -R vagrant:vagrant /data/dionaea'
 end
 
+# FIXME : do this at the end for  all the honeypots in /data ?
 execute 'chmod_dionaea' do
     user 'root'
-    command 'chmod 777 -R dionaea'
+    command 'chmod 777 -R /data/dionaea'
 end
 
 # Cowrie
