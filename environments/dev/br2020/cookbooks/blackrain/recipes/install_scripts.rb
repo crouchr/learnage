@@ -93,6 +93,14 @@ cookbook_file "/home/vagrant/update_all_containers.sh" do
   group 'vagrant'
 end
 
+cookbook_file "/home/vagrant/make_host_directories.sh" do
+  source "scripts/make_host_directories.sh"
+  mode "0755"
+  owner 'vagrant'
+  group 'vagrant'
+end
+
+
 # misc scripts
 cookbook_file "/opt/br2020/bin/rules.sh" do
   source "scripts/rules.sh"
