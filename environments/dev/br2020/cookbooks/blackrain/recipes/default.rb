@@ -118,6 +118,24 @@ directory '/data/glastopf' do
   action :create
 end
 
+# dionaea
+directory '/data/dionaea' do
+  owner 'vagrant'
+  group 'vagrant'
+  mode '0777'
+  action :create
+end
+
+execute 'chown_dionaea' do
+    user 'root'
+    command 'chown -R vagrant:vagrant dionaea'
+end
+
+execute 'chmod_dionaea' do
+    user 'root'
+    command 'chmod 777 -R dionaea'
+end
+
 directory '/data/cowrie' do
   owner 'vagrant'
   group 'vagrant'
