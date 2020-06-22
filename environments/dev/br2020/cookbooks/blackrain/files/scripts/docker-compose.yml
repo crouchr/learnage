@@ -30,7 +30,7 @@ services:
     image: "registry:5000/dionaea:1.0.0"
     depends_on:
       - honeytrap
-      - p0f2
+      #- p0f2
     stdin_open: true
     tty: true
     #"restart: always
