@@ -67,6 +67,8 @@ services:
     container_name: "p0f2"
     network_mode: "host"
     image: "registry:5000/p0f2:1.0.0"
+    cap_add:
+      - NET_ADMIN
     volumes:
      - /data/p0f/log:/opt/p0f/var
 
