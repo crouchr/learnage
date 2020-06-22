@@ -63,14 +63,14 @@ services:
      - /data/dionaea/log:/opt/dionaea/var/log
      - /data/dionaea/rtp:/opt/dionaea/var/dionaea/rtp
 
- p0f2:
-    container_name: "p0f2"
-    network_mode: "host"
-    image: "registry:5000/p0f2:1.0.0"
-    depends_on:
-      - honeytrap
-    volumes:
-      - /data/p0f2/log:/var/log/p0f
+ #p0f2:
+ #   container_name: "p0f2"
+ #   network_mode: "host"
+ #   image: "registry:5000/p0f2:1.0.0"
+ #   depends_on:
+ #     - honeytrap
+ #   volumes:
+ #     - /data/p0f2/log:/var/log/p0f
 
 #  amun:
 #    container_name: "amun"
