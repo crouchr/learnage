@@ -1,7 +1,5 @@
 # Chef Client Cookbook
 
-[![Build Status](https://travis-ci.org/chef-cookbooks/chef-client.svg?branch=master)](https://travis-ci.org/chef-cookbooks/chef-client) [![Cookbook Version](https://img.shields.io/cookbook/v/chef-client.svg)](https://supermarket.chef.io/cookbooks/chef-client)
-
 This cookbook is used to configure a system as a Chef Client.
 
 ## Requirements
