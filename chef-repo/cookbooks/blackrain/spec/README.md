@@ -1,0 +1,1 @@
+# https://medium.com/@pavithra_38952/getting-started-with-chefspec-be1fd0a577d4
