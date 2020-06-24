@@ -11,12 +11,12 @@ execute 'set_hostname' do
 end
 
 # Misc global scripts e.g. starting honeypots etc
-#directory '/opt/br2020' do
-#  owner 'vagrant'
-#  group 'vagrant'
-#  mode '0777'
-#  action :create
-#end
+directory '/opt/br2020' do
+  owner 'vagrant'
+  group 'vagrant'
+  mode '0777'
+  action :create
+end
 
 # Misc global scripts e.g. starting honeypots etc
 directory '/opt/br2020/bin' do

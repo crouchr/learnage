@@ -11,7 +11,9 @@ platforms:
       box: crouchr/rch-centos7-docker
 
 suites:
-  - name: default
+  - name: testing
     run_list:
-      - recipe[blackrain::default]
+      - recipe[blackrain]
+      - recipe[blackrain::install_scripts]
+      - recipe[blackrain::install_containers]
     attributes:
