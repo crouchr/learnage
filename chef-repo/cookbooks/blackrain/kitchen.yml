@@ -1,0 +1,17 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: rch-centos7-docker
+    driver:
+      box: crouchr/rch-centos7-docker
+
+suites:
+  - name: default
+    run_list:
+      - recipe[blackrain::default]
+    attributes:

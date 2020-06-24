@@ -10,36 +10,13 @@ execute 'set_hostname' do
     command 'hostnamectl set-hostname br2020'
 end
 
-# disable IPv6 https://unixmen.com/disable-ipv6-centos-7/
-# Dionaea will try to bind for IPv6
-execute 'disable_ipv6' do
-    user 'root'
-    command 'sysctl -w net.ipv6.conf.all.disable_ipv6=1 && sysctl -w net.ipv6.conf.default.disable_ipv6=1'
-end
-
-# Set default route as via Internet
-execute 'del_default_route' do
-    user 'root'
-    command 'route del default'
-end
-
-execute 'add_default_route' do
-    user 'root'
-    command 'route add default gw 192.168.1.1'
-end
-
-execute 'show_route_table' do
-    user 'root'
-    command 'route -n'
-end
-
 # Misc global scripts e.g. starting honeypots etc
-directory '/opt/br2020' do
-  owner 'vagrant'
-  group 'vagrant'
-  mode '0777'
-  action :create
-end
+#directory '/opt/br2020' do
+#  owner 'vagrant'
+#  group 'vagrant'
+#  mode '0777'
+#  action :create
+#end
 
 # Misc global scripts e.g. starting honeypots etc
 directory '/opt/br2020/bin' do
@@ -170,3 +147,5 @@ directory '/data/p0f' do
   mode '0777'
   action :create
 end
+
+log 'Installed Blackrain default'

@@ -38,3 +38,5 @@ package 'libpcap-devel'
 # electric fence was for honeytrap
 # libemu looks like it is honeytrap
 # libnetfilter looks like honeytrap
+
+log 'Installed Blackrain development tools'

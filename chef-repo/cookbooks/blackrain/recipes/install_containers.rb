@@ -54,3 +54,5 @@ execute 'install_dionaea_container' do
     user 'root'
     command 'docker pull registry:5000/dionaea:1.0.0'
 end
+
+log 'Installed Blackrain containers'

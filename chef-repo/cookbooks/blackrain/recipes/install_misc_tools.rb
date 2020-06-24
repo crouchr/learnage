@@ -9,4 +9,3 @@
 # =====
 package 'nmap'
 package 'whois'
-

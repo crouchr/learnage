@@ -45,6 +45,4 @@ service 'docker' do
   action [ :enable, :start]
 end
 
-
-
-
+log 'Installed Blackrain Docker CE Engine'

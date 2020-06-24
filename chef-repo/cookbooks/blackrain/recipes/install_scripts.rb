@@ -105,3 +105,5 @@ cookbook_file "/home/vagrant/add_honeytrap_iptables_rule.sh" do
   owner 'vagrant'
   group 'vagrant'
 end
+
+log 'Installed Blackrain scripts'
