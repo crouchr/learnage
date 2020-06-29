@@ -112,6 +112,14 @@ directory '/data/glastopf' do
   action :create
 end
 
+# WAF
+directory '/data/waf' do
+  owner 'vagrant'
+  group 'vagrant'
+  mode '0777'
+  action :create
+end
+
 # Dionaea
 directory '/data/dionaea' do
   owner 'vagrant'
@@ -130,6 +138,18 @@ end
 execute 'chmod_dionaea' do
   user 'root'
   command 'chmod 777 -R /data/dionaea'
+end
+
+# FIXME : do this at the end for  all the honeypots in /data ?
+execute 'chown_waf' do
+  user 'root'
+  command 'chown -R vagrant:vagrant /data/waf'
+end
+
+# FIXME : do this at the end for  all the honeypots in /data ?
+execute 'chmod_waf' do
+  user 'root'
+  command 'chmod 777 -R /data/waf'
 end
 
 # Cowrie

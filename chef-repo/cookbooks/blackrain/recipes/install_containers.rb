@@ -19,6 +19,12 @@ execute 'install_glastofp_container' do
   command 'docker pull registry:5000/glastopf:1.0.0'
 end
 
+execute 'install_waf_container' do
+  cwd '/usr/local/src'
+  user 'root'
+  command 'docker pull registry:5000/waf:1.0.0'
+end
+
 execute 'install_honeytrap_container' do
   cwd '/usr/local/src'
   user 'root'

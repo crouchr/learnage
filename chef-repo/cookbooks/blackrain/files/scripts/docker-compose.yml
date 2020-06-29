@@ -8,68 +8,68 @@ version: '2.3'
 
 services:
 # Honeytrap service
-  honeytrap:
-    container_name: "honeytrap"
+  #honeytrap:
+  #  container_name: "honeytrap"
     #restart: always
-    network_mode: "host"
-    image: "registry:5000/honeytrap:1.0.0"
-    cap_add:
-     - NET_ADMIN
-    tmpfs:
-     - /tmp/honeytrap:uid=2000,gid=2000
+  #  network_mode: "host"
+  #  image: "registry:5000/honeytrap:1.0.0"
+  #  cap_add:
+  #   - NET_ADMIN
+  #  tmpfs:
+  #   - /tmp/honeytrap:uid=2000,gid=2000
 # #   read_only: true
-    volumes:
-     - /data/honeytrap/attacks:/opt/honeytrap/var/attacks
-     - /data/honeytrap/downloads:/opt/honeytrap/var/downloads
-     - /data/honeytrap/log:/opt/honeytrap/var/log
+  #  volumes:
+  #   - /data/honeytrap/attacks:/opt/honeytrap/var/attacks
+  #   - /data/honeytrap/downloads:/opt/honeytrap/var/downloads
+  #   - /data/honeytrap/log:/opt/honeytrap/var/log
 
 # Dionaea service
-  dionaea:
-    build: ""
-    container_name: "dionaea"
-    image: "registry:5000/dionaea:1.0.0"
-    depends_on:
-      - honeytrap
-    stdin_open: true
-    tty: true
-    #"restart: always
-    network_mode: "host"
-    ports:
-     - "20:20"
-     - "21:21"
-     - "42:42"
-     - "69:69/udp"
-     - "81:81"
-     - "135:135"
-     - "443:443"
-     - "445:445"
-     - "1433:1433"
-     - "1723:1723"
-     - "1883:1883"
-     - "3306:3306"
-     - "5060:5060"
-     - "5060:5060/udp"
-     - "5061:5061"
-     - "27017:27017"
-    #read_only: true
-    volumes:
-     - /data/dionaea/roots/ftp:/opt/dionaea/var/dionaea/roots/ftp
-     - /data/dionaea/roots/tftp:/opt/dionaea/var/dionaea/roots/tftp
-     - /data/dionaea/roots/www:/opt/dionaea/var/dionaea/roots/www
-     - /data/dionaea/roots/upnp:/opt/dionaea/var/dionaea/roots/upnp
-     - /data/dionaea:/opt/dionaea/var/dionaea
-     - /data/dionaea/binaries:/opt/dionaea/var/dionaea/binaries
-     - /data/dionaea/log:/opt/dionaea/var/log
-     - /data/dionaea/rtp:/opt/dionaea/var/dionaea/rtp
+# has a service on TCP 443 - but WAF planned to use that
+#  dionaea:
+#    build: ""
+#    container_name: "dionaea"
+#    image: "registry:5000/dionaea:1.0.0"
+#    #depends_on:
+#    #  - honeytrap
+#    stdin_open: true
+#    tty: true
+#    #"restart: always
+#    network_mode: "host"
+#    ports:
+#     - "20:20"
+#     - "21:21"
+#     - "42:42"
+#     - "69:69/udp"
+#     - "81:81"
+#     - "135:135"
+#     - "445:445"
+#     - "1433:1433"
+#     - "1723:1723"
+#     - "1883:1883"
+#     - "3306:3306"
+#     - "5060:5060"
+#     - "5060:5060/udp"
+#     - "5061:5061"
+#     - "27017:27017"
+#    #read_only: true
+#    volumes:
+#     - /data/dionaea/roots/ftp:/opt/dionaea/var/dionaea/roots/ftp
+#     - /data/dionaea/roots/tftp:/opt/dionaea/var/dionaea/roots/tftp
+#     - /data/dionaea/roots/www:/opt/dionaea/var/dionaea/roots/www
+#     - /data/dionaea/roots/upnp:/opt/dionaea/var/dionaea/roots/upnp
+#     - /data/dionaea:/opt/dionaea/var/dionaea
+#     - /data/dionaea/binaries:/opt/dionaea/var/dionaea/binaries
+#     - /data/dionaea/log:/opt/dionaea/var/log
+#     - /data/dionaea/rtp:/opt/dionaea/var/dionaea/rtp
 
- p0f2:
-    container_name: "p0f2"
-    network_mode: "host"
-    image: "registry:5000/p0f2:1.0.0"
-    cap_add:
-      - NET_ADMIN
-    volumes:
-     - /data/p0f/log:/opt/p0f/var
+  #p0f2:
+  #  container_name: "p0f2"
+  #  network_mode: "host"
+  #  image: "registry:5000/p0f2:1.0.0"
+  #  cap_add:
+  #    - NET_ADMIN
+  #  volumes:
+  #   - /data/p0f/log:/opt/p0f/var
 
 #  amun:
 #    container_name: "amun"
@@ -130,19 +130,31 @@ services:
 #      - /data/amun/malware/md5sum:/opt/amun/malware/md5sum
 #      - /data/amun/hexdumps:/opt/amun/hexdumps
 
-#  glastopf:
-#    container_name: "glastopf"
+  glastopf:
+    container_name: "glastopf"
     #restart: always
-#    network_mode: "host"
-#    image: "registry:5000/glastopf:1.0.0"
-#    depends_on:
-#      - honeytrap
-#   ports:
-#      - "80:80"
-#    volumes:
-#      - /data/glastopf/db:/tmp/glastopf/db
-#      - /data/glastopf/log:/tmp/glastopf/log
+    network_mode: "host"
+    image: "registry:5000/glastopf:1.0.0"
+    #depends_on:
+    #  - honeytrap
+    ports:
+      - "80:80"
+    volumes:
+      - /data/glastopf/db:/tmp/glastopf/db
+      - /data/glastopf/log:/tmp/glastopf/log
 
+  waf:
+    container_name: "waf"
+    #restart: always
+    network_mode: "host"
+    image: "registry:5000/waf:1.0.0"
+    #depends_on:
+    #  - honeytrap
+    ports:
+      - "10080:10080"
+    volumes:
+      - /data/waf/log:/var/log/httpd
+#      - /data/glastopf/log:/tmp/glastopf/log
 
 # re-order entries to a standard
 # Cowrie service
