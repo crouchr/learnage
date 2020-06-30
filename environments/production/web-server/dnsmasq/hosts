@@ -17,7 +17,7 @@
 192.168.1.105 observium
 192.168.1.106 logging
 192.168.1.107 mongodb
-192.168.1.108 influxdb
+192.168.1.108 grafana
 192.168.1.109 registry
 
 # BR2020
