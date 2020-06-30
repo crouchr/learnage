@@ -2,6 +2,7 @@
 # Bring up the web server
 # This script is running on the VM itself
 # Files on the Host can be accessed via the /vagrant share
+# DNS info : https://www.tecmint.com/setup-a-dns-dhcp-server-using-dnsmasq-on-centos-rhel/
 
 set -e	# bomb out if any problem
 
@@ -13,6 +14,7 @@ echo "Started setup.sh for provisioning this node"
 #systemctl restart sshd
 
 yum install -y httpd httpd-devel mod_ssl python-pip
+yum install -y dnsmasq bind-utils
 
 #yum -y install php php-common php-mysql php-pdo php-intl php-gd php-xml php-mbstring
 #echo "Include /vagrant/apache/*.conf" >> /etc/httpd/conf/httpd.conf
@@ -60,6 +62,14 @@ chmod 755 /var/www/html/index.html
 
 cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
 
+# Copy DNSMASQ files
+cp /vagrant/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
+cp /vagrant/dnsmasq/hosts /etc/hosts
+cp /vagrant/dnsmasq/resolv.conf /etc/resolv.conf
+
+# Make immutable - so that NetworkManager can't override setting
+chattr +i /etc/resolv.conf
+
 # Copy the NVM CentOS7 box across as this is not built on my nodes
 #echo "Copying NVM Jenkins-built CentOS7..."
 #cp /vagrant/apache/boxes/CentOS7_v2_virtualbox.box /var/www/html/boxes/nvm-centos7/0.0.2/virtualbox/
@@ -106,9 +116,13 @@ chmod 755 /var/www/html/private/bootstrap-chef-files/*
 #--description="NVM Centos7" \
 #--baseurl="http://web.ermin/boxes/nvm-centos7"
 
+echo "Starting dnsmasq..."
+systemctl enable dnsmasq.service
+systemctl start dnsmasq.service
+
 echo "Starting httpd..."
-systemctl start httpd.service
 systemctl enable httpd.service
+systemctl start httpd.service
 
 echo "Finished setup.sh OK for provisioning this node"
 echo
