@@ -27,15 +27,23 @@ cp /vagrant/influxdb.conf /etc/influxdb/influxdb.conf
 
 # Grafana
 wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.3.4-1.x86_64.rpm
-
-# and install
 yum -y localinstall grafana-5.3.4-1.x86_64.rpm
 mkdir -p /etc/grafana
 cp /vagrant/grafana.ini /etc/grafana/grafana.ini
 
+# Telegraf
+wget https://dl.influxdata.com/telegraf/releases/telegraf-1.8.3-1.x86_64.rpm
+yum -y localinstall telegraf-1.8.3-1.x86_64.rpm
+mkdir -p /etc/telegraf
+cp /vagrant/telegraf.conf /etc/telegraf/telegraf.conf
+
 echo "Starting InfluxDB..."
 systemctl enable influxdb
 systemctl start influxdb
+
+echo "Starting Telegraf..."
+systemctl enable telegraf
+systemctl start telegraf
 
 echo "Starting Grafana..."
 systemctl enable grafana-server
