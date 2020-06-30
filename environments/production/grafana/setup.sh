@@ -22,9 +22,12 @@ EOF
 
 yum -y install influxdb
 
+mkdir -p /etc/influxdb
+cp /vagrant/influxdb.conf /etc/influxdb/influxdb.conf
+
 echo "Starting InfluxDB..."
-systemctl enable dnsmasq.service
-systemctl start dnsmasq.service
+systemctl enable influxdb
+systemctl start influxdb
 
 echo "Finished setup.sh OK for provisioning this node"
 echo
