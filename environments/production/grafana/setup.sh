@@ -11,6 +11,7 @@ echo "Started setup.sh for provisioning this node"
 # Check for patch updates - slows up boot so need a way of avoiding this
 #yum update -y --disableplugin=fastestmirror
 
+# InfluxDB
 cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
 [influxdb]
 name = InfluxDB Repository - RHEL \$releasever
@@ -21,13 +22,25 @@ gpgkey = https://repos.influxdata.com/influxdb.key
 EOF
 
 yum -y install influxdb
-
 mkdir -p /etc/influxdb
 cp /vagrant/influxdb.conf /etc/influxdb/influxdb.conf
+
+# Grafana
+wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.3.4-1.x86_64.rpm
+
+# and install
+yum -y localinstall grafana-5.3.4-1.x86_64.rpm
+mkdir -p /etc/grafana
+cp /vagrant/grafana.ini /etc/grafana/grafana.ini
 
 echo "Starting InfluxDB..."
 systemctl enable influxdb
 systemctl start influxdb
+
+echo "Starting Grafana..."
+systemctl enable grafana-server
+systemctl start grafana-server
+#systemctl status grafana-server
 
 echo "Finished setup.sh OK for provisioning this node"
 echo
