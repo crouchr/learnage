@@ -1,9 +1,12 @@
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
+# Physical hardware
 192.168.1.1 dslrouter
 192.168.1.2 xps
 192.168.1.15 xw6600
+
+# Virtual nodes
 192.168.1.100 spacewalk
 192.168.1.101 artifactory
 192.168.1.102 web
@@ -15,5 +18,6 @@
 192.168.1.108 influxdb
 192.168.1.109 registry
 
+# BR2020
 192.168.1.167 br2020
 
