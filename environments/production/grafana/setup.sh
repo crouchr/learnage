@@ -11,6 +11,12 @@ echo "Started setup.sh for provisioning this node"
 # Check for patch updates - slows up boot so need a way of avoiding this
 #yum update -y --disableplugin=fastestmirror
 
+# Need accurate time
+yum -y install ntp
+cho "Starting NTPd..."
+systemctl enable ntpd
+systemctl start ntpd
+
 # InfluxDB
 cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
 [influxdb]
