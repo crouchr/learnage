@@ -46,6 +46,8 @@ cp /vagrant/telegraf.conf /etc/telegraf/telegraf.conf
 echo "Starting InfluxDB..."
 systemctl enable influxdb
 systemctl start influxdb
+sleep 10
+curl -XPOST "http://localhost:8086/query" --data-urlencode "q=CREATE USER monitor WITH PASSWORD 'secretsql' WITH ALL PRIVILEGES"
 
 echo "Starting Telegraf..."
 systemctl enable telegraf
