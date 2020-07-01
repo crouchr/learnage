@@ -13,7 +13,7 @@ echo "Started setup.sh for provisioning this node"
 
 # Need accurate time
 yum -y install ntp
-cho "Starting NTPd..."
+echo "Starting NTPd..."
 systemctl enable ntpd
 systemctl start ntpd
 
