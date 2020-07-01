@@ -13,6 +13,8 @@ package 'ncdu'
 package 'libffi-dev'
 package 'libjpeg-dev'
 package 'zlib1g-dev'
+package 'build-essential'
+package 'genisoimage'
 
 # Django WebUI
 package 'mongodb'
