@@ -8,5 +8,3 @@ package 'libguac-client-rdp0'
 package 'libguac-client-vnc0'
 package 'libguac-client-ssh0'
 package 'guacd'
-
-

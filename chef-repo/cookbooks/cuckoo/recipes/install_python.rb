@@ -18,6 +18,7 @@ end
 
 
 # has to be installed AFTER swig installed
+package 'libssl-dev'
 package 'swig'
 execute 'setcap_pcap' do
   command 'pip install m2crypto==0.24.0'

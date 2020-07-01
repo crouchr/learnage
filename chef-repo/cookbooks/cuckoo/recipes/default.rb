@@ -10,3 +10,22 @@ execute 'set_hostname' do
 end
 
 apt_update
+
+group 'pcap'
+user 'cuckoo'
+
+# failing at moment
+#execute 'cuckoo_add_to_vagrant' do
+#  command 'usermod -a -G vboxusers cuckoo'
+#  user 'root'
+#end
+
+group 'vboxusers' do
+  append true
+  members ['cuckoo']
+end
+
+group 'pcap' do
+  append true
+  members ['cuckoo']
+end
