@@ -20,7 +20,7 @@
 #end
 
 # install into systemwide
-execute 'install_cuckoo' do
-  command 'pip install -U cuckoo'
-  user 'root'
-end
+#execute 'install_cuckoo' do
+#  command 'pip install -U cuckoo'
+#  user 'root'
+#end
