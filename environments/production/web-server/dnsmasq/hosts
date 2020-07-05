@@ -6,12 +6,14 @@
 192.168.1.2 xps
 192.168.1.4 cuckoo
 192.168.1.5 mrdell
+192.168.1.6 honeywall
 192.168.1.8 netgear
 192.168.1.9 macmini
 192.168.1.15 xw6600
 192.168.1.20 rancid
 
 # Monitoring Services (.40 - .50)
+192.168.1.40 nessus
 192.168.1.47 nagios
 
 # Virtual nodes
