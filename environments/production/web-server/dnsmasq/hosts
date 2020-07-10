@@ -31,6 +31,10 @@
 192.168.1.108 grafana
 192.168.1.109 registry
 
+# honeypots (.110 to .119)
+192.168.1.111   slack11-hpot
+192.168.1.114   slack14-hpot
+192.168.1.117   centos7-hpot
+
 # BR2020
 192.168.1.167 br2020
-
