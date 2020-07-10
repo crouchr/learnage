@@ -65,7 +65,8 @@ cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
 # Copy DNSMASQ files
 cp /vagrant/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
 cp /vagrant/dnsmasq/hosts /etc/hosts
-cp /vagrant/dnsmasq/resolv.conf /etc/resolv.conf
+# next line fails - getting permission denied
+#cp /vagrant/dnsmasq/resolv.conf /etc/resolv.conf
 
 # Make immutable - so that NetworkManager can't override setting
 chattr +i /etc/resolv.conf
@@ -83,6 +84,7 @@ chmod 755 /var/www/html/isos/*
 # Store BR2020 packages 
 echo "Copying BR2020 CentOS7 packages and source code..."
 cp /vagrant/apache/br2020-packages/*.rpm /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/*.bz2 /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.tar.gz /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.tgz /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.dat.gz /var/www/html/br2020-packages/
@@ -90,6 +92,10 @@ cp /vagrant/apache/br2020-packages/*.zip /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.json /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.repo /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.conf /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/config-generic* /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/*.patch /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/*.msi /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/*.hpi /var/www/html/br2020-packages/
 chmod 755 /var/www/html/br2020-packages/*
 
 # BlackRain 'malware' files for testing BlackRain

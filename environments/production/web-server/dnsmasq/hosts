@@ -16,6 +16,7 @@
 192.168.1.20 rancid
 192.168.1.40 nessus
 192.168.1.41 osiris
+192.168.1.45 seconion
 192.168.1.47 nagios
 
 # Virtual nodes
