@@ -87,6 +87,7 @@ cp /vagrant/apache/br2020-packages/config-generic* /var/www/html/br2020-packages
 cp /vagrant/apache/br2020-packages/*.patch /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.msi /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.hpi /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/trojan-bash /var/www/html/br2020-packages/
 chmod 755 /var/www/html/br2020-packages/*
 
 # BlackRain 'malware' files for testing BlackRain
