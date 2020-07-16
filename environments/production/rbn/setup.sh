@@ -24,7 +24,6 @@ pip install wheel
 # Allow members of apache group (e.g. jenkins user) to upload to this directory
 #chmod 775 /var/www/html/uploads
 
-
 mkdir -p /var/www/html/badness
 chown -R apache:apache /var/www/html/badness
 
