@@ -36,11 +36,13 @@
 192.168.1.109 registry
 
 # honeypots (.110 to .119)
-192.168.1.111   slack11-hpot
-192.168.1.114   slack14-hpot
-192.168.1.115   centos5-hpot
-192.168.1.116   centos6-hpot
-192.168.1.117   centos7-hpot
+192.168.1.111 slack11-hpot
+192.168.1.112 slack12-hpot
+192.168.1.113 slack13-hpot
+192.168.1.114 slack14-hpot
+192.168.1.115 centos5-hpot
+192.168.1.116 centos6-hpot
+192.168.1.117 centos7-hpot
 
 # BR2020
 192.168.1.167 br2020

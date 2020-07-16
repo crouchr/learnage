@@ -90,11 +90,6 @@ cp /vagrant/apache/br2020-packages/*.hpi /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/trojan-bash /var/www/html/br2020-packages/
 chmod 755 /var/www/html/br2020-packages/*
 
-# BlackRain 'malware' files for testing BlackRain
-echo "Copying BlackRain test 'malware'..."
-cp /vagrant/apache/br-mal-files/* /var/www/html/br-mal-files/
-chmod 755 /var/www/html/br-mal-files/*
-
 # Store public keys on web server for easy retrieval
 echo "Copying public-keys..."
 cp /vagrant/apache/public-keys/*.pub /var/www/html/public-keys/
