@@ -16,8 +16,8 @@ echo "Started setup.sh for provisioning this node"
 yum install -y httpd httpd-devel mod_ssl python-pip
 
 # Install PIP
-pip install --upgrade pip
-pip install wheel
+#pip install --upgrade pip
+#pip install wheel
 
 #mkdir -p /var/www/html/uploads
 #chown -R apache:apache /var/www/html/uploads
