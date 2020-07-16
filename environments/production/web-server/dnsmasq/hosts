@@ -16,8 +16,12 @@
 192.168.1.20 rancid
 192.168.1.40 nessus
 192.168.1.41 osiris
+192.168.1.42 nfsen
 192.168.1.45 seconion
 192.168.1.47 nagios
+
+# Other
+192.168.1.99 rbn
 
 # Virtual nodes
 192.168.1.100 spacewalk
@@ -34,6 +38,8 @@
 # honeypots (.110 to .119)
 192.168.1.111   slack11-hpot
 192.168.1.114   slack14-hpot
+192.168.1.115   centos5-hpot
+192.168.1.116   centos6-hpot
 192.168.1.117   centos7-hpot
 
 # BR2020
