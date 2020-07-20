@@ -1,0 +1,5 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+# Only add in here the ermin.lan nodes that this host itself has to communicate with - keep to minimum
+192.168.1.100 spacewalk

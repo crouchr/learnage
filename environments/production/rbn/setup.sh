@@ -14,6 +14,7 @@ echo "Started setup.sh for provisioning this node"
 #systemctl restart sshd
 
 yum install -y httpd httpd-devel mod_ssl python-pip
+yum install -y dnsmasq bind-utils
 
 # Install PIP
 #pip install --upgrade pip
@@ -23,6 +24,15 @@ yum install -y httpd httpd-devel mod_ssl python-pip
 #chown -R apache:apache /var/www/html/uploads
 # Allow members of apache group (e.g. jenkins user) to upload to this directory
 #chmod 775 /var/www/html/uploads
+
+# Copy DNSMASQ files
+echo "Copying dnsmasq configuration files..."
+cp /vagrant/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
+cp /vagrant/dnsmasq/hosts /etc/hosts
+# Make immutable - so that NetworkManager can't override setting
+chattr -i /etc/resolv.conf
+cp /vagrant/dnsmasq/resolv.conf /etc/resolv.conf
+chattr +i /etc/resolv.conf
 
 mkdir -p /var/www/html/badness
 chown -R apache:apache /var/www/html/badness
@@ -36,6 +46,10 @@ cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
 echo "Copying 'bad/malware..."
 cp /vagrant/apache/badness/* /var/www/html/badness/
 chmod 755 /var/www/html/badness/*
+
+echo "Starting dnsmasq..."
+systemctl enable dnsmasq.service
+systemctl start dnsmasq.service
 
 echo "Starting httpd..."
 systemctl enable httpd.service
