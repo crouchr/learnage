@@ -13,22 +13,21 @@ echo "Started setup.sh for provisioning this node"
 #yum update -y --disableplugin=fastestmirror
 #systemctl restart sshd
 
-yum install -y httpd httpd-devel mod_ssl python-pip
+yum install -y httpd httpd-devel mod_ssl tcpdump
 yum install -y dnsmasq bind-utils
 
-# Install PIP
-#pip install --upgrade pip
-#pip install wheel
+echo "Update routing..."
+cp /vagrant/files/rc.local /etc/rc.local
+chmod +x /etc/rc.d/rc.local
 
-#mkdir -p /var/www/html/uploads
-#chown -R apache:apache /var/www/html/uploads
-# Allow members of apache group (e.g. jenkins user) to upload to this directory
-#chmod 775 /var/www/html/uploads
+# Inject the routing as rc.local will already have run
+ip route add 192.168.10.0/24 via 192.168.1.7
 
 # Copy DNSMASQ files
 echo "Copying dnsmasq configuration files..."
 cp /vagrant/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
 cp /vagrant/dnsmasq/hosts /etc/hosts
+
 # Make immutable - so that NetworkManager can't override setting
 chattr -i /etc/resolv.conf
 cp /vagrant/dnsmasq/resolv.conf /etc/resolv.conf
@@ -43,9 +42,10 @@ chown apache:apache /var/www/html/index.html
 chmod 755 /var/www/html/index.html
 cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
 
-echo "Copying 'bad/malware..."
+echo "Copying bad/malware..."
 cp /vagrant/apache/badness/* /var/www/html/badness/
 chmod 755 /var/www/html/badness/*
+
 
 echo "Starting dnsmasq..."
 systemctl enable dnsmasq.service

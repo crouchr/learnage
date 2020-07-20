@@ -61,10 +61,10 @@ cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
 # Copy DNSMASQ files
 cp /vagrant/dnsmasq/dnsmasq.conf /etc/dnsmasq.conf
 cp /vagrant/dnsmasq/hosts /etc/hosts
-# next line fails - getting permission denied
-#cp /vagrant/dnsmasq/resolv.conf /etc/resolv.conf
 
 # Make immutable - so that NetworkManager can't override setting
+chattr -i /etc/resolv.conf
+cp /vagrant/dnsmasq/resolv.conf /etc/resolv.conf
 chattr +i /etc/resolv.conf
 
 # Store ISOs used for Vagrant locally 
