@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: hpot-centos7
+    driver:
+      box: crouchr/rch-centos7
+
+suites:
+  - name: testing
+    run_list:
+      - recipe[hpot-centos7]
+      - recipe[hpot-centos7::motd]
+      - recipe[hpot-centos7::create_fake_users]
+    attributes:
