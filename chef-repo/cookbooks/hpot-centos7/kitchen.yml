@@ -19,4 +19,6 @@ suites:
       - recipe[hpot-centos7::create_fake_users]
       - recipe[hpot-centos7::install_wazuh_agent]
       - recipe[hpot-centos7::install_keylogger]
+      - recipe[hpot-centos7::install_httpd]
+      - recipe[hpot-centos7::install_hpot_services]
     attributes:
