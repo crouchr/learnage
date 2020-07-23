@@ -18,10 +18,18 @@ directory '/tmp/hpot-tmp' do
   action :create
 end
 
-# Fundamental packages for managing the node
+# Fundamental packages for managing the node - assuming target node is CentOS7 AMI
+# This is the same list as install-tools-packages.sh
+package 'yum-utils'
 package 'ntp'
-package 'joe'
 package 'htop'
+package 'tcpdump'
+package 'traceroute'
+package 'tcpflow'
+package 'bind-utils'
+package 'joe'
+package 'shadow-utils'
+package 'tree'
 package 'ncdu'
 package 'wireshark'
 
