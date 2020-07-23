@@ -13,4 +13,3 @@ execute 'add_default_route' do
 end
 
 log 'Modified default route'
-

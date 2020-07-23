@@ -6,8 +6,8 @@
 
 package 'httpd'
 package 'httpd-devel'
-#package 'mod_ssl'
-#package 'php'
+package 'mod_ssl'
+package 'php'
 
 cookbook_file "/etc/httpd/httpd.conf" do
    source "hpot-httpd.conf"

@@ -8,10 +8,9 @@
 
 # OTHER
 # =====
-package 'wireshark'
+
 package 'nmap'
 package 'whois'
 package 'iftop'
-package 'htop'
-package 'ncdu'
+
 

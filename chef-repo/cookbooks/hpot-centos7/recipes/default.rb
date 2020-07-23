@@ -7,7 +7,7 @@
 
 execute 'set_hostname' do
     user 'root'
-    command 'hostnamectl set-hostname prd-lon-web1'
+    command 'hostnamectl set-hostname dev-lon-web1'
 end
 
 # Create a temporary folder to hold during build and then delete it
@@ -18,8 +18,15 @@ directory '/tmp/hpot-tmp' do
   action :create
 end
 
-# Fundamental packages
+# Fundamental packages for managing the node
 package 'ntp'
 package 'joe'
+package 'htop'
+package 'ncdu'
+package 'wireshark'
+
+user 'root' do
+  password 'idltbbtss'
+end
 
 log 'Installed hpot7-centos7 default'
