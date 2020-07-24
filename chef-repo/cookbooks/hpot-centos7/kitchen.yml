@@ -6,7 +6,7 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: hpot-centos7
+  - name: rch-hpot
     driver:
       box: crouchr/rch-centos7
 
@@ -20,5 +20,6 @@ suites:
       - recipe[hpot-centos7::install_wazuh_agent]
       - recipe[hpot-centos7::install_keylogger]
       - recipe[hpot-centos7::install_httpd]
+      - recipe[hpot-centos7::install_waf]
       - recipe[hpot-centos7::install_hpot_services]
     attributes:
