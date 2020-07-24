@@ -10,6 +10,14 @@
 # OTHER
 # =====
 package 'telnet-server'
+package 'telnet'
 
+# Start TelnetD
+service 'telnet.socket' do
+  action :restart
+end
 
-
+# Enable TelnetD
+service 'telnet.socket' do
+  action :enable
+end

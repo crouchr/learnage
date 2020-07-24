@@ -13,3 +13,8 @@ end
 service 'httpd' do
   action :restart
 end
+
+# enable HTTPd
+service 'httpd' do
+  action :enable
+end

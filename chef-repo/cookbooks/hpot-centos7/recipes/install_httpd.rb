@@ -26,7 +26,7 @@ cookbook_file '/var/www/html/index.html' do
    group 'apache'
 end
 
-# Add basic tet file for PHP (& haxxors)
+# Add basic test file for PHP (& haxxors)
 cookbook_file '/var/www/html/info.php' do
    source 'info.php'
    mode  '0755'

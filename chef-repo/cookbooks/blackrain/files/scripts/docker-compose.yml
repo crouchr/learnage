@@ -132,29 +132,30 @@ services:
 
   glastopf:
     container_name: "glastopf"
+    hostname: "glastopf"
     #restart: always
     network_mode: "host"
     image: "registry:5000/glastopf:1.0.0"
     #depends_on:
     #  - honeytrap
     ports:
-      - "80:80"
+      - "10080:10080"
     volumes:
       - /data/glastopf/db:/tmp/glastopf/db
       - /data/glastopf/log:/tmp/glastopf/log
 
   waf:
     container_name: "waf"
+    hostname: "waf"
     #restart: always
     network_mode: "host"
     image: "registry:5000/waf:1.0.0"
     #depends_on:
     #  - honeytrap
     ports:
-      - "10080:10080"
+      - "80:80"
     volumes:
       - /data/waf/log:/var/log/httpd
-#      - /data/glastopf/log:/tmp/glastopf/log
 
 # re-order entries to a standard
 # Cowrie service

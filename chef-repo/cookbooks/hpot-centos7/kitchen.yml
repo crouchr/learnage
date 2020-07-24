@@ -2,8 +2,15 @@
 driver:
   name: vagrant
 
+driver_config:
+  network:
+  - ["forwarded_port", {guest: 80, host: 8088}]
+
 provisioner:
   name: chef_solo
+
+verifier:
+  name: inspec
 
 platforms:
   - name: rch-hpot
@@ -11,7 +18,7 @@ platforms:
       box: crouchr/rch-centos7
 
 suites:
-  - name: testing
+  - name: default
     run_list:
       - recipe[hpot-centos7]
       - recipe[hpot-centos7::motd]
@@ -19,7 +26,10 @@ suites:
       - recipe[hpot-centos7::create_fake_users]
       - recipe[hpot-centos7::install_wazuh_agent]
       - recipe[hpot-centos7::install_keylogger]
+      - recipe[hpot-centos7::install_hpot_services]
       - recipe[hpot-centos7::install_httpd]
       - recipe[hpot-centos7::install_waf]
-      - recipe[hpot-centos7::install_hpot_services]
+    verifier:
+      inspec_tests:
+        - test/integration
     attributes:
