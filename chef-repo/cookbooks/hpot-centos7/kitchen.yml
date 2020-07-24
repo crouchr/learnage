@@ -4,7 +4,9 @@ driver:
 
 driver_config:
   network:
-  - ["forwarded_port", {guest: 80, host: 8088}]
+  - ["forwarded_port", {guest: 80,  host: 8088}]
+  - ["forwarded_port", {guest: 443, host: 8443}]
+  - ["forwarded_port", {guest: 23,  host: 2323}]
 
 provisioner:
   name: chef_solo
