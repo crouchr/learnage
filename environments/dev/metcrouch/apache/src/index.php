@@ -109,11 +109,12 @@ if (isset($_POST["submit"] )) {
 				</nav>
 				<div class="intro_message">
 				    Enter basic meterological information at 09:00 UTC and receive a forecast by email
-				</div>	
+				</div>
+
 				<form class="form-horizontal" role="form" method="post" action="index.php">
 					<div class="form-group">
 						<label for="pressure" class="col-sm-3 control-label">Barometric Pressure (mbar)</label>
-						<div class="col-sm-4">
+						<div class="col-sm-2">
 							<input type="text" class="form-control" id="pressure" name="pressure" data-toggle="tooltip" title="Enter current barometric pressure" placeholder="Pressure" required>
 								<script>
 						            document.getElementById('pressure').value = '1013';
@@ -123,7 +124,7 @@ if (isset($_POST["submit"] )) {
 
                     <div class="form-group">
 					  <label for="ptrend" class="col-sm-3 control-label">Pressure Trend</label>
-					  <div class="col-sm-4">
+					  <div class="col-sm-3">
 					    <select class="form-control" id="ptrend" name="ptrend" data-toggle="tooltip" title="Pressure Trend">
 					      <option>Rising</option>
 					      <option>Steady</option>
@@ -133,18 +134,8 @@ if (isset($_POST["submit"] )) {
 					</div>
 
 					<div class="form-group">
-						<label for="clouds" class="col-sm-3 control-label">Cloud Description</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" id="clouds" name="clouds" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter description of clouds, e.g. type, % coverage" placeholder="Clouds"  required>
-								<script>
-						            document.getElementById('clouds').value = 'None';
-						        </script>
-						</div>
-					</div>
-
-					<div class="form-group">
 					  <label for="wind" class="col-sm-3 control-label">Wind Quadrant</label>
-					  <div class="col-sm-4">
+					  <div class="col-sm-2">
 					    <select class="form-control" id="wind" name="wind" data-toggle="tooltip" title="Quadrant from where wind is currently blowing">
 					      <option>NE</option>
 					      <option>SE</option>
@@ -153,8 +144,6 @@ if (isset($_POST["submit"] )) {
 					    </select>  
 					  </div>             
 					</div>
-
-
 
 					<div class="form-group">
 					  <label for="bforecast" class="col-sm-3 control-label">Bresser Forecast Icon</label>
@@ -168,6 +157,16 @@ if (isset($_POST["submit"] )) {
 					      <option>Snowy</option>
 					      </select>
 					  </div>
+					</div>
+
+					<div class="form-group">
+						<label for="clouds" class="col-sm-3 control-label">Cloud Description</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="clouds" name="clouds" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter description of clouds, e.g. type, % coverage" placeholder="Clouds"  required>
+								<script>
+						            document.getElementById('clouds').value = 'None';
+						        </script>
+						</div>
 					</div>
 
 					<div class="form-group">
