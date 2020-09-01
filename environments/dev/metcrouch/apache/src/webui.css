@@ -1,0 +1,91 @@
+/* version 1.0.9 */
+
+/* height 30 */
+.footer {
+ position: absolute;
+ bottom 0;  
+ width: 100%;
+ height: 40px;
+ /* background-color: #c30065; */
+ color:white;
+ background-color: navy;
+ font-size: 12px;
+ text-align: center;
+ }
+
+/* Aligns form text to the left */ 
+.form-horizontal .control-label {
+text-align:left;
+}
+
+/* This is the pink bar along the top */
+.navbar {
+ /* background-color: #c30065;
+ border-color:     #c30065; */
+ color:white;
+ background-color: navy;
+ border-color:     navy;
+ height : 70px; 
+}
+ 
+/* Hides the text once the screen width is less than 650px */
+@media screen and (max-width: 650px) {
+.intro_message {
+visibility: hidden;
+display: none;
+	}
+}
+
+/* REPORT : Reply Running Man logo at the top right of every normal page */
+img.logo {
+	float: right;
+}
+
+/* REPORT : General content of the page */
+body {
+	height:76px;
+	/* overflow:hidden; */
+	margin:0;
+	padding:0;
+	/* color:rgb(0,65,73); */
+	color:navy
+	text-align:justify;
+	font-size:small;	
+	font-family: Helvetica,Arial,sans-serif;			
+	/* font-family:Helvetica,Arial,sans-serif; */
+}
+
+#checkbox {
+        position:relative;
+        bottom:10px;
+}
+
+/* Position the email breaches checkbox */
+#owned {
+        position:relative;
+        left:50%;
+}
+
+/* Position the sub-domains checkbox */
+#sub-domains {
+        position:relative;
+        left:10%;
+}
+
+/* Position the software vulnerabilities checkbox */
+#softvulns {
+        position:relative;
+        right:20%;
+}
+
+/* Position the "I accept terms and conditions" checkbox */
+#conditions {
+        position:relative;
+        left:35%;
+}
+
+/* Submit button position */
+.btn {
+        position:relative;
+        left:40%;
+}
