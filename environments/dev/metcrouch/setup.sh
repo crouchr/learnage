@@ -16,6 +16,10 @@ yum install -y httpd httpd-devel php php-mysql
 
 # Add jenkins into apache group so it can upload files
 #usermod -a -G apache jenkins
+echo "[+] Create dir to hold web app..."
+mkdir /opt/minimet
+chown apache:apache /opt/minimet
+chmod 755 /opt/minimet
 
 echo "[+] Copying core (root-owned) web server configuration and content..."
 cp /vagrant/apache/minimal-index.html /var/www/html/index.html
@@ -51,6 +55,17 @@ cp /vagrant/apache/src/index.php /var/www/html/index.php
 chown apache:apache /var/www/html/index.php
 chmod 755 /var/www/html/index.php
 
+cp /vagrant/apache/src/app.py /opt/minimet/app.py
+chown apache:apache /opt/minimet/app.py
+chmod 755 /opt/minimet/app.py
+
+cp /vagrant/apache/src/app.py /opt/minimet/minimet.ini
+chown apache:apache /opt/minimet/minimet.ini
+chmod 755 /opt/minimet/minimet.ini
+
+cp /vagrant/apache/src/funcs.py /opt/minimet/funcs.py
+chown apache:apache /opt/minimet/funcs.py
+chmod 755 /opt/minimet/funcs.py
 
 echo "[+] Starting httpd..."
 systemctl start httpd.service
