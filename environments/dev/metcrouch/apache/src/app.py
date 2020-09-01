@@ -98,10 +98,25 @@ def getmetinfo():
         pprint(request.form)  # ImmutableMultiDict
 
         # Mandatory fields - no need to check for existence
-        print "[00] -> scenario    = " + request.form['scenario']
+        #print "[00] -> scenario  = " + request.form['scenario']
 
         pressure = int(request.form['pressure'].rstrip(" "))
-        print "[01] -> pressure      = " + pressure
+        print "[01] -> pressure  = " + pressure.__str__()
+
+        ptrend = request.form['ptrend'].rstrip(" ")
+        print "[02] -> ptrend    = " + ptrend
+
+        wind_dir = request.form['wind_dir'].rstrip(" ")
+        print "[03] -> wind_dir  = " + wind_dir
+
+        bforecast = request.form['bforecast'].rstrip(" ")
+        print "[04] -> bforecast = " + bforecast
+
+        clouds = request.form['clouds'].rstrip(" ")
+        print "[05] -> clouds    = " + clouds
+
+        yest_rain = int(request.form['yest_rain'].rstrip(" "))
+        print "[06] -> yest_rain = " + yest_rain.__str__()
 
         #client = request.form['client'].rstrip(" ")
         #print "[03] -> client      = " + client
