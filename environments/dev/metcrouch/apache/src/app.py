@@ -26,31 +26,21 @@ from flask import jsonify
 from flask import render_template
 from flask import request
 
-import minimetconfig
+# minimet modules
+import config
+import funcs
 
 _tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 application = Flask(__name__, template_folder=_tmpl_dir)
 
-Version = "1.0.0"
+version = "1.0.0"
 
 
 def harness():
-    """This function purely exists to be run from unit test harness"""
+    """
+    This function purely exists to be run from unit test harness
+    """
     return "OK"
-
-
-def sanitise(x):
-    '''
-    Basic sanitisation of input entered by web-user
-    '''
-    if x is None:
-        return None
-    x = x.replace(",", "")  # replace ","
-    x = x.rstrip(" ")  # strip trailing spaces
-    x = x.lstrip(" ")  # strip leading spaces
-    x = x.replace("\t", "")  # strip TAB characters
-
-    return x
 
 
 @application.errorhandler(500)
@@ -58,17 +48,20 @@ def internal_err(exception):
     application.logger.error(exception)
     return render_template('500.html'),500
 
-@application.route("/status", methods=['GET'])
-def status():
-    """Return a simple status message to be used by smoke tests, by pointing browser at http://127.0.0.1:5000/reveal/v1.0/status"""
-    try:
-        application.logger.info('Entered status()')
-
-        return render_template('status.html', status="OK", server_time=time.ctime(), node=platform.node(),
-                               version=Version)
-    except Exception, e:
-        print "status() : exception : " + e.__str__()
-        return False
+#@application.route("/status", methods=['GET'])
+#def status():
+#    """Return a simple status message to be used by smoke tests, by pointing browser at http://127.0.0.1:5000/reveal/v1.0/status"""
+#    try:
+#        application.logger.info('Entered status()')
+#
+#        return render_template('status.html',
+#                               status="OK",
+#                               server_time=time.ctime(),
+#                               node=platform.node(),
+#                               version=version)
+#    except Exception, e:
+#        print "status() : exception : " + e.__str__()
+#        return False
 
 
 @application.route("/statusjson", methods=['GET'])
@@ -77,7 +70,7 @@ def status_json():
     try:
         application.logger.info('Entered status_json()')
 
-        response_json = {'status': 'OK', 'node': platform.node(), 'server_time': time.ctime(), 'version': Version}
+        response_json = {'status': 'OK', 'node': platform.node(), 'server_time': time.ctime(), 'version': version}
         return jsonify(response_json)
 
     except Exception, e:
@@ -85,21 +78,21 @@ def status_json():
         return False
 
 
-@application.route("/dolog", methods=['POST'])
-def do_log():
+@application.route("/getmetinfo", methods=['POST'])
+def getmetinfo():
     """
     Perform logging of met data to SQL database
     :return:
     """
     try:
-        application.logger.info('Entered do_log()')
+        application.logger.info('Entered getmetinfo()')
 
-        config_data = minimetconfig.VerifyConfig()
+        config_data = config.VerifyConfig()
 
         print "\n--------------------------------"
         print time.ctime()
         src_ip = request.remote_addr
-        print "do_log() called"
+        print "getmetinfo() called"
 
         print "HTTP POST Request received by Flask server OK from source IP " + src_ip.__str__()
         pprint(request.form)  # ImmutableMultiDict
@@ -115,23 +108,10 @@ def do_log():
 
         print "--------------"
 
-
-        # fixme : need to sanitise input values
         job = {}
-
-        # sanitise strings
         job['pressure'] = pressure
 
         pprint(job)
-
-        if "SCAN" in job['action']:
-            #reveal_job_id = g.reveal_job.getAndIncrement()
-            reveal_job_id = revealJobId.getAndIncrementJobId()  # Get the current value
-
-        if platform.system() == "Linux":
-            job_filename = config_data.values['dirs']['verify_base'] + "/var/log/" + "jobfile.csv"
-        else:
-            job_filename = "jobfile.csv"  # fixme : add Windows directory delimiters
 
         #job_rec = time.ctime() + "," + job['action'] + "," + reveal_job_id.__str__() + "," + job[
         #    'client'].__str__() + "," + \
@@ -144,7 +124,7 @@ def do_log():
         #          job['allhosts'].__str__() + "," + job['country'].__str__() + "," + job['industry'].__str__() + "," + \
         #          job['comply'].__str__() + "," + job['tag'].__str__()
 
-        #revealFuncs.doLog(reveal_job_id, "RevealFlaskApp : Appending job_rec to " + job_filename + " : " + job_rec)
+        #funcs.doLog(reveal_job_id, "RevealFlaskApp : Appending job_rec to " + job_filename + " : " + job_rec)
 
         #fpOut = open(job_filename, "a")
         #print >> fpOut, job_rec
@@ -159,39 +139,34 @@ def do_log():
         return response
 
     except Exception, e:
-        log_msg = "app.py : do_log() : exception : " + e.__str__()
-        revealFuncs.doLog("NULL", log_msg)
+        log_msg = "app.py : getmetinfo() : exception : " + e.__str__()
+        funcs.doLog("NULL", log_msg)
         return False
+
 
 def main(args=None):
     if args is None:
         args = sys.argv[1:]
 
-    log_msg = "Started, version=" + Version
-    revealFuncs.doLog("NULL", log_msg)
-    app_log_file  = "/var/log/verify-flask.log"
+    log_msg = "Started, version=" + version
+    funcs.doLog("NULL", log_msg)
+    app_log_file  = "/var/log/minimet.log"
+    app_log_file = "/tmp/minimet.log"
 
-    config_data = revealConfig.VerifyConfig()
+    config_data = config.VerifyConfig()
 
     flask_ip = config_data.values['flask']['ip']
     flask_port = int(config_data.values['flask']['port'])
 
     # Store this process pid in a file to be monitored by monit
-    revealFuncs.storepid('/opt/reveal-verify/backend/var/run','revealflask')
-
-    #ctx = application.app_context()
-    #ctx.push()
-
-    job_id_start = 20000
+    #revealFuncs.storepid('/opt/reveal-verify/backend/var/run','revealflask')
 
     # Create object
     #reveal_job = revealPersist.Persist(config_data.values['dirs']['verify_base'] + "/var/run/" + "jobid-persist.txt", job_id_start, 1, "")
     #g.reveal_job = reveal_job
-    revealJobId.createJobIdFile(initialValue=job_id_start)
 
     print "flask_ip     : " + flask_ip
     print "flask_port   : " + flask_port.__str__()
-    print "job_id_start : " + job_id_start.__str__()
 
     # Setup a logger that Flask will use
     handler = RotatingFileHandler(app_log_file, maxBytes=100000, backupCount=1)
@@ -202,13 +177,14 @@ def main(args=None):
     application.logger.addHandler(handler)
     getLogger('werkzeug').addHandler(handler)
 
-    log_msg = "RevealFlaskApp version " + Version + " listening for HTTP POST requests on " + flask_ip.__str__() + " on port " + flask_port.__str__()
-    revealFuncs.doLog("NULL", log_msg)
+    log_msg = "minimet version " + version + " listening for HTTP POST requests on " + flask_ip.__str__() + " on port " + flask_port.__str__()
+    funcs.doLog("NULL", log_msg)
 
-    revealFuncs.doLog("NULL", "Flask logging to : " + app_log_file)
+    funcs.doLog("NULL", "Flask logging to : " + app_log_file)
 
     DEBUG = False
     application.run(debug=DEBUG, host=flask_ip, port=flask_port, use_reloader=False)
+
 
 if __name__ == '__main__':
     main()

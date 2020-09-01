@@ -3,38 +3,36 @@
 
 if (isset($_POST["submit"] )) {
     session_start();
-    
-    // CHANGE 1 : Choose one client
-    $client      = "QA-index.php"; 	        // QA
+
+    $client      = "DEV-index.php"; 	    // indicate what generated the POST request
 
     $scenario    = $_POST['scenario'];      // mainly used for carry info during acceptance tests
-    $domain      = $_POST['domain'];
+    $pressure    = $_POST['pressure'];
+    $ptrend      = $_POST['ptrend'];
+    $wind_dir    = $_POST['wind_dir'];
+    $bforecast   = $_POST['bforecast'];
+    $clouds      = $_POST['clouds'];
+    $yest_rain   = $_POST['yest_rain'];
+    $yest_wind   = $_POST['yest_wind'];
+    $notes       = $_POST['notes'];
     $email       = $_POST['email'];
-    $person      = $_POST['person'];
-    $company     = $_POST['company'];
-    $ccemail     = $_POST['ccemail'];
-    $ccemail     = "";                      // Do not use - this was an MWC16 thing
-    $industry    = $_POST['industry'];
-    $country     = $_POST['country'];
-    $cryptpin    = $_POST['cryptpin'];
-    $emailownage = $_POST['emailownage'];
-    $comply      = $_POST['comply'];
-    $tag         = "webui";
-    $allhosts    = $_POST['allhosts'];
-    
-    // Stuff below here is possibly legacy , work in progress and should be removed at next maintenance cycle
-    $mwc         = $_POST['mwc'];
-    $nmap        = $_POST['nmap'];
-    $debug       = $_POST['debug'];
-    $subdomains  = $_POST['subdomains'];
-    $dnsenum     = $_POST['dnsenum'];
-    $vulns       = $_POST['vulns'];
-    $vulns       = False;
 
     $url = 'http://127.0.0.1:5001/ensight/v1.0/doscan';
+    $url = 'http://192.168.1.15:5001/getmetinfo';
 
-    $data = array('scenario' => $scenario, 'tag' => $tag, 'domain' => $domain, 'email' => $email, 'industry' => $industry, 'country' => $country , 'client' => $client, 'ccemail' => $ccemail, 'mwc' => $mwc, 'company' => $company, 'person' => $person, 'nmap' => $nmap, 'debug' => $debug, 'dnsenum' => $dnsenum, 'cryptpin' => $cryptpin, 'emailownage' => $emailownage, 'subdomains' => $subdomains, 'vulns' => $vulns, 'comply' => $comply, 'allhosts' => $allhosts);
-    
+    $data = array(
+        'scenario'  => $scenario,
+        'pressure'  => $pressure,
+        'ptrend'    => $ptrend,
+        'wind_dir'  => $wind_dir,
+        'bforecast' => $bforecast,
+        'clouds'    => $clouds,
+        'yest_rain' => $yest_rain,
+        'yest_wind' => $yest_wind,
+        'notes'     => $notes,
+        'email'     => $email,
+        );
+
     $options = array(
         'http' => array(
                 'header' => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -46,19 +44,19 @@ if (isset($_POST["submit"] )) {
     $context = stream_context_create($options);
     $result  = file_get_contents($url, false, $context);
     
-    $jobId = $result;     // Flask returns False if a problem occurred                                                                                                                                                                                                                      
+    $jobId = $result;       // Flask returns False if a problem occurred
     
     // store critical info so it can be referenced from other PHP pages
-    $_SESSION['jobId']      = $jobId;
-    $_SESSION['domain']     = $domain;
-    $_SESSION['email']      = $email;
-    $_SESSION['ccemail']    = $ccemail;
-    $_SESSION['company']    = $company;
-    $_SESSION['person']     = $person;
-    $_SESSION['subdomains'] = $subdomains;
-    $_SESSION['vulns']      = $vulns;
-    $_SESSION['allhosts']   = $allhosts;
-        
+    $_SESSION['pressure']  = $pressure;
+    $_SESSION['ptrend']    = $ptrend;
+    $_SESSION['wind_dir']  = $wind_dir;
+    $_SESSION['bforecast'] = $bforecast;
+    $_SESSION['clouds']    = $clouds;
+    $_SESSION['yest_rain'] = $yest_rain;
+    $_SESSION['yest_wind'] = $yest_wind;
+    $_SESSION['notes']     = $notes;
+    $_SESSION['email']     = $email;
+
     if ($jobId == False) {
         header("Location: failure.php"); # force HTTP redirect
     } else {
@@ -74,20 +72,11 @@ if (isset($_POST["submit"] )) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="MetCrouch">
-    <meta name="author" content="MetCrouch">
+    <meta name="description" content="MetMini">
+    <meta name="author" content="MetMini">
     <link rel="stylesheet" href="bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="webui.css"/>
-    <title>MetCrouch</title>
-
-  <script>
-    function domainFill() {
-      var str = document.getElementById("email").value;
-      var res = str.substr(str.indexOf("@") + 1);
-      document.getElementById("domain").value = res;
-    }
-  </script>
-  
+    <title>MetMini</title>
   </head>
   
   <body>
@@ -103,7 +92,7 @@ if (isset($_POST["submit"] )) {
   				<h3 class="page-header text-center"><i>MetMini</i></h3>
 
 				<div class="intro_message">
-				    Enter basic meterological information at 09:00 UTC and receive a forecast by email
+				    Enter basic meteorological information at 09:00 UTC and receive a forecast by email
 				</div>
 
 				<form class="form-horizontal" role="form" method="post" action="index.php">
@@ -129,9 +118,9 @@ if (isset($_POST["submit"] )) {
 					</div>
 
 					<div class="form-group">
-					  <label for="wind" class="col-sm-3 control-label">Wind Quadrant</label>
+					  <label for="wind_dir" class="col-sm-3 control-label">Wind Quadrant</label>
 					  <div class="col-sm-2">
-					    <select class="form-control" id="wind" name="wind" data-toggle="tooltip" title="Quadrant from where wind is currently blowing">
+					    <select class="form-control" id="wind_dir" name="wind_dir" data-toggle="tooltip" title="Quadrant from where wind is currently blowing">
 					      <option>NE</option>
 					      <option>SE</option>
 					      <option>SW</option>
@@ -160,6 +149,26 @@ if (isset($_POST["submit"] )) {
 							<input type="text" class="form-control" id="clouds" name="clouds" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter description of clouds, e.g. type, % coverage" placeholder="Clouds"  required>
 								<script>
 						            document.getElementById('clouds').value = 'None';
+						        </script>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="yest_rain" class="col-sm-3 control-label">Yesterday Rain mm</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="yest_rain" name="yest_rain" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's Rainfall" placeholder="Rain" required>
+								<script>
+						            document.getElementById('yest_rain').value = '0';
+						        </script>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="yest_wind" class="col-sm-3 control-label">Yesterday Wind</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="yest_wind" name="yest_wind" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's Wind" placeholder="Wind" required>
+								<script>
+						            document.getElementById('yest_wind').value = '0';
 						        </script>
 						</div>
 					</div>

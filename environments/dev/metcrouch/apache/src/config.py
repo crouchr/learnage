@@ -1,5 +1,6 @@
 import ConfigParser
-import revealFuncs
+import funcs
+
 
 class VerifyConfig():
     """A class to contain the info stored in the ini file"""
@@ -7,17 +8,17 @@ class VerifyConfig():
     def __init__(self):
         self.values = {}
         # this is where the file is installed into
-        if revealFuncs.get_verify_env() == 'DEV':
-            VERIFY_INI_FILE = "/home/crouchr/PycharmProjects/reveal-verify/backend/src/RevealLibrary/data/verify.ini"
-        elif revealFuncs.get_verify_env() == 'STAGING':
+        if funcs.get_verify_env() == 'DEV':
+            VERIFY_INI_FILE = "/home/crouchr/PycharmProjects/learnage/environments/dev/metcrouch/apache/src/minimet.ini"
+        elif funcs.get_verify_env() == 'STAGING':
             VERIFY_INI_FILE = "/opt/reveal-verify/backend/etc/verify.ini"
         else:  # LIVE
             VERIFY_INI_FILE = "/opt/reveal-verify/backend/etc/verify.ini"
 
-        #revealFuncs.doLog("NULL","VERIFY_INI_FILE : " + VERIFY_INI_FILE.__str__())
+        VERIFY_INI_FILE = "/home/crouchr/PycharmProjects/learnage/environments/dev/metcrouch/apache/src/minimet.ini"
 
         self.config_pathname = VERIFY_INI_FILE
-        self.reveal = revealFuncs.get_verify_env()
+        self.reveal = funcs.get_verify_env()
 
         config = ConfigParser.ConfigParser()
         config.read(self.config_pathname)
@@ -30,6 +31,7 @@ class VerifyConfig():
 
     def get_reveal_variable(self):
         return self.reveal
+
 
 def ConfigSectionMap(configPathname, section):
     """Return a dictionary of values from the ini file section"""

@@ -1,22 +1,17 @@
 #!/usr/bin/python
 
-# (C) 2015 Sytel-Reply 
-
 # Standard Python modules
-import glob
 import syslog
 import os
 import subprocess32 as subprocess
-import re
 import time
 import urllib
 import urllib2
 
-from IPy import IP
 from pprint import pprint
 from threading import Timer
 
-import revealConfig
+import config
 
 #################################################################################
 # Log tracebacks : fixme - make this a re-usable function and add to verify.ini ?
@@ -145,6 +140,7 @@ def runCmd(jobId, cmd_str_list, background = False, timeout_secs=300):
         logging.exception("Exception")
         return None
 
+
 def doLog(jobId, msg):
     pid = os.getpid()
     if jobId == "NULL" :
@@ -155,6 +151,7 @@ def doLog(jobId, msg):
     log_msg = "pid=" + pid.__str__() + " => " + log_msg
     print time.ctime() + " : " + log_msg.__str__()
     syslog.syslog(log_msg.__str__())
+
 
 def jdefault(o):
     '''
@@ -180,7 +177,7 @@ def submitTestJob(company, domain, tag, recipient_email, recipient_person, scena
     '''
     try:
 
-        port = int(revealConfig.VerifyConfig().values['flask']['port'])
+        port = int(config.VerifyConfig().values['flask']['port'])
         url = "http://127.0.0.1:" + port.__str__() + "/reveal/v1.0/doscan"
         print url
 
@@ -227,8 +224,6 @@ def submitTestJob(company, domain, tag, recipient_email, recipient_person, scena
         logging.exception("Exception")
         return None
 
-
-
 # dump system paths to file
 def dump_environment():
     os_env_dict = os.environ
@@ -237,155 +232,12 @@ def dump_environment():
             log_msg = i + " -> " + os_env_dict[i].__str__()
             doLog("NULL", log_msg)
 
-def is_ipv4_public(ip):
-    ips = re.findall('\d+\.\d+\.\d+\.\d+', ip)
-    if len(ips) != 1:
-        return False
-    ipObj = IP(ip)
-    address_type = ipObj.iptype()
-    if address_type is not 'PRIVATE':
-        return True
-    else:
-        return False
-
-# fixme : incorprate directory from revealConfig
-def storepid(pid_directory,tag):
-    """
-    Get pid and write to file
-    tag is the first part of the .pid file (e.g. apache2)
-    :param tag:
-    :return:
-    """
-    pid = os.getpid()
-    pid_filename = pid_directory + '/' + tag + ".pid"
-
-    fp_out = open(pid_filename,'w')
-    print >> fp_out,pid.__str__()
-    fp_out.close()
-
-    doLog("NULL","Wrote pid to pidfile : " + pid_filename.__str__())
-
-    return pid_filename
-
-
-
-
-# e.g. domain = reply or jagex
-def getFierceResultsFilenames(directory, domain):
-    '''
-    Return a list of fierce.pl results files that match the word 'domain'
-    '''
-    filenameList = []
-
-    # print "Change directory to : " + directory + " and glob for " + domain
-    os.chdir(directory)
-    for filename in glob.glob("fierce_results_" + domain.upper() + "*"):
-        if "~" in filename:
-            continue  # do not want to process backup files
-        filenameList.append(filename)
-
-    return filenameList
-
-
-# e.g. target = JAGEX
-def getProcessedFierceResultsFilenames(directory, target):
-    '''
-    Return a list of fierce.pl results files that match the word 'target'
-    '''
-    filenameList = []
-
-    # print "Change directory to : " + directory + " and glob for " + target
-    os.chdir(directory)
-    for filename in glob.glob("*" + target.upper() + ".hosts.tsv"):
-        if "~" in filename:
-            continue  # do not want to process backup files
-        filenameList.append(filename)
-
-    return filenameList
-
-
-def getKnockpyResultsFilenames(directory, domain):
-    '''
-    Return a list of knockpy results files that match the word 'domain'
-    '''
-    filenameList = []
-    os.chdir(directory)
-    for filename in glob.glob("knockpy_results_" + domain.upper() + "*"):
-        if "~" in filename:
-            continue  # do not want to process backup files
-        filenameList.append(filename)
-
-    return filenameList
-
-
-# e.g. target = JAGEX or target = JOB-999
-def getProcessedKnockpyResultsFilenames(directory, target):
-    '''
-    Return a list of knockpy results files that match the word 'target'
-    '''
-    filenameList = []
-    os.chdir(directory)
-    for filename in glob.glob("verify-" + target.upper() + ".hosts.tsv"):
-        if "~" in filename:
-            continue  # do not want to process backup files
-        filenameList.append(filename)
-
-    return filenameList
-
-
-# IP is a.b.c.d
-def calcSlash24(ip):
-    '''
-    Calculate /24 route from CIDR route
-    '''
-    if ip == "":
-        return None
-
-    if type(ip) != str:
-        return None
-
-    a = ip.split(".")
-    if len(a) != 4:
-        return None
-
-    route = a[0] + "." + a[1] + "." + a[2] + ".0/24"
-    return route
-
 
 def whereAmI():
     '''Display where this file is stored'''
     current_dir = os.path.abspath(os.path.dirname(__file__))
     print current_dir
     return current_dir
-
-
-def isValidIpv4(ip):
-    '''
-    Return True if IPv4 addess is valid else return False
-    '''
-    try:
-        if ip == None:
-            return False
-
-        if "." not in ip:
-            return False
-
-        octets = ip.split(".")
-        if len(octets) != 4:
-            return False
-        for octet in octets:
-            val = int(octet)  # e.g. 128
-            if (val <= 0) or (val >= 256):
-                return False
-
-        # IP is valid        
-        return True
-
-    except Exception, e:
-        print "isValidIpv4() : exception : " + e.__str__() + ", for ip=" + ip.__str__()
-        logging.exception("Exception")
-        return False
-
 
 ###########################    
 # T E S T  H A R N E S S  #
