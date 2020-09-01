@@ -100,13 +100,8 @@ if (isset($_POST["submit"] )) {
   		<div class="row">
   			<div class="col-md-6 col-md-offset-3">
   				<!-- Change 3 : Add or remove (STAGE) or (QA) from the text below -->
-  				<h3 class="page-header text-center"><i>MetCrouch</i></h3>
-				<nav class="navbar navbar-default">
-				  <div class="navbar-header">
-				    <a class="navbar-brand">
-				    </a>
-				  </div>
-				</nav>
+  				<h3 class="page-header text-center"><i>MetMini</i></h3>
+
 				<div class="intro_message">
 				    Enter basic meterological information at 09:00 UTC and receive a forecast by email
 				</div>
@@ -205,7 +200,7 @@ if (isset($_POST["submit"] )) {
 			</div>
 		</div>
 	</div>
-	<footer class="footer"><div class="container"><p>(c) 2020 MetCrouch v0.0.1</p></div></footer>
+	<footer class="footer"><div class="container"><p>(c) 2020 MetMini v0.0.1</p></div></footer>
     <script src="jquery.min.js"></script>
     <script src="bootstrap.min.js"></script>
   </body>
