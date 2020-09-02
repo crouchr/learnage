@@ -117,7 +117,7 @@ def getmetinfo():
         clouds = request.form['clouds'].rstrip(" ")
         print "[05] -> clouds    = " + clouds
 
-        yest_rain = int(request.form['yest_rain'].rstrip(" "))
+        yest_rain = request.form['yest_rain'].rstrip(" ")
         print "[06] -> yest_rain = " + yest_rain.__str__()
 
         yest_wind = request.form['yest_wind'].rstrip(" ")

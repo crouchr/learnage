@@ -166,7 +166,7 @@ if (isset($_POST["submit"] )) {
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="clouds" name="clouds" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter description of clouds, e.g. Altostratus" placeholder="Clouds"  required>
 								<script>
-						            document.getElementById('clouds').value = 'None';
+						            document.getElementById('clouds').value = 'Unknown';
 						        </script>
 						</div>
 					</div>
@@ -189,10 +189,10 @@ if (isset($_POST["submit"] )) {
 
 					<div class="form-group">
 						<label for="location" class="col-sm-3 control-label">Location</label>
-						<div class="col-sm-3">
+						<div class="col-sm-5">
 							<input type="text" class="form-control" id="location" name="location" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter your location" placeholder="Location" required>
 								<script>
-						            document.getElementById('location').value = 'Stockcross';
+						            document.getElementById('location').value = 'Stockcross, UK';
 						        </script>
 						</div>
 					</div>
@@ -202,7 +202,7 @@ if (isset($_POST["submit"] )) {
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="notes" name="notes" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter any additional notes" placeholder="Notes" required>
 								<script>
-						            document.getElementById('notes').value = 'None';
+						            document.getElementById('notes').value = 'Unknown';
 						        </script>
 						</div>
 					</div>
@@ -214,7 +214,7 @@ if (isset($_POST["submit"] )) {
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="yest_rain" name="yest_rain" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's Rainfall" placeholder="Rain" required>
 								<script>
-						            document.getElementById('yest_rain').value = '0';
+						            document.getElementById('yest_rain').value = 'Unknown';
 						        </script>
 						</div>
 					</div>
@@ -224,7 +224,7 @@ if (isset($_POST["submit"] )) {
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="yest_wind" name="yest_wind" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's Wind" placeholder="Wind" required>
 								<script>
-						            document.getElementById('yest_wind').value = '0';
+						            document.getElementById('yest_wind').value = 'Unknown';
 						        </script>
 						</div>
 					</div>
