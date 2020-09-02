@@ -6,31 +6,37 @@ if (isset($_POST["submit"] )) {
 
     $client      = "DEV-index.php"; 	    // indicate what generated the POST request
 
-    $scenario    = $_POST['scenario'];      // mainly used for carry info during acceptance tests
-    $pressure    = $_POST['pressure'];
-    $ptrend      = $_POST['ptrend'];
-    $wind_dir    = $_POST['wind_dir'];
-    $bforecast   = $_POST['bforecast'];
-    $clouds      = $_POST['clouds'];
-    $yest_rain   = $_POST['yest_rain'];
-    $yest_wind   = $_POST['yest_wind'];
-    $notes       = $_POST['notes'];
-    $email       = $_POST['email'];
+    $scenario      = $_POST['scenario'];      // mainly used for carry info during acceptance tests
+    $pressure      = $_POST['pressure'];
+    $ptrend        = $_POST['ptrend'];
+    $wind_dir      = $_POST['wind_dir'];
+    $bforecast     = $_POST['bforecast'];
+    $clouds        = $_POST['clouds'];
+    $yest_rain     = $_POST['yest_rain'];
+    $yest_wind     = $_POST['yest_wind'];
+    $yest_min_temp = $_POST['yest_min_temp'];
+    $yest_max_temp = $_POST['yest_max_temp'];
+    $location      = $_POST['location'];
+    $notes         = $_POST['notes'];
+    $email         = $_POST['email'];
 
     $url = 'http://127.0.0.1:5001/ensight/v1.0/doscan';
     $url = 'http://192.168.1.15:5001/getmetinfo';
 
     $data = array(
-        'scenario'  => $scenario,
-        'pressure'  => $pressure,
-        'ptrend'    => $ptrend,
-        'wind_dir'  => $wind_dir,
-        'bforecast' => $bforecast,
-        'clouds'    => $clouds,
-        'yest_rain' => $yest_rain,
-        'yest_wind' => $yest_wind,
-        'notes'     => $notes,
-        'email'     => $email,
+        'scenario'      => $scenario,
+        'pressure'      => $pressure,
+        'ptrend'        => $ptrend,
+        'wind_dir'      => $wind_dir,
+        'bforecast'     => $bforecast,
+        'clouds'        => $clouds,
+        'yest_rain'     => $yest_rain,
+        'yest_wind'     => $yest_wind,
+        'yest_min_temp' => $yest_min_temp,
+        'yest_max_temp' => $yest_max_temp,
+        'location'      => $location,
+        'notes'         => $notes,
+        'email'         => $email,
         );
 
     $options = array(
@@ -47,15 +53,18 @@ if (isset($_POST["submit"] )) {
     $jobId = $result;       // Flask returns False if a problem occurred
     
     // store critical info so it can be referenced from other PHP pages
-    $_SESSION['pressure']  = $pressure;
-    $_SESSION['ptrend']    = $ptrend;
-    $_SESSION['wind_dir']  = $wind_dir;
-    $_SESSION['bforecast'] = $bforecast;
-    $_SESSION['clouds']    = $clouds;
-    $_SESSION['yest_rain'] = $yest_rain;
-    $_SESSION['yest_wind'] = $yest_wind;
-    $_SESSION['notes']     = $notes;
-    $_SESSION['email']     = $email;
+    $_SESSION['pressure']      = $pressure;
+    $_SESSION['ptrend']        = $ptrend;
+    $_SESSION['wind_dir']      = $wind_dir;
+    $_SESSION['bforecast']     = $bforecast;
+    $_SESSION['clouds']        = $clouds;
+    $_SESSION['yest_rain']     = $yest_rain;
+    $_SESSION['yest_wind']     = $yest_wind;
+    $_SESSION['yest_min_temp'] = $yest_min_temp;
+    $_SESSION['yest_max_temp'] = $yest_max_temp;
+    $_SESSION['location']      = $location;
+    $_SESSION['notes']         = $notes;
+    $_SESSION['email']         = $email;
 
     if ($jobId == False) {
         header("Location: failure.php"); # force HTTP redirect
@@ -92,7 +101,12 @@ if (isset($_POST["submit"] )) {
   				<h3 class="page-header text-center"><i>MetMini</i></h3>
 
 				<div class="intro_message">
-				    Enter basic meteorological information at 09:00 UTC and receive a forecast by email
+				    Enter basic meteorological information at 09:00 UTC and receive a forecast by email<br>
+				    Current Time (UTC) :
+				    <?php date_default_timezone_set("UTC");
+                    echo gmdate("l jS \of F Y h:i:s A");
+                    ?>
+				    <hr>
 				</div>
 
 				<form class="form-horizontal" role="form" method="post" action="index.php">
@@ -119,8 +133,9 @@ if (isset($_POST["submit"] )) {
 
 					<div class="form-group">
 					  <label for="wind_dir" class="col-sm-3 control-label">Wind Quadrant</label>
-					  <div class="col-sm-2">
+					  <div class="col-sm-3">
 					    <select class="form-control" id="wind_dir" name="wind_dir" data-toggle="tooltip" title="Quadrant from where wind is currently blowing">
+					      <option>No wind</option>
 					      <option>NE</option>
 					      <option>SE</option>
 					      <option>SW</option>
@@ -129,10 +144,13 @@ if (isset($_POST["submit"] )) {
 					  </div>             
 					</div>
 
+                    <hr>
+
 					<div class="form-group">
 					  <label for="bforecast" class="col-sm-3 control-label">Bresser Forecast Icon</label>
 					  <div class="col-sm-4">
-					    <select class="form-control" id="bforecast" name="bforecast" data-toggle="tooltip" title="Bresser forecast">
+					    <select class="form-control" id="bforecast" name="bforecast" data-toggle="tooltip" title="Bresser forecast for next 12 hours">
+					      <option>Unknown</option>
 					      <option>Sunny</option>
 					      <option>Slightly Cloudy</option>
 					      <option>Cloudy</option>
@@ -146,15 +164,53 @@ if (isset($_POST["submit"] )) {
 					<div class="form-group">
 						<label for="clouds" class="col-sm-3 control-label">Cloud Description</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="clouds" name="clouds" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter description of clouds, e.g. type, % coverage" placeholder="Clouds"  required>
+							<input type="text" class="form-control" id="clouds" name="clouds" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter description of clouds, e.g. Altostratus" placeholder="Clouds"  required>
 								<script>
 						            document.getElementById('clouds').value = 'None';
 						        </script>
 						</div>
 					</div>
 
+                    <div class="form-group">
+					  <label for="coverage" class="col-sm-3 control-label">Cloud Coverage</label>
+					  <div class="col-sm-4">
+					    <select class="form-control" id="coverage" name="coverage" data-toggle="tooltip" title="Proportion of cloud filled with clouds">
+					      <option>Unknown</option>
+					      <option>Clear Sky</option>
+					      <option>10%</option>
+					      <option>25%</option>
+					      <option>50%</option>
+					      <option>75%</option>
+					      <option>90%</option>
+					      <option>100%</option>
+					      </select>
+					  </div>
+					</div>
+
 					<div class="form-group">
-						<label for="yest_rain" class="col-sm-3 control-label">Yesterday Rain mm</label>
+						<label for="location" class="col-sm-3 control-label">Location</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="location" name="location" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter your location" placeholder="Location" required>
+								<script>
+						            document.getElementById('location').value = 'Stockcross';
+						        </script>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="notes" class="col-sm-3 control-label">Notes</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="notes" name="notes" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter any additional notes" placeholder="Notes" required>
+								<script>
+						            document.getElementById('notes').value = 'None';
+						        </script>
+						</div>
+					</div>
+
+                    <hr>
+
+					<div class="form-group">
+						<label for="yest_rain" class="col-sm-3 control-label">Yesterday Rain (mm)</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="yest_rain" name="yest_rain" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's Rainfall" placeholder="Rain" required>
 								<script>
@@ -173,15 +229,27 @@ if (isset($_POST["submit"] )) {
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="notes" class="col-sm-3 control-label">Notes</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" id="notes" name="notes" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter any additional notes" placeholder="Notes" required>
+                    <div class="form-group">
+						<label for="yest_min_temp" class="col-sm-3 control-label">Yesterday minimum temperature (Celsius)</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="yest_min_temp" name="yest_min_temp" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's minimum temperature" placeholder="MinTemp" required>
 								<script>
-						            document.getElementById('notes').value = 'None';
+						            document.getElementById('yest_min_temp').value = 'Unknown';
 						        </script>
 						</div>
 					</div>
+
+                    <div class="form-group">
+						<label for="yest_max_temp" class="col-sm-3 control-label">Yesterday maximum temperature (Celsius)</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="yest_max_temp" name="yest_max_temp" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's maximum temperature" placeholder="MaxTemp" required>
+								<script>
+						            document.getElementById('yest_max_temp').value = 'Unknown';
+						        </script>
+						</div>
+					</div>
+
+                    <hr>
 
 					<div class="form-group">
 						<label for="email" class="col-sm-3 control-label">Your Email</label>
@@ -209,7 +277,6 @@ if (isset($_POST["submit"] )) {
 			</div>
 		</div>
 	</div>
-	<footer class="footer"><div class="container"><p>(c) 2020 MetMini v0.0.1</p></div></footer>
     <script src="jquery.min.js"></script>
     <script src="bootstrap.min.js"></script>
   </body>

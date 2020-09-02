@@ -20,7 +20,7 @@ import os
 from pprint import pprint
 from logging.handlers import RotatingFileHandler
 from logging import getLogger
-
+from datetime import datetime
 from flask import Flask
 from flask import jsonify
 from flask import render_template
@@ -88,9 +88,11 @@ def getmetinfo():
         application.logger.info('Entered getmetinfo()')
 
         config_data = config.VerifyConfig()
-
+        utc = datetime.utcnow()
         print "\n--------------------------------"
         print time.ctime()
+        print "UTC : " + utc.__str__()
+
         src_ip = request.remote_addr
         print "getmetinfo() called"
 
@@ -117,6 +119,24 @@ def getmetinfo():
 
         yest_rain = int(request.form['yest_rain'].rstrip(" "))
         print "[06] -> yest_rain = " + yest_rain.__str__()
+
+        yest_wind = request.form['yest_wind'].rstrip(" ")
+        print "[07] -> yest_wind = " + yest_wind.__str__()
+
+        yest_min_temp = request.form['yest_min_temp'].rstrip(" ")
+        print "[08] -> yest_min_temp = " + yest_min_temp.__str__()
+
+        yest_max_temp = request.form['yest_max_temp'].rstrip(" ")
+        print "[09] -> yest_max_temp = " + yest_max_temp.__str__()
+
+        location = request.form['location'].rstrip(" ")
+        print "[10] -> location  = " + location.__str__()
+
+        notes = request.form['notes'].rstrip(" ")
+        print "[11] -> notes     = " + notes.__str__()
+
+        email = request.form['email'].rstrip(" ")
+        print "[12] -> email     = " + email.__str__()
 
         #client = request.form['client'].rstrip(" ")
         #print "[03] -> client      = " + client
