@@ -5,7 +5,7 @@ import forecaster
 @pytest.mark.parametrize(
     "pressure_str, expected",
     [
-        ("999", 3),
+        ("999",  3),
         ("1008", 3),
         ("1009", 2),
         ("1022", 2),
@@ -52,18 +52,20 @@ def test_map_wind_dir_to_coeff(wind_dir_str, expected):
     assert coeff == expected
 
 
-#@pytest.mark.parametrize(
-#    "pressure, ptrend, wind_quadrant, expected_forecast",
-#    [
-#        (1023, "R", "NW", 1),
-#        (1023, "S", "NW", 2)
-#    ]
-#)
-#def test_forecaster(pressure, ptrend, wind_quadrant, expected_forecast):
-#    """
-#
-#    :return:
-#    """
-#    forecast = forecaster.forecaster(pressure, ptrend, wind_quadrant)
-#
-#    assert forecast == forecaster.forecast[expected_forecast]
+@pytest.mark.parametrize(
+    "pressure_index, ptrend_index, wind_dir_index, expected_forecast",
+    [
+        (1, 1, 1, 1),
+        (2, 2, 2, 14),
+        (2, 3, 2, 15),
+        (3, 2, 4, 35),
+        (3, 3, 4, 36),
+    ]
+)
+def test_forecaster(pressure_index, ptrend_index, wind_dir_index, expected_forecast):
+    """
+
+    :return:
+    """
+    forecast_index = forecaster.get_forecaster_index(pressure_index, ptrend_index, wind_dir_index)
+    assert forecast_index == expected_forecast

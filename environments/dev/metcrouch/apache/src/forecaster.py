@@ -74,18 +74,16 @@ def map_wind_dir_to_coeff(wind_dir_str):
 
     return wind_dir_coeff
 
-def forecaster(pressure, ptrend, wind_quadrant):
+
+def get_forecaster_index(pressure_coeff, ptrend_coeff, wind_dir_coeff):
     """
     Forecast next n hours based on pressure, trend and wind quadrant
-    :param int pressure:
-    :param str ptrend:
-    :param str wind_quadrant:
+    :param int pressure_coeff:
+    :param int ptrend_coeff:
+    :param int wind_dir_coeff:
     :return: str Text containing forecast
     """
 
-    if pressure > 1013:
-        tag = 1
-    else:
-        tag = 2
+    forecast_index = ((pressure_coeff - 1) * 3) + ptrend_coeff + ((wind_dir_coeff -1) * 9)
 
-    return forecast[tag]
+    return forecast_index
