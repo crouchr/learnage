@@ -4,18 +4,22 @@
 if (isset($_POST["submit"] )) {
     session_start();
 
-    $client      = "DEV-index.php"; 	    // indicate what generated the POST request
+    $client        = "DEV-index.php"; 	    // indicate what generated the POST request
 
     $scenario      = $_POST['scenario'];      // mainly used for carry info during acceptance tests
     $pressure      = $_POST['pressure'];
     $ptrend        = $_POST['ptrend'];
+    $wind_strength = $_POST['beaufort'];
     $wind_dir      = $_POST['wind_dir'];
     $bforecast     = $_POST['bforecast'];
+    $oforecast     = $_POST['oforecast'];
     $clouds        = $_POST['clouds'];
+    $coverage      = $_POST['coverage'];
     $yest_rain     = $_POST['yest_rain'];
     $yest_wind     = $_POST['yest_wind'];
     $yest_min_temp = $_POST['yest_min_temp'];
     $yest_max_temp = $_POST['yest_max_temp'];
+    $yest_notes    = $_POST['yest_notes'];
     $location      = $_POST['location'];
     $notes         = $_POST['notes'];
     $email         = $_POST['email'];
@@ -28,12 +32,16 @@ if (isset($_POST["submit"] )) {
         'pressure'      => $pressure,
         'ptrend'        => $ptrend,
         'wind_dir'      => $wind_dir,
+        'wind_strength' => $wind_strength,
         'bforecast'     => $bforecast,
+        'oforecast'     => $oforecast,
         'clouds'        => $clouds,
+        'coverage'      => $coverage,
         'yest_rain'     => $yest_rain,
         'yest_wind'     => $yest_wind,
         'yest_min_temp' => $yest_min_temp,
         'yest_max_temp' => $yest_max_temp,
+        'yest_notes'    => $yest_notes,
         'location'      => $location,
         'notes'         => $notes,
         'email'         => $email,
@@ -48,26 +56,29 @@ if (isset($_POST["submit"] )) {
             );                                                                                                                                                      
     
     $context = stream_context_create($options);
-    $result  = file_get_contents($url, false, $context);
-    
-    $jobId = $result;       // Flask returns False if a problem occurred
-    
+    $forecast_text  = file_get_contents($url, false, $context);
+
     // store critical info so it can be referenced from other PHP pages
     $_SESSION['pressure']      = $pressure;
     $_SESSION['ptrend']        = $ptrend;
     $_SESSION['wind_dir']      = $wind_dir;
+    $_SESSION['wind_strength'] = $wind_strength;
     $_SESSION['bforecast']     = $bforecast;
+    $_SESSION['oforecast']     = $oforecast;
     $_SESSION['clouds']        = $clouds;
+    $_SESSION['coverage']      = $coverage;
     $_SESSION['yest_rain']     = $yest_rain;
     $_SESSION['yest_wind']     = $yest_wind;
     $_SESSION['yest_min_temp'] = $yest_min_temp;
     $_SESSION['yest_max_temp'] = $yest_max_temp;
+    $_SESSION['yest_notes']    = $yest_notes;
     $_SESSION['location']      = $location;
     $_SESSION['notes']         = $notes;
     $_SESSION['email']         = $email;
+    $_SESSION['forecast_text'] = $forecast_text;
 
-    if ($jobId == False) {
-        header("Location: failure.php"); # force HTTP redirect
+    if ($forecast_text == False) {
+        header("Location: failure.php");    # force HTTP redirect
     } else {
         header("Location: success.php");
     }  
@@ -176,10 +187,8 @@ if (isset($_POST["submit"] )) {
 					  </div>
 					</div>
 
-                    <hr>
-
 					<div class="form-group">
-					  <label for="bforecast" class="col-sm-3 control-label">Bresser Forecast Icon</label>
+					  <label for="bforecast" class="col-sm-3 control-label">Bresser Forecast</label>
 					  <div class="col-sm-4">
 					    <select class="form-control" id="bforecast" name="bforecast" data-toggle="tooltip" title="Bresser weather station forecast for next 12 hours">
 					      <option>Unknown</option>
@@ -193,8 +202,10 @@ if (isset($_POST["submit"] )) {
 					  </div>
 					</div>
 
+                    <hr>
+
 					<div class="form-group">
-					  <label for="oforecast" class="col-sm-3 control-label">Oregon Forecast Icon</label>
+					  <label for="oforecast" class="col-sm-3 control-label">Oregon Forecast</label>
 					  <div class="col-sm-4">
 					    <select class="form-control" id="oforecast" name="oforecast" data-toggle="tooltip" title="Oregon Scientific BAA938HG weather station forecast for next 12/24 hours">
 					      <option>Unknown</option>

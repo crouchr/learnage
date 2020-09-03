@@ -29,6 +29,8 @@ from flask import request
 # minimet modules
 import config
 import funcs
+import forecaster
+import data_logging # logging to TSV file
 
 _tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 application = Flask(__name__, template_folder=_tmpl_dir)
@@ -86,6 +88,7 @@ def getmetinfo():
     """
     try:
         application.logger.info('Entered getmetinfo()')
+        met_data_log_filename = "/tmp/metmini_data.tsv"
 
         config_data = config.VerifyConfig()
         utc = datetime.utcnow()
@@ -103,77 +106,75 @@ def getmetinfo():
         #print "[00] -> scenario  = " + request.form['scenario']
 
         pressure = int(request.form['pressure'].rstrip(" "))
-        print "[01] -> pressure  = " + pressure.__str__()
+        print "[01] -> pressure      = " + pressure.__str__()
 
         ptrend = request.form['ptrend'].rstrip(" ")
-        print "[02] -> ptrend    = " + ptrend
+        print "[02] -> ptrend        = " + ptrend
 
         wind_dir = request.form['wind_dir'].rstrip(" ")
-        print "[03] -> wind_dir  = " + wind_dir
+        print "[03] -> wind_dir      = " + wind_dir
+
+        wind_strength = request.form['wind_strength'].rstrip(" ")
+        print "[04] -> wind_strength = " + wind_strength
 
         bforecast = request.form['bforecast'].rstrip(" ")
-        print "[04] -> bforecast = " + bforecast
+        print "[05] -> bforecast = " + bforecast
+
+        oforecast = request.form['oforecast'].rstrip(" ")
+        print "[06] -> oforecast = " + oforecast
 
         clouds = request.form['clouds'].rstrip(" ")
-        print "[05] -> clouds    = " + clouds
+        print "[07] -> clouds    = " + clouds
 
-        yest_rain = request.form['yest_rain'].rstrip(" ")
-        print "[06] -> yest_rain = " + yest_rain.__str__()
-
-        yest_wind = request.form['yest_wind'].rstrip(" ")
-        print "[07] -> yest_wind = " + yest_wind.__str__()
-
-        yest_min_temp = request.form['yest_min_temp'].rstrip(" ")
-        print "[08] -> yest_min_temp = " + yest_min_temp.__str__()
-
-        yest_max_temp = request.form['yest_max_temp'].rstrip(" ")
-        print "[09] -> yest_max_temp = " + yest_max_temp.__str__()
-
-        yest_notes = request.form['yest_notes'].rstrip(" ")
-        #print "[10] -> yest_notes    = " + yest_notes.__str__()
+        coverage = request.form['coverage'].rstrip(" ")
+        print "[08] -> coverage  = " + coverage
 
         location = request.form['location'].rstrip(" ")
-        print "[11] -> location      = " + location.__str__()
+        print "[09] -> location  = " + location.__str__()
 
         notes = request.form['notes'].rstrip(" ")
-        print "[12] -> notes         = " + notes.__str__()
+        print "[10] -> notes     = " + notes.__str__()
+
+        yest_rain = request.form['yest_rain'].rstrip(" ")
+        print "[11] -> yest_rain = " + yest_rain.__str__()
+
+        yest_wind = request.form['yest_wind'].rstrip(" ")
+        print "[12] -> yest_wind = " + yest_wind.__str__()
+
+        yest_min_temp = request.form['yest_min_temp'].rstrip(" ")
+        print "[13] -> yest_min_temp = " + yest_min_temp.__str__()
+
+        yest_max_temp = request.form['yest_max_temp'].rstrip(" ")
+        print "[14] -> yest_max_temp = " + yest_max_temp.__str__()
+
+        yest_notes = request.form['yest_notes'].rstrip(" ")
+        print "[15] -> yest_notes    = " + yest_notes.__str__()
 
         email = request.form['email'].rstrip(" ")
-        print "[13] -> email         = " + email.__str__()
-
-        #client = request.form['client'].rstrip(" ")
-        #print "[03] -> client      = " + client
+        print "[16] -> email         = " + email.__str__()
 
         print "--------------"
 
-        job = {}
-        job['pressure'] = pressure
+        # Make forecast
+        forecast_text = forecaster.get_forecaster_text(pressure, ptrend, wind_dir)
 
-        pprint(job)
+        metmini_data = {}
+        metmini_data['pressure'] = pressure
+        metmini_data['ptrend'] = ptrend
+        metmini_data['wind_dir'] = wind_dir
+        metmini_data['wind_strength'] = wind_strength
+        metmini_data['forecast'] = forecast_text
+        metmini_data['bforecast'] = bforecast
+        metmini_data['oforecast'] = oforecast
 
-        #job_rec = time.ctime() + "," + job['action'] + "," + reveal_job_id.__str__() + "," + job[
-        #    'client'].__str__() + "," + \
-        #          job['company'].__str__() + "," + job['person'].__str__() + "," + job['email'].__str__() + "," + job[
-        #              'ccemail'].__str__() + "," + \
-        #          job['domain'].__str__() + "," + job['nmap'].__str__() + "," + job['dnsenum'].__str__() + "," + job[
-        #              'cryptpin'].__str__() + "," + \
-        #          job['debug'].__str__() + "," + job['emailownage'].__str__() + "," + job[
-        #              'subdomains'].__str__() + "," + job['vulns'].__str__() + "," + \
-        #          job['allhosts'].__str__() + "," + job['country'].__str__() + "," + job['industry'].__str__() + "," + \
-        #          job['comply'].__str__() + "," + job['tag'].__str__()
+        pprint(metmini_data)
 
-        #funcs.doLog(reveal_job_id, "RevealFlaskApp : Appending job_rec to " + job_filename + " : " + job_rec)
+        # log to TSV
+        data_logging.log_metmini_data_tsv(metmini_data)
 
-        #fpOut = open(job_filename, "a")
-        #print >> fpOut, job_rec
-        #fpOut.flush()
-        #fpOut.close()
+        # log to SQL
 
-        # fixme : make this more HTTP like ?
-        #response = reveal_job_id.__str__()
-
-        #revealFuncs.doLog("NULL", "response is : " + response.__str__())
-        response = "OK"
+        response = forecast_text
         return response
 
     except Exception, e:
