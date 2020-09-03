@@ -134,14 +134,46 @@ if (isset($_POST["submit"] )) {
 					<div class="form-group">
 					  <label for="wind_dir" class="col-sm-3 control-label">Wind Quadrant</label>
 					  <div class="col-sm-3">
-					    <select class="form-control" id="wind_dir" name="wind_dir" data-toggle="tooltip" title="Quadrant from where wind is currently blowing">
-					      <option>No wind</option>
+					    <select class="form-control" id="wind_dir" name="wind_dir" data-toggle="tooltip" title="Direction from where wind is currently blowing (only used if F1 or above)">
+					      <option>N</option>
+					      <option>NNE</option>
 					      <option>NE</option>
+					      <option>ENE</option>
+					      <option>E</option>
+					      <option>ESE</option>
 					      <option>SE</option>
+					      <option>SSE</option>
+					      <option>S</option>
+					      <option>SSW</option>
 					      <option>SW</option>
+					      <option>WSW</option>
+					      <option>W</option>
+					      <option>WNW</option>
 					      <option>NW</option>
+					      <option>NNW</option>
 					    </select>  
 					  </div>             
+					</div>
+
+					<div class="form-group">
+					  <label for="beaufort" class="col-sm-3 control-label">Wind Strength</label>
+					  <div class="col-sm-4">
+					    <select class="form-control" id="beaufort" name="beaufort" data-toggle="tooltip" title="Wind Strength (Beaufort scale)">
+					      <option>F0</option>
+					      <option>F1</option>
+					      <option>F2</option>
+					      <option>F3</option>
+					      <option>F4</option>
+					      <option>F5</option>
+					      <option>F6</option>
+					      <option>F7</option>
+					      <option>F8</option>
+					      <option>F9</option>
+					      <option>F10</option>
+					      <option>F11</option>
+					      <option>F12</option>
+					      </select>
+					  </div>
 					</div>
 
                     <hr>
@@ -245,6 +277,16 @@ if (isset($_POST["submit"] )) {
 							<input type="text" class="form-control" id="yest_max_temp" name="yest_max_temp" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's maximum temperature" placeholder="MaxTemp" required>
 								<script>
 						            document.getElementById('yest_max_temp').value = 'Unknown';
+						        </script>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="yest_notes" class="col-sm-3 control-label">Yesterday Notes</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="yest_notes" name="yest_notes" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Additional notes for Yesterday's weather, e.g. red sky, fog etc." placeholder="YestNotes" required>
+								<script>
+						            document.getElementById('yest_notes').value = 'Unknown';
 						        </script>
 						</div>
 					</div>

@@ -129,14 +129,17 @@ def getmetinfo():
         yest_max_temp = request.form['yest_max_temp'].rstrip(" ")
         print "[09] -> yest_max_temp = " + yest_max_temp.__str__()
 
+        yest_notes = request.form['yest_notes'].rstrip(" ")
+        #print "[10] -> yest_notes    = " + yest_notes.__str__()
+
         location = request.form['location'].rstrip(" ")
-        print "[10] -> location  = " + location.__str__()
+        print "[11] -> location      = " + location.__str__()
 
         notes = request.form['notes'].rstrip(" ")
-        print "[11] -> notes     = " + notes.__str__()
+        print "[12] -> notes         = " + notes.__str__()
 
         email = request.form['email'].rstrip(" ")
-        print "[12] -> email     = " + email.__str__()
+        print "[13] -> email         = " + email.__str__()
 
         #client = request.form['client'].rstrip(" ")
         #print "[03] -> client      = " + client
@@ -174,7 +177,7 @@ def getmetinfo():
         return response
 
     except Exception, e:
-        log_msg = "app.py : getmetinfo() : exception : " + e.__str__()
+        log_msg = "EXCEPTION !!! : app.py : getmetinfo() : exception : " + e.__str__()
         funcs.doLog("NULL", log_msg)
         return False
 
