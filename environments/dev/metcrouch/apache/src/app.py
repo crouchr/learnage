@@ -153,6 +153,10 @@ def getmetinfo():
         email = request.form['email'].rstrip(" ")
         print "[16] -> email         = " + email.__str__()
 
+        # only needed during development phase
+        data_type = request.form['data_type'].rstrip(" ")
+        print "[*]  -> data_type     = " + data_type.__str__()
+
         print "--------------"
 
         # Make forecast
@@ -166,11 +170,21 @@ def getmetinfo():
         metmini_data['forecast'] = forecast_text
         metmini_data['bforecast'] = bforecast
         metmini_data['oforecast'] = oforecast
+        metmini_data['clouds'] = clouds
+        metmini_data['coverage'] = coverage
+        metmini_data['location'] = location
+        metmini_data['notes'] = notes
+        metmini_data['yest_rain'] = yest_rain
+        metmini_data['yest_wind'] = yest_wind
+        metmini_data['yest_min_temp'] = yest_min_temp
+        metmini_data['yest_max_temp'] = yest_max_temp
+        metmini_data['yest_notes'] = yest_notes
+        metmini_data['data_type'] = data_type
 
         pprint(metmini_data)
 
         # log to TSV
-        data_logging.log_metmini_data_tsv(metmini_data)
+        data_logging.log_metmini_data_tsv(utc, metmini_data)
 
         # log to SQL
 

@@ -12,6 +12,7 @@ if (isset($_POST["submit"] )) {
     $wind_strength = $_POST['beaufort'];
     $wind_dir      = $_POST['wind_dir'];
     $bforecast     = $_POST['bforecast'];
+    $data_type     = $_POST['data_type'];
     $oforecast     = $_POST['oforecast'];
     $clouds        = $_POST['clouds'];
     $coverage      = $_POST['coverage'];
@@ -34,6 +35,7 @@ if (isset($_POST["submit"] )) {
         'wind_dir'      => $wind_dir,
         'wind_strength' => $wind_strength,
         'bforecast'     => $bforecast,
+        'data_type'     => $data_type,
         'oforecast'     => $oforecast,
         'clouds'        => $clouds,
         'coverage'      => $coverage,
@@ -64,6 +66,7 @@ if (isset($_POST["submit"] )) {
     $_SESSION['wind_dir']      = $wind_dir;
     $_SESSION['wind_strength'] = $wind_strength;
     $_SESSION['bforecast']     = $bforecast;
+    $_SESSION['data_type']     = $data_type;
     $_SESSION['oforecast']     = $oforecast;
     $_SESSION['clouds']        = $clouds;
     $_SESSION['coverage']      = $coverage;
@@ -202,6 +205,16 @@ if (isset($_POST["submit"] )) {
 					  </div>
 					</div>
 
+                    <div class="form-group">
+					  <label for="data_type" class="col-sm-3 control-label">Data Type*</label>
+					  <div class="col-sm-4">
+					    <select class="form-control" id="data_type" name="data_type" data-toggle="tooltip" title="Indicate if this is real data or test data">
+					      <option>Observation</option>
+					      <option>Test</option>
+					      </select>
+					  </div>
+					</div>
+
                     <hr>
 
 					<div class="form-group">
@@ -267,7 +280,7 @@ if (isset($_POST["submit"] )) {
                     <hr>
 
 					<div class="form-group">
-						<label for="yest_rain" class="col-sm-3 control-label">Yesterday Rain (mm)</label>
+						<label for="yest_rain" class="col-sm-3 control-label">Yesterday's Rain (mm)</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="yest_rain" name="yest_rain" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's Rainfall" placeholder="Rain" required>
 								<script>
@@ -277,17 +290,29 @@ if (isset($_POST["submit"] )) {
 					</div>
 
 					<div class="form-group">
-						<label for="yest_wind" class="col-sm-3 control-label">Yesterday Wind</label>
+						<label for="yest_wind" class="col-sm-3 control-label">Yesterday's Wind</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" id="yest_wind" name="yest_wind" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's Wind" placeholder="Wind" required>
-								<script>
-						            document.getElementById('yest_wind').value = 'Unknown';
-						        </script>
+							<select class="form-control" id="yest_wind" name="yest_wind" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter highest wind strength (Beaufort)" placeholder="Wind" required>
+							    <option>Unknown</option>
+							    <option>F0</option>
+					            <option>F1</option>
+					            <option>F2</option>
+					            <option>F3</option>
+					            <option>F4</option>
+					            <option>F5</option>
+					            <option>F6</option>
+					            <option>F7</option>
+					            <option>F8</option>
+					            <option>F9</option>
+					            <option>F10</option>
+					            <option>F11</option>
+					            <option>F12</option>
+					        </select>
 						</div>
 					</div>
 
                     <div class="form-group">
-						<label for="yest_min_temp" class="col-sm-3 control-label">Yesterday minimum temperature (Celsius)</label>
+						<label for="yest_min_temp" class="col-sm-3 control-label">Yesterday's min. temperature (C)</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="yest_min_temp" name="yest_min_temp" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's minimum temperature" placeholder="MinTemp" required>
 								<script>
@@ -297,7 +322,7 @@ if (isset($_POST["submit"] )) {
 					</div>
 
                     <div class="form-group">
-						<label for="yest_max_temp" class="col-sm-3 control-label">Yesterday maximum temperature (Celsius)</label>
+						<label for="yest_max_temp" class="col-sm-3 control-label">Yesterday's max. temperature (C)</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="yest_max_temp" name="yest_max_temp" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's maximum temperature" placeholder="MaxTemp" required>
 								<script>
@@ -307,7 +332,7 @@ if (isset($_POST["submit"] )) {
 					</div>
 
 					<div class="form-group">
-						<label for="yest_notes" class="col-sm-3 control-label">Yesterday Notes</label>
+						<label for="yest_notes" class="col-sm-3 control-label">Yesterday's Notes</label>
 						<div class="col-sm-8">
 							<input type="text" class="form-control" id="yest_notes" name="yest_notes" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Additional notes for Yesterday's weather, e.g. red sky, fog etc." placeholder="YestNotes" required>
 								<script>
