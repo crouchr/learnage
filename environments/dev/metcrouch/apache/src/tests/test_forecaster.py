@@ -78,7 +78,8 @@ def test_get_forecaster_index(pressure_index, ptrend_index, wind_dir_index, expe
     [
         ("1023",  "Falling", "SW", "Fair for 6 to 12 hours, rising temperatures"),
         ("1010",  "Rising",  "NE", "Clear with colder weather"),
-        ("1006",  "Steady",  "S", "Continued stormy weather"),
+        ("1006",  "Steady",  "S",  "Continued stormy weather"),
+        ("1001",  "Falling", "NE", "Heavy rain, severe NE gale, colder temperatures")
     ]
 )
 def test_get_forecaster_text(pressure_str, ptrend_str, wind_dir_str, expected):
