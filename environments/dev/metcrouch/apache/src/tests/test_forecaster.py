@@ -56,16 +56,34 @@ def test_map_wind_dir_to_coeff(wind_dir_str, expected):
     "pressure_index, ptrend_index, wind_dir_index, expected_forecast",
     [
         (1, 1, 1, 1),
+        (1, 3, 2, 12),
         (2, 2, 2, 14),
         (2, 3, 2, 15),
         (3, 2, 4, 35),
         (3, 3, 4, 36),
+        (3, 3, 5, 45),
     ]
 )
-def test_forecaster(pressure_index, ptrend_index, wind_dir_index, expected_forecast):
+def test_get_forecaster_index(pressure_index, ptrend_index, wind_dir_index, expected_forecast):
     """
 
     :return:
     """
     forecast_index = forecaster.get_forecaster_index(pressure_index, ptrend_index, wind_dir_index)
     assert forecast_index == expected_forecast
+
+
+@pytest.mark.parametrize(
+    "pressure_str, ptrend_str, wind_dir_str, expected",
+    [
+        ("1023",  "Falling", "SW", "Fair for 6 to 12 hours, rising temperatures"),
+        ("1010",  "Rising",  "NE", "Clear with colder weather"),
+        ("1006",  "Steady",  "S", "Continued stormy weather"),
+    ]
+)
+def test_get_forecaster_text(pressure_str, ptrend_str, wind_dir_str, expected):
+    forecaster_text = forecaster.get_forecaster_text(pressure_str, ptrend_str, wind_dir_str)
+
+    assert forecaster_text == expected
+
+

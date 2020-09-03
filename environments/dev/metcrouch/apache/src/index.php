@@ -123,7 +123,7 @@ if (isset($_POST["submit"] )) {
                     <div class="form-group">
 					  <label for="ptrend" class="col-sm-3 control-label">Pressure Trend</label>
 					  <div class="col-sm-3">
-					    <select class="form-control" id="ptrend" name="ptrend" data-toggle="tooltip" title="Pressure Trend">
+					    <select class="form-control" id="ptrend" name="ptrend" data-toggle="tooltip" title="Use HISTORY button to look at last 2 or 3 hours for increased accuracy">
 					      <option>Rising</option>
 					      <option>Steady</option>
 					      <option>Falling</option>
@@ -181,7 +181,7 @@ if (isset($_POST["submit"] )) {
 					<div class="form-group">
 					  <label for="bforecast" class="col-sm-3 control-label">Bresser Forecast Icon</label>
 					  <div class="col-sm-4">
-					    <select class="form-control" id="bforecast" name="bforecast" data-toggle="tooltip" title="Bresser forecast for next 12 hours">
+					    <select class="form-control" id="bforecast" name="bforecast" data-toggle="tooltip" title="Bresser weather station forecast for next 12 hours">
 					      <option>Unknown</option>
 					      <option>Sunny</option>
 					      <option>Slightly Cloudy</option>
@@ -194,8 +194,22 @@ if (isset($_POST["submit"] )) {
 					</div>
 
 					<div class="form-group">
+					  <label for="oforecast" class="col-sm-3 control-label">Oregon Forecast Icon</label>
+					  <div class="col-sm-4">
+					    <select class="form-control" id="oforecast" name="oforecast" data-toggle="tooltip" title="Oregon Scientific BAA938HG weather station forecast for next 12/24 hours">
+					      <option>Unknown</option>
+					      <option>Sunny</option>
+					      <option>Slightly Cloudy</option>
+					      <option>Cloudy</option>
+					      <option>Rainy</option>
+					      <option>Snowy</option>
+					      </select>
+					  </div>
+					</div>
+
+					<div class="form-group">
 						<label for="clouds" class="col-sm-3 control-label">Cloud Description</label>
-						<div class="col-sm-8">
+						<div class="col-sm-12">
 							<input type="text" class="form-control" id="clouds" name="clouds" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter description of clouds, e.g. Altostratus" placeholder="Clouds"  required>
 								<script>
 						            document.getElementById('clouds').value = 'Unknown';
@@ -230,9 +244,9 @@ if (isset($_POST["submit"] )) {
 					</div>
 
 					<div class="form-group">
-						<label for="notes" class="col-sm-3 control-label">Notes</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" id="notes" name="notes" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter any additional notes" placeholder="Notes" required>
+						<label for="notes" class="col-sm-3 control-label">Weather Notes</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" id="notes" name="notes" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter any weather notes/observations" placeholder="Notes" required>
 								<script>
 						            document.getElementById('notes').value = 'Unknown';
 						        </script>
