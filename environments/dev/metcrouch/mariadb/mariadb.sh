@@ -15,28 +15,42 @@ FLUSH PRIVILEGES;
 SHOW GRANTS FOR 'metmini'@erminserver.localdomain;
 
 USE metminidb;
-
 DROP TABLE metminilogs;
 CREATE TABLE metminilogs
 (
-  date DATE NOT NULL,
-  time TIME NOT NULL,
-  data_type VARCHAR(10) NOT NULL,
-  pressure INT NOT NULL,
-  ptrend VARCHAR(10) NOT NULL,
-  wind_dir VARCHAR(10) NOT NULL,
-  wind_strength VARCHAR(10) NOT NULL,
-  bresser_forecast VARCHAR(10) NOT NULL,
-  oregon_forecast VARCHAR(10),
-  clouds VARCHAR(32),
-  location VARCHAR(32) NOT NULL,
-  notes VARCHAR(32),
-  yest_rain INT,
-  yest_wind_strength INT,
-  yest_min_temp INT,
-  yest_max_temp INT,
-  yest_notes VARCHAR(32)
+date_utc DATE NOT NULL,
+time_utc TIME NOT NULL,
+date_local DATE NOT NULL,
+time_local TIME NOT NULL,
+pressure INT NOT NULL,
+ptrend VARCHAR(10) NOT NULL,
+wind_dir VARCHAR(10) NOT NULL,
+forecast VARCHAR(128) NOT NULL,
+bforecast VARCHAR(10) NOT NULL
 );
+
+#CREATE TABLE metminilogs
+#(
+#  date DATE NOT NULL,
+#  time TIME NOT NULL,
+#  data_type VARCHAR(10) NOT NULL,
+#  pressure INT NOT NULL,
+#  ptrend VARCHAR(10) NOT NULL,
+#  wind_dir VARCHAR(10) NOT NULL,
+#  wind_strength VARCHAR(10) NOT NULL,
+#  bresser_forecast VARCHAR(10) NOT NULL,
+#  oregon_forecast VARCHAR(10),
+#  clouds VARCHAR(32),
+#  location VARCHAR(32) NOT NULL,
+#  notes VARCHAR(32),
+#  yest_rain INT,
+#  yest_wind_strength INT,
+#  yest_min_temp INT,
+#  yest_max_temp INT,
+#  yest_notes VARCHAR(32)
+#);
+
+
 
 DESCRIBE metminilogs;
 

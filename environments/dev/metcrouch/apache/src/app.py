@@ -32,6 +32,7 @@ import config
 import funcs
 import forecaster
 import data_logging # logging to TSV file
+import connect_db
 
 _tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 application = Flask(__name__, template_folder=_tmpl_dir)
@@ -92,10 +93,8 @@ def getmetinfo():
         met_data_log_filename = "/tmp/metmini_data.tsv"
 
         config_data = config.VerifyConfig()
-        utc = datetime.utcnow()
         print("\n--------------------------------")
         print(time.ctime())
-        print("UTC : " + utc.__str__())
 
         src_ip = request.remote_addr
         print("getmetinfo() called")
@@ -184,10 +183,22 @@ def getmetinfo():
 
         pprint(metmini_data)
 
+        utc       = datetime.utcnow()
+        localtime = datetime.now()
+
         # log to TSV
         data_logging.log_metmini_data_tsv(utc, metmini_data)
 
         # log to SQL
+        ts_local = localtime.strftime('%Y-%m-%d %H:%M:%S')
+        ts_utc   = utc.strftime('%Y-%m-%d %H:%M:%S')
+
+        mydb, mycursor = connect_db.connect_database()
+        sql = "INSERT INTO metminilogs (date_utc, time_utc, date_local, time_local, pressure, ptrend, wind_dir, forecast, bforecast) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        val = (ts_utc, ts_utc, ts_local, ts_local, pressure, ptrend, wind_dir, forecast_text, bforecast)
+        mycursor.execute(sql, val)
+        mydb.commit()
+        print(mycursor.rowcount, "Record inserted in MySQL OK")
 
         response = forecast_text
         return response
@@ -236,6 +247,9 @@ def main(args=None):
     funcs.doLog("NULL", log_msg)
 
     funcs.doLog("NULL", "Flask logging to : " + app_log_file)
+
+    mydb, mycursor = connect_db.connect_database()
+
 
     DEBUG = False
     application.run(debug=DEBUG, host=flask_ip, port=flask_port, use_reloader=False)

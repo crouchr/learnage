@@ -13,9 +13,10 @@ echo "[+] Started setup.sh for provisioning this node"
 #systemctl restart sshd
 
 echo "[+] Install Python3 tools and dependencies..."
-yum install -y python-pip3 python3
+yum install -y python-pip3 python3 python3-devel
 pip install requests Flask ConfigParser pytest
-#pip install mariadb
+pip install mysql-connector-python
+pip install mariadb
 
 echo "[+] Install Apache and MariaDB..."
 yum install -y httpd httpd-devel php php-mysql mariadb-server
