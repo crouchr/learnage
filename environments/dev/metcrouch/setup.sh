@@ -12,9 +12,10 @@ echo "[+] Started setup.sh for provisioning this node"
 #yum update -y --disableplugin=fastestmirror
 #systemctl restart sshd
 
-echo "[+] Install Python tools and dependencies..."
-yum install python-pip
-pip install requests Flask
+echo "[+] Install Python3 tools and dependencies..."
+yum install -y python-pip3 python3
+pip install requests Flask ConfigParser pytest
+#pip install mariadb
 
 echo "[+] Install Apache and MariaDB..."
 yum install -y httpd httpd-devel php php-mysql mariadb-server

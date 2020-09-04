@@ -1,4 +1,4 @@
-import ConfigParser
+import configparser
 import funcs
 
 
@@ -8,19 +8,19 @@ class VerifyConfig():
     def __init__(self):
         self.values = {}
         # this is where the file is installed into
-        if funcs.get_verify_env() == 'DEV':
-            VERIFY_INI_FILE = "/home/crouchr/PycharmProjects/learnage/environments/dev/metcrouch/apache/src/minimet.ini"
-        elif funcs.get_verify_env() == 'STAGING':
-            VERIFY_INI_FILE = "/opt/reveal-verify/backend/etc/verify.ini"
-        else:  # LIVE
-            VERIFY_INI_FILE = "/opt/reveal-verify/backend/etc/verify.ini"
+        # if funcs.get_verify_env() == 'DEV':
+        #     VERIFY_INI_FILE = "/home/crouchr/PycharmProjects/learnage/environments/dev/metcrouch/apache/src/minimet.ini"
+        # elif funcs.get_verify_env() == 'STAGING':
+        #     VERIFY_INI_FILE = "/opt/reveal-verify/backend/etc/verify.ini"
+        # else:  # LIVE
+        #     VERIFY_INI_FILE = "/opt/reveal-verify/backend/etc/verify.ini"
 
         VERIFY_INI_FILE = "/home/crouchr/PycharmProjects/learnage/environments/dev/metcrouch/apache/src/minimet.ini"
 
         self.config_pathname = VERIFY_INI_FILE
-        self.reveal = funcs.get_verify_env()
+        #self.reveal = funcs.get_verify_env()
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(self.config_pathname)
         for section in config.sections():
             self.values[section] = ConfigSectionMap(self.config_pathname, section)
@@ -29,14 +29,14 @@ class VerifyConfig():
     def get_ini_pathname(self):
         return self.config_pathname
 
-    def get_reveal_variable(self):
-        return self.reveal
+    #def get_reveal_variable(self):
+    #    return self.reveal
 
 
 def ConfigSectionMap(configPathname, section):
     """Return a dictionary of values from the ini file section"""
     dict1 = {}
-    config = ConfigParser.ConfigParser()
+    config = configparser.ConfigParser()
     config.read(configPathname)
 
     options = config.options(section)

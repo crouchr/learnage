@@ -25,7 +25,7 @@ if (isset($_POST["submit"] )) {
     $notes         = $_POST['notes'];
     $email         = $_POST['email'];
 
-    $url = 'http://127.0.0.1:5001/ensight/v1.0/doscan';
+    $url = 'http://127.0.0.1:5001/getmetinfo';
     $url = 'http://192.168.1.15:5001/getmetinfo';
 
     $data = array(

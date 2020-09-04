@@ -29,6 +29,6 @@ def log_metmini_data_tsv(utc, metmini_data):
         metmini_data['data_type']
 
     fpOut = open("/tmp/metmini_data.tsv", "a")
-    print >> fpOut, metmini_data_rec
+    fpOut.write(metmini_data_rec)
     fpOut.flush()
     fpOut.close()

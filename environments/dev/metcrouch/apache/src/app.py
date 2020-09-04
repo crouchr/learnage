@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # R.Crouch
 # Listen for HTTP POST requests
 #
@@ -16,6 +16,7 @@ import sys
 import time
 import logging
 import os
+import traceback
 
 from pprint import pprint
 from logging.handlers import RotatingFileHandler
@@ -75,8 +76,8 @@ def status_json():
         response_json = {'status': 'OK', 'node': platform.node(), 'server_time': time.ctime(), 'version': version}
         return jsonify(response_json)
 
-    except Exception, e:
-        print "status_json() : exception : " + e.__str__()
+    except Exception as e:
+        print("status_json() : exception : " + e.__str__())
         return False
 
 
@@ -92,72 +93,72 @@ def getmetinfo():
 
         config_data = config.VerifyConfig()
         utc = datetime.utcnow()
-        print "\n--------------------------------"
-        print time.ctime()
-        print "UTC : " + utc.__str__()
+        print("\n--------------------------------")
+        print(time.ctime())
+        print("UTC : " + utc.__str__())
 
         src_ip = request.remote_addr
-        print "getmetinfo() called"
+        print("getmetinfo() called")
 
-        print "HTTP POST Request received by Flask server OK from source IP " + src_ip.__str__()
+        print("HTTP POST Request received by Flask server OK from source IP " + src_ip.__str__())
         pprint(request.form)  # ImmutableMultiDict
 
         # Mandatory fields - no need to check for existence
         #print "[00] -> scenario  = " + request.form['scenario']
 
         pressure = int(request.form['pressure'].rstrip(" "))
-        print "[01] -> pressure      = " + pressure.__str__()
+        print("[01] -> pressure      = " + pressure.__str__())
 
         ptrend = request.form['ptrend'].rstrip(" ")
-        print "[02] -> ptrend        = " + ptrend
+        print("[02] -> ptrend        = " + ptrend)
 
         wind_dir = request.form['wind_dir'].rstrip(" ")
-        print "[03] -> wind_dir      = " + wind_dir
+        print("[03] -> wind_dir      = " + wind_dir)
 
         wind_strength = request.form['wind_strength'].rstrip(" ")
-        print "[04] -> wind_strength = " + wind_strength
+        print("[04] -> wind_strength = " + wind_strength)
 
         bforecast = request.form['bforecast'].rstrip(" ")
-        print "[05] -> bforecast = " + bforecast
+        print("[05] -> bforecast = " + bforecast)
 
         oforecast = request.form['oforecast'].rstrip(" ")
-        print "[06] -> oforecast = " + oforecast
+        print("[06] -> oforecast = " + oforecast)
 
         clouds = request.form['clouds'].rstrip(" ")
-        print "[07] -> clouds    = " + clouds
+        print("[07] -> clouds    = " + clouds)
 
         coverage = request.form['coverage'].rstrip(" ")
-        print "[08] -> coverage  = " + coverage
+        print("[08] -> coverage  = " + coverage)
 
         location = request.form['location'].rstrip(" ")
-        print "[09] -> location  = " + location.__str__()
+        print("[09] -> location  = " + location.__str__())
 
         notes = request.form['notes'].rstrip(" ")
-        print "[10] -> notes     = " + notes.__str__()
+        print("[10] -> notes     = " + notes.__str__())
 
         yest_rain = request.form['yest_rain'].rstrip(" ")
-        print "[11] -> yest_rain = " + yest_rain.__str__()
+        print("[11] -> yest_rain = " + yest_rain.__str__())
 
         yest_wind = request.form['yest_wind'].rstrip(" ")
-        print "[12] -> yest_wind = " + yest_wind.__str__()
+        print("[12] -> yest_wind = " + yest_wind.__str__())
 
         yest_min_temp = request.form['yest_min_temp'].rstrip(" ")
-        print "[13] -> yest_min_temp = " + yest_min_temp.__str__()
+        print("[13] -> yest_min_temp = " + yest_min_temp.__str__())
 
         yest_max_temp = request.form['yest_max_temp'].rstrip(" ")
-        print "[14] -> yest_max_temp = " + yest_max_temp.__str__()
+        print("[14] -> yest_max_temp = " + yest_max_temp.__str__())
 
         yest_notes = request.form['yest_notes'].rstrip(" ")
-        print "[15] -> yest_notes    = " + yest_notes.__str__()
+        print("[15] -> yest_notes    = " + yest_notes.__str__())
 
         email = request.form['email'].rstrip(" ")
-        print "[16] -> email         = " + email.__str__()
+        print("[16] -> email         = " + email.__str__())
 
         # only needed during development phase
         data_type = request.form['data_type'].rstrip(" ")
-        print "[*]  -> data_type     = " + data_type.__str__()
+        print("[*]  -> data_type     = " + data_type.__str__())
 
-        print "--------------"
+        print("--------------")
 
         # Make forecast
         forecast_text = forecaster.get_forecaster_text(pressure, ptrend, wind_dir)
@@ -191,7 +192,7 @@ def getmetinfo():
         response = forecast_text
         return response
 
-    except Exception, e:
+    except Exception as e:
         log_msg = "EXCEPTION !!! : app.py : getmetinfo() : exception : " + e.__str__()
         funcs.doLog("NULL", log_msg)
         return False
@@ -208,8 +209,9 @@ def main(args=None):
 
     config_data = config.VerifyConfig()
 
-    flask_ip = config_data.values['flask']['ip']
+    #flask_ip = config_data.values['flask']['ip']
     flask_port = int(config_data.values['flask']['port'])
+    flask_ip = 'erminserver.localdomain'    # not using IP as there is a bug in Python 3.6
 
     # Store this process pid in a file to be monitored by monit
     #revealFuncs.storepid('/opt/reveal-verify/backend/var/run','revealflask')
@@ -218,8 +220,8 @@ def main(args=None):
     #reveal_job = revealPersist.Persist(config_data.values['dirs']['verify_base'] + "/var/run/" + "jobid-persist.txt", job_id_start, 1, "")
     #g.reveal_job = reveal_job
 
-    print "flask_ip     : " + flask_ip
-    print "flask_port   : " + flask_port.__str__()
+    print("flask_ip     : " + flask_ip)
+    print("flask_port   : " + flask_port.__str__())
 
     # Setup a logger that Flask will use
     handler = RotatingFileHandler(app_log_file, maxBytes=100000, backupCount=1)

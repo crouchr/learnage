@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # Implement the local forecast algorithm as per hughes38.com
 
 forecast = []
@@ -52,9 +53,9 @@ def map_pressure_to_coeff(pressure_str):
 
     """
     pressure = int(pressure_str)
-    if pressure <= 1008 :
+    if pressure <= 1008:
         pressure_coeff = 3
-    elif pressure >= 1023 :
+    elif pressure >= 1023:
         pressure_coeff = 1
     else:
         pressure_coeff = 2
