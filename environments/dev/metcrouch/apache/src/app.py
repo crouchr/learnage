@@ -193,12 +193,44 @@ def getmetinfo():
         ts_local = localtime.strftime('%Y-%m-%d %H:%M:%S')
         ts_utc   = utc.strftime('%Y-%m-%d %H:%M:%S')
 
-        mydb, mycursor = connect_db.connect_database()
-        sql = "INSERT INTO metminilogs (date_utc, time_utc, date_local, time_local, pressure, ptrend, wind_dir, forecast, bforecast) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        val = (ts_utc, ts_utc, ts_local, ts_local, pressure, ptrend, wind_dir, forecast_text, bforecast)
+        mydb, mycursor = connect_db.connect_database("metminidb")
+
+        sql = "INSERT INTO metminilogs (date_utc, time_utc, date_local, time_local," \
+              "pressure, " \
+              "ptrend, " \
+              "wind_dir, " \
+              "wind_strength, " \
+              "forecast, " \
+              "bforecast, " \
+              "oforecast, " \
+              "coverage, " \
+              "location, " \
+              "yest_rain, " \
+              "yest_wind, " \
+              "yest_min_temp, " \
+              "yest_max_temp, " \
+              "data_type) " \
+              "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+        val = (ts_utc, ts_utc, ts_local, ts_local,
+               pressure,
+               ptrend,
+               wind_dir,
+               wind_strength,
+               forecast_text,
+               bforecast,
+               oforecast,
+               coverage,
+               location,
+               yest_rain,
+               yest_wind,
+               yest_min_temp,
+               yest_max_temp,
+               data_type)
+
         mycursor.execute(sql, val)
         mydb.commit()
-        print(mycursor.rowcount, "Record inserted in MySQL OK")
+        print(mycursor.rowcount, "record inserted in MySQL OK")
 
         response = forecast_text
         return response

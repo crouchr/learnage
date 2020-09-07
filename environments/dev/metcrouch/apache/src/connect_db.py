@@ -1,13 +1,14 @@
 import mysql.connector
 
-def connect_database():
+
+def connect_database(db_name):
     """
 
     :return:
     """
     mydb = mysql.connector.connect(
         host="erminserver.localdomain",
-        database="metminidb",
+        database=db_name,
         user="metmini",
         password="metmini"
     )
