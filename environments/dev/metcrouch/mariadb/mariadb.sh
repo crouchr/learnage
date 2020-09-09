@@ -18,15 +18,73 @@ USE metminidb;
 DROP TABLE metminilogs;
 CREATE TABLE metminilogs
 (
-date_utc DATE NOT NULL,
-time_utc TIME NOT NULL,
-date_local DATE NOT NULL,
-time_local TIME NOT NULL,
+id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ts_local DATETIME NOT NULL,
+ts_utc DATETIME NOT NULL,
+julian INT NOT NULL,
 pressure INT NOT NULL,
 ptrend VARCHAR(10) NOT NULL,
-wind_dir VARCHAR(10) NOT NULL,
+wind_quadrant VARCHAR(10) NOT NULL,
+wind_strength VARCHAR(10) NOT NULL,
 forecast VARCHAR(128) NOT NULL,
-bforecast VARCHAR(10) NOT NULL
+bforecast VARCHAR(32) NOT NULL,
+oforecast VARCHAR(32) NOT NULL,
+coverage VARCHAR(16) NOT NULL,
+location VARCHAR(64) NOT NULL,
+yest_rain int NOT NULL,
+yest_wind VARCHAR(10) NOT NULL,
+yest_min_temp INT NOT NULL,
+yest_max_temp INT NOT NULL,
+data_type VARCHAR(16) NOT NULL
+);
+
+
+
+DROP TABLE actual;
+CREATE TABLE actual
+(
+id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ts_local DATETIME NOT NULL,
+ts_utc DATETIME NOT NULL,
+julian INT NOT NULL,
+pressure INT NOT NULL,
+wind_speed FLOAT NOT NULL,
+wind_deg INT NOT NULL,
+wind_quadrant VARCHAR(8) NOT NULL,
+wind_strength INT NOT NULL,
+wind_gust FLOAT NOT NULL,
+temp FLOAT NOT NULL,
+feels_like FLOAT NOT NULL,
+dew_point FLOAT NOT NULL,
+uvi FLOAT NOT NULL,
+humidity INT NOT NULL,
+visibility INT NOT NULL,
+main VARCHAR(32) NOT NULL,
+description VARCHAR(32) NOT NULL,
+rain FLOAT NOT NULL,
+snow FLOAT NOT NULL,
+coverage INT NOT NULL,
+location VARCHAR(64) NOT NULL,
+lat VARCHAR(8) NOT NULL,
+lon VARCHAR(8) NOT NULL,
+tz VARCHAR(32) NOT NULL,
+tz_offset INT NOT NULL,
+ts_epoch INT NOT NULL,
+sunrise_local TIMESTAMP NOT NULL,
+sunset_local TIMESTAMP NOT NULL
+);
+
+
+DROP TABLE forecasts;
+CREATE TABLE forecasts
+(
+id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ts_local DATETIME NOT NULL,
+ts_utc DATETIME NOT NULL,
+pressure INT NOT NULL,
+ptrend VARCHAR(10) NOT NULL,
+wind_quadrant VARCHAR(8) NOT NULL,
+forecast VARCHAR(128) NOT NULL
 );
 
 #CREATE TABLE metminilogs
