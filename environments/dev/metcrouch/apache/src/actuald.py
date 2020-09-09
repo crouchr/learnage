@@ -15,7 +15,6 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
     :param weather_info:
     :return:
     """
-    pprint(weather_info)
 
     sql = "INSERT INTO actual (" \
           "ts_local, " \
@@ -24,6 +23,7 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
           "pressure, " \
           "wind_speed, " \
           "wind_deg, " \
+          "wind_quadrant, " \
           "wind_strength, " \
           "wind_gust, " \
           "temp, " \
@@ -36,6 +36,7 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
           "main, " \
           "description, " \
           "rain, " \
+          "snow, " \
           "location, " \
           "lat, " \
           "lon, " \
@@ -45,7 +46,7 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
           "sunrise_local, " \
           "sunset_local" \
           ") " \
-          "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+          "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
     val = (weather_info['ts_local'],
            weather_info['ts_utc'],
@@ -53,6 +54,7 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
            weather_info['pressure'],
            weather_info['wind_speed'],
            weather_info['wind_deg'],
+           weather_info['wind_quadrant'],
            weather_info['wind_strength'],
            weather_info['wind_gust'],
            weather_info['temp'],
@@ -65,6 +67,7 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
            weather_info['main'],
            weather_info['description'],
            weather_info['rain'],
+           weather_info['snow'],
            weather_info['location'],
            weather_info['lat'],
            weather_info['lon'],
@@ -93,7 +96,7 @@ def main():
         pprint(weather_info)
         insert_rec_to_db(mydb, mycursor, weather_info)
         print("waiting...")
-        time.sleep(360)
+        time.sleep(600)         # poll every 10 minutes
 
 
 if __name__ == '__main__':

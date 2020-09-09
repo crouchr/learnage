@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 import requests
 import json
 import julian
@@ -54,9 +55,8 @@ def get_current_weather_info():
     # api returns m/s
     weather_info['wind_strength'] = met_funcs.kph_to_beaufort(met_funcs.metres_per_sec_to_kph(data['current']['wind_speed'])) # metres/s
 
-    # fixme : convert to wind quadrant e.g. NE and store as well as degrees
     weather_info['wind_deg']      = data['current']['wind_deg']
-
+    weather_info['wind_quadrant'] = met_funcs.wind_deg_to_quadrant(weather_info['wind_deg'])
     weather_info['temp']          = round(data['current']['temp'], 1)
     weather_info['feels_like']    = round(data['current']['feels_like'], 1)
     weather_info['dew_point']     = round(data['current']['dew_point'], 1)
@@ -77,11 +77,13 @@ def get_current_weather_info():
     else:
         weather_info['rain'] = 0.0
 
-    # fixme - this is a list - so need to strore it as a list ? - store a assume a single item list for now until understand the API response more
+    if 'snow.1h' in data['current']:
+        weather_info['snow']  = round(data['current']['snow.1h'], 1)      # snow volume for last hour (mm)
+    else:
+        weather_info['snow'] = 0.0
+
+    # fixme - this is a list - so need to store it as a list ? - store a assume a single item list for now until understand the API response more
     weather_info['main']          = data['current']['weather'][0]['main']
     weather_info['description']   = data['current']['weather'][0]['description']
 
     return weather_info
-
-
-

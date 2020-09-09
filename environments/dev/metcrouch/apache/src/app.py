@@ -33,6 +33,7 @@ import funcs
 import forecaster
 import data_logging # logging to TSV file
 import connect_db
+import met_funcs
 
 _tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 application = Flask(__name__, template_folder=_tmpl_dir)
@@ -111,8 +112,8 @@ def getmetinfo():
         ptrend = request.form['ptrend'].rstrip(" ")
         print("[02] -> ptrend        = " + ptrend)
 
-        wind_dir = request.form['wind_dir'].rstrip(" ")
-        print("[03] -> wind_dir      = " + wind_dir)
+        wind_quadrant = met_funcs.request.form['wind_dir'].rstrip(" ")
+        print("[03] -> wind_quadrant      = " + wind_quadrant)
 
         wind_strength = request.form['wind_strength'].rstrip(" ")
         print("[04] -> wind_strength = " + wind_strength)
@@ -165,7 +166,7 @@ def getmetinfo():
         metmini_data = {}
         metmini_data['pressure'] = pressure
         metmini_data['ptrend'] = ptrend
-        metmini_data['wind_dir'] = wind_dir
+        metmini_data['wind_quadrant'] = wind_quadrant
         metmini_data['wind_strength'] = wind_strength
         metmini_data['forecast'] = forecast_text
         metmini_data['bforecast'] = bforecast

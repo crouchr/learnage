@@ -95,3 +95,21 @@ def wind_deg_to_quadrant(wind_deg):
 
     return quadrant
 
+
+def wind_dir_to_quadrant(wind_dir):
+    """
+    Convert wind direction to nearest compass quadrant - as used by my local forecasting algorithm
+    :param wind_deg:
+    :return:
+    """
+
+    quadrant_map = {
+        "N"   : "NE",
+        "NNE" : "NE",
+        "NE": "NE",
+
+    }
+
+    quadrant = quadrant_map[wind_dir.upper()]
+
+    return quadrant

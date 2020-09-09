@@ -101,3 +101,16 @@ def test_wind_deg_to_quadrant(wind_deg, expected):
     wind_quadrant = met_funcs.wind_deg_to_quadrant(wind_deg)
     assert wind_quadrant == expected
 
+
+# ----------
+@pytest.mark.parametrize(
+    "wind_dir, expected",
+    [
+        ("N",  "NE"),
+    ]
+)
+def wind_dir_to_quadrant(wind_dir, expected):
+    wind_quadrant = met_funcs.wind_deg_to_quadrant(wind_dir)
+    assert wind_quadrant == expected
+
+
