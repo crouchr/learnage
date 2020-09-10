@@ -187,8 +187,8 @@ def getmetinfo():
         utc       = datetime.utcnow()
         localtime = datetime.now()
 
-        # log to TSV
-        data_logging.log_metmini_data_tsv(utc, metmini_data)
+        # log to TSV - FIXME : this needs updating to reflect MySQL
+        #data_logging.log_metmini_data_tsv(utc, metmini_data)
 
         # log to SQL
         ts_local = localtime.strftime('%Y-%m-%d %H:%M:%S')
@@ -196,10 +196,12 @@ def getmetinfo():
 
         mydb, mycursor = connect_db.connect_database("metminidb")
 
-        sql = "INSERT INTO metminilogs (date_utc, time_utc, date_local, time_local," \
+        sql = "INSERT INTO metminilogs (" \
+              "ts_local, " \
+              "ts_utc," \
               "pressure, " \
               "ptrend, " \
-              "wind_dir, " \
+              "wind_quadrant, " \
               "wind_strength, " \
               "forecast, " \
               "bforecast, " \
@@ -211,12 +213,12 @@ def getmetinfo():
               "yest_min_temp, " \
               "yest_max_temp, " \
               "data_type) " \
-              "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+              "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
-        val = (ts_utc, ts_utc, ts_local, ts_local,
+        val = (ts_local, ts_utc,
                pressure,
                ptrend,
-               wind_dir,
+               wind_quadrant,
                wind_strength,
                forecast_text,
                bforecast,
@@ -246,6 +248,7 @@ def main(args=None):
     if args is None:
         args = sys.argv[1:]
 
+    print("Started")
     log_msg = "Started, version=" + version
     funcs.doLog("NULL", log_msg)
     app_log_file  = "/var/log/minimet.log"
@@ -255,14 +258,9 @@ def main(args=None):
 
     #flask_ip = config_data.values['flask']['ip']
     flask_port = int(config_data.values['flask']['port'])
+
+    flask_port = 5001
     flask_ip = 'erminserver.localdomain'    # not using IP as there is a bug in Python 3.6
-
-    # Store this process pid in a file to be monitored by monit
-    #revealFuncs.storepid('/opt/reveal-verify/backend/var/run','revealflask')
-
-    # Create object
-    #reveal_job = revealPersist.Persist(config_data.values['dirs']['verify_base'] + "/var/run/" + "jobid-persist.txt", job_id_start, 1, "")
-    #g.reveal_job = reveal_job
 
     print("flask_ip     : " + flask_ip)
     print("flask_port   : " + flask_port.__str__())
@@ -283,8 +281,7 @@ def main(args=None):
 
     mydb, mycursor = connect_db.connect_database()
 
-
-    DEBUG = False
+    DEBUG = True
     application.run(debug=DEBUG, host=flask_ip, port=flask_port, use_reloader=False)
 
 

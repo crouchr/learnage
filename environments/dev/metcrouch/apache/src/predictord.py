@@ -73,7 +73,7 @@ def sleep_forecast_time(utc_hour_required, utc_minute_required):
     """
     Sleep until 0900 UTC
     """
-    sleep_period = 10
+    sleep_period = 20
 
     while True:
         print('-----')
@@ -147,8 +147,8 @@ def main():
     day_in_secs = 20 * 60 * 60
 
     while True:
-        # 0945 UTC - and pull 3 x 10 min records =
-        sleep_forecast_time(9, 45)    # (9,45) = 0945 UTC = 1000 UK (in Summer)
+        # 0930 UTC - and pull 3 x 10 min records =
+        sleep_forecast_time(9, 30)    # time when the forecast is made and added to MySQL (9,30) = 0930 UTC = 1030 UK (in Summer)
 
         pressure, ptrend, wind_quadrant = get_forecast_prereqs(forecast_hour_utc)
 

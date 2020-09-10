@@ -173,19 +173,19 @@ if (isset($_POST["submit"] )) {
 					  <label for="beaufort" class="col-sm-3 control-label">Wind Strength</label>
 					  <div class="col-sm-4">
 					    <select class="form-control" id="beaufort" name="beaufort" data-toggle="tooltip" title="Wind Strength (Beaufort scale)">
-					      <option>F0</option>
-					      <option>F1</option>
-					      <option>F2</option>
-					      <option>F3</option>
-					      <option>F4</option>
-					      <option>F5</option>
-					      <option>F6</option>
-					      <option>F7</option>
-					      <option>F8</option>
-					      <option>F9</option>
-					      <option>F10</option>
-					      <option>F11</option>
-					      <option>F12</option>
+					      <option>0</option>
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3</option>
+					      <option>4</option>
+					      <option>5</option>
+					      <option>6</option>
+					      <option>7</option>
+					      <option>8</option>
+					      <option>9</option>
+					      <option>10</option>
+					      <option>11</option>
+					      <option>12</option>
 					      </select>
 					  </div>
 					</div>
@@ -244,15 +244,15 @@ if (isset($_POST["submit"] )) {
                     <div class="form-group">
 					  <label for="coverage" class="col-sm-3 control-label">Cloud Coverage</label>
 					  <div class="col-sm-4">
-					    <select class="form-control" id="coverage" name="coverage" data-toggle="tooltip" title="Proportion of cloud filled with clouds">
+					    <select class="form-control" id="coverage" name="coverage" data-toggle="tooltip" title="Proportion of cloud filled with clouds (%)">
 					      <option>Unknown</option>
-					      <option>Clear Sky</option>
-					      <option>10%</option>
-					      <option>25%</option>
-					      <option>50%</option>
-					      <option>75%</option>
-					      <option>90%</option>
-					      <option>100%</option>
+					      <option>0</option>
+					      <option>10</option>
+					      <option>25</option>
+					      <option>50</option>
+					      <option>75</option>
+					      <option>90</option>
+					      <option>100</option>
 					      </select>
 					  </div>
 					</div>
@@ -280,7 +280,7 @@ if (isset($_POST["submit"] )) {
                     <hr>
 
 					<div class="form-group">
-						<label for="yest_rain" class="col-sm-3 control-label">Yesterday's Rain (mm)</label>
+						<label for="yest_rain" class="col-sm-3 control-label">Yesterday Rain (mm)</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="yest_rain" name="yest_rain" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter Yesterday's Rainfall" placeholder="Rain" required>
 								<script>
@@ -290,23 +290,23 @@ if (isset($_POST["submit"] )) {
 					</div>
 
 					<div class="form-group">
-						<label for="yest_wind" class="col-sm-3 control-label">Yesterday's Wind</label>
+						<label for="yest_wind" class="col-sm-3 control-label">Yesterday Wind Strength</label>
 						<div class="col-sm-3">
 							<select class="form-control" id="yest_wind" name="yest_wind" maxlength="40" pattern="^[\x00-\x7F]+$" data-toggle="tooltip" title="Enter highest wind strength (Beaufort)" placeholder="Wind" required>
 							    <option>Unknown</option>
-							    <option>F0</option>
-					            <option>F1</option>
-					            <option>F2</option>
-					            <option>F3</option>
-					            <option>F4</option>
-					            <option>F5</option>
-					            <option>F6</option>
-					            <option>F7</option>
-					            <option>F8</option>
-					            <option>F9</option>
-					            <option>F10</option>
-					            <option>F11</option>
-					            <option>F12</option>
+							    <option>0</option>
+					            <option>1</option>
+					            <option>2</option>
+					            <option>3</option>
+					            <option>4</option>
+					            <option>5</option>
+					            <option>6</option>
+					            <option>7</option>
+					            <option>8</option>
+					            <option>9</option>
+					            <option>10</option>
+					            <option>11</option>
+					            <option>12</option>
 					        </select>
 						</div>
 					</div>
