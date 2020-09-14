@@ -8,6 +8,7 @@
 #FLUSH PRIVILEGES;
 #MYSQL_SCRIPT
 
+
 CREATE USER 'metmini'@erminserver.localdomain identified by 'metmini';
 CREATE DATABASE metminidb;
 GRANT ALL ON metminidb.* to 'metmini' identified by 'metmini';
@@ -15,6 +16,7 @@ FLUSH PRIVILEGES;
 SHOW GRANTS FOR 'metmini'@erminserver.localdomain;
 
 USE metminidb;
+
 DROP TABLE metminilogs;
 CREATE TABLE metminilogs
 (
@@ -47,6 +49,9 @@ id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 ts_local DATETIME NOT NULL,
 ts_utc DATETIME NOT NULL,
 julian INT NOT NULL,
+location VARCHAR(64) NOT NULL,
+main VARCHAR(32) NOT NULL,
+description VARCHAR(32) NOT NULL,
 pressure INT NOT NULL,
 wind_speed FLOAT NOT NULL,
 wind_deg INT NOT NULL,
@@ -59,12 +64,9 @@ dew_point FLOAT NOT NULL,
 uvi FLOAT NOT NULL,
 humidity INT NOT NULL,
 visibility INT NOT NULL,
-main VARCHAR(32) NOT NULL,
-description VARCHAR(32) NOT NULL,
 rain FLOAT NOT NULL,
 snow FLOAT NOT NULL,
 coverage INT NOT NULL,
-location VARCHAR(64) NOT NULL,
 lat VARCHAR(8) NOT NULL,
 lon VARCHAR(8) NOT NULL,
 tz VARCHAR(32) NOT NULL,
@@ -81,9 +83,11 @@ CREATE TABLE forecasts
 id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 ts_local DATETIME NOT NULL,
 ts_utc DATETIME NOT NULL,
+location VARCHAR(64) NOT NULL,
 pressure INT NOT NULL,
 ptrend VARCHAR(10) NOT NULL,
 wind_quadrant VARCHAR(8) NOT NULL,
+wind_strength INT NOT NULL,
 forecast VARCHAR(128) NOT NULL
 );
 
