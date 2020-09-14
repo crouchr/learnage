@@ -13,5 +13,7 @@ locations = [
     {"location": "Portsmouth, UK", "lat": "50.8198", "lon": "-1.0880"},
     {"location": "Beaulieu, UK", "lat": "50.8156", "lon": "-1.4532"},
     {"location": "Fastnet Rock, Ireland", "lat": "51.3889", "lon": "-9.6036"},
-    {"location": "Bay of Biscay, Portugal", "lat": "45.5570", "lon": "-3.1632"}
+    {"location": "Snake Pass, UK", "lat": "53.4326", "lon": "-1.8673"}
 ]
+
+#     {"location": "Bay of Biscay, Portugal", "lat": "45.5570", "lon": "-3.1632"},

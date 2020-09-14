@@ -95,7 +95,7 @@ def main():
     while True:
         print("-----------------")
         print("local time : " + time.ctime())
-        for place in locations:
+        for place in locations.locations:
             weather_info = current_weather.get_current_weather_info(place['location'], place['lat'], place['lon'])
             pprint(weather_info)
             insert_rec_to_db(mydb, mycursor, weather_info)
