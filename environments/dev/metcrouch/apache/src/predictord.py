@@ -10,47 +10,55 @@ import connect_db
 import trend
 import met_funcs
 import ts_funcs
+import locations
 
 
-def get_forecast_prereqs(forecast_hour_utc):
+def get_forecast_prereqs(location, forecast_hour_utc):
     """
     Retrieve the required values needed to make a forecast from the database
     :return:
     """
     pressure_values = []
     wind_deg_values = []
+    wind_strength_values = []
 
     recs_to_retrieve = 3    # number of readings to use to determine pressure trend and wind_deg
     index = [1, 2, 3]       # FIXME : calc from recs_to_retrieve
 
     forecast_ts_utc = calc_forecast_time_epoch(forecast_hour_utc)
 
-    print(forecast_ts_utc)
+    # print(forecast_ts_utc)
 
     #while True:
     mydb, mycursor = connect_db.connect_database("metminidb")
 
 
-    sql_query = """SELECT * FROM actual WHERE ts_epoch >= %s limit %s"""
-    mycursor.execute(sql_query, (forecast_ts_utc,recs_to_retrieve,))
+    sql_query = """SELECT * FROM actual WHERE location = %s AND ts_epoch >= %s limit %s"""
+    mycursor.execute(sql_query, (location, forecast_ts_utc, recs_to_retrieve,))
     records = mycursor.fetchall()
 
+    # fixme : fragile = need named columns not numbers
     for row in records:
-        pressure_values.append(row[4])
-        wind_deg_values.append(row[6])
+        pressure_values.append(row[7])
+        wind_deg_values.append(row[9])
+        wind_strength_values.append(row[11])
 
-    print(pressure_values)
-    print(wind_deg_values)
+    # print(pressure_values)
+    # print(wind_deg_values)
+    # print(wind_strength_values)
 
     trend_str, slope = trend.trendline(index, pressure_values)
     wind_deg_avg = int(sum(wind_deg_values)) / len(wind_deg_values)
     wind_deg_avg = int(wind_deg_avg)
 
+    wind_strength_avg = int(sum(wind_strength_values)) / len(wind_strength_values)
+    wind_strength     = int(wind_strength_avg)
+
     pressure = pressure_values[0]   # use the first one
     ptrend = trend_str
     wind_quadrant = met_funcs.wind_deg_to_quadrant(wind_deg_avg)
 
-    return pressure, ptrend, wind_quadrant
+    return pressure, ptrend, wind_quadrant, wind_strength
 
 
 # FIXME : something is wrong here but go with it
@@ -69,7 +77,7 @@ def calc_forecast_time_epoch(forecast_hour_utc):
     return forecast_ts_utc
 
 
-def sleep_forecast_time(utc_hour_required, utc_minute_required):
+def sleep_till_forecast_time(utc_hour_required, utc_minute_required):
     """
     Sleep until 0900 UTC
     """
@@ -98,7 +106,7 @@ def sleep_forecast_time(utc_hour_required, utc_minute_required):
     return
 
 
-def add_forecast_to_db(pressure, ptrend, wind_quadrant, forecast_text):
+def add_forecast_to_db(location, pressure, ptrend, wind_quadrant, wind_strength, forecast_text):
     """
 
     :param ressure:
@@ -108,7 +116,7 @@ def add_forecast_to_db(pressure, ptrend, wind_quadrant, forecast_text):
     :return:
     """
     utc_epoch = time.time()
-    print("utc_epoch")
+    #print(utc_epoch)
 
     mydb, mycursor = connect_db.connect_database("metminidb")
 
@@ -118,52 +126,73 @@ def add_forecast_to_db(pressure, ptrend, wind_quadrant, forecast_text):
     sql = "INSERT INTO forecasts (" \
           "ts_local, " \
           "ts_utc, " \
+          "location, " \
           "pressure, " \
           "ptrend, " \
           "wind_quadrant, " \
+          "wind_strength, " \
           "forecast" \
           ") " \
-          "VALUES (%s, %s, %s, %s, %s, %s)"
+          "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 
     val = (ts_local,
            ts_utc,
+           location,
            pressure,
            ptrend,
            wind_quadrant,
+           wind_strength,
            forecast_text
            )
 
-    print(sql)
+    #print(sql)
 
     mycursor.execute(sql, val)
     mydb.commit()
-    print(mycursor.rowcount, "record inserted in MySQL OK")
+    message = "record inserted in MySQL OK for location=" + location.__str__()
+    print(mycursor.rowcount, message)
 
 # ---------------------------------------------------
 
 
 def main():
-    forecast_hour_utc = 10      # FIXME : use 10 for now - run forecast algorithm at 09:00 UTC (so why is it not 9 ?)
-    day_in_secs = 20 * 60 * 60
+    forecast_hour_utc = 10          # FIXME : use 10 for now - run forecast algorithm at 09:00 UTC (so why is it not 9 ?)
 
-    while True:
-        # 0930 UTC - and pull 3 x 10 min records =
-        sleep_forecast_time(9, 30)    # time when the forecast is made and added to MySQL (9,30) = 0930 UTC = 1030 UK (in Summer)
+    try:
+        utc_now = datetime.utcnow()
+        utc_hour = utc_now.hour
+        hours_till_tomorrow = (26 - utc_hour)
+        secs_till_tomorrow = hours_till_tomorrow * 3600
 
-        pressure, ptrend, wind_quadrant = get_forecast_prereqs(forecast_hour_utc)
+        while True:
+            # 0930 UTC - and pull 3 x 10 min records =
+            #sleep_till_forecast_time(9, 30)    # time when the forecast is made and added to MySQL (9,30) = 0930 UTC = 1030 UK (in Summer)
 
-        forecast_text = forecaster.get_forecaster_text(pressure, ptrend, wind_quadrant)
-        full_forecast_txt = time.ctime() + "\n"
-        full_forecast_txt += "Forecast for next 12 hours : " + forecast_text
-        full_forecast_txt += "\n"
-        full_forecast_txt+= "pressure=" + pressure.__str__() + " mbar (" + ptrend + "), wind=" + wind_quadrant
+            for place in locations.locations:
+                print("===========================================================")
+                print("Location : " + place['location'])
 
-        print(full_forecast_txt)
+                pressure, ptrend, wind_quadrant, wind_strength = get_forecast_prereqs(place['location'], forecast_hour_utc)
 
-        add_forecast_to_db(pressure, ptrend, wind_quadrant, forecast_text)
+                forecast_text = forecaster.get_forecaster_text(pressure, ptrend, wind_quadrant, wind_strength)
+                full_forecast_txt = time.ctime() + "\n"
+                full_forecast_txt += "Forecast location : " + place['location'] + "\n"
+                full_forecast_txt += "Forecast for next 12 hours : " + forecast_text
+                full_forecast_txt += "\n"
+                full_forecast_txt+= "pressure=" + pressure.__str__() + " mbar (" + ptrend + "), wind_quadrant=" + wind_quadrant + ", wind_strength=F" + wind_strength.__str__()
 
-        print("sleep for 20 hours...")
-        time.sleep(day_in_secs)
+                print("------------------------------------------------")
+                print(full_forecast_txt)
+                print("------------------------------------------------")
+
+                add_forecast_to_db(place['location'], pressure, ptrend, wind_quadrant, wind_strength, forecast_text)
+
+            print()
+            print("sleep for " + hours_till_tomorrow.__str__() + " hours...")
+            time.sleep(secs_till_tomorrow)
+
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':

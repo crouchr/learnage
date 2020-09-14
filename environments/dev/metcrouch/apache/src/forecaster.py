@@ -128,18 +128,22 @@ def get_forecaster_index(pressure_coeff, ptrend_coeff, wind_dir_coeff):
 
 
 # This is the function used within applications
-def get_forecaster_text(pressure_str, ptrend_str, wind_dir_str):
+# fixme : wind_strength is not used yet ?
+def get_forecaster_text(pressure_str, ptrend_str, wind_dir_str, wind_strength):
     """
     Return forecast based on Pressure, pressure trend and wind direction
     :param forecaster_index:
     :return:
     """
+    try:
+        pressure_coeff = map_pressure_to_coeff(pressure_str)
+        ptrend_coeff = map_ptrend_to_coeff(ptrend_str)
+        wind_dir_coeff = map_wind_dir_to_coeff(wind_dir_str)
 
-    pressure_coeff = map_pressure_to_coeff(pressure_str)
-    ptrend_coeff = map_ptrend_to_coeff(ptrend_str)
-    wind_dir_coeff = map_wind_dir_to_coeff(wind_dir_str)
+        forecaster_id= get_forecaster_index(pressure_coeff, ptrend_coeff, wind_dir_coeff)
+        forecaster_text = forecast[forecaster_id]
 
-    forecaster_id= get_forecaster_index(pressure_coeff, ptrend_coeff, wind_dir_coeff)
-    forecaster_text = forecast[forecaster_id]
+    except Exception as e:
+        print(e)
 
     return forecaster_text
