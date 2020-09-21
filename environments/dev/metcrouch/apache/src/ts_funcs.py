@@ -6,7 +6,7 @@ import datetime
 
 def epoch_to_utc(epoch):
     """
-    Return string as UTC with epoch
+    Return string version of epoch
     :param epoch:
     :return:
     """

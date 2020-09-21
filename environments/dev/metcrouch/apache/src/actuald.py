@@ -20,6 +20,7 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
           "ts_local, " \
           "ts_utc, " \
           "julian, " \
+          "hour_utc, " \
           "location, " \
           "main, " \
           "description, " \
@@ -38,6 +39,7 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
           "visibility, " \
           "rain, " \
           "snow, " \
+          "source," \
           "lat, " \
           "lon, " \
           "tz, " \
@@ -46,11 +48,12 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
           "sunrise_local, " \
           "sunset_local" \
           ") " \
-          "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+          "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
     val = (weather_info['ts_local'],
            weather_info['ts_utc'],
            weather_info['julian'],
+           weather_info['hour_utc'],
            weather_info['location'],
            weather_info['main'],
            weather_info['description'],
@@ -69,6 +72,7 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
            weather_info['visibility'],
            weather_info['rain'],
            weather_info['snow'],
+           weather_info['source'],
            weather_info['lat'],
            weather_info['lon'],
            weather_info['tz'],
@@ -77,8 +81,6 @@ def insert_rec_to_db(mydb, mycursor, weather_info):
            weather_info['sunrise_local'],
            weather_info['sunset_local']
            )
-
-    #print(sql)
 
     mycursor.execute(sql, val)
     mydb.commit()
@@ -94,7 +96,7 @@ def main():
 
     while True:
         print("-----------------")
-        print("local time : " + time.ctime())
+        print("Local time (not UTC) : " + time.ctime())
         for place in locations.locations:
             weather_info = current_weather.get_current_weather_info(place['location'], place['lat'], place['lon'])
             pprint(weather_info)

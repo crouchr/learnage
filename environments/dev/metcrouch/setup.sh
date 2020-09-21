@@ -12,11 +12,29 @@ echo "[+] Started setup.sh for provisioning this node"
 #yum update -y --disableplugin=fastestmirror
 #systemctl restart sshd
 
-echo "[+] Install Python3 tools and dependencies..."
+
+#yum install -y yum install MariaDB-shared
+
+#echo "[+] Install MariaDB/C connector..."
+#curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
+#sudo yum -y install MariaDB-devel
+
+echo "[+] Install CentOS7 package dependencies..."
 yum install -y python-pip3 python3 python3-devel
-pip install requests Flask ConfigParser pytest
-pip install mysql-connector-python
-pip install mariadb
+yum install -y mariadb mariadb-server
+yum install -y mariadb-devel mariadb-libs
+yum install -y libmariadbclient-dev
+#yum install -y mariadb-devel
+#yum install -y MySQL-python
+#yum install -y mariadb-server mariadb-client libmariadbclient-dev
+
+echo "[+] Install Python dependencies..."
+pip3 install mysqlclient
+pip3 install mysql-connector-python
+#pip3 install mariadb-connector-python
+pip3 install mariadb
+
+pip3 install requests Flask ConfigParser pytest
 
 echo "[+] Install Apache and MariaDB..."
 yum install -y httpd httpd-devel php php-mysql mariadb-server
@@ -75,33 +93,74 @@ cp /vagrant/apache/src/failure.php /var/www/html/failure.php
 chown apache:apache /var/www/html/failure.php
 chmod 755 /var/www/html/failure.php
 
+# -------
+cp /vagrant/apache/src/actuald.py /opt/minimet/actuald.py
+chown apache:apache /opt/minimet/actuald.py
+chmod 755 /opt/minimet/actuald.py
+
 cp /vagrant/apache/src/app.py /opt/minimet/app.py
 chown apache:apache /opt/minimet/app.py
 chmod 755 /opt/minimet/app.py
-
-cp /vagrant/apache/src/forecaster.py /opt/minimet/forecaster.py
-chown apache:apache /opt/minimet/forecaster.py
-chmod 755 /opt/minimet/forecaster.py
-
-cp /vagrant/apache/src/openweathermap.py /opt/minimet/openweathermap.py
-chown apache:apache /opt/minimet/openweathermap.py
-chmod 755 /opt/minimet/openweathermap.py
-
-cp /vagrant/apache/src/app.py /opt/minimet/minimet.ini
-chown apache:apache /opt/minimet/minimet.ini
-chmod 755 /opt/minimet/minimet.ini
-
-cp /vagrant/apache/src/funcs.py /opt/minimet/funcs.py
-chown apache:apache /opt/minimet/funcs.py
-chmod 755 /opt/minimet/funcs.py
 
 cp /vagrant/apache/src/config.py /opt/minimet/config.py
 chown apache:apache /opt/minimet/config.py
 chmod 755 /opt/minimet/config.py
 
+cp /vagrant/apache/src/connect_db.py /opt/minimet/connect_db.py
+chown apache:apache /opt/minimet/connect_db.py
+chmod 755 /opt/minimet/connect_db.py
+
+cp /vagrant/apache/src/current_weather.py /opt/minimet/current_weather.py
+chown apache:apache /opt/minimet/current_weather.py
+chmod 755 /opt/minimet/current_weather.py
+
 cp /vagrant/apache/src/data_logging.py /opt/minimet/data_logging.py
 chown apache:apache /opt/minimet/data_logging.py
 chmod 755 /opt/minimet/data_logging.py
+
+cp /vagrant/apache/src/delete_rec_from_db.py /opt/minimet/delete_rec_from_db.py
+chown apache:apache /opt/minimet/delete_rec_from_db.py
+chmod 755 /opt/minimet/delete_rec_from_db.py
+
+cp /vagrant/apache/src/forecaster.py /opt/minimet/forecaster.py
+chown apache:apache /opt/minimet/forecaster.py
+chmod 755 /opt/minimet/forecaster.py
+
+cp /vagrant/apache/src/funcs.py /opt/minimet/funcs.py
+chown apache:apache /opt/minimet/funcs.py
+chmod 755 /opt/minimet/funcs.py
+
+cp /vagrant/apache/src/julian.py /opt/minimet/julian.py
+chown apache:apache /opt/minimet/julian.py
+chmod 755 /opt/minimet/julian.py
+
+cp /vagrant/apache/src/met_funcs.py /opt/minimet/met_funcs.py
+chown apache:apache /opt/minimet/met_funcs.py
+chmod 755 /opt/minimet/met_funcs.py
+
+cp /vagrant/apache/src/predictord.py /opt/minimet/predictord.py
+chown apache:apache /opt/minimet/predictord.py
+chmod 755 /opt/minimet/predictord.py
+
+cp /vagrant/apache/src/trend.py /opt/minimet/trend.py
+chown apache:apache /opt/minimet/trend.py
+chmod 755 /opt/minimet/trend.py
+
+cp /vagrant/apache/src/ts_funcs.py /opt/minimet/ts_funcs.py
+chown apache:apache /opt/minimet/ts_funcs.py
+chmod 755 /opt/minimet/ts_funcs.py
+
+cp /vagrant/apache/src/app.py /opt/minimet/minimet.ini
+chown apache:apache /opt/minimet/minimet.ini
+chmod 755 /opt/minimet/minimet.ini
+
+cp /vagrant/mariadb/mariadb.sh /tmp/mariadb.sh
+chown apache:apache /tmp/mariadb.sh
+chmod 755 /tmp/mariadb.sh
+
+cp /vagrant/mariadb/mariadb_test.sh /tmp/mariadb_test.sh
+chown apache:apache /tmp/mariadb_test.sh
+chmod 755 /tmp/mariadb_test.sh
 
 echo "[+] Starting MariaDB..."
 systemctl start mariadb

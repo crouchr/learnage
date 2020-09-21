@@ -9,10 +9,11 @@ from pprint import pprint
 
 import met_funcs
 import ts_funcs
+from datetime import datetime
 
 # Stockcross height is 129m
 # https://getoutside.ordnancesurvey.co.uk/local/stockcross-west-berkshire
-
+# https://stackabuse.com/how-to-get-the-current-date-and-time-in-python/
 
 # Leave out daily forecast for now
 # need to call this a couple of times in order to determine if pressure is rising, falling etc
@@ -27,11 +28,17 @@ def get_current_weather_info(location, lat, lon):
 
     try:
         weather_info = {}
+        weather_info['source'] = "OpenWeatherMap"       # allows for multiple APIs to be used plus Vantage or other logging weather station
+
+        utc_now = datetime.utcnow()
+        hour_utc = utc_now.hour
+        weather_info['hour_utc'] = hour_utc
+        print("hour_utc : " + hour_utc.__str__())
 
         response = requests.get(url)
         data = json.loads(response.text)
         print(data)
-        time.sleep(2)           # crude rate limit
+        time.sleep(2)                   # crude rate limit
 
         weather_info['lat']           = data['lat']
         weather_info['lon']           = data['lon']
