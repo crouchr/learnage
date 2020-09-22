@@ -1,4 +1,4 @@
-#
+# This is not used - it could be deleted
 def differentiate(numbers):
     """
     Perform differentiation on a sequence of numbers

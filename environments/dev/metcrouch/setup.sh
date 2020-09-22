@@ -21,15 +21,15 @@ echo "[+] Started setup.sh for provisioning this node"
 
 echo "[+] Install CentOS7 package dependencies..."
 yum install -y python-pip3 python3 python3-devel
-yum install -y mariadb mariadb-server
-yum install -y mariadb-devel mariadb-libs
-yum install -y libmariadbclient-dev
+yum install -y mariadb-server
+#yum install -y mariadb-devel mariadb-libs
+#yum install -y libmariadbclient-dev
 #yum install -y mariadb-devel
 #yum install -y MySQL-python
 #yum install -y mariadb-server mariadb-client libmariadbclient-dev
 
 echo "[+] Install Python dependencies..."
-pip3 install mysqlclient
+#pip3 install mysqlclient
 pip3 install mysql-connector-python
 #pip3 install mariadb-connector-python
 pip3 install mariadb
@@ -37,7 +37,7 @@ pip3 install mariadb
 pip3 install requests Flask ConfigParser pytest
 
 echo "[+] Install Apache and MariaDB..."
-yum install -y httpd httpd-devel php php-mysql mariadb-server
+yum install -y httpd httpd-devel php php-mysql
 
 echo "[+] Install MariaDB scripts..."
 cp /vagrant/mariadb/mariadb.sh /home/vagrant/mariadb.sh
