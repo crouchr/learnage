@@ -2,18 +2,11 @@
 # script to create the metmini database and add tables
 
 mysql -u root <<MYSQL_SCRIPT
-CREATE DATABASE metminidb;
-CREATE USER 'metmini'@localhost identified by 'metmini';
-GRANT ALL ON metmini.* to 'metmini' identified by 'metmini';
-FLUSH PRIVILEGES;
-MYSQL_SCRIPT
-
-mysql -u root <<MYSQL_SCRIPT
-CREATE USER 'metmini'@erminserver.localdomain identified by 'metmini';
+CREATE USER 'metmini'@localhost.localdomain identified by 'metmini';
 CREATE DATABASE metminidb;
 GRANT ALL ON metminidb.* to 'metmini' identified by 'metmini';
 FLUSH PRIVILEGES;
-SHOW GRANTS FOR 'metmini'@erminserver.localdomain;
+SHOW GRANTS FOR 'metmini'@localhost.localdomain;
 MYSQL_SCRIPT
 
 mysql -u root <<MYSQL_SCRIPT
