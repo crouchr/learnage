@@ -2,6 +2,8 @@
 import connect_db
 
 
+
+
 def main():
     database_name = "metminidb"
     table_name = "actual"
