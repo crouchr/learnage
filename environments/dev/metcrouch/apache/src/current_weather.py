@@ -76,13 +76,18 @@ def get_current_weather_info(location, lat, lon):
         else:
             weather_info['wind_gust'] = "NULL"  # fixme = does this import into MySQL as a NULL ?
 
-        if 'rain.1h' in data['current']:
-            weather_info['rain']  = round(data['current']['rain.1h'], 1)      # rain volume for last hour (mm)
+        # if 'rain.1h' in data['current']:
+        #     weather_info['rain']  = round(data['current']['rain.1h'], 1)      # rain volume for last hour (mm)
+        # else:
+        #     weather_info['rain'] = 0.0
+
+        if 'rain' in data['current']:
+            weather_info['rain']  = round(data['current']['rain']['1h'], 1)      # rain volume for last hour (mm)
         else:
             weather_info['rain'] = 0.0
 
-        if 'snow.1h' in data['current']:
-            weather_info['snow']  = round(data['current']['snow.1h'], 1)      # snow volume for last hour (mm)
+        if 'snow' in data['current']:
+            weather_info['snow']  = round(data['current']['snow']['1h'], 1)      # snow volume for last hour (mm)
         else:
             weather_info['snow'] = 0.0
 
