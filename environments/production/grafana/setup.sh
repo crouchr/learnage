@@ -2,6 +2,7 @@
 # This script is running on the VM itself
 # Files on the Host can be accessed via the /vagrant share
 # https://www.urban-software.com/cacti-howtos/howto-install-influxdb-on-centos/
+# initial account is admin/admin
 
 set -e	# bomb out if any problem
 
@@ -17,6 +18,9 @@ echo "Starting NTPd..."
 systemctl enable ntpd
 systemctl start ntpd
 
+# Need mysql client
+yum -y install mariadb
+
 # InfluxDB
 cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
 [influxdb]
@@ -31,9 +35,19 @@ yum -y install influxdb
 mkdir -p /etc/influxdb
 cp /vagrant/influxdb.conf /etc/influxdb/influxdb.conf
 
-# Grafana
-wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.3.4-1.x86_64.rpm
-yum -y localinstall grafana-5.3.4-1.x86_64.rpm
+# Grafana v7.x
+cat <<EOF | sudo tee /etc/yum.repos.d/grafana.repo
+[grafana]
+name=grafana
+baseurl=https://packages.grafana.com/oss/rpm
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.grafana.com/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+EOF
+yum -y install grafana
 mkdir -p /etc/grafana
 cp /vagrant/grafana.ini /etc/grafana/grafana.ini
 

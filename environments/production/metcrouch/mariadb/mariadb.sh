@@ -2,16 +2,17 @@
 # script to create the metmini database and add tables
 
 mysql -u root <<MYSQL_SCRIPT
-CREATE USER 'metmini'@localhost.localdomain identified by 'metmini';
+CREATE USER 'metmini'@prdmetmini.localdomain identified by 'metmini';
+CREATE USER 'grafanaReader' IDENTIFIED BY 'grafanasecret';
 CREATE DATABASE metminidb;
+GRANT SELECT ON metminidb.actual TO 'grafanaReader';
 GRANT ALL ON metminidb.* to 'metmini' identified by 'metmini';
 FLUSH PRIVILEGES;
-SHOW GRANTS FOR 'metmini'@localhost.localdomain;
+SHOW GRANTS FOR 'metmini'@prdmetmini.localdomain;
 MYSQL_SCRIPT
 
 mysql -u root <<MYSQL_SCRIPT
 USE metminidb;
-DROP TABLE metminilogs;
 CREATE TABLE metminilogs
 (
 id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -37,7 +38,6 @@ MYSQL_SCRIPT
 
 mysql -u root <<MYSQL_SCRIPT
 USE metminidb;
-DROP TABLE actual;
 CREATE TABLE actual
 (
 id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -76,7 +76,6 @@ MYSQL_SCRIPT
 
 mysql -u root <<MYSQL_SCRIPT
 USE metminidb;
-DROP TABLE forecasts;
 CREATE TABLE forecasts
 (
 id int NOT NULL AUTO_INCREMENT PRIMARY KEY,

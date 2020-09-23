@@ -12,12 +12,6 @@ echo "[+] Started setup.sh for provisioning this node"
 #yum update -y --disableplugin=fastestmirror
 #systemctl restart sshd
 
-
-#yum install -y yum install MariaDB-shared
-#echo "[+] Install MariaDB/C connector..."
-#curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
-#sudo yum -y install MariaDB-devel
-
 # Needed for mariadb-connector-c
 yum install -y http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm
 
