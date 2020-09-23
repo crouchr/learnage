@@ -9,3 +9,8 @@ Use OpenWeatherMap for training data
 
 Phase 2
 Install a real weather station capable of providing the input data
+
+
+Grafana dashboard configuration
+-------------------------------
+YouTube : https://www.youtube.com/watch?v=4qpI4T6_bUw
