@@ -1,0 +1,9 @@
+name: chef_installed
+title: InSpec Profile
+maintainer:  nvm_devops_infrastructure@vonage.com
+copyright: nvm_devops_infrastructure@vonage.com
+copyright_email: nvm_devops_infrastructure@vonage.com
+summary: An InSpec profile to test the state of a Packer built AMI prior to the Chef Run
+version: 0.1.0
+supports:
+  platform: os

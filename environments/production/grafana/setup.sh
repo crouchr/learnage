@@ -2,7 +2,8 @@
 # This script is running on the VM itself
 # Files on the Host can be accessed via the /vagrant share
 # https://www.urban-software.com/cacti-howtos/howto-install-influxdb-on-centos/
-# initial account is admin/admin
+# grafana : initial account is admin/admin
+# influxdb and telegraf written by same team
 
 set -e	# bomb out if any problem
 
@@ -35,6 +36,7 @@ yum -y install influxdb
 mkdir -p /etc/influxdb
 cp /vagrant/influxdb.conf /etc/influxdb/influxdb.conf
 
+#https://www.fosslinux.com/8328/how-to-install-and-configure-grafana-on-centos-7.htm
 # Grafana v7.x
 cat <<EOF | sudo tee /etc/yum.repos.d/grafana.repo
 [grafana]
@@ -52,8 +54,8 @@ mkdir -p /etc/grafana
 cp /vagrant/grafana.ini /etc/grafana/grafana.ini
 
 # Telegraf
-wget https://dl.influxdata.com/telegraf/releases/telegraf-1.8.3-1.x86_64.rpm
-yum -y localinstall telegraf-1.8.3-1.x86_64.rpm
+wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.3-1.x86_64.rpm
+yum -y localinstall telegraf-1.15.3-1.x86_64.rpm
 mkdir -p /etc/telegraf
 cp /vagrant/telegraf.conf /etc/telegraf/telegraf.conf
 

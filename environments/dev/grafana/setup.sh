@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# grafanadev machine - no persistent data is to be held on here
+#
 # This script is running on the VM itself
 # Files on the Host can be accessed via the /vagrant share
 # https://www.urban-software.com/cacti-howtos/howto-install-influxdb-on-centos/

@@ -24,7 +24,11 @@
 # Other
 192.168.1.99 rbn
 
+# dev/staging nodes
+192.168.1.70 grafanadev
+
 # Virtual nodes
+192.168.1.95 metcrouch
 192.168.1.100 spacewalk
 192.168.1.101 artifactory
 192.168.1.102 web
