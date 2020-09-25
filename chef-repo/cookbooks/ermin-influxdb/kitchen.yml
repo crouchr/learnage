@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: kitchen_box
+    driver:
+      box: crouchr/rch-centos7
+
+suites:
+  - name: dev
+    run_list:
+      - recipe[ermin-influxdb]
+
+    attributes:
