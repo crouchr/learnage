@@ -5,3 +5,5 @@
 # Copyright:: 2020, The Authors, All Rights Reserved.
 package 'python3'
 package 'python3-devel'
+
+log 'Installed Python3'
