@@ -33,3 +33,11 @@ template "/etc/telegraf/telegraf.conf" do
     source      'telegraf.conf.erb'
     mode        '0644'
 end
+
+service 'telegraf' do
+  action :enable
+end
+
+service 'telegraf' do
+  action :start
+end
