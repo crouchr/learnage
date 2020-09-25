@@ -7,6 +7,6 @@ long_description 'Installs/Configures ermin-mariadb'
 version '0.1.0'
 chef_version '>= 14.0'
 
-include_recipe 'ermin-centos7'
-include_recipe 'ermin-python3'
+depends 'ermin-centos7'
+depends 'ermin-python3'
 

@@ -26,7 +26,8 @@ execute 'install_mysql_connector' do
     command 'pip3 install mysql-connector-python'
 end
 
-execute 'install_mariadb' do
-    user 'root'
-    command 'pip3 install mariadb'
-end
+# do i need this ? - it fails at the moment
+#execute 'install_mariadb' do
+#    user 'root'
+#    command 'pip3 install mariadb'
+#end
