@@ -10,3 +10,4 @@
 include_recipe 'ermin-centos7'
 include_recipe 'ermin-python3'
 include_recipe 'ermin-mariadb'
+include_recipe 'ermin-telegraf'
