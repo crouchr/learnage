@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: test_box
+    driver:
+      box: crouchr/rch-centos7
+
+suites:
+  - name: default
+    run_list:
+      - recipe[ermin-python3]
+
+    attributes:

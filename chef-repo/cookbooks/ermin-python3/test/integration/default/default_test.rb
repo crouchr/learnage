@@ -1,4 +1,4 @@
-# InSpec test for recipe hpot-centos7::default
+# InSpec test for recipe ermin-python3::default
 
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://www.inspec.io/docs/reference/resources/
