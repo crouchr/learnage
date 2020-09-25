@@ -9,12 +9,12 @@ verifier:
   name: inspec
 
 platforms:
-  - name: test_box
+  - name: kitchen_box
     driver:
       box: crouchr/rch-centos7
 
 suites:
-  - name: default
+  - name: dev
     run_list:
       - recipe[ermin-python3]
 
