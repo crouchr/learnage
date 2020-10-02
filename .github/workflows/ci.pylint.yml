@@ -1,0 +1,22 @@
+name: ci_tuts_pylint
+
+on:
+  push:
+    paths:
+    - 'environments/dev/metcrouch/apache/src/*'
+jobs:
+  yamllint:
+    name: 'yaml_lint'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'yaml_lint'
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_file_or_dir: 'environments/dev/metcrouch/apache/src/'
+          yamllint_strict: false
+          yamllint_comment: true
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
