@@ -15,7 +15,7 @@ jobs:
         uses: karancode/yamllint-github-action@master
         with:
           yamllint_file_or_dir: 'environments/dev/metcrouch/apache/src/'
-          yamllint_strict: false
+          yamllint_strict: true
           yamllint_comment: true
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
