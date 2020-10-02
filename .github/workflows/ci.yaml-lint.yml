@@ -1,4 +1,4 @@
-name: ci_tuts_pylint
+name: ci_yaml_lint
 
 on:
   push:
