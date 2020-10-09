@@ -11,11 +11,17 @@ sudo yum install -y docker-compose
 # Allow vagrant user to run docker
 sudo usermod -aG docker vagrant
 
-# Allow use of unauthenticated access to my private Docker v2 Registry hostname registry
+#/etc/systemd/system/docker.service.d Allow use of unauthenticated access to my private Docker v2 Registry hostname registry
 sudo mkdir -p /etc/docker
 sudo wget --no-check-certificate \
    http://web.ermin/br2020-packages/daemon.json \
    -O /etc/docker/daemon.json
+
+# https://forums.docker.com/t/expose-the-docker-remote-api-on-centos-7/26022/2
+sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo wget --no-check-certificate \
+   http://web.ermin/br2020-packages/docker.conf \
+   -O /etc/systemd/system/docker.service.d/docker.conf
 
 # Start Docker
 sudo systemctl start docker
