@@ -19,6 +19,7 @@ echo "[+] Started setup.sh for provisioning this node"
 #curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 #sudo yum -y install MariaDB-devel
 
+# see the ermin-mariadb chef cookbook - this list here is wrong
 echo "[+] Install CentOS7 package dependencies..."
 yum install -y python-pip3 python3 python3-devel
 yum install -y mariadb-server
@@ -36,7 +37,7 @@ pip3 install mariadb
 
 pip3 install requests Flask ConfigParser pytest
 
-echo "[+] Install Apache and MariaDB..."
+echo "[+] Install Apache and PHP..."
 yum install -y httpd httpd-devel php php-mysql
 
 echo "[+] Install MariaDB scripts..."
