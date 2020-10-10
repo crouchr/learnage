@@ -1,3 +1,4 @@
+# fixme : note host is localhost
 import mysql.connector
 
 

@@ -14,7 +14,7 @@ echo "Started setup.sh for provisioning this node"
 #systemctl restart sshd
 
 yum install -y httpd httpd-devel mod_ssl tcpdump
-yum install -y dnsmasq bind-utils
+yum install -y dnsmasq bind-utils telnet nmap
 
 echo "Update routing..."
 cp /vagrant/files/rc.local /etc/rc.local
