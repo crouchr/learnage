@@ -38,8 +38,7 @@ cp /vagrant/apache/ssl.conf /etc/httpd/conf.d/
 echo "[+] Copy SSL cert generation script (run manually)..."
 cp /vagrant/apache/create_selfsigned_cert_centos7.sh /tmp/
 
-#echo "[+] Copy self-signed certificate..."
-#ls /vagrant/certs
+echo "[+] Copy self-signed certificate..."
 yes | cp -rf /vagrant/certs/*.crt /etc/ssl/certs
 yes | cp -rf /vagrant/certs/*.key /etc/ssl/private
 
