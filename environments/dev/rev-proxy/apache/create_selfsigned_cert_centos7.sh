@@ -3,7 +3,6 @@
 # execute this manually
 set -e	# bomb out if any problem
 
-#
 cd /etc/ssl
 mkdir /etc/ssl/private
 chmod 700 /etc/ssl/private
