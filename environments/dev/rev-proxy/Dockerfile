@@ -36,7 +36,7 @@ COPY certs/*.key /etc/ssl/private
 
 RUN systemctl enable httpd.service
 
-EXPOSE 80
+EXPOSE 22
 EXPOSE 80
 EXPOSE 443
 
