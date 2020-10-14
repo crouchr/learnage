@@ -15,7 +15,7 @@ Easy examples
 To get a list of the images in the registry :
 `curl http://192.168.1.109:5000/v2/_catalog`
 ```json
-{"repositories":["rev-proxy"]}
+{"repositories":["gold-centos7","rev-proxy"]}
 ```
 
 To get a list of tags for a given image `amun` :
