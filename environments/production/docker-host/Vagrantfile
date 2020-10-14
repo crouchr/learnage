@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "crouchr/rch-centos7-docker"  
   config.vm.box_check_update = true
-  config.vm.hostname = "dockerserver.ermin"
+  config.vm.hostname = "docker-hosts.ermin"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
