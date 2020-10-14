@@ -21,6 +21,7 @@ RUN /usr/bin/ssh-keygen -A
 RUN cd /etc/ssl
 RUN mkdir /etc/ssl/private
 RUN chmod 700 /etc/ssl/private
+RUN echo "192.168.1.15 erminserver.ermin erminserver" >> /etc/hosts
 
 # Apache configuration
 COPY apache/index.html /var/www/html/index.html
