@@ -1,21 +1,19 @@
 # Apache-based reverse proxy
 # The Vagrant setup.sh file in this directory is the master in terms of actions required
 
-FROM centos:7.8.2003
+#FROM centos:7.8.2003
+FROM registry:5000/gold-centos7:1.0.0
 LABEL author="Richard Crouch"
 LABEL description="Apache-based Reverse Proxy"
 
-# Add the EPEL repo
-RUN yum install -y epel-release
-
-# Update everything - only when initial development has been done
+# Update everything
 RUN yum update -y
 
 RUN yum install -y \
-which openssh openssh-server openssh-clients openssl-libs net-tools httpd httpd-devel mod_ssl
+httpd httpd-devel mod_ssl
 
 # Generate SSH keys for use by SSHD
-RUN /usr/bin/ssh-keygen -A
+#RUN /usr/bin/ssh-keygen -A
 
 # Apache self-signed certificate locations
 RUN cd /etc/ssl
