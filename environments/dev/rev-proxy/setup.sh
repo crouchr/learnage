@@ -25,6 +25,9 @@ sudo ln -s /var/lib/snapd/snap /snap
 # Wait until seeding has completed
 sudo snap wait system seed.loaded
 
+# Install tools
+yum install -y lynx nmap
+
 # Install core Apache components
 yum install -y httpd httpd-devel mod_ssl
 
