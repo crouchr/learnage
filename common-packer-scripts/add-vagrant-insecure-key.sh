@@ -16,7 +16,7 @@ sudo mkdir -p /home/${USER}/.ssh
 #   -O /home/${USER}/.ssh/authorized_keys
 
 # curl is in installer but wget is not
-sudo curl -o /home/${USER}/.ssh/authorized_keys http://web.ermin/public-keys/vagrant.pub
+sudo curl -o /home/${USER}/.ssh/authorized_keys http://web.ermin.com/public-keys/vagrant.pub
 
 # sudo wget --no-check-certificate \
 

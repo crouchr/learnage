@@ -4,7 +4,7 @@ set -e	# bomb out if any problem
 USER=jenkins
 
 sudo wget --no-check-certificate \
-   http://web.ermin/public-keys/jenkins-ermin-keys.pub \
+   http://web.ermin.com/public-keys/jenkins-ermin-keys.pub \
    -O /home/${USER}/.ssh/authorized_keys
 
 #sudo cp /tmp/jenkins_authorized_keys /home/${USER}/.ssh/authorized_keys

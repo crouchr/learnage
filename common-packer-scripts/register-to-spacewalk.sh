@@ -5,7 +5,7 @@ exit
 
 ERMIN_SPACEWALK_KEY='1-77eb0ab0977438fc59537a0bbab5e698'    # See Spacewalk UI System / Activation Key
 
-sudo rhnreg_ks --serverUrl=https://spacewalk.ermin/XMLRPC \
+sudo rhnreg_ks --serverUrl=https://spacewalk.ermin.com/XMLRPC \
 --force \
 --sslCACert=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT \
 --activationkey=${ERMIN_SPACEWALK_KEY}

@@ -5,7 +5,7 @@
 set -e	# bomb out if any problem
 
 sudo wget --no-check-certificate \
-   http://web.ermin/br2020-packages/influxdata.repo \
+   http://web.ermin.com/br2020-packages/influxdata.repo \
    -O /etc/yum.repos.d/influxdata.repo
 
 sudo yum -y install telegraf
