@@ -8,8 +8,9 @@ set -e	# bomb out if any problem
 echo
 echo "[+] Started setup.sh for provisioning this node"
 
-echo "[+] Adding XW6600 webserver to hosts file..."
+echo "[+] Modifying hosts file..."
 echo "192.168.1.15 erminserver.ermin erminserver" >> /etc/hosts
+echo "192.168.1.2 xps.ermin.com xps" >> /etc/hosts
 
 # Check for patch updates - slows up boot so need a way of avoiding this
 yum update -y --disableplugin=fastestmirror
