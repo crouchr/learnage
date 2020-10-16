@@ -15,12 +15,27 @@ echo "192.168.1.15 erminserver.ermin erminserver" >> /etc/hosts
 yum update -y --disableplugin=fastestmirror
 systemctl restart sshd
 
+# This will be added to the base Vagrant box in due course
+echo "Installing Snap package manager..."
+sudo yum -y install snapd
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+# 'sudo snap install termshark' is all that is needed
+
+# Install core Apache components
 yum install -y httpd httpd-devel mod_ssl
 
 echo "[+] Create directory for self-signed certificate..."
 cd /etc/ssl
 mkdir /etc/ssl/private
 chmod 700 /etc/ssl/private
+
+# Debian-style Apache virtual host layout
+# See https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-centos-7
+mkdir /etc/httpd/sites-available
+mkdir /etc/httpd/sites-enabled
+chown apache:apache /etc/httpd/sites-available
+chown apache:apache /etc/httpd/sites-enabled
 
 echo "[+] Copying core (root-owned) web server configuration and content..."
 cp /vagrant/apache/index.html /var/www/html/index.html
@@ -44,6 +59,7 @@ echo "# The following entry was created during box provisioning" > /etc/rsyslog.
 echo "*.*          @logs2.papertrailapp.com:52491" >> /etc/rsyslog.d/95-papertrail.conf
 systemctl restart rsyslog
 
+# comment out until config is working
 echo "[+] Starting httpd..."
 systemctl start httpd.service
 systemctl enable httpd.service
