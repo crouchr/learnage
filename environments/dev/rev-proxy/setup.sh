@@ -16,11 +16,13 @@ yum update -y --disableplugin=fastestmirror
 systemctl restart sshd
 
 # This will be added to the base Vagrant box in due course
+# 'sudo snap install termshark' is all that is needed - https://bugs.launchpad.net/snapd/+bug/1826662
 echo "Installing Snap package manager..."
 sudo yum -y install snapd
 sudo systemctl enable --now snapd.socket
 sudo ln -s /var/lib/snapd/snap /snap
-# 'sudo snap install termshark' is all that is needed
+# Wait until seeding has completed
+sudo snap wait system seed.loaded
 
 # Install core Apache components
 yum install -y httpd httpd-devel mod_ssl
