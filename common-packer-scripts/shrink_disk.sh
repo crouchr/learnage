@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Zero Out empty space on disk to improve compression
+set -e	# bomb out if any problem
 
 echo "Clean up root partition..."
 sudo dd if=/dev/zero of=/zero.fill bs=1M || echo "dd exit code $? is suppressed"

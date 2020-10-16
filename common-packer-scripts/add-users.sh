@@ -1,4 +1,5 @@
 #!/bin/bash -eux
+set -e	# bomb out if any problem
 
 USER=crouchr
 sudo adduser ${USER}

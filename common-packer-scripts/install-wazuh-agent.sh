@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # https://documentation.wazuh.com/3.12/installation-guide/installing-wazuh-agent/linux/centos6-or-greater/wazuh_agent_package_centos6_or_greater.html#wazuh-agent-package-centos6-or-greater
 # there is a VM with the wazuh server on it - I have downloaded it but no more
+set -e	# bomb out if any problem
 
 sudo rpm --import http://packages.wazuh.com/key/GPG-KEY-WAZUH
 

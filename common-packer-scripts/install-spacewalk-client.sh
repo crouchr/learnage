@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e	# bomb out if any problem
+
 echo "Installing Spacewalk client..."
 
 echo "EARLY EXIT : IGNORE THIS DUE TO BUG"

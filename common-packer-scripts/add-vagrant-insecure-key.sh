@@ -2,6 +2,7 @@
 #sudo wget --no-check-certificate \
 #          https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub \
 #          -O /home/vagrant/.ssh/authorized_keys
+set -e	# bomb out if any problem
 
 echo "Entered add-vagrant-insecure-key.sh"
 

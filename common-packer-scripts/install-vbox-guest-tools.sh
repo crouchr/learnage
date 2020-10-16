@@ -1,5 +1,6 @@
 #!/bin/bash -eux
 # Ref : https://github.com/gwagner/packer-centos/blob/master/provisioners/install-vmware-guest-additions.sh
+set -e	# bomb out if any problem
 
 # Mount Disk Image
 cd /tmp

@@ -1,4 +1,5 @@
 #!/bin/bash -eux
+set -e	# bomb out if any problem
 
 # Install pre-requisite packages for VBox Guest Additions
 sudo yum install -y kernel-devel-$(uname -r) kernel-headers-$(uname -r) gcc make perl

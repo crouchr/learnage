@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # see https://serverfault.com/questions/709820/unattended-chef-client-installation
-
+set -e	# bomb out if any problem
 
 # config
 # ------

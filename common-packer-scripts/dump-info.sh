@@ -1,5 +1,6 @@
 #!/bin/bash -eux
 # https://stackoverflow.com/questions/22643177/ssh-onto-vagrant-box-with-different-username
+set -e	# bomb out if any problem
 
 whoami
 

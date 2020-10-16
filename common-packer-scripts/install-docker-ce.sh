@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e	# bomb out if any problem
+p
 echo "Installing Docker CE and tooling..."
 
 # Install packages

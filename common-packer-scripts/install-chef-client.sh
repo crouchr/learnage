@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Install Chef Client
+set -e	# bomb out if any problem
 
 USER=vagrant
 CHEF_CLIENT_VERSION=16.1.16
