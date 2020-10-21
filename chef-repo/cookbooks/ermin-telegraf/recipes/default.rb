@@ -33,8 +33,9 @@ service 'telegraf' do
   action :enable
 end
 
-service 'telegraf' do
-  action :start
-end
+# Temporarily commented out so it works in Docker in Test Kitchen
+#service 'telegraf' do
+#  action :start
+#end
 
-log 'Installed Python3'
+log 'Installed Telegraf'
