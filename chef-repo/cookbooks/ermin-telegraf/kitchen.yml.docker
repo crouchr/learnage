@@ -1,0 +1,25 @@
+---
+driver:
+  name: docker
+
+provisioner:
+  name: chef_solo
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos7
+    driver_config:
+      image: registry:5000/gold-centos7:1.0.0
+      platform: centos
+
+suites:
+  - name: dev
+    run_list:
+      - recipe[ermin-telegraf]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+
+    attributes:
