@@ -1,9 +1,8 @@
 name 'ermin-grafana'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Richard Crouch'
+maintainer_email 'richard.crouch100@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures ermin-grafana'
-long_description 'Installs/Configures ermin-grafana'
 version '0.1.0'
 chef_version '>= 14.0'
 
