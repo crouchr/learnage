@@ -14,17 +14,11 @@ platforms:
       box: crouchr/rch-centos7
 
 suites:
-  - name: dev
+  - name: default
     run_list:
       - recipe[ermin-centos7]
       - recipe[ermin-python3]
       - recipe[ermin-mariadb]
     attributes:
 
-  - name: prod
-    run_list:
-      - recipe[ermin-centos7]
-      - recipe[ermin-python3]
-      - recipe[ermin-mariadb]
-    attributes:
 
