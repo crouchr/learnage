@@ -22,6 +22,7 @@ end
 
 yum_package 'install_telegraf' do
     source      '/tmp/telegraf-1.15.3-1.x86_64.rpm'
+    action      :install
 end
 
 template "/etc/telegraf/telegraf.conf" do
