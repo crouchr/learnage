@@ -1,0 +1,5 @@
+source "https://rubygems.org"
+
+gem 'cucumber', :group => :integration
+gem 'leibniz', :group => :integration
+gem 'rspec-expectations', :group => :integration

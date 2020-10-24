@@ -1,0 +1,7 @@
+DEPENDENCIES
+  wonderstuff
+    path: .
+    metadata: true
+
+GRAPH
+  wonderstuff (0.1.0)
