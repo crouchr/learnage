@@ -12,6 +12,11 @@
 192.168.1.9 macmini
 192.168.1.15 xw6600
 
+# metmini pipeline
+192.168.1.180 mrdell
+192.168.1.185 metmini-itg
+192.168.1.187 metmini-preprod
+
 # Monitoring Services (.40 - .50)
 192.168.1.20 rancid
 192.168.1.40 nessus
@@ -25,8 +30,9 @@
 192.168.1.99 rbn
 
 # dev/staging nodes
-192.168.1.70 grafanadev
 192.168.1.71 rev-proxy
+192.168.1.72 ldap-server
+192.168.1.108 grafanadev
 
 # Virtual nodes
 192.168.1.95 metcrouch
@@ -37,8 +43,8 @@
 192.168.1.105 observium
 192.168.1.106 logging
 192.168.1.107 mongodb
-192.168.1.108 grafana
 192.168.1.109 registry
+192.168.1.70 grafana
 
 # honeypots (.110 to .119)
 192.168.1.111 slack11-hpot
