@@ -93,6 +93,7 @@ cp /vagrant/apache/br2020-packages/*.hpi /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/trojan-bash /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/afterglow.pl /var/www/html/br2020-packages/
 
+echo "Copying Slackware 14.2 packages..."
 cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
 
 chmod 755 /var/www/html/br2020-packages/*
