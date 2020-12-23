@@ -45,6 +45,9 @@ chown -R apache:apache /var/www/html/isos
 mkdir -p /var/www/html/br2020-packages
 chown -R apache:apache /var/www/html/br2020-packages
 
+mkdir -p /var/www/html/slackware-14-2-packages
+chown -R apache:apache /var/www/html/slackware-14-2-packages
+
 mkdir -p /var/www/html/br-mal-files
 chown -R apache:apache /var/www/html/br-mal-files
 
@@ -88,7 +91,12 @@ cp /vagrant/apache/br2020-packages/*.patch /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.msi /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.hpi /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/trojan-bash /var/www/html/br2020-packages/
+cp /vagrant/apache/br2020-packages/afterglow.pl /var/www/html/br2020-packages/
+
+cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
+
 chmod 755 /var/www/html/br2020-packages/*
+chmod 755 /var/www/html/slackware-14-2-packages/*
 
 # Store public keys on web server for easy retrieval
 echo "Copying public-keys..."
