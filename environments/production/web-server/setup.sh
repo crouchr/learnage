@@ -71,9 +71,9 @@ cp /vagrant/dnsmasq/resolv.conf /etc/resolv.conf
 chattr +i /etc/resolv.conf
 
 # Store ISOs used for Vagrant locally 
-echo "Copying ISO images..."
-cp /vagrant/apache/isos/*.iso /var/www/html/isos/
-chmod 755 /var/www/html/isos/*
+#echo "Copying ISO images..."
+#cp /vagrant/apache/isos/*.iso /var/www/html/isos/
+#chmod 755 /var/www/html/isos/*
 
 # Store BR2020 packages 
 echo "Copying BR2020 CentOS7 packages and source code..."
@@ -96,8 +96,12 @@ cp /vagrant/apache/br2020-packages/afterglow.pl /var/www/html/br2020-packages/
 echo "Copying Slackware 14.2 packages..."
 cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
 
+echo "Copying Python packages..."
+cp /vagrant/apache/python-packages/*.whl /var/www/html/python-packages/
+
 chmod 755 /var/www/html/br2020-packages/*
 chmod 755 /var/www/html/slackware-14-2-packages/*
+chmod 755 /var/www/html/python-packages/*
 
 # Store public keys on web server for easy retrieval
 echo "Copying public-keys..."
