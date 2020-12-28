@@ -48,8 +48,8 @@ chown -R apache:apache /var/www/html/br2020-packages
 mkdir -p /var/www/html/slackware-14-2-packages
 chown -R apache:apache /var/www/html/slackware-14-2-packages
 
-mkdir -p /var/www/html/python-packages
-chown -R apache:apache /var/www/html/python-packages
+mkdir -p /var/www/html/met-funcs
+chown -R apache:apache /var/www/html/met-funcs
 
 mkdir -p /var/www/html/br-mal-files
 chown -R apache:apache /var/www/html/br-mal-files
@@ -100,11 +100,10 @@ echo "Copying Slackware 14.2 packages..."
 cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
 
 echo "Copying Python packages..."
-cp /vagrant/apache/python-packages/*.whl /var/www/html/python-packages/
+cp /vagrant/apache/met-funcs/*.tar.gz /var/www/html/met-funcs/
 
 chmod 755 /var/www/html/br2020-packages/*
 chmod 755 /var/www/html/slackware-14-2-packages/*
-chmod 755 /var/www/html/python-packages/*
 
 # Store public keys on web server for easy retrieval
 echo "Copying public-keys..."
