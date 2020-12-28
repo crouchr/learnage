@@ -48,6 +48,9 @@ chown -R apache:apache /var/www/html/br2020-packages
 mkdir -p /var/www/html/slackware-14-2-packages
 chown -R apache:apache /var/www/html/slackware-14-2-packages
 
+mkdir -p /var/www/html/python-packages
+chown -R apache:apache /var/www/html/python-packages
+
 mkdir -p /var/www/html/br-mal-files
 chown -R apache:apache /var/www/html/br-mal-files
 
