@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Bring up the web server
-# This script is running on the VM itself
+# This script assumes a CentOS host
 # Files on the Host can be accessed via the /vagrant share
 # DNS info : https://www.tecmint.com/setup-a-dns-dhcp-server-using-dnsmasq-on-centos-rhel/
 
