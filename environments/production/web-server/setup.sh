@@ -10,7 +10,7 @@ echo
 echo "Started setup.sh for provisioning this node"
 
 # Check for patch updates - slows up boot so need a way of avoiding this
-#yum update -y --disableplugin=fastestmirror
+yum update -y --disableplugin=fastestmirror
 #systemctl restart sshd
 
 yum install -y httpd httpd-devel mod_ssl python-pip
@@ -20,7 +20,7 @@ yum install -y dnsmasq bind-utils
 #echo "Include /vagrant/apache/*.conf" >> /etc/httpd/conf/httpd.conf
 
 # Install PIP
-pip install --upgrade pip
+#pip install --upgrade pip
 pip install wheel
 
 # Generate metadata.json - no longer needed
@@ -48,8 +48,8 @@ chown -R apache:apache /var/www/html/br2020-packages
 mkdir -p /var/www/html/slackware-14-2-packages
 chown -R apache:apache /var/www/html/slackware-14-2-packages
 
-mkdir -p /var/www/html/met-funcs
-chown -R apache:apache /var/www/html/met-funcs
+mkdir -p /var/www/html/python-packages/metfuncs
+chown -R apache:apache /var/www/html/python-packages/metfuncs
 
 mkdir -p /var/www/html/br-mal-files
 chown -R apache:apache /var/www/html/br-mal-files
@@ -90,17 +90,17 @@ cp /vagrant/apache/br2020-packages/*.json /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.repo /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.conf /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/config-generic* /var/www/html/br2020-packages/
-cp /vagrant/apache/br2020-packages/*.patch /var/www/html/br2020-packages/
-cp /vagrant/apache/br2020-packages/*.msi /var/www/html/br2020-packages/
-cp /vagrant/apache/br2020-packages/*.hpi /var/www/html/br2020-packages/
+#cp /vagrant/apache/br2020-packages/*.patch /var/www/html/br2020-packages/
+#cp /vagrant/apache/br2020-packages/*.msi /var/www/html/br2020-packages/
+#cp /vagrant/apache/br2020-packages/*.hpi /var/www/html/br2020-packages/
 #cp /vagrant/apache/br2020-packages/trojan-bash /var/www/html/br2020-packages/
 #cp /vagrant/apache/br2020-packages/afterglow.pl /var/www/html/br2020-packages/
 
 echo "Copying Slackware 14.2 packages..."
-cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
+#cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
 
 echo "Copying Python packages..."
-cp /vagrant/apache/met-funcs/*.tar.gz /var/www/html/met-funcs/
+cp /vagrant/apache/python-packages/metfuncs/*.tar.gz /var/www/html/python-packages/metfuncs/
 
 chmod 755 /var/www/html/br2020-packages/*
 #chmod 755 /var/www/html/slackware-14-2-packages/*
