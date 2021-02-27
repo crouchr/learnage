@@ -10,7 +10,7 @@ echo
 echo "Started setup.sh for provisioning this node"
 
 # Check for patch updates - slows up boot so need a way of avoiding this
-yum update -y --disableplugin=fastestmirror
+#yum update -y --disableplugin=fastestmirror
 #systemctl restart sshd
 
 yum install -y httpd httpd-devel mod_ssl python-pip
@@ -101,6 +101,7 @@ echo "Copying Slackware 14.2 packages..."
 
 echo "Copying Python packages..."
 cp /vagrant/apache/python-packages/metfuncs/*.tar.gz /var/www/html/python-packages/metfuncs/
+cp /vagrant/apache/python-packages/metfuncs/*.whl /var/www/html/python-packages/metfuncs/
 
 chmod 755 /var/www/html/br2020-packages/*
 #chmod 755 /var/www/html/slackware-14-2-packages/*
