@@ -50,6 +50,8 @@ chown -R apache:apache /var/www/html/slackware-14-2-packages
 
 mkdir -p /var/www/html/python-packages/metfuncs
 chown -R apache:apache /var/www/html/python-packages/metfuncs
+mkdir -p /var/www/html/python-packages/metrestapi
+chown -R apache:apache /var/www/html/python-packages/metrestapi
 
 mkdir -p /var/www/html/br-mal-files
 chown -R apache:apache /var/www/html/br-mal-files
@@ -99,9 +101,11 @@ cp /vagrant/apache/br2020-packages/config-generic* /var/www/html/br2020-packages
 echo "Copying Slackware 14.2 packages..."
 #cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
 
-echo "Copying Python packages..."
+echo "Copying Python packages into my artifacts..."
 cp /vagrant/apache/python-packages/metfuncs/*.tar.gz /var/www/html/python-packages/metfuncs/
 cp /vagrant/apache/python-packages/metfuncs/*.whl /var/www/html/python-packages/metfuncs/
+cp /vagrant/apache/python-packages/metrestapi/*.tar.gz /var/www/html/python-packages/metrestapi/
+cp /vagrant/apache/python-packages/metrestapi/*.whl /var/www/html/python-packages/metrestapi/
 
 chmod 755 /var/www/html/br2020-packages/*
 #chmod 755 /var/www/html/slackware-14-2-packages/*
@@ -124,5 +128,5 @@ echo "Starting httpd..."
 systemctl enable httpd.service
 systemctl start httpd.service
 
-echo "Finished setup.sh OK for provisioning this node"
+echo "Finished setup.sh OK for provisioning this web-server node"
 echo
