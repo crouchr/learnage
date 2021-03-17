@@ -6,10 +6,11 @@
 192.168.1.2 xps
 192.168.1.4 cuckoo
 192.168.1.5 mrdell
-192.168.1.6 honeywall
+192.168.1.6 j1900
 192.168.1.7 node7
 192.168.1.8 netgear
 192.168.1.9 macmini
+192.168.1.12 cumumlusmx
 192.168.1.15 xw6600
 
 # metmini pipeline
