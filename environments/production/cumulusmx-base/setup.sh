@@ -50,7 +50,7 @@ cp /vagrant/multipath.conf /etc/multipath.conf
 # N.B. at this point, the box is ready to have CumulusMX installed
 
 # Install CumulusMX
-curl -L CUMULUSMX_CODE --output /tmp/CumulusMX.zip
+curl -L ${CUMULUSMX_CODE} --output /tmp/CumulusMX.zip
 
 mkdir -p /opt/CumulusMX
 unzip /tmp/CumulusMX.zip -d /opt
