@@ -45,6 +45,9 @@ chown -R apache:apache /var/www/html/isos
 mkdir -p /var/www/html/br2020-packages
 chown -R apache:apache /var/www/html/br2020-packages
 
+mkdir -p /var/www/html/centos7-packages
+chown -R apache:apache /var/www/html/centos7-packages
+
 mkdir -p /var/www/html/slackware-14-2-packages
 chown -R apache:apache /var/www/html/slackware-14-2-packages
 
@@ -82,7 +85,10 @@ chattr +i /etc/resolv.conf
 #cp /vagrant/apache/isos/*.iso /var/www/html/isos/
 #chmod 755 /var/www/html/isos/*
 
-# Store BR2020 packages 
+echo "Copying CentOS7 packages and source code..."
+cp /vagrant/apache/centos7-packages/*.rpm /var/www/html/centos7-packages/
+
+# Store BR2020 packages
 echo "Copying BR2020 CentOS7 packages and source code..."
 cp /vagrant/apache/br2020-packages/*.rpm /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.bz2 /var/www/html/br2020-packages/
