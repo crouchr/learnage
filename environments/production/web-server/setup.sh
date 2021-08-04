@@ -57,6 +57,8 @@ mkdir -p /var/www/html/python-packages/metrestapi
 chown -R apache:apache /var/www/html/python-packages/metrestapi
 mkdir -p /var/www/html/python-packages/metminifuncs
 chown -R apache:apache /var/www/html/python-packages/metminifuncs
+mkdir -p /var/www/html/python-packages/cryptofuncs
+chown -R apache:apache /var/www/html/python-packages/cryptofuncs
 
 mkdir -p /var/www/html/br-mal-files
 chown -R apache:apache /var/www/html/br-mal-files
@@ -116,8 +118,9 @@ cp /vagrant/apache/python-packages/metfuncs/*.tar.gz /var/www/html/python-packag
 cp /vagrant/apache/python-packages/metfuncs/*.whl /var/www/html/python-packages/metfuncs/
 cp /vagrant/apache/python-packages/metrestapi/*.tar.gz /var/www/html/python-packages/metrestapi/
 cp /vagrant/apache/python-packages/metrestapi/*.whl /var/www/html/python-packages/metrestapi/
-cp /vagrant/apache/python-packages/metminifuncs/*.tar.gz /var/www/html/python-packages/metminifuncs/ || :
-cp /vagrant/apache/python-packages/metminifuncs/*.whl /var/www/html/python-packages/metminifuncs/ || :
+cp /vagrant/apache/python-packages/metminifuncs/*.tar.gz /var/www/html/python-packages/metminifuncs/
+cp /vagrant/apache/python-packages/metminifuncs/*.whl /var/www/html/python-packages/metminifuncs/
+cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packages/cryptofuncs/
 
 chmod 755 /var/www/html/br2020-packages/*
 #chmod 755 /var/www/html/slackware-14-2-packages/*
