@@ -121,6 +121,7 @@ cp /vagrant/apache/python-packages/metrestapi/*.whl /var/www/html/python-package
 cp /vagrant/apache/python-packages/metminifuncs/*.tar.gz /var/www/html/python-packages/metminifuncs/
 cp /vagrant/apache/python-packages/metminifuncs/*.whl /var/www/html/python-packages/metminifuncs/
 cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packages/cryptofuncs/
+cp /vagrant/apache/python-packages/vonageapi/*.whl /var/www/html/python-packages/vonageapi/
 
 chmod 755 /var/www/html/br2020-packages/*
 #chmod 755 /var/www/html/slackware-14-2-packages/*
