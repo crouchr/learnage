@@ -59,6 +59,8 @@ mkdir -p /var/www/html/python-packages/metminifuncs
 chown -R apache:apache /var/www/html/python-packages/metminifuncs
 mkdir -p /var/www/html/python-packages/cryptofuncs
 chown -R apache:apache /var/www/html/python-packages/cryptofuncs
+mkdir -p /var/www/html/python-packages/vonageapi
+chown -R apache:apache /var/www/html/python-packages/vonageapi
 
 mkdir -p /var/www/html/br-mal-files
 chown -R apache:apache /var/www/html/br-mal-files
