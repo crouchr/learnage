@@ -51,6 +51,9 @@ chown -R apache:apache /var/www/html/centos7-packages
 mkdir -p /var/www/html/slackware-14-2-packages
 chown -R apache:apache /var/www/html/slackware-14-2-packages
 
+mkdir -p /var/www/html/source-code
+chown -R apache:apache /var/www/html/source-code
+
 mkdir -p /var/www/html/python-packages/metfuncs
 chown -R apache:apache /var/www/html/python-packages/metfuncs
 mkdir -p /var/www/html/python-packages/metrestapi
@@ -59,6 +62,8 @@ mkdir -p /var/www/html/python-packages/metminifuncs
 chown -R apache:apache /var/www/html/python-packages/metminifuncs
 mkdir -p /var/www/html/python-packages/cryptofuncs
 chown -R apache:apache /var/www/html/python-packages/cryptofuncs
+mkdir -p /var/www/html/python-packages/mqttfuncs
+chown -R apache:apache /var/www/html/python-packages/mqttfuncs
 mkdir -p /var/www/html/python-packages/vonageapi
 chown -R apache:apache /var/www/html/python-packages/vonageapi
 
@@ -111,8 +116,13 @@ cp /vagrant/apache/br2020-packages/config-generic* /var/www/html/br2020-packages
 #cp /vagrant/apache/br2020-packages/trojan-bash /var/www/html/br2020-packages/
 #cp /vagrant/apache/br2020-packages/afterglow.pl /var/www/html/br2020-packages/
 
+# Store generic source code packages
+echo "Copying source code..."
+cp /vagrant/apache/source-code/*.tar.gz /var/www/html/source-code/
+chmod 755 /var/www/html/source-code/*
+
 echo "Copying Slackware 14.2 packages..."
-#cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
+cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
 
 # https://serverfault.com/questions/153875/how-to-let-cp-command-dont-fire-an-error-when-source-file-does-not-exist
 echo "Copying Python packages into my artifacts..."
@@ -123,6 +133,7 @@ cp /vagrant/apache/python-packages/metrestapi/*.whl /var/www/html/python-package
 cp /vagrant/apache/python-packages/metminifuncs/*.tar.gz /var/www/html/python-packages/metminifuncs/
 cp /vagrant/apache/python-packages/metminifuncs/*.whl /var/www/html/python-packages/metminifuncs/
 cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packages/cryptofuncs/
+cp /vagrant/apache/python-packages/mqttfuncs/*.whl /var/www/html/python-packages/mqttfuncs/
 cp /vagrant/apache/python-packages/vonageapi/*.whl /var/www/html/python-packages/vonageapi/
 
 chmod 755 /var/www/html/br2020-packages/*
