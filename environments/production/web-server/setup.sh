@@ -94,9 +94,9 @@ chattr +i /etc/resolv.conf
 #cp /vagrant/apache/isos/*.iso /var/www/html/isos/
 #chmod 755 /var/www/html/isos/*
 
-# https://centos.pkgs.org/7/okey-x86_64/mariadb-connector-c-3.0.10-1.el7.x86_64.rpm.html
+# Store CentOS7 packages
 echo "Copying CentOS7 packages..."
-# cp /vagrant/apache/centos7-packages/*.rpm /var/www/html/centos7-packages/
+cp /vagrant/apache/centos7-packages/*.rpm /var/www/html/centos7-packages/
 
 # Store BR2020 packages
 echo "Copying BR2020 CentOS7 packages and source code..."
