@@ -10,17 +10,20 @@ echo
 echo "Started setup.sh for provisioning this node"
 
 # Check for patch updates - slows up boot so need a way of avoiding this
-#yum update -y --disableplugin=fastestmirror
+yum update -y --disableplugin=fastestmirror
 #systemctl restart sshd
+yum install -y python-pip
+pip install --upgrade pip
 
-yum install -y httpd httpd-devel mod_ssl python-pip
+yum install -y httpd httpd-devel mod_ssl
+yum install -y mod_security
 yum install -y dnsmasq bind-utils
 
 #yum -y install php php-common php-mysql php-pdo php-intl php-gd php-xml php-mbstring
 #echo "Include /vagrant/apache/*.conf" >> /etc/httpd/conf/httpd.conf
 
-# Install PIP
-pip install --upgrade pip
+# Install Wheel
+#pip install --upgrade pip
 pip install wheel
 
 # Generate metadata.json - no longer needed
