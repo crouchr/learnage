@@ -20,7 +20,7 @@ yum install -y dnsmasq bind-utils
 #echo "Include /vagrant/apache/*.conf" >> /etc/httpd/conf/httpd.conf
 
 # Install PIP
-#pip install --upgrade pip
+pip install --upgrade pip
 pip install wheel
 
 # Generate metadata.json - no longer needed
