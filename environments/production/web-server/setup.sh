@@ -7,7 +7,7 @@
 set -e	# bomb out if any problem
 
 echo 
-echo "Started setup.sh for provisioning this node"
+echo "Started setup.sh for provisioning this node v1.0.0"
 
 # Check for patch updates - slows up boot so need a way of avoiding this
 yum update -y --disableplugin=fastestmirror
