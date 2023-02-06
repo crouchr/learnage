@@ -13,7 +13,7 @@ echo "Started setup.sh for provisioning this node v1.0.0"
 yum update -y --disableplugin=fastestmirror
 #systemctl restart sshd
 yum install -y python-pip
-pip install --upgrade pip
+pip install --upgrade pip==20.3.4  # last version to support Python2
 
 yum install -y httpd httpd-devel mod_ssl
 yum install -y mod_security
@@ -120,24 +120,24 @@ cp /vagrant/apache/br2020-packages/config-generic* /var/www/html/br2020-packages
 #cp /vagrant/apache/br2020-packages/afterglow.pl /var/www/html/br2020-packages/
 
 # Store generic source code packages
-echo "Copying source code..."
-cp /vagrant/apache/source-code/*.tar.gz /var/www/html/source-code/
-chmod 755 /var/www/html/source-code/*
+#echo "Copying source code..."
+#cp /vagrant/apache/source-code/*.tar.gz /var/www/html/source-code/
+#chmod 755 /var/www/html/source-code/*
 
 echo "Copying Slackware 14.2 packages..."
 cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
 
 # https://serverfault.com/questions/153875/how-to-let-cp-command-dont-fire-an-error-when-source-file-does-not-exist
-echo "Copying Python packages into my artifacts..."
-cp /vagrant/apache/python-packages/metfuncs/*.tar.gz /var/www/html/python-packages/metfuncs/
-cp /vagrant/apache/python-packages/metfuncs/*.whl /var/www/html/python-packages/metfuncs/
-cp /vagrant/apache/python-packages/metrestapi/*.tar.gz /var/www/html/python-packages/metrestapi/
-cp /vagrant/apache/python-packages/metrestapi/*.whl /var/www/html/python-packages/metrestapi/
-cp /vagrant/apache/python-packages/metminifuncs/*.tar.gz /var/www/html/python-packages/metminifuncs/
-cp /vagrant/apache/python-packages/metminifuncs/*.whl /var/www/html/python-packages/metminifuncs/
-cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packages/cryptofuncs/
-cp /vagrant/apache/python-packages/mqttfuncs/*.whl /var/www/html/python-packages/mqttfuncs/
-cp /vagrant/apache/python-packages/vonageapi/*.whl /var/www/html/python-packages/vonageapi/
+#echo "Copying Python packages into my artifacts..."
+#cp /vagrant/apache/python-packages/metfuncs/*.tar.gz /var/www/html/python-packages/metfuncs/
+#cp /vagrant/apache/python-packages/metfuncs/*.whl /var/www/html/python-packages/metfuncs/
+#cp /vagrant/apache/python-packages/metrestapi/*.tar.gz /var/www/html/python-packages/metrestapi/
+#cp /vagrant/apache/python-packages/metrestapi/*.whl /var/www/html/python-packages/metrestapi/
+#cp /vagrant/apache/python-packages/metminifuncs/*.tar.gz /var/www/html/python-packages/metminifuncs/
+#cp /vagrant/apache/python-packages/metminifuncs/*.whl /var/www/html/python-packages/metminifuncs/
+#cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packages/cryptofuncs/
+#cp /vagrant/apache/python-packages/mqttfuncs/*.whl /var/www/html/python-packages/mqttfuncs/
+#cp /vagrant/apache/python-packages/vonageapi/*.whl /var/www/html/python-packages/vonageapi/
 
 chmod 755 /var/www/html/br2020-packages/*
 #chmod 755 /var/www/html/slackware-14-2-packages/*
