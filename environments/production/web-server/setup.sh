@@ -102,6 +102,10 @@ echo "Copying CentOS7 packages..."
 cp /vagrant/apache/centos7-packages/*.rpm /var/www/html/centos7-packages/
 
 # Store BR2020 packages
+echo "Copying test malware files..."
+cp /vagrant/apache/br-mal-files/* /var/www/html/br-mal-files/
+
+# Store BR2020 packages
 echo "Copying BR2020 CentOS7 packages and source code..."
 cp /vagrant/apache/br2020-packages/*.rpm /var/www/html/br2020-packages/
 cp /vagrant/apache/br2020-packages/*.bz2 /var/www/html/br2020-packages/
