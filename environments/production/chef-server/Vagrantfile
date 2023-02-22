@@ -8,10 +8,10 @@ Vagrant.configure("2") do |config|
      chefserver.vm.box = "crouchr/rch-centos7"
      chefserver.vm.box_check_update = true
 
-     chefserver.vm.network "public_network", ip: "192.168.1.165", bridge: "br0"
+     chefserver.vm.network "public_network", ip: "192.168.1.170", bridge: "br0"
 
      chefserver.vm.provider "virtualbox" do |v|
-       v.memory = 6200
+       v.memory = 4096
        v.cpus = 2
      end
 
