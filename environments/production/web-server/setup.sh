@@ -133,15 +133,15 @@ cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-pa
 
 # https://serverfault.com/questions/153875/how-to-let-cp-command-dont-fire-an-error-when-source-file-does-not-exist
 #echo "Copying Python packages into my artifacts..."
-#cp /vagrant/apache/python-packages/metfuncs/*.tar.gz /var/www/html/python-packages/metfuncs/
-#cp /vagrant/apache/python-packages/metfuncs/*.whl /var/www/html/python-packages/metfuncs/
-#cp /vagrant/apache/python-packages/metrestapi/*.tar.gz /var/www/html/python-packages/metrestapi/
-#cp /vagrant/apache/python-packages/metrestapi/*.whl /var/www/html/python-packages/metrestapi/
-#cp /vagrant/apache/python-packages/metminifuncs/*.tar.gz /var/www/html/python-packages/metminifuncs/
-#cp /vagrant/apache/python-packages/metminifuncs/*.whl /var/www/html/python-packages/metminifuncs/
-#cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packages/cryptofuncs/
-#cp /vagrant/apache/python-packages/mqttfuncs/*.whl /var/www/html/python-packages/mqttfuncs/
-#cp /vagrant/apache/python-packages/vonageapi/*.whl /var/www/html/python-packages/vonageapi/
+cp /vagrant/apache/python-packages/metfuncs/*.tar.gz /var/www/html/python-packages/metfuncs/
+cp /vagrant/apache/python-packages/metfuncs/*.whl /var/www/html/python-packages/metfuncs/
+cp /vagrant/apache/python-packages/metrestapi/*.tar.gz /var/www/html/python-packages/metrestapi/
+cp /vagrant/apache/python-packages/metrestapi/*.whl /var/www/html/python-packages/metrestapi/
+cp /vagrant/apache/python-packages/metminifuncs/*.tar.gz /var/www/html/python-packages/metminifuncs/
+cp /vagrant/apache/python-packages/metminifuncs/*.whl /var/www/html/python-packages/metminifuncs/
+cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packages/cryptofuncs/
+cp /vagrant/apache/python-packages/mqttfuncs/*.whl /var/www/html/python-packages/mqttfuncs/
+cp /vagrant/apache/python-packages/vonageapi/*.whl /var/www/html/python-packages/vonageapi/
 
 chmod 755 /var/www/html/br2020-packages/*
 #chmod 755 /var/www/html/slackware-14-2-packages/*
