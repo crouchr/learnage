@@ -23,8 +23,9 @@ verifier:
 platforms:
   - name: br
     driver:
-      box: crouchr/blackrain2020
-      box_url: crouchr/blackrain2020
+      box: geerlingguy/centos7
+#      box: crouchr/blackrain2020
+#      box_url: crouchr/blackrain2020
 
 suites:
   - name: default
