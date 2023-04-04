@@ -36,6 +36,16 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/default
+        - test/integration/dev
     attributes:
       WAF:
         additional_admin_page_ips: ['5.5.5.5', '6.6.6.6']
+
+  - name: prod
+    run_list:
+      - recipe[vcc-basic::default]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+        - test/integration/prod
+    attributes:
