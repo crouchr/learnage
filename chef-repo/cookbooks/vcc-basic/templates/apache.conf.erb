@@ -1,0 +1,3 @@
+<LocationMatch "/CallCentre/admin/">
+  Require ip <%= @admin_page_ips.join(" ") %>
+</LocationMatch>
