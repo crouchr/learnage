@@ -8,5 +8,5 @@ It also uses berksfile.
 Basically a simple project that is 'close' to being a VCC cookbook project and can be used for minimal
 environment for testing Chef concepts etc.
 
-See 'Learning Chef' page 271 for corect command to create a cookbook folder structure, including Berkfile.
+See 'Learning Chef' page 271 for corect command to create a cookbook folder structure, including Berksfile.
 
