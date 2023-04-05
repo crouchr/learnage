@@ -18,5 +18,7 @@ template '/etc/httpd/apache.conf' do
   owner 'root'
   group 'root'
   mode '0644'
-  Chef::Log.info "make_apache_config_file : #{all_admin_ips}"
+  Chef::Log.info "make_apache_config_file : all_admin_ips = #{all_admin_ips}"
+  Chef::Log.info "make_apache_config_file : admin_page_ips = #{node['WAF']['admin_page_ips']}"
+  Chef::Log.info "make_apache_config_file : additional_admin_ips = #{node['WAF']['additional_admin_page_ips']}"
 end

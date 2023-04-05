@@ -1,4 +1,3 @@
-# richard
 
 # Test the regex tool can run OK
 describe command('python /usr/local/bin/networks_regex_tool.py') do
