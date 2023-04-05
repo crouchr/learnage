@@ -6,5 +6,4 @@ default['WAF']['admin_page_ips'] = ['178.73.2.66', '193.240.208.228', '193.240.2
                                     '34.246.237.239', '34.252.181.109']
 
 # Has to be defined even if empty
-default['WAF']['additional_admin_page_ips'] = ['172.17.1.1', '127.0.0.1', '172.16.1.0/16',
-                                               '10.103.0.0/16', '192.168.0.0/16']
+default['WAF']['additional_admin_page_ips'] = []
