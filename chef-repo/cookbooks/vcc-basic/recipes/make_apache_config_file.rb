@@ -18,4 +18,5 @@ template '/etc/httpd/apache.conf' do
   owner 'root'
   group 'root'
   mode '0644'
+  Chef::Log.info "make_apache_config_file : #{all_admin_ips}"
 end
