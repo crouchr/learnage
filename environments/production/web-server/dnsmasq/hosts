@@ -41,7 +41,7 @@
 192.168.1.100 spacewalk
 192.168.1.102 web
 192.168.1.103 waf
-192.168.1.104 dockerserver
+192.168.1.104 squid
 192.168.1.105 observium
 192.168.1.106 logging
 192.168.1.107 mongodb
