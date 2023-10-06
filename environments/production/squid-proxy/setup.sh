@@ -11,11 +11,12 @@ echo "Started setup.sh for provisioning squid node"
 # Check for patch updates - slows up boot so need a way of avoiding this
 yum update -y --disableplugin=fastestmirror
 
-yum install -y wireshark joe
+yum install -y wireshark joe cloud-init
 yum install -y squid
 
-# Copy the squid config file
+# Configure node
 cp /vagrant/squid/squid.conf /etc/squid/squid.conf
+cp /vagrant/squid/cloud.cfg /etc/cloud/cloud.cfg
 
 echo "Starting squid..."
 systemctl enable squid.service
