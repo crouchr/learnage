@@ -6,13 +6,13 @@ set -e	# bomb out if any problem
 echo 
 echo "Started setup.sh for provisioning this node"
 
-yum -y update
+yum update -y --disableplugin=fastestmirror
 yum -y install java-1.8.0-openjdk.x86_64
 # cp /vagrant/config.yml /etc/docker-distribution/registry/config.yml
 
 # ELK
-wget wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.2-x86_64.rpm
-rpm -ivh elasticsearch-7.9.2-x86_64.rpm
+wget wget -O /tmp/elasticsearch-7.9.2-x86_64.rpm https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.2-x86_64.rpm
+rpm -ivh /tmp/elasticsearch-7.9.2-x86_64.rpm
 #yum -y localinstall elasticsearch-7.9.2-x86_64.rpm
 
 # Telegraf
