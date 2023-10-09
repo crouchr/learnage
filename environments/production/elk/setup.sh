@@ -23,7 +23,7 @@ rpm -ivh /tmp/kibana-oss-7.9.2-x86_64.rpm
 
 echo 'Copy configuration files...'
 cp /vagrant/config/elasticsearch.yml /etc/elasticsearch/
-cp /vagrant/config/logstash.conf /etc/logstash/
+cp /vagrant/config/logstash.conf /etc/logstash/conf.d/
 cp /vagrant/config/kibana.yml /etc/kibana/
 
 # Telegraf
