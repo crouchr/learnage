@@ -1,0 +1,21 @@
+# ELK 7.9
+
+# Note : Only minimal memory until development starts
+# This is in multi-machine format
+
+Vagrant.configure("2") do |config|
+   config.vm.define "elk" do |elk|
+     elk.vm.box = "crouchr/rch-centos7"
+     elk.vm.box_check_update = true
+
+     elk.vm.network "public_network", ip: "192.168.1.56", bridge: "wlp3s0"
+
+     elk.vm.provider "virtualbox" do |v|
+       v.memory = 4096
+       v.cpus = 1
+     end
+
+     config.vm.provision "shell", path: "setup.sh"
+
+    end
+end
