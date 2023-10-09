@@ -24,6 +24,7 @@ rpm -ivh /tmp/kibana-oss-7.9.2-x86_64.rpm
 echo 'Copy configuration files...'
 cp /vagrant/config/elasticsearch.yml /etc/elasticsearch/
 cp /vagrant/config/logstash.conf /etc/logstash/
+cp /vagrant/config/kibana.yml /etc/kibana/
 
 # Telegraf
 #wget https://dl.influxdata.com/telegraf/releases/telegraf-1.8.3-1.x86_64.rpm
@@ -36,8 +37,8 @@ sudo systemctl enable elasticsearch.service
 sudo systemctl enable kibana.service
 
 echo "Start ELK services..."
-sudo systemctl start logstash.service
 sudo systemctl start elasticsearch.service
+sudo systemctl start logstash.service
 sudo systemctl start kibana.service
 
 echo "Finished setup.sh OK for provisioning this node"
