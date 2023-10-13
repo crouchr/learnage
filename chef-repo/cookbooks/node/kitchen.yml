@@ -23,7 +23,7 @@ platforms:
 suites:
   - name: default
 #  - name: node
-#    run_list:
-#      - recipe[ermin-grafana]
+    run_list:
+    - recipe[motd_br]
 
     attributes:
