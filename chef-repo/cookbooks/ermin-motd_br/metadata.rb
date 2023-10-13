@@ -1,9 +1,9 @@
-name 'motd_br'
+name 'ermin-motd_br'
 maintainer 'The Authors'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
-description 'Installs/Configures motd_br'
-long_description 'Installs/Configures motd_br'
+description 'Installs/Configures ermin-motd_br'
+long_description 'Installs/Configures ermin-motd_br'
 version '0.1.0'
 chef_version '>= 12.9'
 
