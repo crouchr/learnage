@@ -10,6 +10,7 @@ provisioner:
 #verifier:
 #  name: inspec
 
+# VBOX will get hostname node-centosbox7
 platforms:
   - name: centos7box
     driver:
@@ -20,7 +21,8 @@ platforms:
       - ["../../../chef-repo", "/chef-repo"]
 
 suites:
-  - name: node
+  - name: default
+#  - name: node
 #    run_list:
 #      - recipe[ermin-grafana]
 
