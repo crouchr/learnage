@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# Script to upload cookbooks to the Managed Chef Server
+# Script to upload cookbooks to my Chef Server
 
 sudo knife cookbook upload \
 logrotate \
--s https://manage.chef.io/organizations/blackrainermin --cookbook-path cookbooks
+-s https://chef.ermin.com/organizations/br2023 --cookbook-path cookbooks
 
 sudo knife cookbook upload \
 cron \
--s https://manage.chef.io/organizations/blackrainermin --cookbook-path cookbooks
+-s https://chef.ermin.com/organizations/br2023 --cookbook-path cookbooks
 
 sudo knife cookbook upload \
 ntp \
--s https://manage.chef.io/organizations/blackrainermin --cookbook-path cookbooks
+-s https://chef.ermin.com/organizations/br2023 --cookbook-path cookbooks
 
 sudo knife cookbook upload \
 chef-client \
--s https://manage.chef.io/organizations/blackrainermin --cookbook-path cookbooks
+-s https://chef.ermin.com/organizations/br2023 --cookbook-path cookbooks

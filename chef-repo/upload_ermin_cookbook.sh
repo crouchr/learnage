@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Script to upload cookbooks to the Managed Chef Server
+# Script to upload cookbooks to my Chef Server
 
 sudo knife cookbook upload \
 ermin \
--s https://manage.chef.io/organizations/blackrainermin --cookbook-path cookbooks
+-s https://chef.ermin.com/organizations/br2023 --cookbook-path cookbooks
+#-s https://manage.chef.io/organizations/blackrainermin --cookbook-path cookbooks
