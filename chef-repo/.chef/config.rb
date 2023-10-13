@@ -1,5 +1,6 @@
 # See https://docs.chef.io/workstation/config_rb/ for more information on knife
 # This file was originally exported from Chef Server
+# current_dir is chef-repo/.chef
 
 current_dir = File.dirname(__FILE__)
 log_level                :info
