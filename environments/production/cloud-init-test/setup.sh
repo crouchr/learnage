@@ -5,7 +5,7 @@
 set -e	# bomb out if any problem
 
 echo 
-echo "Started setup.sh for provisioning node"
+echo "Started setup.sh for provisioning cloud-init-test node"
 
 # Check for patch updates - slows up boot so need a way of avoiding this
 yum update -y --disableplugin=fastestmirror
@@ -19,7 +19,7 @@ cat >> /etc/hosts <<EOL
 192.168.1.70 chef chef.ermin.com
 EOL
 
-copy config/10_datasource.cfg /etc/cloud/cloud.cfg.d/10_datasource.cfg
+cp config/10_datasource.cfg /etc/cloud/cloud.cfg.d/10_datasource.cfg
 
-echo "Finished setup.sh OK for provisioning this squid node"
+echo "Finished setup.sh OK for provisioning this node"
 echo
