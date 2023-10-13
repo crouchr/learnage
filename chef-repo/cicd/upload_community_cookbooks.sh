@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script to upload cookbooks to my Chef Server
+# Script to upload Community cookbooks to my Chef Server
 
 sudo knife cookbook upload \
 logrotate \
