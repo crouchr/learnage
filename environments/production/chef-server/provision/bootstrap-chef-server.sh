@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# This runs on Ubuntu
 
 apt-get update -y -qq > /dev/null
 apt-get upgrade -y -qq > /dev/null
