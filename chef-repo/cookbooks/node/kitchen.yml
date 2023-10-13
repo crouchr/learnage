@@ -3,15 +3,24 @@ driver:
   name: vagrant
 
 provisioner:
+#  name: chef_solo
   name: shell
 
+#verifier:
+#  name: inspec
+
 platforms:
-  - name: rch-centos-7
+  - name: centos7box
     driver:
-      box: crouchr/rch-centos-7        # This is my own Packer-built CentOS7 image stored in S3 & Vagrant Cloud
-      box_url: crouchr/rch-centos-7
+      box: crouchr/rch-centos7
       network:
-      - ["private_network", {ip: "192.168.2.200"}]
+      - ["private_network", {ip: "192.168.56.90"}]
+      synced_folders:
+      - ["../../../chef-repo", "/chef-repo"]
+
 suites:
   - name: node
+#    run_list:
+#      - recipe[ermin-grafana]
+
     attributes:
