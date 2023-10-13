@@ -1,4 +1,5 @@
 ---
+# See page 171 of Learning Chef
 driver:
   name: vagrant
 
