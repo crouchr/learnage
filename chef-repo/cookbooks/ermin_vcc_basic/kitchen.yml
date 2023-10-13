@@ -34,7 +34,7 @@ platforms:
 suites:
   - name: dev
     run_list:
-      - recipe[vcc-basic::default]
+      - recipe[ermin_vcc_basic::default]
     verifier:
       inspec_tests:
         - test/integration/default
@@ -45,7 +45,7 @@ suites:
 
   - name: prod
     run_list:
-      - recipe[vcc-basic::default]
+      - recipe[ermin_vcc_basic::default]
     verifier:
       inspec_tests:
         - test/integration/default
