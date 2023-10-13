@@ -2,7 +2,7 @@
 # use with chef-client 12+
 knife bootstrap --sudo --connection-user vagrant --connection-password vagrant \
 --node-name default-centos7box.vagrantup.com \
---no-host-key-verify \
+--ssh-verify-host-key never \
 default-centos7box.vagrantup.com
 
 
