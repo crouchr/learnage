@@ -3,4 +3,4 @@
 
 sudo knife cookbook upload \
 hpot-centos7 \
--s https://chef.ermin.com/organizations/br2023 --cookbook-path cookbooks
+-s https://chef.ermin.com/organizations/br2023 --cookbook-path ../cookbooks

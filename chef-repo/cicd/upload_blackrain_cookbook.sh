@@ -3,5 +3,5 @@
 
 sudo knife cookbook upload \
 blackrain \
--s https://chef.ermin.com/organizations/br2023 --cookbook-path cookbooks
+-s https://chef.ermin.com/organizations/br2023 --cookbook-path ../cookbooks
 #-s https://manage.chef.io/organizations/blackrainermin --cookbook-path cookbooks

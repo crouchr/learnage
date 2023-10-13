@@ -3,4 +3,4 @@
 
 sudo knife cookbook upload \
 cuckoo \
--s https://chef.ermin.com/organizations/br2023 --cookbook-path cookbooks
+-s https://chef.ermin.com/organizations/br2023 --cookbook-path ../cookbooks
