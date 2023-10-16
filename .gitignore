@@ -283,3 +283,5 @@ packer_cache/
 /environments/production/web-server/apache/isos/CentOS-7-x86_64-Minimal-2003.iso
 /environments/production/web-server/apache/isos/VBoxGuestAdditions_6.0.20.iso
 /environments/dev/br2020/malware/
+/environments/production/web-server/apache/isos/VBoxGuestAdditions_6.1.44.iso
+/environments/production/web-server/apache/isos/CentOS-7-x86_64-Minimal-2207-02.iso
