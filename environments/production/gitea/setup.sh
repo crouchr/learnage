@@ -26,7 +26,20 @@ systemctl start mariadb.service
 
 # Configure MariaDB
 # How to automate this ?
-mysql_secure_installation
+# https://bertvv.github.io/notes-to-self/2015/11/16/automating-mysql_secure_installation/
+# mysql_secure_installation
+# example with password in env var
+#UPDATE mysql.user SET Password=PASSWORD('${db_root_password}') WHERE User='root';
+
+# Secure the database i.e. equivalent to mysql_secure_installation
+myql --user=root <<_EOF_
+UPDATE mysql.user SET Password=PASSWORD('password123') WHERE User='root';
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+FLUSH PRIVILEGES;
+_EOF_
 
 # Enter current password for root (enter for none): Just press the Enter
 # Set root password? [Y/n]: Y
@@ -38,6 +51,13 @@ mysql_secure_installation
 # Reload privilege tables now? [Y/n]:  Y
 
 systemctl restart mariadb.service
+
+myql --user=root --password 'password123' <<_EOF_
+CREATE DATABASE gitea;
+CREATE USER 'giteauser'@'localhost' IDENTIFIED BY 'new_password_here';
+GRANT ALL ON gitea.* TO 'giteauser'@'localhost' IDENTIFIED BY 'user_password_here' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+_EOF_
 
 # mysql -u root -p
 # CREATE DATABASE gitea;
