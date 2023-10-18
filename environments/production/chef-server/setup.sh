@@ -12,11 +12,12 @@ whoami
 # Generic =====================================
 
 # Set hostname
-hostnamectl set-hostname chef.ermin.com
+hostnamectl set-hostname chef.ermin.lan
 
 cat >> /etc/hosts <<EOL
 # Added during Chef Vagrant run
-192.168.1.70  chef.ermin.com
+192.168.1.70  chef chef.ermin chef.ermin.lan
+192.168.1.102 registry registry.ermin registry.ermin.lan
 192.168.1.5   kube
 192.168.1.6   j1900
 EOL
