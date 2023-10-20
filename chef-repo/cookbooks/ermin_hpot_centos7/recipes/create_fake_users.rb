@@ -1,5 +1,6 @@
 # Add groups first so they can be referenced when users are added
 # https://yurisk.info/2010/06/04/top-10-usernames-used-in-ssh-brute-force/
+# These are just some juicy accounts for brute force attackers to use
 
 group 'admin' do
   append                true

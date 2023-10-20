@@ -1,1 +1,3 @@
 Scripts used to build various packer machines
+The more packages are installed during the BOX build, the shorter the time to converge Chef during development.
+However, building a VBOX takes a number of hours...

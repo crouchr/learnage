@@ -18,7 +18,9 @@ yum install -y joe git mariadb-server
 # Configure node
 #cp /vagrant/squid/squid.conf /etc/squid/squid.conf
 #cp /vagrant/squid/cloud.cfg /etc/cloud/cloud.cfg
-cp /vagrant/gitea/config/gitea.service /etc/systemd/system/gitea.service
+
+# FIXME : not working
+# cp /vagrant/gitea/config/gitea.service /etc/systemd/system/gitea.service
 
 echo "Starting MariaDB..."
 systemctl enable mariadb.service
