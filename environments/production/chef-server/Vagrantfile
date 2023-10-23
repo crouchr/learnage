@@ -7,15 +7,15 @@ Vagrant.configure("2") do |config|
    config.vm.define "chefserver" do |chefserver|
      # chefserver.vm.box = "crouchr/rch-centos7"
      chefserver.vm.box = "rch-centos7"
-     chefserver.vm.box_check_update = true
+     #chefserver.vm.box_check_update = true
 
      # bridge value may vary depending on what node this Vagrant file is running
-     chefserver.vm.network "public_network", ip: "192.168.1.70", bridge: "enp1s0"
+     chefserver.vm.network "public_network", ip: "192.168.1.71", bridge: "enp1s0"
 
      # stand-alone Chef needs minimum 8GB RAM
      chefserver.vm.provider "virtualbox" do |v|
        #v.memory = 4096
-       v.memory = 8192
+       v.memory = 5000
        v.cpus = 2
      end
 
