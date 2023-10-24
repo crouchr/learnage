@@ -15,17 +15,17 @@ whoami
 hostnamectl set-hostname chef.ermin.lan
 
 # Note : This shouldn't be needed once Chef built with 'new' standard rch-centos7 BOX
-cat >> /etc/hosts <<EOL
-# Added during Chef Vagrant run
-192.168.1.5   kube kube.ermin.lan
-192.168.1.6   j1900 j1900.ermin.lan
-192.168.1.56  elk elk.ermin.lan
-192.168.1.70  grafana grafana.ermin.lan
-192.168.1.72  ossec-hpot ossec-hpot.ermin.lan
-192.168.1.73  ossec ossec.ermin.lan
-192.168.1.102 web web.ermin.lan
-192.168.1.109 registry registry.ermin.lan
-EOL
+#cat >> /etc/hosts <<EOL
+## Added during Chef Vagrant run
+#192.168.1.5   kube kube.ermin.lan
+#192.168.1.6   j1900 j1900.ermin.lan
+#192.168.1.56  elk elk.ermin.lan
+#192.168.1.70  grafana grafana.ermin.lan
+#192.168.1.72  ossec-hpot ossec-hpot.ermin.lan
+#192.168.1.73  ossec ossec.ermin.lan
+#192.168.1.102 web web.ermin.lan
+#192.168.1.109 registry registry.ermin.lan
+#EOL
 # Note : 192.168.1.71  chef chef.ermin.lan
 
 # Generic =====================================

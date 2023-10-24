@@ -2,7 +2,7 @@
 # ===========
 # Note : Only minimal memory until development starts
 # This is in multi-machine format
-# This should run on Amelia Lenovo
+# This should run on 32GB host
 
 Vagrant.configure("2") do |config|
    config.vm.define "chefserver" do |chefserver|
@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
      #chefserver.vm.box_check_update = true
 
      # bridge value may vary depending on what node this Vagrant file is running
-     chefserver.vm.network "public_network", ip: "192.168.1.71", bridge: "wlan0"
+     chefserver.vm.network "public_network", ip: "192.168.1.71", bridge: "enp1s0"
 
      # stand-alone Chef needs minimum 8GB RAM
      chefserver.vm.provider "virtualbox" do |v|
