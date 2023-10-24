@@ -7,3 +7,5 @@ long_description 'Installs/Configures High Interaction Honeypot on CentOS7'
 version '0.1.0'
 chef_version '>= 14.0'
 
+depends 'ermin-ppots'
+depends 'ermin-snort'
