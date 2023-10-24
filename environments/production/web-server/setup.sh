@@ -93,9 +93,10 @@ cp /vagrant/dnsmasq/resolv.conf /etc/resolv.conf
 chattr +i /etc/resolv.conf
 
 # Store ISOs used for Vagrant locally 
-echo "Copying ISO images..."
-cp /vagrant/apache/isos/*.iso /var/www/html/isos/
-chmod 755 /var/www/html/isos/*
+# Always store Packer ISOs on the Jenkins Packer build agent directly otherwise it take hours to just download them
+# echo "Copying ISO images..."
+# cp /vagrant/apache/isos/*.iso /var/www/html/isos/
+# chmod 755 /var/www/html/isos/*
 
 # Store CentOS7 packages
 echo "Copying CentOS7 packages..."

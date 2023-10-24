@@ -287,3 +287,6 @@ packer_cache/
 /environments/production/web-server/apache/isos/CentOS-7-x86_64-Minimal-2207-02.iso
 /environments/production/chef-server/commercial-licence/
 /environments/production/chef-server/packages/chef-server-core-12.19.31-1.el7.x86_64.rpm
+/environments/production/web-server/apache/bootstrap-chef-files/crouchr.pem
+/environments/production/web-server/apache/bootstrap-chef-files/ermin-org.pem
+/environments/production/web-server/apache/bootstrap-chef-files/old/
