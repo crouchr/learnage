@@ -4,13 +4,13 @@
 # Author:: Richard Crouch (richard.crouch100@gmail.com)
 #
 # Copyright (C) 2020 Me, Inc.
-# Tools needed during debugging - may not be needed once hpot is stable
+
+# Install misc tools
 
 # OTHER
 # =====
+package 'md5sum'
+package 'md5deep'
+package 'ssdeep'
 
-package 'nmap'
-package 'whois'
-package 'iftop'
-
-
+log 'Installed forensics tools'

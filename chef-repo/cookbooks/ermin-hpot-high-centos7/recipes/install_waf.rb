@@ -18,3 +18,5 @@ end
 service 'httpd' do
   action :enable
 end
+
+log 'Installed WAF'

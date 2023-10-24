@@ -10,3 +10,5 @@ end
 rpm_package 'wazuh-agent' do
   source  '/tmp/hpot-tmp/wazuh-agent-3.9.5-1.x86_64.rpm'
 end
+
+log 'Installed Wazuh agent'

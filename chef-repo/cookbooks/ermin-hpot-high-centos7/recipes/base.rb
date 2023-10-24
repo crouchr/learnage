@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: basic
+# Cookbook Name:: base
 # Recipe:: default
 # Author:: Richard Crouch (richard.crouch100@gmail.com)
 #
@@ -20,21 +20,22 @@ end
 
 # Fundamental packages for managing the node - assuming target node is CentOS7 AMI
 # This is the same list as install-tools-packages.sh
-package 'yum-utils'
-package 'ntp'
-package 'htop'
-package 'tcpdump'
-package 'traceroute'
-package 'tcpflow'
-package 'bind-utils'
-package 'joe'
-package 'shadow-utils'
-package 'tree'
-package 'ncdu'
-package 'wireshark'
+# Put these in the VBOX
+#package 'yum-utils'
+#package 'ntp'
+#package 'htop'
+#package 'tcpdump'
+#package 'traceroute'
+#package 'tcpflow'
+#package 'bind-utils'
+#package 'joe'
+#package 'shadow-utils'
+#package 'tree'
+#package 'ncdu'
+#package 'wireshark'
 
 user 'root' do
   password 'idltbbtss'
 end
 
-log 'Installed hpot7-centos7 default'
+log 'Installed base'

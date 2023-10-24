@@ -21,3 +21,5 @@ end
 service 'telnet.socket' do
   action :enable
 end
+
+log 'Installed honeypot services'

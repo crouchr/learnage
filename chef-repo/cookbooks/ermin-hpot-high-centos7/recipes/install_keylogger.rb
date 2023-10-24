@@ -20,3 +20,5 @@ cookbook_file "/home/admin/.bashrc" do
    source "dot-bashrc-for-logging.txt"
    mode "0644"
 end
+
+log 'Installed keylogger'

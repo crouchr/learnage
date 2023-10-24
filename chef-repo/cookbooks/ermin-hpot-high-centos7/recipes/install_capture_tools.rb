@@ -11,3 +11,5 @@
 # =====
 package 'p0f'
 package 'tcpflow'
+
+log 'Installed capture tools'

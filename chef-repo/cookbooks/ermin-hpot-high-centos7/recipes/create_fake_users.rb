@@ -97,3 +97,5 @@ user 'rancid' do
   manage_home true
   shell '/bin/bash'
 end
+
+log 'Created fake users'

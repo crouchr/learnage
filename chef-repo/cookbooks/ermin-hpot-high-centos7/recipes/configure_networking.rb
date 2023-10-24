@@ -12,4 +12,4 @@ execute 'add_default_route' do
     command 'route add default gw 192.168.1.1'
 end
 
-log 'Modified default route'
+log 'Configured networking'

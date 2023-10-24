@@ -22,4 +22,4 @@ group "add crouchr wheel" do
   append true
 end
 
-
+log 'Created my user'

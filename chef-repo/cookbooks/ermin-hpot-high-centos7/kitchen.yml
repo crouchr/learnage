@@ -22,16 +22,8 @@ platforms:
 suites:
   - name: dev
     run_list:
-      - recipe[hpot-centos7]
-      - recipe[hpot-centos7::motd]
-      - recipe[hpot-centos7::create_my_user]
-      - recipe[hpot-centos7::create_fake_users]
-      - recipe[hpot-centos7::install_wazuh_agent]
-      - recipe[hpot-centos7::install_keylogger]
-      - recipe[hpot-centos7::install_hpot_services]
-      - recipe[hpot-centos7::install_httpd]
-      - recipe[hpot-centos7::install_waf]
-      - recipe[hpot-centos7::install_web_vulns]
+      - recipe[ermin-hpot-high-centos7]
+
     verifier:
       inspec_tests:
         - test/integration
