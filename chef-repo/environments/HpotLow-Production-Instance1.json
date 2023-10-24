@@ -1,0 +1,6 @@
+{
+  "chef_type": "environment",
+  "description": "Low Interaction Honeypot Instance #1",
+  "json_class": "Chef::Environment",
+  "name": "HpotLow-Production-Instance-1"
+}

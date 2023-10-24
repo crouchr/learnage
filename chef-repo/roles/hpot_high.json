@@ -1,0 +1,9 @@
+{
+  "name": "hpot_high",
+  "description": "High interaction Honeypot Sensor",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "run_list": [
+    "recipe[HpotHigh]"
+  ]
+}
