@@ -6,5 +6,5 @@ description 'Installs/Configures HpotLow'
 version '0.1.0'
 chef_version '>= 16.0'
 
-depends "ermin-motd-br"
+depends 'ermin-motd-br'
 
