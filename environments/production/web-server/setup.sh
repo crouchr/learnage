@@ -152,10 +152,11 @@ echo "Copying public-keys..."
 cp /vagrant/apache/public-keys/*.pub /var/www/html/public-keys/
 chmod 755 /var/www/html/public-keys/*.pub
 
-# Store Chef files 
-echo "Copying Chef configuration files and keys..."
-cp /vagrant/apache/bootstrap-chef-files/* /var/www/html/private/bootstrap-chef-files/
-chmod 755 /var/www/html/private/bootstrap-chef-files/*
+# Store Chef files
+# Commented out until design is worked out
+#echo "Copying Chef configuration files and keys..."
+#cp /vagrant/apache/bootstrap-chef-files/* /var/www/html/private/bootstrap-chef-files/
+#chmod 755 /var/www/html/private/bootstrap-chef-files/*
 
 echo "Starting dnsmasq..."
 systemctl enable dnsmasq.service
