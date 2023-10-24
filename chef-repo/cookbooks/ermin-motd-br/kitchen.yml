@@ -23,9 +23,7 @@ verifier:
 platforms:
   - name: br
     driver:
-      box: crouchr/rch-centos7
-#      box: crouchr/blackrain2020
-#      box_url: crouchr/blackrain2020
+      box: rch-hpot
 
 suites:
   - name: default
