@@ -23,14 +23,14 @@ verifier:
 platforms:
   - name: br
     driver:
-      box: geerlingguy/centos7
+      box: crouchr/rch-centos7
 #      box: crouchr/blackrain2020
 #      box_url: crouchr/blackrain2020
 
 suites:
   - name: default
     run_list:
-      - recipe[motd_br::default]
+      - recipe[ermin-motd-br::default]
     verifier:
       inspec_tests:
         - test/integration/default

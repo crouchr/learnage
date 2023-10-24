@@ -1,5 +1,5 @@
 #
-# Cookbook:: motd_br
+# Cookbook:: emrin-motd-br
 # Recipe:: default
 #
 # Copyright:: 2020, The Authors, All Rights Reserved.
