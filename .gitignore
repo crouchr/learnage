@@ -290,3 +290,5 @@ packer_cache/
 /environments/production/web-server/apache/bootstrap-chef-files/crouchr.pem
 /environments/production/web-server/apache/bootstrap-chef-files/ermin-org.pem
 /environments/production/web-server/apache/bootstrap-chef-files/old/
+/chef-repo/cookbooks/ermin-hpot-high-centos7/.delivery/
+/chef-repo/cookbooks/ermin-hpot-high-centos7/.delivery/
