@@ -7,6 +7,7 @@ sudo named-checkzone 1.168.192.in-addr.arpa /var/named/192.168.1.db
 
 nslookup web.ermin.lan 127.0.0.1
 nslookup chef.ermin.lan 127.0.0.1
+nslookup blackrain-sensor-1 127.0.0.1
 nslookup grafana.ermin.lan 127.0.0.1
 
 # Who is Name Server
