@@ -1,0 +1,22 @@
+# DNS node
+
+# Note : Only minimal memory until development starts
+# This is in multi-machine format
+
+Vagrant.configure("2") do |config|
+   config.vm.define "blackrain_dns" do |blackrain_dns|
+     blackrain_dns.vm.box = "rch-centos7"
+     blackrain_dns.vm.hostname = "blackrain-dns"
+     blackrain_dns.vm.box_check_update = true
+
+     dns_node.vm.network "public_network", ip: "192.168.1.82", bridge: "enp1s0"
+
+     dns_node.vm.provider "virtualbox" do |v|
+       v.memory = 512
+       v.cpus = 1
+     end
+
+     config.vm.provision "shell", path: "setup.sh"
+
+    end
+end
