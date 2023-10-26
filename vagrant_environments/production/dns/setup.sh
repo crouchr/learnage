@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 # BIND9
+#sudo firewall-cmd --permanent --add-service=dns
+#sudo firewall-cmd --permanent --add-port=53/udp
+#sudo firewall-cmd --reload
+
 
 set -e	# bomb out if any problem
 
@@ -30,8 +34,16 @@ systemctl status named #Should show active
 #rpm -ivh /tmp/elasticsearch-oss-7.9.2-x86_64.rpm
 #rpm -ivh /tmp/kibana-oss-7.9.2-x86_64.rpm
 
-echo 'Copy configuration files...'
+echo 'Copy BIND configuration files...'
 cp /vagrant/config/named.conf /etc/
+cp /vagrant/config/ermin.lan.db /var/named/
+cp /vagrant/config/192.168.1.db /var/named/
+
+echo 'Copy BIND check scripts...'
+chmod +x /vagrant/scripts/bind_checks.sh
+cp /vagrant/scripts/bind_checks.sh /home/vagrant/
+
+
 #cp /vagrant/config/elasticsearch.yml /etc/elasticsearch/
 #cp /vagrant/config/logstash.conf /etc/logstash/conf.d/
 #cp /vagrant/config/kibana.yml /etc/kibana/

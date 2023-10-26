@@ -4,13 +4,14 @@
 # This is in multi-machine format
 
 Vagrant.configure("2") do |config|
-   config.vm.define "dns" do |elk|
-     dns.vm.box = "rch-centos7"
-     dns.vm.box_check_update = true
+   config.vm.define "dns_node" do |dns_node|
+     dns_node.vm.box = "rch-centos7"
+     dns_node.vm.hostname = "dns"
+     dns_node.vm.box_check_update = true
 
-     dns.vm.network "public_network", ip: "192.168.1.2", bridge: "enp1s0"
+     dns_node.vm.network "public_network", ip: "192.168.1.2", bridge: "enp1s0"
 
-     dns.vm.provider "virtualbox" do |v|
+     dns_node.vm.provider "virtualbox" do |v|
        v.memory = 1024
        v.cpus = 1
      end

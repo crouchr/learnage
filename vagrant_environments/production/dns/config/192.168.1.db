@@ -1,0 +1,16 @@
+$TTL 86400
+@   IN  SOA     ns1.ermin.lan. root.ermin.lan. (
+                                       3           ;Serial
+                                       3600        ;Refresh
+                                       1800        ;Retry
+                                       604800      ;Expire
+                                       86400       ;Minimum TTL
+)
+
+;Name Server Information
+@         IN      NS         ns1.ermin.lan.
+
+;Reverse lookup for Name Server
+2      IN  PTR     ns1.ermin.lan.
+70     IN  PTR     chef.ermin.lan.
+102    IN  PTR     web.ermin.lan.
