@@ -41,6 +41,11 @@ cp /vagrant/config/named.conf /etc/
 #yum -y localinstall telegraf-1.8.3-1.x86_64.rpm
 #cp /vagrant/telegraf.conf /etc/telegraf/telegraf.conf
 
+echo "Enable DNS services..."
+sudo systemctl start named
+sudo systemctl enable named
+sudo systemctl status named
+
 #echo "Enable ELK services..."
 #sudo systemctl enable logstash.service
 #sudo systemctl enable elasticsearch.service
