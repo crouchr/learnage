@@ -11,6 +11,8 @@ $TTL 86400
 @         IN      NS         ns1.ermin.lan.
 
 ;Reverse lookup for Name Server
+1      IN  PTR     int-gw.ermin.lan.
 2      IN  PTR     ns1.ermin.lan.
-70     IN  PTR     chef.ermin.lan.
+71     IN  PTR     chef.ermin.lan.
 102    IN  PTR     web.ermin.lan.
+109    IN PTR      registry.ermin.lan
