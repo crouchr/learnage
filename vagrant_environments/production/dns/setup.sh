@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
-# BIND9
-#sudo firewall-cmd --permanent --add-service=dns
-#sudo firewall-cmd --permanent --add-port=53/udp
-#sudo firewall-cmd --reload
-
-
 set -e	# bomb out if any problem
 
 echo 
@@ -15,11 +9,10 @@ sudo timedatectl set-timezone Europe/London
 
 yum update -y --disableplugin=fastestmirror
 
-
 yum -y install bind bind-utils
 systemctl start named
 systemctl enable named
-systemctl status named #Should show active
+systemctl status named
 
 # FIXME : Do this in Packet job ?
 #echo 'Disable SELINUX configuration files...'
