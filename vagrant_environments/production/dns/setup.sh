@@ -51,10 +51,14 @@ sudo systemctl status named
 sudo rndc status
 
 #echo "Smoke checks"
-#nslookup web.ermin.lan 127.0.0.1
-#nslookup chef.ermin.lan 127.0.0.1
-#nslookup blackrain-sensor-1 127.0.0.1
-#nslookup grafana.ermin.lan 127.0.0.1
+nslookup web.ermin.lan 127.0.0.1
+nslookup chef.ermin.lan 127.0.0.1
+nslookup blackrain-sensor-1.ermin.lan 127.0.0.1
+nslookup grafana.ermin.lan 127.0.0.1
+nslookup web.ermin.lan 192.168.1.2
+nslookup chef.ermin.lan 192.168.1.2
+nslookup blackrain-sensor-1.ermin.lan 192.168.1.2
+nslookup grafana.ermin.lan 192.168.1.2
 
 echo "Finished setup.sh OK for provisioning this node"
 echo
