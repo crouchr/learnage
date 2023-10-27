@@ -8,3 +8,5 @@ This Vagrant machine will be used to create a pet via OVA export as the installa
 able to be automated in this version.
 
 For the blackrain-ossec version, that will need to be an automated installation if possible
+
+In the end I could only get 2.8.3 working with the mars 2.8.3 agent

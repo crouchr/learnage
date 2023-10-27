@@ -9,8 +9,8 @@ echo "Started setup.sh for provisioning this node"
 yum update -y --disableplugin=fastestmirror
 
 echo 'Copy sources...'
-cp /vagrant/sources/ossec-hids-3.7.0.tar.gz /tmp/
-tar xvf /tmp/ossec-hids-3.7.0.tar.gz
+cp /vagrant/sources/ossec-hids-2.8.3.tar.gz /tmp/
+tar xvf /tmp/ossec-hids-2.8.3.tar.gz
 
 # sudo su -
 # cd /tmp
