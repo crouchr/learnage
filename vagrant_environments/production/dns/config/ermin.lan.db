@@ -36,7 +36,7 @@ kippo        IN  A       192.168.1.64
 nepenthes    IN  A       192.168.1.65
 amun         IN  A       192.168.1.66
 mars         IN  A       192.168.1.67
-
+;
 ; BlackRain Honeynet
 blackrain-sensor-1  IN  A  192.168.1.51
 blackrain-sensor-2  IN  A  192.168.1.52
@@ -51,4 +51,5 @@ blackrain-cuckoo   IN  A  192.168.1.84
 blackrain-netflow  IN  A  192.168.1.85
 ;
 ; Other 2
+web                IN  A  192.168.1.102
 registry           IN  A  192.168.1.109

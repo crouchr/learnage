@@ -47,11 +47,14 @@ sudo systemctl enable named
 sudo systemctl start named
 sudo systemctl status named
 
-echo 'Smoke checks"'
-nslookup web.ermin.lan 127.0.0.1
-nslookup chef.ermin.lan 127.0.0.1
-nslookup blackrain-sensor-1 127.0.0.1
-nslookup grafana.ermin.lan 127.0.0.1
+# Dump the status of the BIND server
+sudo rndc status
+
+#echo "Smoke checks"
+#nslookup web.ermin.lan 127.0.0.1
+#nslookup chef.ermin.lan 127.0.0.1
+#nslookup blackrain-sensor-1 127.0.0.1
+#nslookup grafana.ermin.lan 127.0.0.1
 
 echo "Finished setup.sh OK for provisioning this node"
 echo
