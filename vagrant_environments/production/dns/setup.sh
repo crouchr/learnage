@@ -34,10 +34,17 @@ cp /vagrant/scripts/bind_checks.sh /home/vagrant/
 #yum -y localinstall telegraf-1.8.3-1.x86_64.rpm
 #cp /vagrant/telegraf.conf /etc/telegraf/telegraf.conf
 
+# logs
 sudo mkdir -p /var/log/named
 touch /var/log/named/normal.log
-chmod -R 755 /var/log/named
 chown named: /var/log/named/normal.log
+
+# log queries in here
+touch /var/log/named/queries.log
+chown named: /var/log/named/queries.log
+
+# works on both log files
+chmod -R 755 /var/log/named
 
 sudo mkdir -p /run/named
 chown named: "/run/named"
@@ -50,7 +57,7 @@ sudo systemctl status named
 # Dump the status of the BIND server
 sudo rndc status
 
-#echo "Smoke checks"
+echo "Smoke checks"
 nslookup web.ermin.lan 127.0.0.1
 nslookup chef.ermin.lan 127.0.0.1
 nslookup blackrain-sensor-1.ermin.lan 127.0.0.1
