@@ -20,6 +20,8 @@ tar xvf /tmp/ossec-hids-3.7.0.tar.gz
 # server mode
 # no email alerting
 # no active response
+# no syscheck - until production ready
+# no rootkit detection - until production ready
 # no logging to udp 514 - i.e. only use encrypted channel via agents
 
 
