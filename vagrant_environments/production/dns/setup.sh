@@ -10,6 +10,9 @@ set -e	# bomb out if any problem
 echo 
 echo "Started setup.sh for provisioning this node"
 
+# This needs to go in Packer build
+sudo timedatectl set-timezone Europe/London
+
 yum update -y --disableplugin=fastestmirror
 
 
@@ -18,21 +21,11 @@ systemctl start named
 systemctl enable named
 systemctl status named #Should show active
 
-
-
-#yum -y install java-1.8.0-openjdk.x86_64
-# cp /vagrant/config.yml /etc/docker-distribution/registry/config.yml
-
-# ELK
-#wget -O /tmp/elasticsearch-7.9.2-x86_64.rpm https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.2-x86_64.rpm
-#rpm -ivh /tmp/elasticsearch-7.9.2-x86_64.rpm
-#yum -y localinstall elasticsearch-7.9.2-x86_64.rpm
-
-#echo 'Copy packages...'
-#cp /vagrant/packages/*.rpm /tmp/
-#rpm -ivh /tmp/logstash-oss-7.9.2.rpm
-#rpm -ivh /tmp/elasticsearch-oss-7.9.2-x86_64.rpm
-#rpm -ivh /tmp/kibana-oss-7.9.2-x86_64.rpm
+# FIXME : Do this in Packet job ?
+#echo 'Disable SELINUX configuration files...'
+#cp /vagrant/config/selinux /etc/sysconfig/selinux
+#setenforce 0
+#sestatus
 
 echo 'Copy BIND configuration files...'
 cp /vagrant/config/named.conf /etc/
@@ -43,30 +36,29 @@ echo 'Copy BIND check scripts...'
 chmod +x /vagrant/scripts/bind_checks.sh
 cp /vagrant/scripts/bind_checks.sh /home/vagrant/
 
-
-#cp /vagrant/config/elasticsearch.yml /etc/elasticsearch/
-#cp /vagrant/config/logstash.conf /etc/logstash/conf.d/
-#cp /vagrant/config/kibana.yml /etc/kibana/
-
 # Telegraf
 #wget https://dl.influxdata.com/telegraf/releases/telegraf-1.8.3-1.x86_64.rpm
 #yum -y localinstall telegraf-1.8.3-1.x86_64.rpm
 #cp /vagrant/telegraf.conf /etc/telegraf/telegraf.conf
 
-echo "Enable DNS services..."
-sudo systemctl start named
+sudo mkdir -p /var/log/named
+touch /var/log/named/normal.log
+chmod -R 755 /var/log/named
+chown named: /var/log/named/normal.log
+
+sudo mkdir -p /run/named
+chown named: "/run/named"
+
+echo "Enable and start BIND (named) services..."
 sudo systemctl enable named
+sudo systemctl start named
 sudo systemctl status named
 
-#echo "Enable ELK services..."
-#sudo systemctl enable logstash.service
-#sudo systemctl enable elasticsearch.service
-#sudo systemctl enable kibana.service
-
-#echo "Start ELK services..."
-#sudo systemctl start elasticsearch.service
-#sudo systemctl start logstash.service
-#sudo systemctl start kibana.service
+echo 'Smoke checks"'
+nslookup web.ermin.lan 127.0.0.1
+nslookup chef.ermin.lan 127.0.0.1
+nslookup blackrain-sensor-1 127.0.0.1
+nslookup grafana.ermin.lan 127.0.0.1
 
 echo "Finished setup.sh OK for provisioning this node"
 echo
