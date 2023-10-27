@@ -70,5 +70,8 @@ nslookup chef.ermin.lan 192.168.1.2
 nslookup blackrain-sensor-1.ermin.lan 192.168.1.2
 nslookup grafana.ermin.lan 192.168.1.2
 
+# Reverse DNS lookups
+nslookup 192.168.1.71 192.168.1.2
+
 echo "Finished setup.sh OK for provisioning this node"
 echo
