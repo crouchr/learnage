@@ -48,10 +48,13 @@ chmod -R 755 /var/log/named
 
 sudo mkdir -p /run/named
 chown named: "/run/named"
+sleep 5
 
+# Just having a start (& not restart) means named does not start correctly - ???
 echo "Enable and start BIND (named) services..."
 sudo systemctl enable named
-sudo systemctl start named
+sudo systemctl restart named
+sleep 3
 sudo systemctl status named
 
 # Dump the status of the BIND server
