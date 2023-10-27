@@ -1,0 +1,22 @@
+# OSSEC server for legacy mars blakckrain honeypot
+
+# Note : Only minimal memory until development starts
+# This is in multi-machine format
+
+Vagrant.configure("2") do |config|
+   config.vm.define "mars_ossec" do |mars_ossec|
+     mars_ossec.vm.box = "rch-centos7"
+     mars_ossec.vm.hostname = "mars-ossec"
+     mars_ossec.vm.box_check_update = false
+
+     mars_ossec.vm.network "public_network", ip: "192.168.1.85", bridge: "enp1s0"
+
+     mars_ossec.vm.provider "virtualbox" do |v|
+       v.memory = 512
+       v.cpus = 1
+     end
+
+     config.vm.provision "shell", path: "setup.sh"
+
+    end
+end
