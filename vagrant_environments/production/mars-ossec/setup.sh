@@ -7,14 +7,23 @@ echo
 echo "Started setup.sh for provisioning this node"
 
 yum update -y --disableplugin=fastestmirror
+yum install -y GeoIP-devel
+
+mkdir -p /var/ossec/etc
 
 echo 'Copy sources...'
 cp /vagrant/sources/ossec-hids-2.8.3.tar.gz /tmp/
-tar xvf /tmp/ossec-hids-2.8.3.tar.gz
+cp /vagrant/sources/GeoLiteCity.dat /var/ossec/etc/
 
 # sudo su -
 # cd /tmp
-
+# cp GeoLiteCity.dat /var/ossec/etc/
+# tar xvf ossec-hids-2.8.3.tar.gz
+# cd ossec-hids-2.8.3
+# cd src
+# make setgeoip
+# cd ..
+# ./install.sh
 
 
 # server mode
