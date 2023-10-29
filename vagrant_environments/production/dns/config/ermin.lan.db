@@ -48,7 +48,7 @@ blackrain-bind-hpot   IN  A  192.168.1.59
 blackrain-mgmt     IN  A  192.168.1.80
 blackrain-chef     IN  A  192.168.1.81
 blackrain-dns      IN  A  192.168.1.82
-blackrain-ossec    IN  A  192.168.1.83
+blackrain-wazuh    IN  A  192.168.1.100
 blackrain-netflow  IN  A  192.168.1.83
 blackrain-cuckoo   IN  A  192.168.1.84
 mars-ossec         IN  A  192.168.1.85
