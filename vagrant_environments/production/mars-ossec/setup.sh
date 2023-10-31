@@ -8,33 +8,28 @@ echo "Started setup.sh for provisioning this node"
 
 yum update -y --disableplugin=fastestmirror
 yum install -y GeoIP-devel
+#yum install -y mysql-devel
 
 mkdir -p /var/ossec/etc
 
 echo 'Copy sources...'
 cp /vagrant/sources/ossec-hids-2.8.3.tar.gz /tmp/
+cp /vagrant/installer/build.sh /tmp/
 cp /vagrant/sources/GeoLiteCity.dat /var/ossec/etc/
 
+# Now vagrant ssh into the node
+# vagrant ssh
 # sudo su -
 # cd /tmp
-# cp GeoLiteCity.dat /var/ossec/etc/
-# tar xvf ossec-hids-2.8.3.tar.gz
-# cd ossec-hids-2.8.3
-# cd src
-# make setgeoip
-# cd ..
-# ./install.sh
-
+# chmod +x build.sh
+# ./build.sh
 
 # server mode
 # no email alerting
 # no active response
-# no syscheck - until production ready
-# no rootkit detection - until production ready
-# no logging to udp 514 - i.e. only use encrypted channel via agents
-
-
-# /tmp/ossec-hids-2.9.3/install.sh
+# no syscheck
+# no rootkit detection
+# no syslog listener
 #
 # - In order to connect agent and server, you need to add each agent to the server.
 #   Run the 'manage_agents' to add or remove them:
