@@ -20,6 +20,7 @@ j1900        IN  A       192.168.1.5
 kube         IN  A       192.168.1.6
 ;
 ; Other 1 = Customer's nodes
+mars-elk     IN  A       192.168.1.55
 elk          IN  A       192.168.1.56
 grafana      IN  A       192.168.1.70
 chef         IN  A       192.168.1.71
