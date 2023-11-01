@@ -9,11 +9,11 @@ Vagrant.configure("2") do |config|
      mars_ossec.vm.hostname = "mars-ossec"
      mars_ossec.vm.box_check_update = false
 
-     mars_ossec.vm.network "public_network", ip: "192.168.1.85", bridge: "enp1s0"
+     mars_ossec.vm.network "public_network", ip: "192.168.1.85", bridge: " wlp3s0"
 
      mars_ossec.vm.provider "virtualbox" do |v|
-       v.memory = 1024
-       v.cpus = 2
+       v.memory = 2048
+       v.cpus = 1
      end
 
      config.vm.provision "shell", path: "setup.sh"
