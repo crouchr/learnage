@@ -2,6 +2,7 @@
 - add WUI 
 - add MySQl database on the node and write data to it
 - add self-signed SSL certs 
+- add modsec to protect WUI ?
 - output alerts in JSON format - need 2.9 or above - not possible
 - modify mars code to get tsom info to ossec - remove spurious fields before timestamp
 - can PSAD be run on mars - there are ossec rules for it

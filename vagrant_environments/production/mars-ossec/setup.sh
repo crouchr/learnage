@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-# OSSEC Server plus WUI
-# PHP 5.x install https://www.tecmint.com/install-php-5-6-on-centos-7/
+# OSSEC Server plus WUI plus MariaDB plus ClamAV
+# Built on CentOS7
+# Add interface to Cuckoo malware submission ?
 
+# PHP 5.x install https://www.tecmint.com/install-php-5-6-on-centos-7/
+# https://www.hostinger.co.uk/tutorials/how-to-install-clamav-centos7
 set -e	# bomb out if any problem
 
 echo 
@@ -15,6 +18,7 @@ yum-config-manager --enable remi-php56
 yum update -y --disableplugin=fastestmirror
 yum install -y mariadb-server mariadb-devel
 yum install -y httpd httpd-devel mod_ssl
+yum install -y clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
 yum install -y php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo
 yum install -y GeoIP-devel unzip
 yum install -y yum-utils
