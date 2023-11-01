@@ -1,6 +1,6 @@
 # TODO
 - add WUI 
-- add MySQl database on the node and write data to it
+- add MySQl database on the node and write ossec data to it
 - add self-signed SSL certs 
 - add modsec to protect WUI ?
 - output alerts in JSON format - need 2.9 or above - not possible
