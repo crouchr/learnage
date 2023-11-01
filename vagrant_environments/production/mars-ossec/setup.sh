@@ -13,9 +13,10 @@ yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum-config-manager --enable remi-php56
 
 yum update -y --disableplugin=fastestmirror
+yum install -y MariaDB-server
 yum install -y httpd httpd-devel mod_ssl
 yum install -y php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo
-yum install -y GeoIP-devel
+yum install -y GeoIP-devel unzip
 yum install -y yum-utils
 
 # Add jenkins into apache group so it can upload files
@@ -55,9 +56,33 @@ systemctl start httpd.service
 # server mode
 # no email alerting
 # no active response
-# no syscheck
-# no rootkit detection
-# no syslog listener
+# no syscheck - until production ready
+# no rootkit detection - until production ready
+# no logging to udp 514 - i.e. only use encrypted channel via agents
+
+
+# install wui
+# cd /tmp
+# unzip ossec-wui-master.zip
+# mv ossec-wui-master /var/www/
+# cd /var/www/html/ossec-wui
+# ./setup.sh
+
+# username : crouch
+# password : <spain hint>
+# run as apache
+# usermod -G ossec apache
+# chmod 770 /tmp
+# chgrp apache /tmp
+
+# systemctl restart httpd
+
+
+
+
+
+
+# /tmp/ossec-hids-2.9.3/install.sh
 #
 # - In order to connect agent and server, you need to add each agent to the server.
 #   Run the 'manage_agents' to add or remove them:
