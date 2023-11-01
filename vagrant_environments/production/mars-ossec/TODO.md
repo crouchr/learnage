@@ -3,7 +3,7 @@
 - add MySQl database on the node and write ossec data to it
 - add self-signed SSL certs 
 - add modsec to protect WUI ?
-- add Chef Server on here to make it the 'blackrain management server' ?
+- add Chef Server on here to make it the all-in-one 'mars (legacy) management server' ?
 - output alerts in JSON format - need 2.9 or above - not possible
 - modify mars code to get tsom info to ossec - remove spurious fields before timestamp
 - can PSAD be run on mars - there are ossec rules for it
@@ -16,10 +16,13 @@
 - Runs correlation of rules (OSSEC)
 - Run as Chef Server (or CINQ?) for maintaining hpot agents (config management)
 - Stores captured malware 
+- Runs as a general MySQL server ()
 - Run ClamAV (malware analysis)
 - Submits to Cuckoo (malware analysis)
 - Sends alerts to upstream ELK system (SIEM)
 - Stores raw logs (syslog server)
+- Produce visualisations using AfterGlow (and email them)
+- Send TIMP data to TIM
 
 ## Rules
 
