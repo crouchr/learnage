@@ -6,6 +6,7 @@ tar xvf ossec-hids-2.8.3.tar.gz
 cd ossec-hids-2.8.3
 cd src
 make setgeoip
+make setdb
 cd ..
 
 # now run the ossec installer

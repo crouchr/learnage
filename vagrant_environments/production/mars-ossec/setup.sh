@@ -13,7 +13,7 @@ yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum-config-manager --enable remi-php56
 
 yum update -y --disableplugin=fastestmirror
-yum install -y MariaDB-server
+yum install -y mariadb-server mariadb-devel
 yum install -y httpd httpd-devel mod_ssl
 yum install -y php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo
 yum install -y GeoIP-devel unzip
@@ -56,20 +56,20 @@ systemctl start httpd.service
 # server mode
 # no email alerting
 # no active response
-# no syscheck - until production ready
-# no rootkit detection - until production ready
+# syscheck - until production ready
+# rootkit detection - until production ready
 # no logging to udp 514 - i.e. only use encrypted channel via agents
 
 
 # install wui
 # cd /tmp
 # unzip ossec-wui-master.zip
-# mv ossec-wui-master /var/www/
-# cd /var/www/html/ossec-wui
+# mv ossec-wui-master /var/www/ossec-wui
+# cd /var/www/ossec-wui
 # ./setup.sh
 
 # username : crouch
-# password : <spain hint>
+# password : <solar>
 # run as apache
 # usermod -G ossec apache
 # chmod 770 /tmp
@@ -78,6 +78,10 @@ systemctl start httpd.service
 # systemctl restart httpd
 
 
+# here is the error
+# Not Found
+#
+# The requested URL /ossec-wui/ was not found on this server.
 
 
 
