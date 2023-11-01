@@ -11,6 +11,8 @@
 - see if can get running ossec+ very latest code and still works with mars (legacy)
 - export as OVA and run on 32GB node as a pet
 
+# long-term
+- Can I build it on a Rocky 8 Linux machine before Centos7 runs out -> create a Packer job for Rocky 8
 
 # role
 - Runs correlation of rules (OSSEC)
