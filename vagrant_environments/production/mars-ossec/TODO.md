@@ -14,15 +14,18 @@
 
 # role
 - Runs correlation of rules (OSSEC)
-- Run as Chef Server (or CINQ?) for maintaining hpot agents (config management)
+- Run as Chef Server (or CINQ in future) for maintaining hpot agents (config management)
 - Stores captured malware 
-- Runs as a general MySQL server ()
+- Runs as a general MySQL Server
 - Run ClamAV (malware analysis)
 - Submits to Cuckoo (malware analysis)
 - Sends alerts to upstream ELK system (SIEM)
-- Stores raw logs (syslog server)
+- Stores raw logs (syslog-ng server)
 - Produce visualisations using AfterGlow (and email them)
 - Send TIMP data to TIM
+- Single location for Snort rules. mars downloads them nightly via http
+- Add Docker and then run the mars REST container to MQTT adapter
+- Run TSOM algorithm centrally (in a Docker container)
 
 ## Rules
 
