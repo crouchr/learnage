@@ -69,6 +69,7 @@ systemctl start httpd.service
 # cd /tmp
 # unzip ossec-wui-master.zip
 # mv ossec-wui-master /var/www/ossec-wui
+# mv /var/www/ossec-wui/ /var/www/html/
 # cd /var/www/ossec-wui
 # ./setup.sh
 
