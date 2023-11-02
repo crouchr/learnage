@@ -10,6 +10,7 @@ make setdb
 cd ..
 
 # now run the ossec installer
+DATABASE=mysql ./install.sh
 ./install.sh
 
 # make setdb
@@ -30,3 +31,16 @@ cd ..
 # run /var/ossec/bin/ossec-control enable client-syslog
 ## run /var/ossec/bin/ossec-control enable database
 # run /var/ossec/bin/ossec-control restart
+
+
+MariaDB [ossec]> show databases;
+MariaDB [ossec]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| ossec              |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
