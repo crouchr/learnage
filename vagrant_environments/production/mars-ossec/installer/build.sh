@@ -1,3 +1,11 @@
+
+# Fix PHP
+[Date]
+; Defines the default timezone used by the date functions
+; http://www.php.net/manual/en/datetime.configuration.php#ini.date.timezone
+date.timezone = 'Europe/London'
+
+
 # Install ossec-server
 # you must be root to run this
 cd /tmp
@@ -32,8 +40,8 @@ DATABASE=mysql ./install.sh
 ## run /var/ossec/bin/ossec-control enable database
 # run /var/ossec/bin/ossec-control restart
 
-
-MariaDB [ossec]> show databases;
+# Password: sec...sql
+mysql -u root -p
 MariaDB [ossec]> show databases;
 +--------------------+
 | Database           |
