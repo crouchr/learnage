@@ -10,7 +10,7 @@ systemctl status mariadb
 mysql_secure_installation
 
 # root password is sec....ql
-[root@mars-ossec mariadb]# mysql_secure_installation
+#[root@mars-ossec mariadb]# mysql_secure_installation
 
 #NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
 #      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
@@ -85,7 +85,7 @@ quit
 
 # ossec is the name of the database
 # use sec...sql when prompted for password
-cd /tmp/ossec-hids-2.8.3/src/os_dbd
+cd /tmp/ossec-hids-3.7.0/src/os_dbd
 mysql -u root -p ossec < mysql.schema
 
 
@@ -105,4 +105,4 @@ mysql -u root -p ossec < mysql.schema
 /var/ossec/bin/ossec-control restart
 
 # ossec-dbd should be running
-ossecm   23135  0.2  0.1 129080  3492 ?        S    07:40   0:00 /var/ossec/bin/ossec-dbd
+# ossecm   23135  0.2  0.1 129080  3492 ?        S    07:40   0:00 /var/ossec/bin/ossec-dbd

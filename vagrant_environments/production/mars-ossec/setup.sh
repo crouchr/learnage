@@ -16,11 +16,12 @@ yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum-config-manager --enable remi-php56
 
 yum update -y --disableplugin=fastestmirror
+yum install -y zlib-devel pcre2-devel make gcc sqlite-devel openssl-devel libevent-devel systemd-devel
 yum install -y mariadb-server mariadb-devel
 yum install -y httpd httpd-devel mod_ssl
 yum install -y clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
 yum install -y php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo
-yum install -y GeoIP-devel unzip
+yum install -y GeoIP-devel unzip pcre2-devel
 yum install -y yum-utils
 
 # Add jenkins into apache group so it can upload files
@@ -40,9 +41,9 @@ cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
 mkdir -p /var/ossec/etc
 
 echo 'Copy sources...'
-cp /vagrant/sources/ossec-hids-2.8.3.tar.gz /tmp/
+cp /vagrant/sources/ossec-hids-3.7.0.tar.gz /tmp/
 cp /vagrant/installer/build.sh /tmp/
-cp /vagrant/sources/ossec-wui-master.zip /tmp/
+cp /vagrant/sources/ossec-wui-0.8.zip /tmp/
 cp /vagrant/sources/GeoLiteCity.dat /var/ossec/etc/
 
 # Now vagrant ssh into the node
@@ -65,13 +66,7 @@ systemctl start httpd.service
 # no logging to udp 514 - i.e. only use encrypted channel via agents
 
 
-# install wui
-# cd /tmp
-# unzip ossec-wui-master.zip
-# mv ossec-wui-master /var/www/ossec-wui
-# mv /var/www/ossec-wui/ /var/www/html/
-# cd /var/www/ossec-wui
-# ./setup.sh
+
 
 # username : crouch
 # password : <solar>
