@@ -32,3 +32,7 @@ MySQL server is also installed on this node and Ossec writes to it
 
 ## Todo
 - Modify to support logging to MySQL database  
+
+
+## installing database support
+see https://www.ossec.net/docs/manual/output/mysql-database-output.html

@@ -44,3 +44,21 @@ MariaDB [ossec]> show databases;
 | performance_schema |
 +--------------------+
 4 rows in set (0.00 sec)
+
+MariaDB [ossec]> use ossec;
+Database changed
+MariaDB [ossec]> show tables;
++----------------------------+
+| Tables_in_ossec            |
++----------------------------+
+| agent                      |
+| alert                      |
+| category                   |
+| data                       |
+| location                   |
+| server                     |
+| signature                  |
+| signature_category_mapping |
++----------------------------+
+8 rows in set (0.00 sec)
+
