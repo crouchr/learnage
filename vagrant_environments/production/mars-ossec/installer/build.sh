@@ -127,3 +127,11 @@ MariaDB [ossec]> SELECT * FROM alert;
 +----+-----------+---------+------------+-------------+--------+--------+----------+----------+-----------------+
 2 rows in set (0.00 sec)
 
+MariaDB [ossec]> SELECT rule_id,location.name location, INET_NTOA(src_ip) srcip, full_log FROM alert,location, data WHERE location.id = alert.location_id AND data.id = alert.id AND data.server_id = alert.server_id;
++---------+----------------------------+---------+----------------------------------------------------------------------------------------------------------+
+| rule_id | location                   | srcip   | full_log                                                                                                 |
++---------+----------------------------+---------+----------------------------------------------------------------------------------------------------------+
+|     531 | mars-ossec->df -h          | 0.0.0.0 | ossec: output: `df -h`: /dev/loop0                41M   41M     0 100% /var/lib/snapd/snap/termshark/803 |
+|     502 | mars-ossec->ossec-monitord | 0.0.0.0 | ossec: Ossec started.                                                                                    |
++---------+----------------------------+---------+----------------------------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
