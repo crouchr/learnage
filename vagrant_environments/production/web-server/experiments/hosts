@@ -1,0 +1,61 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+# Physical hardware
+192.168.1.1 dsl-router
+192.168.1.2 xps
+192.168.1.4 cuckoo
+192.168.1.5 mrdell
+192.168.1.6 j1900
+192.168.1.7 node7
+192.168.1.8 netgear
+192.168.1.9 macmini
+192.168.1.12 cumumlusmx
+192.168.1.15 xw6600
+
+# metmini pipeline
+192.168.1.180 docker-prd
+192.168.1.182 docker-dev
+192.168.1.185 metmini-itg
+192.168.1.187 metmini-preprod
+
+# Monitoring Services (.40 - .50)
+192.168.1.20 rancid
+192.168.1.40 nessus
+192.168.1.41 osiris
+192.168.1.42 mysql
+192.168.1.43 ourmon
+192.168.1.45 seconion
+192.168.1.47 nagios
+
+# Other
+192.168.1.99 rbn
+
+# dev/staging nodes
+192.168.1.71 rev-proxy
+192.168.1.72 ldap-server
+192.168.1.108 grafanadev
+
+# Virtual nodes
+192.168.1.95 metcrouch
+192.168.1.100 spacewalk
+192.168.1.102 web
+192.168.1.103 waf
+192.168.1.104 squid
+192.168.1.105 observium
+192.168.1.106 logging
+192.168.1.107 mongodb
+192.168.1.109 registry
+192.168.1.70 grafana
+
+# honeypots (.110 to .119)
+192.168.1.111 slack11-hpot
+192.168.1.112 slack12-hpot
+192.168.1.113 slack13-hpot
+192.168.1.114 slack14-hpot
+192.168.1.115 centos5-hpot
+192.168.1.116 centos6-hpot
+192.168.1.117 centos7-hpot
+
+# BR2020
+192.168.1.167 br2020
