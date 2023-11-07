@@ -1,0 +1,1 @@
+Packages built for 64-bit Slackware 14.2

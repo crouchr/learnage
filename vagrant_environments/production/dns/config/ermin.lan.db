@@ -18,18 +18,24 @@ ns1          IN  A       192.168.1.2
 ossec        IN  A       192.168.1.3
 j1900        IN  A       192.168.1.5
 kube         IN  A       192.168.1.6
+gitea        IN  A       192.168.1.7
+chef         IN  A       192.168.1.8
+nagios       IN  A       192.168.1.9
+web          IN  A       192.168.1.102
+registry     IN  A       192.168.1.109
 ;
 ; Other 1 = Customer's nodes
 elk-research IN  A       192.168.1.55
 elk-customer IN  A       192.168.1.56
 mars-syslog  IN  A       192.168.1.57
 grafana      IN  A       192.168.1.70
-chef         IN  A       192.168.1.71
+# unused
 timp         IN  A       192.168.1.72
 prelude      IN  A       192.168.1.73
 cactus       IN  A       192.168.1.74
 ;
 ; Mars (legacy)
+; These to go into another zone
 htrap        IN  A       192.168.1.60
 spamhole     IN  A       192.168.1.61
 glastopf     IN  A       192.168.1.62
@@ -56,7 +62,4 @@ blackrain-cuckoo   IN  A  192.168.1.84
 mars-ossec         IN  A  192.168.1.85
 blackrain-tacacs   IN  A  192.168.1.86
 blackrain-timp     IN  A  192.168.1.87
-;
-; Other 2
-web                IN  A  192.168.1.102
-registry           IN  A  192.168.1.109
+mars-logstasher    IN  A  192.168.1.88

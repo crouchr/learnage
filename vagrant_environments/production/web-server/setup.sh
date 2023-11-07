@@ -45,6 +45,9 @@ chown -R apache:apache /var/www/html/public-keys
 mkdir -p /var/www/html/isos
 chown -R apache:apache /var/www/html/isos
 
+mkdir -p /var/www/html/dross
+chown -R apache:apache /var/www/html/dross
+
 mkdir -p /var/www/html/br2020-packages
 chown -R apache:apache /var/www/html/br2020-packages
 
@@ -105,6 +108,10 @@ cp /vagrant/apache/centos7-packages/*.rpm /var/www/html/centos7-packages/
 # Store BR2020 packages
 echo "Copying test malware files..."
 cp /vagrant/apache/br-mal-files/* /var/www/html/br-mal-files/
+
+# Any file you need hosting
+echo "Copying dross files..."
+cp /vagrant/apache/dross/* /var/www/html/dross/
 
 # Store BR2020 packages
 echo "Copying BR2020 CentOS7 packages and source code..."
