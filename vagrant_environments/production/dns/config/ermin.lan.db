@@ -35,7 +35,7 @@ prelude      IN  A       192.168.1.73
 cactus       IN  A       192.168.1.74
 ;
 ; Mars (legacy)
-; These to go into another zone
+; These to go into another zone ?
 htrap        IN  A       192.168.1.60
 spamhole     IN  A       192.168.1.61
 glastopf     IN  A       192.168.1.62
@@ -63,3 +63,14 @@ mars-ossec         IN  A  192.168.1.85
 blackrain-tacacs   IN  A  192.168.1.86
 blackrain-timp     IN  A  192.168.1.87
 mars-logstasher    IN  A  192.168.1.88
+;
+; 2nd mars system
+; These to go into another zone ?
+htrap-base      IN  A       192.168.1.90
+#spamhole       IN  A       192.168.1.91
+glastopf-base   IN  A       192.168.1.92
+#honeyd         IN  A       192.168.1.93
+kippo-base      IN  A       192.168.1.94
+#nepenthes      IN  A       192.168.1.95
+amun-base       IN  A       192.168.1.96
+mars-base       IN  A       192.168.1.97
