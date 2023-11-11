@@ -16,6 +16,7 @@ $TTL 86400
 int-gw       IN  A       192.168.1.1
 ns1          IN  A       192.168.1.2
 ossec        IN  A       192.168.1.3
+packer       IN  A       192.168.1.4
 j1900        IN  A       192.168.1.5
 kube         IN  A       192.168.1.6
 gitea        IN  A       192.168.1.7
