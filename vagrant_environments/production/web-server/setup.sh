@@ -51,6 +51,10 @@ chown -R apache:apache /var/www/html/dross
 mkdir -p /var/www/html/br2020-packages
 chown -R apache:apache /var/www/html/br2020-packages
 
+# Register sensor
+mkdir -p /var/www/html/blackrain
+chown -R apache:apache /var/www/html/blackrain
+
 mkdir -p /var/www/html/centos7-packages
 chown -R apache:apache /var/www/html/centos7-packages
 
@@ -83,6 +87,11 @@ echo "Copying core (root-owned) web server configuration and content..."
 cp /vagrant/apache/minimal-index.html /var/www/html/index.html
 chown apache:apache /var/www/html/index.html
 chmod 755 /var/www/html/index.html
+
+# BlackRain registration page WIP)
+cp /vagrant/apache/blackrain.html /var/www/html/blackrain/index.html
+chown apache:apache /var/www/html/blackrain/index.html
+chmod 755 /var/www/html/blackrain/index.html
 
 cp /vagrant/apache/minimal-httpd.conf /etc/httpd/httpd.conf
 
