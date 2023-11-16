@@ -22,6 +22,7 @@ kube                IN  A       192.168.1.6
 blackrain-builder   IN  A       192.168.1.7
 chef                IN  A       192.168.1.8
 nagios              IN  A       192.168.1.9
+ansible             IN  A       192.168.1.10
 ;
 mars-base           IN  A       192.168.1.15
 web                 IN  A       192.168.1.102
