@@ -58,8 +58,14 @@ chown -R apache:apache /var/www/html/blackrain
 mkdir -p /var/www/html/centos7-packages
 chown -R apache:apache /var/www/html/centos7-packages
 
-mkdir -p /var/www/html/slackware-14-2-packages
-chown -R apache:apache /var/www/html/slackware-14-2-packages
+mkdir -p /var/www/html/slackware/noarch
+chown -R apache:apache /var/www/html/slackware/noarch
+mkdir -p /var/www/html/slackware/slackware-12.0
+chown -R apache:apache /var/www/html/slackware/slackware-12.0
+mkdir -p /var/www/html/slackware/slackware-14-2
+chown -R apache:apache /var/www/html/slackware/slackware-14-2
+mkdir -p /var/www/html/slackware/slackware-15-0
+chown -R apache:apache /var/www/html/slackware/slackware-15-0
 
 mkdir -p /var/www/html/source-code
 chown -R apache:apache /var/www/html/source-code
@@ -145,8 +151,15 @@ cp /vagrant/apache/br2020-packages/config-generic* /var/www/html/br2020-packages
 #cp /vagrant/apache/source-code/*.tar.gz /var/www/html/source-code/
 #chmod 755 /var/www/html/source-code/*
 
+echo "Copying Slackware noarch packages..."
+cp /vagrant/apache/slackware/noarch/*.tgz /var/www/html/slackware/noarch/
+#echo "Copying Slackware 12.0 packages..."
+#cp /vagrant/apache/slackware/slackware-12-0/*.tgz /var/www/html/slackware/slackware-12-0/
 echo "Copying Slackware 14.2 packages..."
-cp /vagrant/apache/slackware-14-2-packages/*.tgz /var/www/html/slackware-14-2-packages/
+cp /vagrant/apache/slackware/slackware-14-2/*.tgz /var/www/html/slackware/slackware-14-2/
+cp /vagrant/apache/slackware/slackware-14-2/*.txz /var/www/html/slackware/slackware-14-2/
+#echo "Copying Slackware 15.0 packages..."
+#cp /vagrant/apache/slackware/slackware-15-0/*.tgz /var/www/html/slackware/slackware-15-0/
 
 # https://serverfault.com/questions/153875/how-to-let-cp-command-dont-fire-an-error-when-source-file-does-not-exist
 #echo "Copying Python packages into my artifacts..."
@@ -161,7 +174,10 @@ cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packag
 #cp /vagrant/apache/python-packages/vonageapi/*.whl /var/www/html/python-packages/vonageapi/
 
 chmod 755 /var/www/html/br2020-packages/*
-#chmod 755 /var/www/html/slackware-14-2-packages/*
+chmod 755 /var/www/html/slackware/noarch/*
+#chmod 755 /var/www/html/slackware/slackware-12-0/*
+chmod 755 /var/www/html/slackware/slackware-14-2/*
+#chmod 755 /var/www/html/slackware/slackware-15-0/*
 
 # Store public keys on web server for easy retrieval
 echo "Copying public-keys..."
