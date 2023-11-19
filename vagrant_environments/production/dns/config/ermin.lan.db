@@ -27,7 +27,7 @@ mars-builder        IN  A       192.168.1.11
 ;
 mars-base           IN  A       192.168.1.15
 web                 IN  A       192.168.1.102
-squid               IN  A       192.168.1.104
+squid               IN  A       192.168.1.103
 registry            IN  A       192.168.1.109
 ;
 ; Other 1 = Customer's nodes
