@@ -9,5 +9,7 @@
 
  CentOS7 / Squid v3.5.20
 
- Configured to allow Mars to access PyPI due ot TLS issues
+ Configured to allow Mars to access
+ SSL-enabled sites (e.g. PyPI) due to
+ Slackware 12.0 TLS issues
 
