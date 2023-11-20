@@ -1,0 +1,13 @@
+   _____             _     _
+  / ____|           (_)   | |
+ | (___   __ _ _   _ _  __| |
+  \___ \ / _` | | | | |/ _` |
+  ____) | (_| | |_| | | (_| |
+ |_____/ \__, |\__,_|_|\__,_|
+            | |
+            |_|
+
+ CentOS7 / Squid v3.5.20
+
+ Configured to allow Mars to access PyPI due ot TLS issues
+
