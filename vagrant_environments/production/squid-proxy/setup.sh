@@ -25,15 +25,14 @@ cp /vagrant/squid/certs/squid.pem /etc/squid/certs/
 chown squid:squid -R /etc/squid/certs
 chmod 700 /etc/squid/certs/squid.pem
 
-#echo "Create database..."
-#./usr/lib64/squid/ssl_crtd -c -s /var/lib/ssl_db
-
 echo "Starting Squid..."
 systemctl enable squid.service
-systemctl start squid.service
+#systemctl start squid.service
 
-echo "Create database..."
-./usr/lib64/squid/ssl_crtd -c -s /var/lib/ssl_db
+# TODO : fix this
+#  Manually have to vagrant ssh into it and do this
+# /usr/lib64/squid/ssl_crtd -c -s /var/lib/ssl_db
+# and then systemctl start squid.service
 
 echo "Finished setup.sh OK for provisioning this Squid v3.5.20 node"
 echo
