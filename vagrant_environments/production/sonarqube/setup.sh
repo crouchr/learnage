@@ -26,9 +26,10 @@ EOF
 sysctl --system
 
 echo "[+] Add sonar user"
-adduser sonar
-echo "[+] Set sonar user password"
-echo sonar:myson65-ssword | chpasswd
+#adduser sonar
+#echo "[+] Set sonar user password"
+#echo sonar:myson65-ssword | chpasswd
+useradd --system --no-create-home sonar
 
 # install Java
 wget -q -O /tmp/jdk-17_linux-x64_bin.rpm https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.rpm
@@ -51,39 +52,50 @@ echo "[+] Setup postgresql initdb"
 echo "[+] Enable postgresql"
 systemctl enable --now postgresql-14
 
-echo "[+] Copy postgresql configuration file"
+echo "[+] Copy postgresql configuration files"
 cp /vagrant/config/pg_hba.conf /var/lib/pgsql/14/data/
+cp /vagrant/config/postgresql.conf /var/lib/pgsql/14/data/
 
 echo "[+] Restart postgresql"
 systemctl restart postgresql-14
 
-echo "[+] Temporarily sudo into postgresql user and create databases"
+
+
+# firewall is disabled
+#firewall-cmd --permanent --add-port=5432/tcp
+#firewall-cmd --reload
+
+#echo "[+] Temporarily sudo into postgresql user and create databases"
 #chmod 777 /home/vagrant
 #sudo -u postgres createuser vagrant -s && sudo -u postgres createdb vagrant && sudo -u postgres createdb sonarqube
 #sudo -u postgres createuser sonar -s && sudo -u postgres createdb sonarqube
 
-echo "[+] Change postgresql user password and create SonarQube database"
+#echo "[+] Change postgresql user password and create SonarQube database"
+#sudo -u postgres psql <<_EOF_
+#alter user postgres with password 'secretsql';
+#quit
+#_EOF_
+
+echo "[+] Create sonar database and user in postgresql"
 sudo -u postgres psql <<_EOF_
-alter user postgres with password 'secretsql';
+CREATE DATABASE sonar;
+CREATE USER sonar WITH ENCRYPTED PASSWORD 'secretsql';
+GRANT ALL PRIVILEGES ON DATABASE sonar TO sonar;
+ALTER DATABASE sonar OWNER TO sonar;
 quit
 _EOF_
 
-echo "[+] Create sonarqube user in postgresql"
-sudo -u postgres psql <<_EOF_
-CREATE USER sonarqube WITH PASSWORD 'secretsql';
-GRANT ALL PRIVILEGES ON DATABASE sonar to sonar;
-quit
-_EOF_
-
-echo "[+] Install SonarQube"
+echo "[+] Install SonarQube v9"
 cd /tmp
 unzip sonarqube-*.zip
-
-#echo "[+] Premature exit to facilitate troubleshooting"
-#exit 0
-
 mv /tmp/sonarqube-9.9.1.69595/ /opt/sonarqube
 rm  -rf /tmp/sonarqube*
+
+echo "[+] Configure SonarQube"
+cp /vagrant/config/sonar.properties /opt/sonarqube/conf/
+
+echo "[+] Set SonarQube permissions"
+chown -R sonar:sonar /opt/sonarqube
 
 echo "[+] install SonarQube systemd script"
 cp /vagrant/config/sonarqube.service /etc/systemd/system/sonarqube.service
