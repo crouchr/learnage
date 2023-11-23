@@ -40,9 +40,11 @@ java -version
 # Configure node
 cp /vagrant/config/motd /etc/
 
-echo "[+] Download SonarQube v9.9.1"
-wget -q -O /tmp/sonarqube-9.9.1.69595.zip https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.9.1.69595.zip
-
+# FIXME - move to start of file
+SONAR_VERSION='10.3.0.82913'
+echo "[+] Download SonarQube v${SONAR_VERSION}"
+#wget -q -O /tmp/sonarqube-9.9.1.69595.zip https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.9.1.69595.zip
+wget -q -O /tmp/sonarqube-${SONAR_VERSION}.zip https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip
 yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
 yum -y install postgresql14-server postgresql14
 
@@ -88,7 +90,8 @@ _EOF_
 echo "[+] Install SonarQube v9"
 cd /tmp
 unzip sonarqube-*.zip
-mv /tmp/sonarqube-9.9.1.69595/ /opt/sonarqube
+#mv /tmp/sonarqube-9.9.1.69595/ /opt/sonarqube
+mv /tmp/sonarqube-${SONAR_VERSION}/ /opt/sonarqube
 rm  -rf /tmp/sonarqube*
 
 echo "[+] Configure SonarQube"
