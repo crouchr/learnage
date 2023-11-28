@@ -35,6 +35,7 @@ pypi                IN  A       192.168.1.105
 registry            IN  A       192.168.1.109
 ;
 ; Other 1 = Customer's nodes
+cuckoo       IN  A       192.168.1.20
 elk-research IN  A       192.168.1.55
 elk-customer IN  A       192.168.1.56
 mars-syslog  IN  A       192.168.1.57
@@ -69,7 +70,7 @@ blackrain-chef     IN  A  192.168.1.81
 blackrain-dns      IN  A  192.168.1.82
 blackrain-wazuh    IN  A  192.168.1.100
 blackrain-netflow  IN  A  192.168.1.83
-blackrain-cuckoo   IN  A  192.168.1.84
+#blackrain-cuckoo   IN  A  192.168.1.84
 mars-ossec         IN  A  192.168.1.85
 blackrain-tacacs   IN  A  192.168.1.86
 blackrain-timp     IN  A  192.168.1.87
