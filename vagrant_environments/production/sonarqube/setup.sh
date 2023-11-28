@@ -8,6 +8,8 @@ set -e	# bomb out if any problem
 echo 
 echo "Started setup.sh for provisioning SonarQube node"
 
+SONAR_VERSION='10.3.0.82913'
+
 # Check for patch updates - slows up boot so need a way of avoiding this
 yum update -y --disableplugin=fastestmirror
 
@@ -41,7 +43,7 @@ java -version
 cp /vagrant/config/motd /etc/
 
 # FIXME - move to start of file
-SONAR_VERSION='10.3.0.82913'
+
 echo "[+] Download SonarQube v${SONAR_VERSION}"
 #wget -q -O /tmp/sonarqube-9.9.1.69595.zip https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.9.1.69595.zip
 wget -q -O /tmp/sonarqube-${SONAR_VERSION}.zip https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip
@@ -61,22 +63,9 @@ cp /vagrant/config/postgresql.conf /var/lib/pgsql/14/data/
 echo "[+] Restart postgresql"
 systemctl restart postgresql-14
 
-
-
 # firewall is disabled
 #firewall-cmd --permanent --add-port=5432/tcp
 #firewall-cmd --reload
-
-#echo "[+] Temporarily sudo into postgresql user and create databases"
-#chmod 777 /home/vagrant
-#sudo -u postgres createuser vagrant -s && sudo -u postgres createdb vagrant && sudo -u postgres createdb sonarqube
-#sudo -u postgres createuser sonar -s && sudo -u postgres createdb sonarqube
-
-#echo "[+] Change postgresql user password and create SonarQube database"
-#sudo -u postgres psql <<_EOF_
-#alter user postgres with password 'secretsql';
-#quit
-#_EOF_
 
 echo "[+] Create sonar database and user in postgresql"
 sudo -u postgres psql <<_EOF_
