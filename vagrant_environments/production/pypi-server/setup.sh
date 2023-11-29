@@ -38,13 +38,18 @@ echo "[+] Python smoke tests"
 #python3.9 --version
 python3 --version
 
-echo "[+] Install PyPi Server dependencies"
+echo "[+] Install PyPi Server with authentication capabilities"
 cp /vagrant/install/requirements.txt /tmp/
 pip3.9 install -r /tmp/requirements.txt --root-user-action=ignore --disable-pip-version-check
+pip3.9 install --root-user-action=ignore --disable-pip-version-check pypiserver['passlib']==2.0.1
 
 echo "[+] Install some test wheels/packages"
 mkdir /home/vagrant/packages
 cp /vagrant/packages/*.whl /home/vagrant/packages/
+
+# generate on web-server
+echo "[+] Install authentication password file"
+cp /vagrant/config/htpasswd.txt /home/vagrant/.htpasswd.txt
 
 echo "[+] Install PyPi systemd script"
 cp /vagrant/config/pypi.service /etc/systemd/system/pypi.service
@@ -53,7 +58,9 @@ chmod 0755 /etc/systemd/system/pypi.service
 echo "[+] Start the PyPi server"
 #/usr/local/bin/pypi-server run -p 8080 -a update,download --log-file /var/log/pypiserver.log /home/vagrant/packages &
 # run with no authentication
-/usr/local/bin/pypi-server run -p 8080 --log-file /var/log/pypiserver.log /home/vagrant/packages &
+# /usr/local/bin/pypi-server run -p 8080 --log-file /var/log/pypiserver.log /home/vagrant/packages &
+/usr/local/bin/pypi-server run -p 8080 --log-file /var/log/pypiserver.log -a update,download --passwords /home/vagrant/.htpasswd.txt --disable-fallback --overwrite /home/vagrant/packages &
+
 
 # systemctl not working
 #echo "[+] Reload systemd daemon"
