@@ -13,4 +13,5 @@
  Built on CentOS7 (Packer=rch-centos7)
 
  Access via http://192.168.1.105:8080/
-
+ username: mars
+ password: humptydumpty
