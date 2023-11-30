@@ -25,6 +25,7 @@ nagios              IN  A       192.168.1.9
 ansible-dev         IN  A       192.168.1.10
 mars-builder        IN  A       192.168.1.11
 sonarqube           IN  A       192.168.1.12
+wdcloud             IN  A       192.168.1.13
 vcc-sonarqube       IN  A       192.168.1.14
 ;
 mars-base           IN  A       192.168.1.15
