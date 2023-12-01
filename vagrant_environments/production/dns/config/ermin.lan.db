@@ -29,6 +29,7 @@ wdcloud             IN  A       192.168.1.13
 vcc-sonarqube       IN  A       192.168.1.14
 ;
 mars-base           IN  A       192.168.1.15
+cloudex2            IN  A       192.168.1.16
 web                 IN  A       192.168.1.102
 squid               IN  A       192.168.1.103
 broken              IN  A       192.168.1.104
