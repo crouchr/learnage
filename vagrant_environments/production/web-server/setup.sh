@@ -48,6 +48,9 @@ chown -R apache:apache /var/www/html/isos
 mkdir -p /var/www/html/dross
 chown -R apache:apache /var/www/html/dross
 
+mkdir -p /var/www/html/br2023-sources
+chown -R apache:apache /var/www/html/br2023-sources
+
 mkdir -p /var/www/html/br2020-packages
 chown -R apache:apache /var/www/html/br2020-packages
 
@@ -94,7 +97,7 @@ cp /vagrant/apache/minimal-index.html /var/www/html/index.html
 chown apache:apache /var/www/html/index.html
 chmod 755 /var/www/html/index.html
 
-# BlackRain registration page WIP)
+# BlackRain registration page (WIP)
 cp /vagrant/apache/blackrain.html /var/www/html/blackrain/index.html
 chown apache:apache /var/www/html/blackrain/index.html
 chmod 755 /var/www/html/blackrain/index.html
@@ -127,6 +130,10 @@ cp /vagrant/apache/br-mal-files/* /var/www/html/br-mal-files/
 # Any file you need hosting
 echo "Copying dross files..."
 cp /vagrant/apache/dross/* /var/www/html/dross/
+
+echo "Copying BlackRain 2023 Third-party sources..."
+cp /vagrant/apache/br2023-sources/*.tar.gz /var/www/html/br2023-sources/
+cp /vagrant/apache/br2023-sources/*.zip /var/www/html/br2023-sources/
 
 # Store BR2020 packages
 echo "Copying BR2020 CentOS7 packages and source code..."
@@ -173,6 +180,7 @@ cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packag
 #cp /vagrant/apache/python-packages/mqttfuncs/*.whl /var/www/html/python-packages/mqttfuncs/
 #cp /vagrant/apache/python-packages/vonageapi/*.whl /var/www/html/python-packages/vonageapi/
 
+chmod 755 /var/www/html/br2023-sources/*
 chmod 755 /var/www/html/br2020-packages/*
 chmod 755 /var/www/html/slackware/noarch/*
 #chmod 755 /var/www/html/slackware/slackware-12-0/*
