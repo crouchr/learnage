@@ -89,3 +89,8 @@ kippo-base      IN  A       192.168.1.94
 #nepenthes      IN  A       192.168.1.95
 amun-base       IN  A       192.168.1.96
 mars-base       IN  A       192.168.1.97
+
+;
+; Other
+tradr-fe       IN   A       192.168.1.30
+tradr-be       IN   A       192.168.1.31
