@@ -108,7 +108,6 @@ cp /vagrant/apache/success.php /var/www/html/tradr/success.php
 cp /vagrant/apache/bootstrap.min.css /var/www/html/tradr/bootstrap.min.css
 cp /vagrant/apache/jquery.min.js /var/www/html/tradr/jquery.min.js
 cp /vagrant/apache/tradr-webui.css /var/www/html/tradr/tradr-webui.css
-cp /vagrant/apache/Tradr_NavBar.svg /var/www/html/tradr/Tradr_NavBar.svg
 
 # chown apache:apache /var/www/html/tradr/test.html
 # chmod 755 /var/www/html/tradr/test.html
