@@ -103,7 +103,7 @@ if (isset($_POST["submit"] )) {
 				<nav class="navbar navbar-default">
 				  <div class="navbar-header">
 				    <a class="navbar-brand">
-				      <img src="SytelReply_NavBar.svg" width="110px">
+				      <img src="Tradr_NavBar.svg" width="110px">
 				    </a>  
 				  </div>
 				</nav>
