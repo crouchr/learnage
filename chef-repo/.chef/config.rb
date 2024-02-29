@@ -7,6 +7,6 @@ log_level                :info
 log_location             STDOUT
 node_name                "crouchr"
 client_key               "#{current_dir}/crouchr.pem"
-chef_server_url          "https://chef.ermin.com/organizations/br2023"
+chef_server_url          "https://chef/organizations/ermin"
 cookbook_path            ["#{current_dir}/../cookbooks"]
-# ssl_verify_mode          :verify_none
+
