@@ -1,4 +1,4 @@
-name 'ermin-centos7'
+name 'ermin_centos7'
 maintainer 'The Authors'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'

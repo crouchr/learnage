@@ -11,7 +11,7 @@ verifier:
 platforms:
   - name: kitchen_box
     driver:
-      box: crouchr/rch-centos7
+      box: rch-centos7
 
 suites:
   - name: default

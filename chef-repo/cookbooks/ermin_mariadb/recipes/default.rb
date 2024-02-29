@@ -1,5 +1,5 @@
 #
-# Cookbook:: ermin-mariadb
+# Cookbook:: ermin_mariadb
 # Recipe:: default
 #
 # Copyright:: 2020, The Authors, All Rights Reserved.
