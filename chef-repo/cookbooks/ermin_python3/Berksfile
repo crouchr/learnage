@@ -1,0 +1,6 @@
+source 'https://supermarket.chef.io'
+
+metadata
+
+# RCH : Why do I need this - can't it be configured globally somewhere
+source chef_repo: ".."
