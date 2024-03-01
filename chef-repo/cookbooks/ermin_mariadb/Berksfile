@@ -2,5 +2,14 @@ source 'https://supermarket.chef.io'
 
 metadata
 
-cookbook 'ermin-centos7', path: '../ermin-centos7'
-cookbook 'ermin-python3', path: '../ermin-python3'
+# RCH : Why do I need this - can't it be configured globally somewhere
+source chef_repo: ".."
+
+# cookbook 'ermin_centos7', path: '../ermin-centos7'
+# cookbook 'ermin_python3', path: '../ermin-python3'
+
+cookbook 'mariadb'
+
+# cookbook 'ermin_centos7'
+# cookbook 'ermin_python3'
+
