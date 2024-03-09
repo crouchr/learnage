@@ -1,0 +1,23 @@
+  _____         _
+ |_   _|       | |
+   | |  ___ ___| |__   ___ _ __ __ _
+   | | / __/ _ \ '_ \ / _ \ '__/ _` |
+  _| || (_|  __/ |_) |  __/ | | (_| |
+ |_____\___\___|_.__/ \___|_|  \__, |
+                                __/ |
+                               |___/
+ Infrastructure Build v0.1.0
+ ===========================
+ OS : CentOS7
+ Database : MariaDB 10.4
+ Graphing : Grafana 10.x
+ Python   : 3.11.6
+
+ User Interface
+ ==============
+ SSH access : ssh -p 7022 vagrant@127.0.0.1         Password = 'vagrant'
+ Grafana Trading Graphs : http://127.0.0.1:7000
+ TRADR web front-end : http://127.0.0.1:7080
+
+ Login direct as vagrant/vagrant
+

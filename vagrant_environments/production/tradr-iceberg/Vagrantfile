@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   #config.vm.box = "crouchr/rch-centos7"
   config.vm.box = "rch-centos7"
   #config.vm.box_version = "1.1.5"
-  #config.vm.box_check_update = true
+  config.vm.box_check_update = true
   #config.vm.hostname = "grafana.ermin.lan"
   config.vm.hostname = "iceberg0"
 
@@ -33,10 +33,14 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
   # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 3000, host: 7000, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 80, host: 7080, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 443, host: 7443, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 22, host: 7422, host_ip: "127.0.0.1"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "public_network", ip: "192.168.1.40", bridge: "wlp2s0"
+  #config.vm.network "public_network", ip: "192.168.1.40", bridge: "wlp2s0"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -47,7 +51,7 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  #config.vm.synced_folder ".", "/vagrant"
+  config.vm.synced_folder ".", "/vagrant"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -55,7 +59,7 @@ Vagrant.configure("2") do |config|
   #
   config.vm.provider "virtualbox" do |vb|
   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
+    vb.gui = true
   #
   # Customize the amount of memory on the VM:
     vb.memory = "2048"
@@ -67,7 +71,11 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  
+
+  # config.vm.provision "file", source: "motd/motd", destination: "/etc/motd"
   config.vm.provision "shell", path: "setup.sh"
- 
+
+  #run: "always",
+  #inline: "route add default gw 192.168.1.1 eth1"
+
 end
