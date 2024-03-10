@@ -125,9 +125,9 @@ chattr +i /etc/resolv.conf
 echo "Copying CentOS7 packages..."
 cp /vagrant/apache/centos7-packages/*.rpm /var/www/html/centos7-packages/
 
-echo "Copying misc sources..."
-cp /vagrant/apache/misc-sources/*.tar.gz /var/www/html/misc-sources/
-cp /vagrant/apache/misc-sources/*.zip /var/www/html/misc-sources/
+# echo "Copying misc sources..."
+# cp /vagrant/apache/misc-sources/*.tar.gz /var/www/html/misc-sources/
+# cp /vagrant/apache/misc-sources/*.zip /var/www/html/misc-sources/
 
 # Store BR2020 packages
 echo "Copying test malware files..."
@@ -137,10 +137,10 @@ cp /vagrant/apache/br-mal-files/* /var/www/html/br-mal-files/
 echo "Copying dross files..."
 cp /vagrant/apache/dross/* /var/www/html/dross/
 
-echo "Copying BlackRain 2023 Third-party sources..."
-cp /vagrant/apache/br2023-sources/*.tar.gz /var/www/html/br2023-sources/
-cp /vagrant/apache/br2023-sources/*.tgz /var/www/html/br2023-sources/
-cp /vagrant/apache/br2023-sources/*.zip /var/www/html/br2023-sources/
+# echo "Copying BlackRain 2023 Third-party sources..."
+# cp /vagrant/apache/br2023-sources/*.tar.gz /var/www/html/br2023-sources/
+# cp /vagrant/apache/br2023-sources/*.tgz /var/www/html/br2023-sources/
+# cp /vagrant/apache/br2023-sources/*.zip /var/www/html/br2023-sources/
 
 # Store BR2020 packages
 echo "Copying BR2020 CentOS7 packages and source code..."
@@ -190,9 +190,9 @@ cp /vagrant/apache/python-packages/cryptofuncs/*.whl /var/www/html/python-packag
 #cp /vagrant/apache/python-packages/mqttfuncs/*.whl /var/www/html/python-packages/mqttfuncs/
 #cp /vagrant/apache/python-packages/vonageapi/*.whl /var/www/html/python-packages/vonageapi/
 
-chmod 755 /var/www/html/misc-sources/*
-chmod 755 /var/www/html/br2023-sources/*
-chmod 755 /var/www/html/br2020-packages/*
+# chmod 755 /var/www/html/misc-sources/*
+# chmod 755 /var/www/html/br2023-sources/*
+# chmod 755 /var/www/html/br2020-packages/*
 chmod 755 /var/www/html/slackware/noarch/*
 #chmod 755 /var/www/html/slackware/slackware-12-0/*
 chmod 755 /var/www/html/slackware/slackware-14-2/*
