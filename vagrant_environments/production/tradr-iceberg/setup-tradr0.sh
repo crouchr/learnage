@@ -20,11 +20,11 @@ yum update -y --disableplugin=fastestmirror
 #systemctl start ntpd
 
 # MOTD
-cp /vagrant/motd/motd /etc/motd
+# cp /vagrant/motd/motd /etc/motd
 
-# Allow to run X over SSH
-cp /vagrant/config/sshd_config /etc/ssh/sshd_config
-pwd
+# Allow to run X over SSH - add this to the packer file
+# cp /vagrant/config/sshd_config /etc/ssh/sshd_config
+# pwd
 
 # sound
 # yum install mpg123
