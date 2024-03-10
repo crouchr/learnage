@@ -14,10 +14,10 @@ echo "Started setup.sh for provisioning this node"
 yum update -y --disableplugin=fastestmirror
 
 # Need accurate time
-yum -y install ntp
-echo "Starting NTPd..."
-systemctl enable ntpd
-systemctl start ntpd
+#yum -y install ntp
+#echo "Starting NTPd..."
+#systemctl enable ntpd
+#systemctl start ntpd
 
 # MOTD
 cp /vagrant/motd/motd /etc/motd
@@ -26,36 +26,17 @@ cp /vagrant/motd/motd /etc/motd
 cp /vagrant/config/sshd_config /etc/ssh/sshd_config
 pwd
 
-# yum -y install java   # run Jython to run Swing-based UIs
-# yum -y install lynx   # local testing of apache
-
 # sound
 # yum install mpg123
 
-# Install Python 3.11
-#rm -rf /opt/python3
-#mkdir /opt/python3
-#wget -P /tmp/ https://www.python.org/ftp/python/3.11.6/Python-3.11.6.tgz
-#tar xvf /tmp/Python-3.11.6.tgz -C /opt
-#cd /opt/Python-3.11.6
-#LDFLAGS="${LDFLAGS} -Wl,-rpath=/usr/local/openssl/lib" ./configure --with-openssl=/usr/local/openssl
-#make altinstall
-#/usr/local/bin/pip3.11 install --upgrade pip
-
 # Apache and PHP for web front end
-#yum install -y httpd httpd-devel mod_ssl
-#yum install -y mod_security
-#yum install -y dnsmasq bind-utils
-#yum -y install php php-common php-mysql php-pdo php-intl php-gd php-xml php-mbstring
-#echo "date.timezone = Europe/London" >> /etc/php.ini
-#mkdir -p /var/www/html/tradr
-#chown -R apache:apache /var/www/html/tradr
 
 # TRADR web front-end - move into github so can be updated
-cp /vagrant/apache/test.html /var/www/html/tradr/test.html
-cp /vagrant/apache/index.php /var/www/html/tradr/index.php
-#cp /vagrant/apache/failure.php /var/www/html/tradr/failure.php
-#cp /vagrant/apache/success.php /var/www/html/tradr/success.php
+# mkdir -p /var/www/html/tradr/
+# cp /vagrant/apache/test.html /var/www/html/tradr/test.html
+# cp /vagrant/apache/index.php /var/www/html/tradr/index.php
+# cp /vagrant/apache/failure.php /var/www/html/tradr/failure.php
+# cp /vagrant/apache/success.php /var/www/html/tradr/success.php
 
 # Web Infrastructure code
 #cp /vagrant/apache/bootstrap.min.css /var/www/html/tradr/bootstrap.min.css
@@ -68,8 +49,6 @@ cp /vagrant/apache/index.php /var/www/html/tradr/index.php
 #systemctl start httpd.service
 
 
-# Editors
-# yum -y install nano
 
 # MariaDB 10.4
 #echo -e "[mariadb]\nname=MariaDB Repository\nbaseurl=http://yum.mariadb.org/10.4/centos7-amd64\ngpgcheck=1\ngpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB" | tee /etc/yum.repos.d/MariaDB.repo
@@ -110,5 +89,5 @@ cp /vagrant/apache/index.php /var/www/html/tradr/index.php
 
 echo "Finished setup.sh OK for provisioning this node"
 # echo "PHP Test Page : http://127.0.0.1:7080/php.ini"
-echo "TRADR Research Reports : http://127.0.0.1:7080/tradr/index.php"
+# echo "TRADR Research Reports : http://127.0.0.1:7080/tradr/index.php"
 echo
