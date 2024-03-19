@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# smarter way to do multi-machine is here : https://manski.net/articles/vagrant/multi-machine-tutorial
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define "tradr0" do |tradr0|
+    tradr0.vm.box = "tradr7"
+    tradr0.vm.box_check_update = true
+    tradr0.vm.hostname = "ice-0"
+    tradr0.vm.network "forwarded_port", guest: 3000, host: 7000, host_ip: "127.0.0.1"  # Grafana
+    tradr0.vm.network "forwarded_port", guest: 80, host: 7080, host_ip: "127.0.0.1"    # Web Front-end
+    tradr0.vm.provider "virtualbox" do |vb0|
+        vb0.gui = true
+        vb0.memory = "2048"
+    end
+    tradr0.vm.provision "shell", path: "setup-tradr0.sh"
+    end
+
+  config.vm.define "tradr1" do |tradr1|
+    tradr1.vm.box = "tradr7"
+    tradr1.vm.box_check_update = true
+    tradr1.vm.hostname = "ice-1"
+    tradr1.vm.network "forwarded_port", guest: 3000, host: 8000, host_ip: "127.0.0.1"  # Grafana
+    tradr1.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"    # Web Front-end
+    tradr1.vm.provider "virtualbox" do |vb1|
+        vb1.gui = true
+        vb1.memory = "2048"
+    end
+    tradr1.vm.provision "shell", path: "setup-tradr1.sh"
+    end
+
+end
