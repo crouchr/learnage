@@ -5,13 +5,13 @@
 
 Vagrant.configure("2") do |config|
    config.vm.define "elk" do |elk|
-     elk.vm.box = "crouchr/rch-centos7"
+     elk.vm.box = "rch-centos7"
      elk.vm.box_check_update = true
 
-     elk.vm.network "public_network", ip: "192.168.1.56", bridge: "wlp3s0"
+     elk.vm.network "public_network", ip: "192.168.1.56", bridge: "eth0"
 
      elk.vm.provider "virtualbox" do |v|
-       v.memory = 4096
+       v.memory = 3072
        v.cpus = 2
      end
 
