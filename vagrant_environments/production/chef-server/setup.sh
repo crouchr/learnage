@@ -46,13 +46,22 @@ chef-server-ctl reconfigure
 # An RSA private key is generated automatically.
 # This is the chef-validator key and should be saved to a safe location.
 # The --filename option will save the RSA private key to the specified absolute path.
-echo '[+] Creating user account...'
+
+echo '[+] Creating Admin user account...'
+chef-server-ctl user-create admin Administrator admin@protonmail.com 'mychefadminpassword' --filename /home/vagrant/certs/admin.pem
+
+echo '[+] Creating crouchr user account...'
 chef-server-ctl user-create crouchr Richard Crouch richard.crouch@protonmail.com 'mychefpassword' --filename /home/vagrant/certs/crouchr.pem
 
+echo '[+] Creating vagrant user account...'
+chef-server-ctl user-create vagrant Vagrant vagrant@protonmail.com 'mychefvagrantpassword' --filename /home/vagrant/certs/vagrant.pem
+
 echo '[+] Creating organisation...'
-# This organisation includes the user crouchr
 # --filename is where the certs will be written to - shown as 'ermin-org-validator' in Chef Server, as a public key
-chef-server-ctl org-create ermin 'ErminOrg' --association_user crouchr --filename /home/vagrant/certs/ermin-org.pem
+chef-server-ctl org-create ermin 'ErminOrg' --association_user admin --filename /home/vagrant/certs/ermin-org.pem
+chef-server-ctl org-user-add ermin vagrant
+chef-server-ctl org-user-add ermin crouchr
+
 chef-server-ctl install chef-manage
 chef-server-ctl reconfigure
 chef-manage-ctl reconfigure
