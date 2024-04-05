@@ -37,7 +37,8 @@ mkdir -p /home/vagrant/certs
 
 # 12.19.31 is the final OSS version
 echo '[+] Installing Chef Server Core 12.9.31 (final OSS version)...'
-cp /vagrant/packages/chef-server-core-12.19.31-1.el7.x86_64.rpm /tmp/
+# cp /vagrant/packages/chef-server-core-12.19.31-1.el7.x86_64.rpm /tmp/
+sudo curl -o /tmp/chef-server-core-12.19.31-1.el7.x86_64.rpm http://192.168.1.4/centos7-packages/chef-server-core-12.19.31-1.el7.x86_64.rpm
 yum -y localinstall /tmp/chef-server-core-12.19.31-1.el7.x86_64.rpm
 
 echo '[+] Configuring Chef Server - runs up the various daemons...'
