@@ -4,7 +4,7 @@
 set -e	# bomb out if any problem
 
 echo 
-echo "Started setup.sh for provisioning this ELK 7.9.2 node"
+echo "Started setup.sh for provisioning this ELK 7.9.2 (OSS) node"
 
 yum update -y --disableplugin=fastestmirror
 yum -y install java-1.8.0-openjdk.x86_64
@@ -28,6 +28,10 @@ sudo yum -y localinstall /tmp/lkibana-oss-7.9.2-x86_64.rpm
 # rpm -ivh /tmp/elasticsearch-oss-7.9.2-x86_64.rpm
 # rpm -ivh /tmp/kibana-oss-7.9.2-x86_64.rpm
 
+sudo mkdir -p /etc/elasticsearch
+sudo mkdir -p /etc/logstash/conf.d
+sudo mkdir -p /etc/kibana
+
 echo 'Copy configuration files...'
 cp /vagrant/config/ip_to_honeypot_name_mapping.csv /tmp/
 cp /vagrant/config/elasticsearch.yml /etc/elasticsearch/
@@ -49,5 +53,5 @@ sudo systemctl start elasticsearch.service
 sudo systemctl start logstash.service
 sudo systemctl start kibana.service
 
-echo "Finished setup.sh OK for provisioning this ELK 7.9.2 node"
+echo "Finished setup.sh OK for provisioning this ELK 7.9.2 (OSS) node"
 echo
