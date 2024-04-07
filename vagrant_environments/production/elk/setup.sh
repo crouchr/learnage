@@ -4,7 +4,7 @@
 set -e	# bomb out if any problem
 
 echo 
-echo "Started setup.sh for provisioning this node"
+echo "Started setup.sh for provisioning this ELK 7.9.2 node"
 
 yum update -y --disableplugin=fastestmirror
 yum -y install java-1.8.0-openjdk.x86_64
@@ -15,11 +15,18 @@ yum -y install java-1.8.0-openjdk.x86_64
 #rpm -ivh /tmp/elasticsearch-7.9.2-x86_64.rpm
 #yum -y localinstall elasticsearch-7.9.2-x86_64.rpm
 
+wget -O /tmp/elasticsearch-oss-7.9.2-x86_64.rpm http://192.168.1.4/centos7-packages/elasticsearch-oss-7.9.2-x86_64.rpm
+wget -O /tmp/logstash-oss-7.9.2.rpm http://192.168.1.4/centos7-packages/logstash-oss-7.9.2.rpm
+wget -O /tmp/kibana-oss-7.9.2-x86_64.rpm http://192.168.1.4/centos7-packages/kibana-oss-7.9.2-x86_64.rpm
+
 echo 'Copy packages...'
-cp /vagrant/packages/*.rpm /tmp/
-rpm -ivh /tmp/logstash-oss-7.9.2.rpm
-rpm -ivh /tmp/elasticsearch-oss-7.9.2-x86_64.rpm
-rpm -ivh /tmp/kibana-oss-7.9.2-x86_64.rpm
+#cp /vagrant/packages/*.rpm /tmp/
+sudo yum -y localinstall /tmp/elasticsearch-oss-7.9.2-x86_64.rp
+sudo yum -y localinstall /tmp/logstash-oss-7.9.2.rpm
+sudo yum -y localinstall /tmp/lkibana-oss-7.9.2-x86_64.rpm
+
+# rpm -ivh /tmp/elasticsearch-oss-7.9.2-x86_64.rpm
+# rpm -ivh /tmp/kibana-oss-7.9.2-x86_64.rpm
 
 echo 'Copy configuration files...'
 cp /vagrant/config/ip_to_honeypot_name_mapping.csv /tmp/
@@ -42,5 +49,5 @@ sudo systemctl start elasticsearch.service
 sudo systemctl start logstash.service
 sudo systemctl start kibana.service
 
-echo "Finished setup.sh OK for provisioning this node"
+echo "Finished setup.sh OK for provisioning this ELK 7.9.2 node"
 echo
