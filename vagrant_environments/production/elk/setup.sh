@@ -23,7 +23,7 @@ echo 'Copy packages...'
 #cp /vagrant/packages/*.rpm /tmp/
 sudo yum -y localinstall /tmp/elasticsearch-oss-7.9.2-x86_64.rp
 sudo yum -y localinstall /tmp/logstash-oss-7.9.2.rpm
-sudo yum -y localinstall /tmp/lkibana-oss-7.9.2-x86_64.rpm
+sudo yum -y localinstall /tmp/kibana-oss-7.9.2-x86_64.rpm
 
 # rpm -ivh /tmp/elasticsearch-oss-7.9.2-x86_64.rpm
 # rpm -ivh /tmp/kibana-oss-7.9.2-x86_64.rpm
