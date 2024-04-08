@@ -28,7 +28,7 @@ yum -y localinstall /tmp/kibana-oss-7.9.2-x86_64.rpm
 echo 'Copy configuration files...'
 cp /vagrant/config/ip_to_honeypot_name_mapping.csv /tmp/
 cp /vagrant/config/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
-cp /vagrant/config/ossec.conf /etc/logstash/conf.d/ossec.conf
+cp /vagrant/config/ossec-logstash.conf /etc/logstash/conf.d/ossec-logstash.conf
 cp /vagrant/config/kibana.yml /etc/kibana/kibana.yml
 
 echo "Enable ELK services..."
