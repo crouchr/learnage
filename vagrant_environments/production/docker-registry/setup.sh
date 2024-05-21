@@ -15,13 +15,13 @@ yum -y install docker-distribution
 cp /vagrant/config.yml /etc/docker-distribution/registry/config.yml
 
 # Telegraf
-wget https://dl.influxdata.com/telegraf/releases/telegraf-1.8.3-1.x86_64.rpm
-yum -y localinstall telegraf-1.8.3-1.x86_64.rpm
-cp /vagrant/telegraf.conf /etc/telegraf/telegraf.conf
+#wget https://dl.influxdata.com/telegraf/releases/telegraf-1.8.3-1.x86_64.rpm
+#yum -y localinstall telegraf-1.8.3-1.x86_64.rpm
+#cp /vagrant/telegraf.conf /etc/telegraf/telegraf.conf
 
-echo "Starting Telegraf Agent..."
-systemctl enable telegraf
-systemctl start telegraf
+#echo "Starting Telegraf Agent..."
+#systemctl enable telegraf
+#systemctl start telegraf
 
 echo "Starting Docker Registry..."
 systemctl start docker-distribution
