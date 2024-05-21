@@ -70,7 +70,11 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  
+  config.vm.provision "file", source: "scripts/disable_firewall_patch.sh", destination: "disable_firewall_patch.sh"
+  config.vm.provision "shell", run:  "always", inline: "ip route del 0/0"
+  config.vm.provision "shell", run:  "always", inline: "route add default gw 192.168.1.1"
+  config.vm.provision "shell", path:  "scripts/disable_firewall_patch.sh"
+
   config.vm.provision "shell", path: "setup.sh"
   config.vm.provision "file", source: "files/motd-webvbox", destination: "/tmp/etc/motd"
   config.vm.provision "shell", run:  "always", inline: "mv /tmp/etc/motd /etc/motd"

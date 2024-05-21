@@ -12,7 +12,7 @@ echo "Started setup.sh for provisioning this node v1.0.0"
 # Check for patch updates - slows up boot so need a way of avoiding this
 yum update -y --disableplugin=fastestmirror
 
-# why is python pip needed ?
+# why is python pip needed ? - to install wheel later
 # yum install -y python-pip
 # pip install --upgrade pip==20.3.4  # last version to support Python2
 
@@ -23,9 +23,17 @@ yum install -y dnsmasq bind-utils
 #yum -y install php php-common php-mysql php-pdo php-intl php-gd php-xml php-mbstring
 #echo "Include /vagrant/apache/*.conf" >> /etc/httpd/conf/httpd.conf
 
-# Install Wheel
-#pip install --upgrade pip
-pip install wheel
+# comment this out for now until I know why I need wheel installed
+# echo "[+] Install Pip"
+# wget -O /tmp/pip-20.3.4.tar.gz http://192.168.1.4/source-code/pip-20.3.4.tar.gz
+# tar -xzf Python-${PYTHON_VERSION}.tgz
+# cd Python-${PYTHON_VERSION}/
+# ./configure --enable-optimizations
+
+
+# Install Wheel - why is this specifically needed ?
+# pip install --upgrade pip
+# pip install wheel
 
 # Generate metadata.json - no longer needed
 #pip install vagrant-metadata
