@@ -72,5 +72,6 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   
   config.vm.provision "shell", path: "setup.sh"
- 
+  config.vm.provision "file", source: "files/motd-webvbox", destination: "/tmp/etc/motd"
+  config.vm.provision "shell", run:  "always", inline: "mv /tmp/etc/motd /etc/motd"
 end

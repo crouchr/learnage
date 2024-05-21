@@ -12,8 +12,9 @@ echo "Started setup.sh for provisioning this node v1.0.0"
 # Check for patch updates - slows up boot so need a way of avoiding this
 yum update -y --disableplugin=fastestmirror
 
-yum install -y python-pip
-pip install --upgrade pip==20.3.4  # last version to support Python2
+# why is python pip needed ?
+# yum install -y python-pip
+# pip install --upgrade pip==20.3.4  # last version to support Python2
 
 yum install -y httpd httpd-devel mod_ssl
 yum install -y mod_security
