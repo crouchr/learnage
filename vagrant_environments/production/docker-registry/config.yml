@@ -9,3 +9,6 @@ storage:
         rootdirectory: /var/lib/registry
 http:
     addr: :5000
+
+delete:
+  enabled: true
